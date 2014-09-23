@@ -5,6 +5,15 @@
 **	This program is based of off the edge detection		**
 ** tutorial from:						**
 ** http://dasl.mem.drexel.edu/~noahKuntz/openCVTut5.html	**
+**								**
+**	This pogram takes a image at runtime from the command	**
+** line and runs edge detection on the image. Currently the 	**
+** inputed image is resized to a 512x512 image to be easily	**
+** viewed on a computer. 					**
+**								**
+**	To compile this program run the following command with	**
+** OpenCV installed: 						**
+** g++ `pkg-config --libs --cflags opencv` -o cvtest cvtest.cpp **
 *****************************************************************/
 
 #import "cv.h"
@@ -29,12 +38,14 @@ int main(int argc, char* argv[])
 	// Kernel size
 	int N = 7;
 
-	// Set up image(s)
+	// Set up original image
 	IplImage* org_img = cvLoadImage( argv[1], 0 );
 	
+	// resize original image
 	IplImage* img = cvCreateImage(cvSize(512,512),org_img->depth, org_img->nChannels);
 	cvResize(org_img, img);
 
+	// created final image
 	IplImage* img_b = cvCreateImage( cvSize(img->width+N-1,img->height+N-1), img->depth, img->nChannels );
 	IplImage* out = cvCreateImage( cvGetSize(img_b), IPL_DEPTH_8U, img_b->nChannels );
 
@@ -107,3 +118,6 @@ int main(int argc, char* argv[])
 	return 0;
 }
 
+
+
+// EOF
