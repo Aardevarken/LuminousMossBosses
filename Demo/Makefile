@@ -1,5 +1,6 @@
 ifeq ($(OS),Windows_NT)
-	LIBS=-lopencv_core249 -lopencv_highgui249
+	#mingw needs pkg-config installed for this not to be an issue
+	LIBS=-lopencv_core249 -lopencv_highgui249 -lopencv_imgproc249
 else
 	LIBS=`pkg-config --libs --cflags opencv`
 endif

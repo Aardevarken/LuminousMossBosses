@@ -1,8 +1,15 @@
-#include "/usr/include/opencv/cv.h"
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
+#ifdef __APPLE__
+	#include <cv.h>
+	#include <highgui.h>
+	#include <imgproc.h>
+#else
+	#include <opencv/cv.h>
+	#include <opencv2/core/core.hpp>
+	#include <opencv2/highgui/highgui.hpp>
+	#include <opencv2/imgproc/imgproc.hpp>
+#endif
 #include <iostream>
+
 using namespace cv;
 using namespace std;
 
