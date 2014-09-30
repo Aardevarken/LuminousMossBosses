@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
   
   
   Mat dstCon;
-  dst.convertTo(dstCon, -1, 2, 0);
+  //dst.convertTo(dstCon, -1, 2, 0);
   
   // Edge Detection Variables
   int N = 7;
@@ -70,6 +70,7 @@ int main(int argc, char** argv) {
 	double highThresh = 800;//40
   // Edge Detection
   Mat lines;
+  GaussianBlur(dst, dstCon, Size(7,7),1.5,1.5);
   Canny(dstCon, lines, lowThresh*N*N, highThresh*N*N, aperature_size, false);		
 /*
 	// Create trackbars
