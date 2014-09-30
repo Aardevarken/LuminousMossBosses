@@ -6,7 +6,7 @@ else
 endif
 
 CC=g++
-CFLAGS=-c -Wall
+CFLAGS=-c -Wall $(LIBS)
 EXECUTABLE=example
 SOURCES=example.cpp
 OBJECTS=$(SOURCES:.cpp=.o)

@@ -1,7 +1,8 @@
+
 #ifdef __APPLE__
 	#include <cv.h>
 	#include <highgui.h>
-	#include <imgproc.h>
+	//#include <imgproc.h>
 #else
 	#include <opencv/cv.h>
 	#include <opencv2/core/core.hpp>
