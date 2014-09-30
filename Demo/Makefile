@@ -39,10 +39,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/andrey/Documents/LuminousMossBosses/Demo
+CMAKE_SOURCE_DIR = /home/aardevarken/LMB/LuminousMossBosses/Demo
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/andrey/Documents/LuminousMossBosses/Demo
+CMAKE_BINARY_DIR = /home/aardevarken/LMB/LuminousMossBosses/Demo
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -69,9 +69,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/andrey/Documents/LuminousMossBosses/Demo/CMakeFiles /home/andrey/Documents/LuminousMossBosses/Demo/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/aardevarken/LMB/LuminousMossBosses/Demo/CMakeFiles /home/aardevarken/LMB/LuminousMossBosses/Demo/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/andrey/Documents/LuminousMossBosses/Demo/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/aardevarken/LMB/LuminousMossBosses/Demo/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
