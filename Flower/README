@@ -1,0 +1,5 @@
+Correct order to see results:
+./unix_compile.sh
+./manifest.sh
+./train.sh
+./flower samples/IMG_1997.jpg
