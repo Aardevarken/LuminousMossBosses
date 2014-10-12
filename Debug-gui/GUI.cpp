@@ -97,8 +97,8 @@ void mouse_move(int mx, int my)
 {
 	int w = glutGet(GLUT_WINDOW_WIDTH);
 	int h = glutGet(GLUT_WINDOW_HEIGHT);
-	x -= (double)(px-mx)/w*dim;
-	y += (double)(py-my)/h*dim;
+	x -= (double)(px-mx)/w*dim*asp*2;
+	y += (double)(py-my)/h*dim*2;
 	px = mx;
 	py = my;
 	glutPostRedisplay();
@@ -111,7 +111,7 @@ void idle()
 	// does nothing
 }
 
-static void box(double x, double y, double z, 
+void box(double x, double y, double z, 
 				double dx, double dy, double dz)
 {
 	glPushMatrix();
