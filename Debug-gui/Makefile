@@ -8,11 +8,11 @@ ifeq ($(OS),Windows_NT)
 else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S), Darwin)
-		LIBS=`pkg-config --libs --cflags opencv`
+		LIBS=`pkg-config --libs --cflags opencv` 
 		CFLAGS+=$(LIBS)
 	endif
 	ifeq ($(UNAME_S),Linux)
-		LIBS=`pkg-config --libs --cflags opencv`
+		LIBS=`pkg-config --libs --cflags opencv` -lglut -lGLU -lGL -lm 
 	endif
 endif
 
