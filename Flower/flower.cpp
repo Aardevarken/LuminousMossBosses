@@ -31,25 +31,54 @@ int main(int argc, char** argv) {
 
   /////
 
-  Mat image_gray;
-  cvtColor(image, image_gray, CV_BGR2GRAY);
-  equalizeHist(image_gray, image_gray);
-
-  vector<Rect> flowers;
-  flower_cascade.detectMultiScale(image_gray, flowers);
+  int num_found = 0;
+  Mat rotated, temp, rotated_gray;
+  int line_thickness = 4;
   
-  for(size_t i = 0; i < flowers.size(); i++) {
-    Point center(flowers[i].x + flowers[i].width*0.5, flowers[i].y + flowers[i].height*0.5);
-    ellipse(image, center, Size(flowers[i].width*0.5, flowers[i].height*0.5), 0, 0, 360, Scalar(255, 0, 0), 4);
+  double centerx = image.cols/2.0;
+  double centery = image.rows/2.0;
+  Point2f center(centerx, centery);
+  namedWindow("Flower Detection", CV_WINDOW_KEEPRATIO);
+  for (int theta=0; theta<360; theta+=10) {
+    // Rotate image
+    temp = getRotationMatrix2D(center, -double(theta), 1.0);
+    warpAffine(image, rotated, temp, image.size());
+  
+    // Convert to greyscale
+    Mat image_gray;
+    cvtColor(rotated, rotated_gray, CV_BGR2GRAY);
+    equalizeHist(rotated_gray, rotated_gray);
+
+    // Run detection
+    vector<Rect> flowers;
+    flower_cascade.detectMultiScale(rotated_gray, flowers);
+    num_found += flowers.size();
+    for(size_t i = 0; i < flowers.size(); i++) {
+      double rotated_locationx = flowers[i].x + flowers[i].width*0.5;
+      double rotated_locationy = flowers[i].y + flowers[i].height*0.5;
+      Point rotated_location(rotated_locationx, rotated_locationy);
+      double dx = rotated_locationx - centerx;
+      double dy = rotated_locationy - centery;
+      double alpha = theta * M_PI/180.0;
+      double beta = atan2(dy, dx);
+      double distance = sqrt(dx*dx + dy*dy);
+      Point location(centerx + distance * cos(beta - alpha),
+                     centery + distance * sin(beta - alpha));
+      int radius = max(flowers[i].width*0.5, flowers[i].height*0.5);
+      //circle(rotated, rotated_location, radius, Scalar(255, 0, 0), line_thickness);
+      circle(image, location, radius, Scalar(0, 0, 255), line_thickness);
+    }
+    //imshow("Flower Detection", rotated);
+    //waitKey(0);
   }
 
   /////
 
-  namedWindow("Flower Detection", CV_WINDOW_KEEPRATIO);
+  //namedWindow("Flower Detection", CV_WINDOW_KEEPRATIO);
   imshow("Flower Detection", image);
   waitKey(0);
 
-  cout << "Found " << flowers.size() << " flowers." << endl;
+  cout << "Found " << num_found << " flowers." << endl;
 
   return 0;
 }

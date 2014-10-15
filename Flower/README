@@ -1,5 +1,13 @@
+Dependencies:
+imagemagick
+
+Change "numstages 25" in train.sh to alter sensitivity.
+20 has many false positives and runs quickly
+30 has many false negatives and takes a while
+flower25.xml and flower30.xml are provided since they take a while to make
+
 Correct order to see results:
 ./unix_compile.sh
 ./manifest.sh
-./train.sh
+./train.sh Note that this step may take a very long time depending on configuration.
 ./flower samples/IMG_1997.jpg
