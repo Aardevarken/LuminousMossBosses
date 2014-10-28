@@ -33,7 +33,7 @@ double asp = 1;
 double dim = 1;
 double cx = 0;
 double cy = 0;
-double cz = 0;
+double cz = 1;
 
 //  Mouse
 int px, py;
@@ -69,17 +69,18 @@ void reshape(int width, int height)
 void keyboard(unsigned char key, int kx, int ky)
 {
   double speed = 0.1*dim;
+  double scale = 0.05;
   switch(key)
   {
     case 27:
       exit(0);
     case '-':
-      dim+=0.05;
+      dim+=scale;
       Project();
       break;
     case '=':
-      if(dim > 0.05)
-        dim-=0.05;
+      if(dim > scale)
+        dim-=scale;
       Project();
       break;
     case 'w':
@@ -104,7 +105,7 @@ void keyboard(unsigned char key, int kx, int ky)
  */
 void mouse(int button, int state, int mx, int my)
 {
-  if (state == GLUT_DOWN)
+  if (state == GLUT_DOWN && button == GLUT_LEFT_BUTTON)
   {
     px = mx;
     py = my;
@@ -138,12 +139,33 @@ void box(double x, double y, double z,
   glTranslated(x,y,z);
   glScaled(dx,dy,dz);
 
-  glColor3f(1,0,0);
+  glColor3f(0,1,0);
   glBegin(GL_LINE_LOOP);
   glVertex3f(-1,+1,0);
   glVertex3f(+1,+1,0);
   glVertex3f(+1,-1,0);
   glVertex3f(-1,-1,0);
+  glEnd();
+  glPopMatrix();
+}
+
+/*
+ *  circle
+ *  Draws a circle
+ */
+void circle(double x, double y, double z, double r, unsigned int sides)
+{
+  //double rad = M_PI/180.0;
+  double deg = 360/sides*M_PI/180.0;
+  glPushMatrix();
+  glTranslated(x,y,z);
+
+  glColor3f(1,0,0);
+  glBegin(GL_LINE_LOOP);
+  for(unsigned int i = 0; i<sides; i++)
+  {
+    glVertex3f(cos(deg*i),sin(deg*i),0);
+  }
   glEnd();
   glPopMatrix();
 }
@@ -181,19 +203,27 @@ void display()
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   glEnable(GL_DEPTH_TEST);
-
+  glLineWidth(10);
   //glLoadIdentity();
-  //box(0,0,1,1,1,1);
-  glEnable(GL_TEXTURE_2D);
+  glPushMatrix();
+  glTranslated(cx,cy,0);
+  /*for(size_t i = 0; i < locations.size(); i++){
+    //double lx = (double)locations[i].x/image.cols;
+    //double ly = -(double)locations[i].y/image.rows+asp_src;
+    //box(lx,ly,0,.0125,.0125,1);
+    box(locations[i].x,locations[i].y,0,radiuses[i],radiuses[i],1);
+  }*/
 
+  glEnable(GL_TEXTURE_2D);
   glBindTexture(GL_TEXTURE_2D, texture);
   glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); 
   glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); 
   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S , GL_REPEAT );
   glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
   glTexImage2D(GL_TEXTURE_2D, 0, 3, dst.cols, dst.rows, 0, 0x80E0, GL_UNSIGNED_BYTE, dst.data);
-    plain(cx,cy,0,asp_src,1,1);
+    plain(0,0,0,asp_src,1,1);
   glDisable(GL_TEXTURE_2D);
+  glPopMatrix();
   glFlush();
   glutSwapBuffers();
 }
@@ -216,6 +246,8 @@ void showProgress(int i, int total){
  */
 int detectObj(unsigned int increment){
   cout << "Processing\n";
+  
+  vector<Point> locations;
 
   int num_found = 0;
   Mat rotated, temp, rotated_gray;
@@ -226,7 +258,6 @@ int detectObj(unsigned int increment){
   Point2f center(centerx, centery);
   
   for (int theta=0; theta<360; theta+=increment) {
-    //printf("%d:", theta );
     showProgress(theta, 360);
     // Rotate image
     temp = getRotationMatrix2D(center, -double(theta), 1.0);
@@ -241,6 +272,8 @@ int detectObj(unsigned int increment){
     vector<Rect> flowers;
     flower_cascade.detectMultiScale(rotated_gray, flowers);
     num_found += flowers.size();
+
+    //  Draws Circles
     for(size_t i = 0; i < flowers.size(); i++) {
       double rotated_locationx = flowers[i].x + flowers[i].width*0.5;
       double rotated_locationy = flowers[i].y + flowers[i].height*0.5;
@@ -250,11 +283,29 @@ int detectObj(unsigned int increment){
       double alpha = theta * M_PI/180.0;
       double beta = atan2(dy, dx);
       double distance = sqrt(dx*dx + dy*dy);
+      
+      //  Checks if flower was already found
+      int radius = max(flowers[i].width*0.5, flowers[i].height*0.5);
       Point location(centerx + distance * cos(beta - alpha),
                      centery + distance * sin(beta - alpha));
-      int radius = max(flowers[i].width*0.5, flowers[i].height*0.5);
+      int inlist = 0;
+      if (!locations.empty()){
+        for(size_t j = 0; j < locations.size(); j++){
+          if( radius/2 >= abs(location.x-locations[j].x) && radius/2 >= abs(location.y-locations[j].y)){
+            num_found--;
+            inlist = 1;
+            break;
+          }
+        }
+      }
+      if (!inlist)
+      {
+        locations.push_back(location);
+        circle(image, location, radius, Scalar(0, 0, 255), line_thickness);
+      }
+      
       //circle(rotated, rotated_location, radius, Scalar(255, 0, 0), line_thickness);
-      circle(image, location, radius, Scalar(0, 0, 255), line_thickness);
+      
     }
     //imshow("Flower Detection", rotated);
     //waitKey(0);
@@ -263,6 +314,7 @@ int detectObj(unsigned int increment){
   showProgress(100,100);
   return num_found;
 }
+
 
 /*
  *  Main
@@ -312,6 +364,7 @@ int main(int argc, char** argv) {
   glutMouseFunc(mouse);
   glutMotionFunc(mouse_move);
   glutKeyboardFunc(keyboard);
+
   glutMainLoop();
 
   return 0;
