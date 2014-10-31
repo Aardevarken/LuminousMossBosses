@@ -8,12 +8,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#ifdef __APPLE__
-  #include <GLUT/glut.h>
-#else
-  #include <GL/gl.h>
-  #include <GL/glut.h>
-#endif
+#include "GLflower.h"
 
 using namespace cv;
 using namespace std;
@@ -26,27 +21,24 @@ CascadeClassifier flower_cascade;
 Mat image;
 Mat dst;
 GLuint texture;
-double asp_src = 1;
+double asp_src = 1;     // image aspect ratio
+vector<identified> id;
 
 //  OpenGL Window
-double asp = 1;
-double dim = 1;
-double cx = 0;
-double cy = 0;
-double cz = 1;
+glwindow view;
 
 //  Mouse
-int px, py;
+int prex, prey;
 
 /*
  *  Project
  *  Handles the projection matrix for openGL
  */
-void Project()
+void project()
 {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  glOrtho(-asp*dim,asp*dim,-dim,+dim,-dim,+dim);
+  glOrtho(-view.asp*view.dim,view.asp*view.dim,-view.dim,+view.dim,-view.dim,+view.dim);
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 }
@@ -57,9 +49,11 @@ void Project()
  */
 void reshape(int width, int height)
 {
-  asp = (height>0) ? (double)width/height :1;
+  view.width = width;
+  view.height = height;
+  view.asp = (height>0) ? (double)width/height :1;
   glViewport(0,0,width,height);
-  Project();
+  project();
 }
 
 /*
@@ -68,32 +62,32 @@ void reshape(int width, int height)
  */
 void keyboard(unsigned char key, int kx, int ky)
 {
-  double speed = 0.1*dim;
+  double speed = 0.1*view.dim;
   double scale = 0.05;
   switch(key)
   {
     case 27:
       exit(0);
     case '-':
-      dim+=scale;
-      Project();
+      view.dim+=scale;
+      project();
       break;
     case '=':
-      if(dim > scale)
-        dim-=scale;
-      Project();
+      if(view.dim > scale)
+        view.dim-=scale;
+      project();
       break;
     case 'w':
-      cy += speed;
+      view.y += speed;
       break;
     case 's':
-      cy -= speed;
+      view.y -= speed;
       break;
     case 'a':
-      cx -= speed;
+      view.x -= speed;
       break;
     case 'd':
-      cx += speed;
+      view.x += speed;
       break;
   }
   glutPostRedisplay();
@@ -107,8 +101,8 @@ void mouse(int button, int state, int mx, int my)
 {
   if (state == GLUT_DOWN && button == GLUT_LEFT_BUTTON)
   {
-    px = mx;
-    py = my;
+    prex = mx;
+    prey = my;
   }
 }
 
@@ -121,10 +115,10 @@ void mouse_move(int mx, int my)
 {
   int w = glutGet(GLUT_WINDOW_WIDTH);
   int h = glutGet(GLUT_WINDOW_HEIGHT);
-  cx -= (double)(px-mx)/w*dim*asp*2;
-  cy += (double)(py-my)/h*dim*2;
-  px = mx;
-  py = my;
+  view.x -= (double)(prex-mx)/w*view.dim*view.asp*2;
+  view.y += (double)(prey-my)/h*view.dim*2;
+  prex = mx;
+  prey = my;
   glutPostRedisplay();
 }
 
@@ -132,21 +126,15 @@ void mouse_move(int mx, int my)
  *  box
  *  Draws a box 
  */
-void box(double x, double y, double z, 
-        double dx, double dy, double dz)
+void box(double x1, double x2, 
+        double y1, double y2)
 {
-  glPushMatrix();
-  glTranslated(x,y,z);
-  glScaled(dx,dy,dz);
-
-  glColor3f(0,1,0);
-  glBegin(GL_LINE_LOOP);
-  glVertex3f(-1,+1,0);
-  glVertex3f(+1,+1,0);
-  glVertex3f(+1,-1,0);
-  glVertex3f(-1,-1,0);
+  glBegin(GL_QUADS);
+  glVertex3f(x1,y2,0);
+  glVertex3f(x2,y2,0);
+  glVertex3f(x2,y1,0);
+  glVertex3f(x1,y1,0);
   glEnd();
-  glPopMatrix();
 }
 
 /*
@@ -159,12 +147,10 @@ void circle(double x, double y, double z, double r, unsigned int sides)
   double deg = 360/sides*M_PI/180.0;
   glPushMatrix();
   glTranslated(x,y,z);
-
-  glColor3f(1,0,0);
   glBegin(GL_LINE_LOOP);
   for(unsigned int i = 0; i<sides; i++)
   {
-    glVertex3f(cos(deg*i),sin(deg*i),0);
+    glVertex3f(cos(deg*i)*r,sin(deg*i)*r,0);
   }
   glEnd();
   glPopMatrix();
@@ -203,17 +189,20 @@ void display()
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   glEnable(GL_DEPTH_TEST);
-  glLineWidth(10);
-  //glLoadIdentity();
-  glPushMatrix();
-  glTranslated(cx,cy,0);
-  /*for(size_t i = 0; i < locations.size(); i++){
-    //double lx = (double)locations[i].x/image.cols;
-    //double ly = -(double)locations[i].y/image.rows+asp_src;
-    //box(lx,ly,0,.0125,.0125,1);
-    box(locations[i].x,locations[i].y,0,radiuses[i],radiuses[i],1);
-  }*/
+  glLineWidth(2);
 
+  glLoadIdentity();
+  //  Camera/View Orientation
+  glPushMatrix();
+  glTranslated(view.x,view.y,0);
+
+  //  Draw Circles
+  for(size_t i = 0; i < id.size(); i++){
+    glColor3f(1,0,0);
+    circle(id[i].getX(image.cols,asp_src),id[i].getY(image.rows,asp_src),0,id[i].getRadius(image.cols,image.rows,asp_src),36);
+  }
+
+  //  Draw Processed Image
   glEnable(GL_TEXTURE_2D);
   glBindTexture(GL_TEXTURE_2D, texture);
   glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); 
@@ -224,6 +213,7 @@ void display()
     plain(0,0,0,asp_src,1,1);
   glDisable(GL_TEXTURE_2D);
   glPopMatrix();
+
   glFlush();
   glutSwapBuffers();
 }
@@ -232,7 +222,8 @@ void display()
  * Show Progress
  * Displays the percentage of a current running process
  */
-void showProgress(int i, int total){
+void showProgress(int i, int total)
+{
   int percent = floor((float)i/total*100);
   int amount = percent/10;
   cout << "\r" << percent << "% complete [";
@@ -244,14 +235,13 @@ void showProgress(int i, int total){
  * detectObj
  * Object Detection using openCV
  */
-int detectObj(unsigned int increment){
+int detectObj(unsigned int increment)
+{
   cout << "Processing\n";
-  
-  vector<Point> locations;
 
   int num_found = 0;
   Mat rotated, temp, rotated_gray;
-  int line_thickness = 4;
+  //int line_thickness = 4;
   
   double centerx = image.cols/2.0;
   double centery = image.rows/2.0;
@@ -289,9 +279,9 @@ int detectObj(unsigned int increment){
       Point location(centerx + distance * cos(beta - alpha),
                      centery + distance * sin(beta - alpha));
       int inlist = 0;
-      if (!locations.empty()){
-        for(size_t j = 0; j < locations.size(); j++){
-          if( radius/2 >= abs(location.x-locations[j].x) && radius/2 >= abs(location.y-locations[j].y)){
+      if (!id.empty()){
+        for(size_t j = 0; j < id.size(); j++){
+          if( radius/2 >= abs(location.x-id[j].x) && radius/2 >= abs(location.y-id[j].y)){
             num_found--;
             inlist = 1;
             break;
@@ -300,16 +290,12 @@ int detectObj(unsigned int increment){
       }
       if (!inlist)
       {
-        locations.push_back(location);
-        circle(image, location, radius, Scalar(0, 0, 255), line_thickness);
+        //Point3f tpoint(location.x, location.y, radius);
+        identified tempid(location.x, location.y, radius);
+        id.push_back(tempid);
+        //circle(image, location, radius, Scalar(0, 0, 255), line_thickness);
       }
-      
-      //circle(rotated, rotated_location, radius, Scalar(255, 0, 0), line_thickness);
-      
     }
-    //imshow("Flower Detection", rotated);
-    //waitKey(0);
-    
   }
   showProgress(100,100);
   return num_found;
@@ -350,12 +336,13 @@ int main(int argc, char** argv) {
   else if(num_found <= 0)
     printf("Found Nothing\n");
 
+  asp_src = (double)image.size().width/image.size().height;
   image.copyTo(dst);
   
   //  Create openGL window
   glutInit(&argc, argv);
   glutInitDisplayMode( GLUT_RGBA );
-  glutInitWindowSize(500, 500);
+  glutInitWindowSize(view.width, view.height);
   glutCreateWindow("Preview");
   glClearColor(0.5f,0.5f,0.5f,1.0f);
 
