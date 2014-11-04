@@ -21,6 +21,7 @@ class identified {
 		identified(){};
 		identified(bool state);
 		identified(double _x, double _y, double _r, bool state, int width, int height, double asp_src);
+		identified(double _x, double _y, double _r, double _glx, double _gly, double _glr, bool state, bool fp);
 		//	For coordinates in openGL
 		double get_glx();
 		double get_gly();

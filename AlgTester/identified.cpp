@@ -18,11 +18,23 @@
  		gly = _y;
  		glr = _r;
  		x = (glx+asp_src)*(width/2/asp_src);
- 		y = (gly+asp_src)*(height/2);
+ 		y = (gly-1)*(height/2);
  		r = glr*(width/height)/4/((asp_src+1)/2); 
  	}
  	OpenCV = state; 
  	falsePositive = false; 
+ 	select = false;
+}
+ identified::identified(double _x, double _y, double _r, double _glx, double _gly, double _glr, bool state, bool fp)
+ {
+	x = _x; 
+	y = _y; 
+	r = _r; 
+	glx = _glx;
+	gly = _gly;
+	glr = _glr;
+ 	OpenCV = state; 
+ 	falsePositive = fp; 
  	select = false;
 }
 identified::identified(bool state){
@@ -69,7 +81,7 @@ void identified::set_gl(double _x, double _y, double _r, int width, int height, 
 	gly = _y; 
 	glr = _r;
 	x = (glx+asp_src)*(width/2/asp_src);
-	y = (gly+asp_src)*(height/2);
+	y = (gly-1)*(height/2);
 	r = glr*(width/height)/4/((asp_src+1)/2); 
 }
 
@@ -86,7 +98,7 @@ void identified::set_glx(double n, int width, double asp_src){
  */
 void identified::set_gly(double n, int height, double asp_src){
 	gly = n; 
-	y = (gly+asp_src)*(height/2);
+	y = (gly-1)*(height/2);
 }
 
 /*
