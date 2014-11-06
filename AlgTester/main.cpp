@@ -5,8 +5,10 @@
 #include <opencv2/imgproc/imgproc.hpp>
 
 #include <iostream>
+#include <string>
 #include <stdio.h>
 #include <math.h>
+#include <fstream>
 
 #include "main.h"
 #include "identified.h"
@@ -38,6 +40,18 @@ mousePos m;
 int mouseMove = 0;
 int mouseAdd = 0;
 //int m.prex, m.prey;
+
+void read(char* filename){
+  string s;
+  ifstream infile;
+  infile.open (filename);
+  while(!infile.eof())
+  {
+    getline(infile,s);
+    cout << s << "\n";
+  }
+  infile.close();
+}
 
 /*
  *  Project
@@ -319,7 +333,6 @@ int detectObj(unsigned int increment)
   return num_found;
 }
 
-
 /*
  *  Main
  */
@@ -342,6 +355,7 @@ int main(int argc, char** argv) {
     return -1;
   }
   unsigned int increment = (argc == 3)?atoi(argv[2]):10;
+  read("testcase.tc");
 
   //  Image Processing
   asp_src = (double)image.size().width/image.size().height;
