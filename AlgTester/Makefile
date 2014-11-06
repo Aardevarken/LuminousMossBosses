@@ -1,5 +1,5 @@
 EXECUTABLE=algTester
-SOURCES=main.cpp identified.cpp glshapes.cpp
+SOURCES=main.cpp identified.cpp glshapes.cpp detector.cpp
 
 CFLAGS=-c -Wall
 
@@ -34,3 +34,6 @@ demo1:
 	algTester samples/IMG_1997.jpg 40
 demo2:
 	algTester samples/Silene_acaulis_Kalk-Polsternelke.jpg 40
+	
+test:
+	g++ detector_test.cpp identified.cpp detector.cpp `pkg-config --libs --cflags opencv` -o test
