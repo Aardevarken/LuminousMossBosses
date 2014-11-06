@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
   }
   string positive_dir = argv[1];
   string negative_dir = argv[2];
-namedWindow("Display window", CV_WINDOW_KEEPRATIO);
+
   DIR* test_samples_positive = opendir(argv[1]);
   DIR* test_samples_negative = opendir(argv[2]);
   
@@ -53,11 +53,6 @@ namedWindow("Display window", CV_WINDOW_KEEPRATIO);
     cout << positive[i] << endl;
     Mat image = imread(positive[i], CV_LOAD_IMAGE_COLOR);
     
-    //Mat smallimage;
-    //double scale = double(800.0) / max(image.size().width, image.size().height);
-    //resize(image, smallimage, Size(round(scale*image.cols),round(scale*image.rows)), scale, scale);
-    //imshow("Display window", smallimage);
-    //waitKey(0);
     if (detector::isThisSilene(image)) {
       actual_positive += 1;
     } else {
