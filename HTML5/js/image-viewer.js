@@ -189,6 +189,7 @@ window.onkeydown = function(e) {
 		case 83:
 			// s
 			zoomOut();
+			break;
 		case 87:
 			// w
 			zoomIn();
