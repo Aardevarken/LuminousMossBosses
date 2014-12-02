@@ -390,7 +390,7 @@ function removeEntry() {
 	else {
 		for (var i = 0; i < identified.length; i++) {
 			if (identified[i].select && !identified[i].openCV) 
-				identified.remove(i);
+				identified.remove(i--);
 			if (identified[i].select && identified[i].openCV)
 				identified[i].select = false;
 		}
