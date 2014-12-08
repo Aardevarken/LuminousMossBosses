@@ -3,9 +3,11 @@
  * Developed by John Resig
  */
 Array.prototype.remove = function(from, to) {
-  var rest = this.slice((to || from) + 1 || this.length);
-  this.length = from < 0 ? this.length + from : from;
-  return this.push.apply(this, rest);
+	// Uses an || statement to check if 'to' is being passed, this allows for 1 or 2 parameters
+	// The second || is used if a negative number is given
+	var rest = this.slice((to || from) + 1 || this.length);
+	this.length = from < 0 ? this.length + from : from;
+	return this.push.apply(this, rest);
 };
 
 /**
@@ -42,7 +44,7 @@ canvas.onmousewheel 	= 	function(){ mousescroll(event) };
 /**
  * Identification object
  */
-function initIdentified(cv, fp, x, y, r){
+function initIdentified(cv, fp, x, y, r) {
 	var identified = {
 		openCV : cv, 
 		falsePosivitive : fp, 
@@ -50,7 +52,7 @@ function initIdentified(cv, fp, x, y, r){
 		x : x, 
 		y : y, 
 		r : r,
-		setAll : function(cv, fp, x, y, r){this.openCV = cv; this.falsePosivitive = fp; this.select = false; this.x = x; this.y = y; this.r = r;}
+		setAll : function(cv, fp, x, y, r) {this.openCV = cv; this.falsePosivitive = fp; this.select = false; this.x = x; this.y = y; this.r = r;}
 	};
 	return identified;
 }
@@ -168,11 +170,11 @@ window.onkeydown = function(e) {
 			break;
 		case 74:
 			// j
-			shiftUp();
+			shiftDown();
 			break;
 		case 75:
 			// k
-			shiftDown();
+			shiftUp();
 			break;
 		case 76:
 			// l
@@ -228,8 +230,7 @@ function getCursorPosition(canvas, event) {
 /**
  * Check if mouse clicks on entry within canvas
  */
-function mouseCollision(obj, mp)
-{
+function mouseCollision(obj, mp) {
 	var xRange = Math.abs(obj.x - mp.x);
 	var yRange = Math.abs(obj.y - mp.y);
 	return Boolean(xRange <= obj.r && yRange <= obj.r);
@@ -289,8 +290,7 @@ mouseup = function(e) {
 		mousePos = getCursorPosition(canvas,e);
 		for (var i = 0; i < identified.length; i++) {
 			if (mouseCollision(identified[i], mousePos) && !identified[i].openCV){
-				identified.remove(i);
-				break;
+				identified.remove(i--);
 			}
 		}
 		removeEntry();
@@ -302,7 +302,6 @@ mouseup = function(e) {
 		for (var i = 0; i < identified.length; i++) {
 			if (mouseCollision(identified[i], mousePos)){
 				identified[i].falsePosivitive = true;
-				break;
 			}
 		}
 		markFalse();
@@ -314,7 +313,6 @@ mouseup = function(e) {
 		for (var i = 0; i < identified.length; i++) {
 			if (mouseCollision(identified[i], mousePos)){
 				identified[i].falsePosivitive = false;
-				break;
 			}
 		}
 		markTrue();
@@ -328,7 +326,6 @@ mouseup = function(e) {
 				identified[i].select = !identified[i].select;
 				if (identified[i].select) selectAmount++;
 				else selectAmount--;
-				break;
 			}
 		}
 		display();
@@ -452,7 +449,7 @@ function markTrue() {
 /**
  * Unselect all entries
  */
-function unselectAll(){
+function unselectAll() {
 	for(var i = 0; i < identified.length; i++)
 		identified[i].select = false;
 	selectAmount = 0;
