@@ -5,6 +5,8 @@ import pickle
 import PIL
 import pika
 import hashlib
+import logging
+logging.basicConfig()
 
 hostname= '127.0.0.1' #os.environ['RABBIT_HOST'] \
           #if 'RABBIT_HOST' in os.environ else 'rabbitmq-server.local'
