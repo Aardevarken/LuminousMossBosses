@@ -1,5 +1,6 @@
 from flask import Flask, url_for
 from sqlalchemy import create_engine, select
+from json import dumps
 
 app = Flask(__name__)
 
@@ -8,6 +9,11 @@ USER = 'web_test'
 PASSWORD = 'sileneidene'
 DATABASE = 'gpstest'
 
+def query_database(query):
+    gps_eng = create_engine('mysql://%s:%s@%s/%s' % (USER, PASSWORD, HOST, DATABASE), echo=True)
+    gps_conn = gps_eng.connect()
+    query_result = gps_conn.execute(query)
+    return query_result 
 
 @app.route('/')
 def api_root():
@@ -15,7 +21,16 @@ def api_root():
 
 @app.route('/test_records')
 def api_test_records():
-    return 'List of ' + url_for('api_test_records') + '\n'
+#    result = query_database('SELECT * FROM test_data WHERE model_number = \'test\'')
+#    eng = create_engine('mysql://%s:%s@%s/%s' % (USER, PASSWORD, HOST, DATABASE), echo = True)
+#    conn = eng.connect()
+#    result = conn.execute('SELECT * FROM test_data WHERE model_number = \'test\'')
+    result = query_database('SELECT * FROM test_data WHERE model_number = \'test\'')
+    items = []
+    for row in result:
+        items.append(row)
+        print items
+    return str(items)
 
 @app.route('/articles/<articleid>')
 def api_article(articleid):
@@ -24,10 +39,4 @@ def api_article(articleid):
 if __name__ == '__main__':
     #this is just attempting to establish a connection and get info from the database. Move this into the
     #API calls later.
-    gps_eng = create_engine('mysql://%s:%s@%s/%s' % (USER, PASSWORD, HOST, DATABASE), echo=True)
-    gps_conn = gps_eng.connect()
-    result = gps_conn.execute('SELECT * FROM test_data WHERE model_number = \'test\'')
-    for row in result:
-        print row
-
     app.run(host='0.0.0.0')
