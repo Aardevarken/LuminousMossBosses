@@ -1,5 +1,5 @@
-from flask import Flask, url_for
-from sqlalchemy import create_engine, select
+from flask import Flask, url_for, request
+from sqlalchemy import create_engine, select, text
 from json import dumps
 
 app = Flask(__name__)
@@ -31,16 +31,36 @@ def result_to_json(query_result):
     json_result = str(row_list).replace('\'', '"')
     return json_result
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def api_root():
     return 'Welcome\n'
 
-@app.route('/test_records')
+"""
+GET /test_records
+
+returns all records with model_number='test'
+"""
+@app.route('/test_records', methods=['GET'])
 def api_test_records():
     result = query_database('SELECT * FROM test_data WHERE model_number = \'test\'')
     #be aware that this call will close the result object, and it will not be useable afterward.
     items = result_to_json(result)
     return items 
+
+"""
+POST /getTestWithModel
+model=MODEL_NUMBER
+
+returns records with model_number matching request in JSON format
+"""
+@app.route('/getTestWithModel/', methods=['POST'])
+def getTestWithModel():
+    model=request.form['model']
+    #this syntax is neccessary to sanitize the input.
+    query = text("SELECT * FROM test_data WHERE model_number = :model_number").bindparams(model_number=model)
+    result = query_database(query)
+    items = result_to_json(result)
+    return items
 
 @app.route('/articles/<articleid>')
 def api_article(articleid):
