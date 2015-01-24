@@ -68,7 +68,10 @@ returns all records with model_number='test'
 """
 @app.route('/test_records', methods=['GET'])
 def api_test_records():
-    result = query_database('SELECT * FROM test_data WHERE model_number = \'test\'')
+    try:
+        result = query_database('SELECT * FROM test_data WHERE model_number = \'test\'')
+    except:
+        return "Error occured. Database may be down. Try again later and check your parameters.\n"
     #be aware that this call will close the result object, and it will not be useable afterward.
     items = result_to_json(result)
     return items 
@@ -84,7 +87,10 @@ def getTestWithModel():
     model=request.form['model']
     #this syntax is neccessary to sanitize the input.
     query = text("SELECT * FROM test_data WHERE model_number = :model_number").bindparams(model_number=model)
-    result = query_database(query)
+    try:
+        result = query_database(query)
+    except:
+        return "Error occured. Database may be down. Try again later and check your parameters.\n"
     items = result_to_json(result)
     return items
 
@@ -105,11 +111,14 @@ inserted into the database.
 def addTest():
     required_params = ['model_number','gps_accuracy','time_search','time_recorded']
     data = request.get_json()
-    print 'hello'
-    if input_has_required_parameters(data, required_params):
-        return "hello\n"
-    else:
+    if not input_has_required_parameters(data, required_params):
         return 'Error: invalid input. Must be in JSON format and have all required parameters. Consult API documentation for details.\n'
+    query = text("INSERT INTO test_data (model_number, gps_accuracy, time_search, time_recorded) VALUES (:model, :accuracy, :search, :recorded)").bindparams(model=data['model_number'], accuracy=data['gps_accuracy'], search=data['time_search'], recorded=data['time_recorded'])
+    try:
+        result = query_database(query)
+    except:
+        return "Error occured. Database may be down. Try again later and check your parameters.\n"
+    return "success\n"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
