@@ -9,12 +9,21 @@ USER = 'web_test'
 PASSWORD = 'sileneidene'
 DATABASE = 'gpstest'
 
+"""
+Takes a query, which should be a sqlalchemy.sql.expression.text
+object if input was gathered from a POST, and a string otherwise.
+Returns the result of the query as a sqlalchemy ResultProxy object
+"""
 def query_database(query):
     gps_eng = create_engine('mysql://%s:%s@%s/%s' % (USER, PASSWORD, HOST, DATABASE), echo=True)
     gps_conn = gps_eng.connect()
     query_result = gps_conn.execute(query)
     return query_result 
 
+"""
+Takes a query result as a sqlalchemy ResultProxy object.
+Returns a JSON-formatted string of the passed query result
+"""
 def result_to_json(query_result):
     column_names = query_result.keys()
     row_list = []
