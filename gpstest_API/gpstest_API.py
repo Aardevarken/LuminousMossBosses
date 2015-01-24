@@ -43,17 +43,20 @@ Takes json request data and required parameters.
 Return True if only required parameters included, False otherwise.
 """
 def input_has_required_parameters(data, required_parameters):
-    keys = data.keys().sort()
+    keys = sorted(data.keys())
     required_parameters.sort()
     if len(keys) != len(required_parameters):
+        print len(keys)
+        print 'Wrong number of parameters: keys: ' + str(len(keys)) + ', req_params: ' + str(len(required_parameters))
         return False
     elif keys != required_parameters:
         print "keys did not equal req params"
-        print keys
-        print required_parameters
+        print 'keys: ' + str(keys)
+        print 'required: ' + str(required_parameters)
         return False
     for k in keys:
-        if data[k] == None:
+        if data[k] in (None,""):
+            print "parameter '" + str(k) + "' did not contain data"
             return False
     return True
 
@@ -87,21 +90,26 @@ def getTestWithModel():
 
 """
 PUT /add_test/
-model=MODEL_NUMBER&gps_accuracy=TEST_GPS_ACCURACY&time_search=TIME_SPENT_SEARCHING_FOR_SIGNAL&time_recorded=TIME_TEST_PERFORMED
+Content-Type: application/json
+{
+    "model_number": "PHONE_MODEL_NUMBER",
+    "gps_accuracy": "TEST_GPS_ACCURACY_RADIUS",
+    "time_search": "TIME_SPENT_SEARCHING_FOR_SIGNAL",
+    "time_recorded": "DATETIME_TEST_PERFORMED"
+}
 
 Returns response indicating whether or not the row was successfully
 inserted into the database.
 """
 @app.route('/add_test/', methods=['PUT'])
 def addTest():
-    required_params = ['model','gps_accuracy','time_search','time_recorded']
-    required_params.sort()
-    print required_params
+    required_params = ['model_number','gps_accuracy','time_search','time_recorded']
     data = request.get_json()
-    input_keys=data.keys()
-    print type(input_keys)
-    return str(len(input_keys)) + "\n"
-    
+    print 'hello'
+    if input_has_required_parameters(data, required_params):
+        return "hello\n"
+    else:
+        return 'Error: invalid input. Must be in JSON format and have all required parameters. Consult API documentation for details.\n'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
