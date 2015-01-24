@@ -31,10 +31,6 @@ def result_to_json(query_result):
     json_result = str(row_list).replace('\'', '"')
     return json_result
 
-@app.route('/', methods=['GET'])
-def api_root():
-    return 'Welcome\n'
-
 """
 GET /test_records
 
@@ -61,10 +57,6 @@ def getTestWithModel():
     result = query_database(query)
     items = result_to_json(result)
     return items
-
-@app.route('/articles/<articleid>')
-def api_article(articleid):
-    return 'You are reading ' + articleid + '\n'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
