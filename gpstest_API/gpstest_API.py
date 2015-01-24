@@ -39,6 +39,26 @@ def result_to_json(query_result):
     return json_result
 
 """
+Takes json request data and required parameters.
+Return True if only required parameters included, False otherwise.
+"""
+def input_has_required_parameters(data, required_parameters):
+    keys = data.keys().sort()
+    required_parameters.sort()
+    if len(keys) != len(required_parameters):
+        return False
+    elif keys != required_parameters:
+        print "keys did not equal req params"
+        print keys
+        print required_parameters
+        return False
+    for k in keys:
+        if data[k] == None:
+            return False
+    return True
+
+
+"""
 GET /test_records
 
 returns all records with model_number='test'
@@ -74,11 +94,13 @@ inserted into the database.
 """
 @app.route('/add_test/', methods=['PUT'])
 def addTest():
+    required_params = ['model','gps_accuracy','time_search','time_recorded']
+    required_params.sort()
+    print required_params
     data = request.get_json()
-    print data.keys()
-    if 'model' in data.keys():
-        print "true"
-    return "hello\n"
+    input_keys=data.keys()
+    print type(input_keys)
+    return str(len(input_keys)) + "\n"
     
 
 if __name__ == '__main__':
