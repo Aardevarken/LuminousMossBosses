@@ -53,12 +53,12 @@ def api_test_records():
     return items 
 
 """
-POST /getTestWithModel
+POST /get_test_with_model/
 model=MODEL_NUMBER
 
 returns records with model_number matching request in JSON format
 """
-@app.route('/getTestWithModel/', methods=['POST'])
+@app.route('/get_test_with_model/', methods=['POST'])
 def getTestWithModel():
     model=request.form['model']
     #this syntax is neccessary to sanitize the input.
@@ -66,6 +66,18 @@ def getTestWithModel():
     result = query_database(query)
     items = result_to_json(result)
     return items
+
+"""
+POST /add_test/
+model=MODEL_NUMBER&gps_accuracy=TEST_GPS_ACCURACY&time_search=TIME_SPENT_SEARCHING_FOR_SIGNAL&time_recorded=TIME_TEST_PERFORMED
+
+Returns response indicating whether or not the row was successfully
+inserted into the database.
+"""
+@app.route('/add_test/', methods=['POST'])
+def addTest():
+    return "hello"
+    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
