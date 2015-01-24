@@ -31,9 +31,7 @@ def result_to_json(query_result):
         i = 0
         row_dict = {}
         for item in row:
-            #the split is used to do away with the 'u' that 
-            #sqlalchemy puts in front of every key name
-            row_dict[str(column_names[i]).split('\'')[0]] = str(item)
+            row_dict[str(column_names[i])] = str(item)
             i += 1
         row_list.append(row_dict)
     #replace single quote with double for valid json
@@ -68,15 +66,19 @@ def getTestWithModel():
     return items
 
 """
-POST /add_test/
+PUT /add_test/
 model=MODEL_NUMBER&gps_accuracy=TEST_GPS_ACCURACY&time_search=TIME_SPENT_SEARCHING_FOR_SIGNAL&time_recorded=TIME_TEST_PERFORMED
 
 Returns response indicating whether or not the row was successfully
 inserted into the database.
 """
-@app.route('/add_test/', methods=['POST'])
+@app.route('/add_test/', methods=['PUT'])
 def addTest():
-    return "hello"
+    data = request.get_json()
+    print data.keys()
+    if 'model' in data.keys():
+        print "true"
+    return "hello\n"
     
 
 if __name__ == '__main__':
