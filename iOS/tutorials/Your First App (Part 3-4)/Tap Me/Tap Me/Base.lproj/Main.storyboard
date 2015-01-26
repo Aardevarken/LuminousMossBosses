@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--main view-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController title="main view" id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer: 30" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inD-rZ-rFd">
+                                <rect key="frame" x="234" y="70" width="133" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="133" id="ZQT-m9-COh"/>
+                                    <constraint firstAttribute="height" constant="46" id="mPX-8B-Cff"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.74640213815789469" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score 0" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5PN-aW-YSg">
+                                <rect key="frame" x="227" y="438" width="146" height="102"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="146" id="HgS-Gh-ZJi"/>
+                                    <constraint firstAttribute="height" constant="102" id="PC5-5X-yNc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" red="0.74640213815789469" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checker_top.png" translatesAutoresizingMaskIntoConstraints="NO" id="Id0-JX-CGb">
+                                <rect key="frame" x="0.0" y="20" width="600" height="23"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checker_bottom.png" translatesAutoresizingMaskIntoConstraints="NO" id="C9e-Bx-axD">
+                                <rect key="frame" x="0.0" y="577" width="600" height="23"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NNT-5o-qsG">
+                                <rect key="frame" x="186" y="180" width="228" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="228" id="8J1-Dl-IGb"/>
+                                    <constraint firstAttribute="height" constant="240" id="NYJ-Kl-TmB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" backgroundImage="button_tap_selected.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" backgroundImage="button_tap_selected.png"/>
+                                <connections>
+                                    <action selector="buttonPressed" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Tde-7i-yoC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Id0-JX-CGb" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="top" id="3Nz-bH-sg5"/>
+                            <constraint firstAttribute="centerY" secondItem="NNT-5o-qsG" secondAttribute="centerY" id="Dyb-Nd-60t"/>
+                            <constraint firstAttribute="centerX" secondItem="inD-rZ-rFd" secondAttribute="centerX" id="GbV-4m-aZr"/>
+                            <constraint firstItem="Id0-JX-CGb" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="topMargin" constant="20" id="J6J-N7-ckt"/>
+                            <constraint firstItem="C9e-Bx-axD" firstAttribute="height" secondItem="Id0-JX-CGb" secondAttribute="height" id="LDN-gm-L02"/>
+                            <constraint firstItem="inD-rZ-rFd" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="50" id="N12-Je-B8u"/>
+                            <constraint firstItem="C9e-Bx-axD" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="P6J-ht-oOA"/>
+                            <constraint firstAttribute="centerX" secondItem="NNT-5o-qsG" secondAttribute="centerX" id="PuT-og-Cnb"/>
+                            <constraint firstAttribute="trailing" secondItem="C9e-Bx-axD" secondAttribute="trailing" id="Q7J-pU-Y0W"/>
+                            <constraint firstAttribute="centerX" secondItem="NNT-5o-qsG" secondAttribute="centerX" id="TUW-kP-dv2"/>
+                            <constraint firstAttribute="trailing" secondItem="Id0-JX-CGb" secondAttribute="trailing" id="c85-9h-lb2"/>
+                            <constraint firstAttribute="centerX" secondItem="5PN-aW-YSg" secondAttribute="centerX" id="cK1-ga-nLp"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="5PN-aW-YSg" secondAttribute="bottom" constant="60" id="cOl-Me-LPp"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="C9e-Bx-axD" secondAttribute="bottom" id="kRi-sa-Qd6"/>
+                            <constraint firstItem="Id0-JX-CGb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="lUb-6f-XOQ"/>
+                            <constraint firstAttribute="centerY" secondItem="NNT-5o-qsG" secondAttribute="centerY" id="xor-th-azD"/>
+                            <constraint firstItem="Id0-JX-CGb" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="topMargin" id="yoJ-kK-24t"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="3Nz-bH-sg5"/>
+                                <exclude reference="yoJ-kK-24t"/>
+                                <exclude reference="Dyb-Nd-60t"/>
+                                <exclude reference="PuT-og-Cnb"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="scoreLabel" destination="5PN-aW-YSg" id="4Tw-9A-a8g"/>
+                        <outlet property="timerLabel" destination="inD-rZ-rFd" id="vE6-fk-qgp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="266" y="252"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="button_tap_selected.png" width="250" height="265"/>
+        <image name="checker_bottom.png" width="320" height="23"/>
+        <image name="checker_top.png" width="320" height="22"/>
+    </resources>
+</document>
