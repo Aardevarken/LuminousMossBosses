@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from flask import Flask, url_for, request
 from sqlalchemy import create_engine, select, text
 from json import dumps
@@ -111,6 +112,8 @@ inserted into the database.
 def addTest():
     required_params = ['model_number','gps_accuracy','time_search','time_recorded']
     data = request.get_json()
+    if not data:
+        return "Error occured getting JSON from request. Make sure JSON is in proper format and Content-Type header set to application/json\n"
     if not input_has_required_parameters(data, required_params):
         return 'Error: invalid input. Must be in JSON format and have all required parameters. Consult API documentation for details.\n'
     query = text("INSERT INTO test_data (model_number, gps_accuracy, time_search, time_recorded) VALUES (:model, :accuracy, :search, :recorded)").bindparams(model=data['model_number'], accuracy=data['gps_accuracy'], search=data['time_search'], recorded=data['time_recorded'])
