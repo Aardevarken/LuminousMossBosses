@@ -19,7 +19,6 @@
 		16B052BB1A5B4BDE007837B4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16B052B91A5B4BDE007837B4 /* LaunchScreen.xib */; };
 		16B052C71A5B4BDF007837B4 /* DeveloperBuildTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B052C61A5B4BDF007837B4 /* DeveloperBuildTests.m */; };
 		16B052D71A5B51AF007837B4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16B052D41A5B50C2007837B4 /* Foundation.framework */; };
-		16B052DA1A5B51D7007837B4 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16B052D91A5B51D7007837B4 /* opencv2.framework */; };
 		16B052DC1A5B5327007837B4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16B052DB1A5B5327007837B4 /* UIKit.framework */; };
 		16B052DE1A5B5334007837B4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16B052DD1A5B5334007837B4 /* CoreGraphics.framework */; };
 		16CCBC381A773D71008B7E96 /* IMG_1976.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 16CCBC331A773D71008B7E96 /* IMG_1976.jpg */; };
@@ -30,6 +29,7 @@
 		16CCBC401A773E00008B7E96 /* flower25.xml in Resources */ = {isa = PBXBuildFile; fileRef = 16CCBC3E1A773E00008B7E96 /* flower25.xml */; };
 		16CCBC411A773E00008B7E96 /* flower30.xml in Resources */ = {isa = PBXBuildFile; fileRef = 16CCBC3F1A773E00008B7E96 /* flower30.xml */; };
 		16E2D49B1A64860900CA8845 /* ObsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E2D49A1A64860900CA8845 /* ObsViewController.m */; };
+		F0D848141A7768250043BEDD /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D848131A7768250043BEDD /* opencv2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +77,7 @@
 		16CCBC3F1A773E00008B7E96 /* flower30.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = flower30.xml; sourceTree = "<group>"; };
 		16E2D4991A64860900CA8845 /* ObsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObsViewController.h; sourceTree = "<group>"; };
 		16E2D49A1A64860900CA8845 /* ObsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObsViewController.m; sourceTree = "<group>"; };
+		F0D848131A7768250043BEDD /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../opencv2.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16B052DA1A5B51D7007837B4 /* opencv2.framework in Frameworks */,
+				F0D848141A7768250043BEDD /* opencv2.framework in Frameworks */,
 				16B052DE1A5B5334007837B4 /* CoreGraphics.framework in Frameworks */,
 				16B052DC1A5B5327007837B4 /* UIKit.framework in Frameworks */,
 				16B052D71A5B51AF007837B4 /* Foundation.framework in Frameworks */,
@@ -176,6 +177,7 @@
 		16B052DF1A5B53D4007837B4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F0D848131A7768250043BEDD /* opencv2.framework */,
 				16B052DD1A5B5334007837B4 /* CoreGraphics.framework */,
 				16B052DB1A5B5327007837B4 /* UIKit.framework */,
 				16B052D91A5B51D7007837B4 /* opencv2.framework */,
@@ -444,6 +446,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Jacob/SeniorProjects/iOS,
+					/Users/jamiemiller/LuminousMossBosses/iOS,
 				);
 				INFOPLIST_FILE = DeveloperBuild/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -458,6 +461,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Jacob/SeniorProjects/iOS,
+					/Users/jamiemiller/LuminousMossBosses/iOS,
 				);
 				INFOPLIST_FILE = DeveloperBuild/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
