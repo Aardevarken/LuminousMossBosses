@@ -1,0 +1,19 @@
+Proof of concept Bag of Words / Bag of Features Silene Identifier
+
+Requires exactly version 2.4.9 of OpenCV: https://github.com/Itseez/opencv/tree/2.4.9.x-prep
+Unfortunately it is also dependent on the nonfree opencv module, which ubuntu refuses to ship, so I had to compile it from source.
+For ubuntu, I found these build instructions to work well: http://milq.github.io/install-opencv-ubuntu-debian/
+
+To generate your own xml files:
+make build_vocab
+./build_vocab positivedir negativedir
+make bow_train
+./bow_train positivedir negativedir
+
+To use xml files:
+make bow
+./bow imagepath.jpg
+
+Output is a number of unknown significance, but has a high correlation with if it is a silene or not.
+Running it on my images, a value over 0.84 is likely not silene, a value over 1 is never silene.
+Good silene detections are usually in the 0.6-0.8 range.

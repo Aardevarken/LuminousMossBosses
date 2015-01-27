@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	
+	<title>Observer</title>
+
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		canvas {
+			background-color: gray;
+		    border-style: inset;
+		    border-width: 5px;
+		    border-color: green;
+		    
+		}
+	</style>
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2">
+				<hr>
+				<h4> Navigation </h4>
+				<center>
+				<div class="btn-group" role="group">
+					<button onclick="zoomIn()" type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+					</button>
+					<button onclick="zoomOut()" type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="btn-group" role="group">
+					<button onclick="shiftLeft()" type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					</button>
+					<button onclick="shiftUp()" type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+					</button>
+					<button onclick="shiftDown()" type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+					</button>
+					<button onclick="shiftRight()" type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					</button>
+				</div>
+				<button onclick="resetView()" class="btn btn-default" aria-label="Left Align">
+					<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Reset View
+				</button>
+				</center>
+				<hr>
+				<h4> Image Processing </h4>
+				<center>
+				<button id="add" onclick="addEntry()" class="btn btn-default btn-block" aria-label="Left Align">
+					Add
+				</button>
+				<button id="remove" onclick="removeEntry()" class="btn btn-default btn-block" aria-label="Left Align">
+					Remove
+				</button>
+				<button id="mtrue" onclick="markTrue()" class="btn btn-default btn-block" aria-label="Left Align">
+					Mark True
+				</button>
+				<button id="mfalse" onclick="markFalse()" class="btn btn-default btn-block" aria-label="Left Align">
+					Mark False
+				</button>
+				</center>
+				<hr>
+				<h4> Keyboard Shortcuts </h4>
+				<kbd>w</kbd> to zoom in 				<br/>
+				<kbd>s</kbd> to zoom out 				<br/>
+				<kbd>r</kbd> to reset view 				<br/>
+				<kbd>a</kbd> to add an entry 			<br/>
+				<kbd>d</kbd> to remove an entry 		<br/>
+				<kbd>e</kbd> mark as true 				<br/>
+				<kbd>f</kbd> mark as false positive 	<br/>
+				<kbd>q</kbd> unselect all 				<br/>
+				<kbd>ctrl</kbd> select multiple entries <br/>
+				<kbd>h,j,k,l</kbd> shift view 			<br/>
+				<hr>
+			</div>
+			<div class="col-md-1">
+				<canvas id="image_viewer" width="910" height="700">Site requires HTML5</canvas>
+			</div>
+		</div>
+		<div class="row">
+			<table class="table table-striped">
+				<tr>
+					<td><b>File Name:</b></td><td>IMG_1997.jpg</td>
+				</tr>
+				<tr>
+					<td><b>Accuracy:</b></td><td>80%</td>
+				</tr>
+				<tr>
+					<td><b>Rotation Rate:</b></td><td>10 degrees</td>
+				</tr>
+				<tr>
+					<td><b>Flowers Found:</b></td><td>15</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<!-- HTML5 image viewer -->
+	<script src="js/image-viewer.js"></script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
