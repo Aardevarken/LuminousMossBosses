@@ -123,10 +123,8 @@ DROP TABLE IF EXISTS `training`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `training` (
-  `TrainingID` int(11) NOT NULL,
   `ObjectID` int(11) NOT NULL,
   `XMLID` int(11) NOT NULL,
-  PRIMARY KEY (`TrainingID`),
   KEY `ObjectID` (`ObjectID`),
   KEY `XMLID` (`XMLID`),
   CONSTRAINT `training_ibfk_1` FOREIGN KEY (`ObjectID`) REFERENCES `detection_objects` (`ObjectID`),
