@@ -1,0 +1,3 @@
+#!/bin/bash
+make findflowers
+find $1/* | xargs ./import_observations.py
