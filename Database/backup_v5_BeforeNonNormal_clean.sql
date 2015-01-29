@@ -55,13 +55,13 @@ DROP TABLE IF EXISTS `observations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `observations` (
+  `ObsID` int(11) NOT NULL AUTO_INCREMENT,
   `Time` time DEFAULT NULL,
   `Date` date DEFAULT NULL,
   `Latitude` float(9,4) DEFAULT NULL,
   `Longitude` float(9,6) DEFAULT NULL,
   `ImageURL` varchar(50) DEFAULT NULL,
   `DiskLoction` varchar(128) DEFAULT NULL,
-  `ObsID` int(11) NOT NULL AUTO_INCREMENT,
   `ImageID` int(11) NOT NULL DEFAULT '0',
   `Username` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`ObsID`),
@@ -80,12 +80,12 @@ DROP TABLE IF EXISTS `testresults`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `testresults` (
+  `TestID` int(11) NOT NULL AUTO_INCREMENT,
   `XMLID` int(11) NOT NULL,
   `ProbCorrectID` float(6,5) DEFAULT NULL,
   `PerFalsePos` float(6,5) DEFAULT NULL,
   `PerFalseNeg` float(6,5) DEFAULT NULL,
   `PerUnknowns` float(6,5) DEFAULT NULL,
-  `TestID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`TestID`),
   KEY `XMLID` (`XMLID`),
   CONSTRAINT `testresults_ibfk_1` FOREIGN KEY (`XMLID`) REFERENCES `xmldata` (`XMLID`)
@@ -155,8 +155,8 @@ DROP TABLE IF EXISTS `validplants`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `validplants` (
-  `PlantName` varchar(32) DEFAULT NULL,
   `ScientificName` varchar(32) NOT NULL,
+  `PlantName` varchar(32) DEFAULT NULL,
   `Description` blob,
   PRIMARY KEY (`ScientificName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -170,11 +170,11 @@ DROP TABLE IF EXISTS `xmldata`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `xmldata` (
+  `XMLID` int(11) NOT NULL AUTO_INCREMENT,
   `FileName` varchar(20) NOT NULL,
   `CreationDate` date DEFAULT NULL,
   `CreationTime` time DEFAULT NULL,
   `TestName` varchar(20) NOT NULL,
-  `XMLID` int(11) NOT NULL AUTO_INCREMENT,
   `AppVersion` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`XMLID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
