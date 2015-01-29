@@ -31,19 +31,25 @@ CREATE TABLE `images` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `objlocations`
+-- Table structure for table `detection_objects`
 --
 
-DROP TABLE IF EXISTS `objlocations`;
+DROP TABLE IF EXISTS `detection_objects`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `objlocations` (
-  `ImageID` int(11) NOT NULL,
+CREATE TABLE `detection_objects` (
+  `ObjectID` int(11) NOT NULL AUTO_INCREMENT,
+  `ParentImageID` int(11) NOT NULL,
   `XCord` int(11) NOT NULL,
   `YCord` int(11) NOT NULL,
   `Radius` int(11) NOT NULL,
-  KEY `ImageID` (`ImageID`),
-  CONSTRAINT `objlocations_ibfk_1` FOREIGN KEY (`ImageID`) REFERENCES `images` (`ImageID`)
+  `IsPosDetect` tinyint(1) DEFAULT NULL,
+  `IsUserDetected` tinyint(1) DEFAULT NULL,
+  `FileName` varchar(128) DEFAULT NULL,
+  `Location` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`ObjectID`),
+  KEY `ParentImageID` (`ParentImageID`),
+  CONSTRAINT `detection_objects_ibfk_1` FOREIGN KEY (`ParentImageID`) REFERENCES `images` (`ImageID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -117,12 +123,13 @@ DROP TABLE IF EXISTS `training`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `training` (
-  `ObsID` int(11) NOT NULL,
+  `TrainingID` int(11) NOT NULL,
+  `ObjectID` int(11) NOT NULL,
   `XMLID` int(11) NOT NULL,
-  `ImagePos` bit(1) DEFAULT NULL,
-  KEY `ObsID` (`ObsID`),
+  PRIMARY KEY (`TrainingID`),
+  KEY `ObjectID` (`ObjectID`),
   KEY `XMLID` (`XMLID`),
-  CONSTRAINT `training_ibfk_1` FOREIGN KEY (`ObsID`) REFERENCES `observations` (`ObsID`),
+  CONSTRAINT `training_ibfk_1` FOREIGN KEY (`ObjectID`) REFERENCES `detection_objects` (`ObjectID`),
   CONSTRAINT `training_ibfk_2` FOREIGN KEY (`XMLID`) REFERENCES `xmldata` (`XMLID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
