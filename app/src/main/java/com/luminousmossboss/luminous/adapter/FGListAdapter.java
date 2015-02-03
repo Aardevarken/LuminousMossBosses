@@ -7,36 +7,29 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.luminousmossboss.luminous.R;
+import com.luminousmossboss.luminous.model.FGListItem;
 import com.luminousmossboss.luminous.model.ListItem;
 
 /**
+ *
  * Created by Brian on 2/2/2015.
  */
-public class FGListAdapter extends BaseAdapter implements ListAdapter {
 
-    private Context context;
-    private ArrayList<ListItem> listItems;
+public class FGListAdapter extends FragListAdapter {
+
+    //private Context context;
+    //private ArrayList<ListItem> listItems;
 
     public FGListAdapter(Context context, ArrayList<ListItem> listItems) {
-        this.context = context;
-        this.listItems = listItems;
+        //this.context = context;
+        //this.listItems = listItems;
+        super(context, listItems);
     }
 
-    @Override
-    public int getCount() { return listItems.size(); }
-
-    @Override
-    public Object getItem(int position) { return listItems.get(position); }
-
-    @Override
-    public long getItemId(int position) { return position; }
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater)

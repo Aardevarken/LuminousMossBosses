@@ -12,31 +12,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.luminousmossboss.luminous.R;
+import com.luminousmossboss.luminous.model.ListItem;
 import com.luminousmossboss.luminous.model.NavDrawerItem;
 
-public class NavDrawerListAdapter extends BaseAdapter implements ListAdapter {
+public class NavDrawerListAdapter extends FragListAdapter {
 
     private Context context;
     private ArrayList<NavDrawerItem> navDrawerItems;
 
     public NavDrawerListAdapter(Context context, ArrayList<NavDrawerItem> navDrawerItems){
-        this.context = context;
-        this.navDrawerItems = navDrawerItems;
-    }
-
-    @Override
-    public int getCount() {
-        return navDrawerItems.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return navDrawerItems.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
+        super(context,navDrawerItems);
     }
 
     @Override

@@ -4,13 +4,13 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.luminousmossboss.luminous.adapter.FGListAdapter;
+import com.luminousmossboss.luminous.model.FGListItem;
 import com.luminousmossboss.luminous.model.ListItem;
 
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class FieldGuideFragment extends Fragment{
         listItems = new ArrayList<ListItem>();
 
         for (int i = 0; i < listTitles.length; i++) {
-            listItems.add(new ListItem(listTitles[i], listIcons.getResourceId(i, -1)));
+            listItems.add(new FGListItem(listTitles[i], listIcons.getResourceId(i, -1)));
         }
         listIcons.recycle();
 

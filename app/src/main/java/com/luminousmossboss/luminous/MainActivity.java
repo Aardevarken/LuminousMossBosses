@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.luminousmossboss.luminous.adapter.NavDrawerListAdapter;
+import com.luminousmossboss.luminous.model.ListItem;
 import com.luminousmossboss.luminous.model.NavDrawerItem;
 
 
@@ -43,7 +44,7 @@ public class MainActivity extends Activity {
     private String[] navMenuTitles;
     private TypedArray navMenuIcons;
 
-    private ArrayList<NavDrawerItem> navDrawerItems;
+    private ArrayList<ListItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
 
     @Override
@@ -63,7 +64,7 @@ public class MainActivity extends Activity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
 
-        navDrawerItems = new ArrayList<NavDrawerItem>();
+        navDrawerItems = new ArrayList<ListItem>();
 
         for (int i = 0; i < navMenuTitles.length; i++) {
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
