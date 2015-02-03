@@ -11,6 +11,10 @@ app.config['DEBUG'] = True
 def list_observations():
     return open('../HTML5/observation_list.html').read()
 
+@app.route('/observer.html', methods=['GET'])
+def observation():
+    return open('../HTML5/observer.html').read()
+
 @app.route('/css/<filename>', methods=['GET'])
 def css(filename):
     return open('../HTML5/css/' + filename).read()
@@ -21,7 +25,7 @@ def js(filename):
 
 @app.route('/images/<filename>', methods=['GET'])
 def images(filename):
-    return open('/work/pics/pending/' + filename).read()
+    return open('/work/pics/pending/silene/' + filename).read()
 
 """
 GET /observations
@@ -38,10 +42,19 @@ def get_observations():
     items = result_to_json(result)
     return items 
 
+@app.route('/imagedata/<imageid>', methods=['GET'])
+def get_imagedata(imageid):
+    try:
+        result = query_database(text('SELECT * FROM images WHERE ImageID=' + str(imageid) + ';'))
+    except:
+        return "error"
+    items = result_to_json(result)
+    return items
+
 @app.route('/flowerdetections/<imageid>', methods=['GET'])
 def get_flowerdetections(imageid):
     try:
-        result = query_database(text('SELECT * from objlocations WHERE ImageID=' + str(imageid) + ';'))
+        result = query_database(text('SELECT * from detection_objects WHERE ParentImageID=' + str(imageid) + ';'))
     except:
         return "Error occured. Database may be down. Try again later and check your parameters.\n"
     #be aware that this call will close the result object, and it will not be useable afterward.

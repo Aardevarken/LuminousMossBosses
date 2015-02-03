@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine
 
 HOST = 'localhost'
-USER = 'root'
-PASSWORD = ''
-DATABASE = 'silene'
+USER = 'jamie'
+PASSWORD = 'luciDMoss'
+DATABASE = 'luminous_db'
 
 """
 Takes a query, which should be a sqlalchemy.sql.expression.text

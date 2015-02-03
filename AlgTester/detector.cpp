@@ -57,9 +57,9 @@ vector<identified> detector::findFlowers(Mat image) {
   double centery = image.rows/2.0;
   Point2f center(centerx, centery);
   
-  cout << "Processing\n";
+  //cout << "Processing\n";
   for (int theta=0; theta<360; theta+=increment) {
-    showProgress(theta, 360);
+    //showProgress(theta, 360);
     // Rotate image
     temp = getRotationMatrix2D(center, -double(theta), 1.0);
     warpAffine(image, rotated, temp, image.size());
@@ -105,8 +105,8 @@ vector<identified> detector::findFlowers(Mat image) {
       }
     }
   }
-  showProgress(100,100);
-  cout << endl;
+  //showProgress(100,100);
+  //cout << endl;
   return found;
 }
 

@@ -18,7 +18,7 @@ var ctx;
 var image = new Image();
 
 /** IMAGE SOURCE FILE */
-image.src = "IMG_1997.jpg";
+//image.src;// = "http://54.68.101.35/pics/silene/AF4.jpg";//"IMG_1997.jpg";
 
 var scale = .3;
 var asp = 1;
@@ -60,6 +60,7 @@ function initIdentified(cv, fp, x, y, r) {
 /**
  * Data that will be gained from network
  */
+ /*
 identified.push(initIdentified(true,false,1673,1442,46));
 identified.push(initIdentified(true,false,1644,1621,43));
 identified.push(initIdentified(true,false,1303,1547,52));
@@ -74,14 +75,37 @@ identified.push(initIdentified(true,false,1254,2014,30));
 identified.push(initIdentified(true,false,1267,1358,53));
 identified.push(initIdentified(true,false,1584,1546,39));
 identified.push(initIdentified(true,false,2189,1240,48));
-identified.push(initIdentified(true,false,662,1491,25));
+identified.push(initIdentified(true,false,662,1491,25));*/
+
 
 /**
  * Initialization main code
  */
-image.onload = function() {
-	init();
+$(function () {
+    console.log("started");
+    image_id = 241;
+    $.get("http://54.68.101.35:5001/flowerdetections/"+image_id, get_id, "json");
+    $.get("http://54.68.101.35:5001/imagedata/"+image_id, get_image, "json");
+});
+
+function get_id(data) {
+    data.forEach(function(id) {
+        identified.push(initIdentified(id.IsUserDetected,false,id.XCord,id.YCord,id.Radius));
+    });
 }
+
+function get_image(data) {
+
+    image.src = "http://54.68.101.35:5001/images/"+data[0].FileName;
+}
+
+/**
+ * Initialization main code
+  */
+image.onload = function() {
+    init();
+}
+
 function init() {
 	ctx = canvas.getContext('2d');
 	asp = image.width/image.height;
@@ -247,7 +271,7 @@ mousescroll = function(e) {
 	else if (delta <= 0)
 		zoomOut();
 	display();
- }
+}
 mousedown = function(e) {
 	mousebutton.dragged = true;
 	mousePos = getCursorPosition(canvas,e);

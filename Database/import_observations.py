@@ -25,12 +25,12 @@ for path in sys.argv[1:]:
   query_database(query)
 
   # Add flower objects.
-  p = subprocess.Popen('./findflowers ' + abspath, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+  p = subprocess.Popen('./findflowers ' + abspath + ' 2> /dev/null', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
   lines = p.stdout.readlines()
   p.wait()
 
   for line in lines:
     x, y, r = line.rstrip().split(" ")
-    query = text("INSERT INTO objlocations SET ImageID = \'" + str(imageid) + "\', XCord = \'" + str(x) + "\', YCord = \'" + str(y) + "\', Radius = \'" + str(r) + "\';")
+    query = text("INSERT INTO detection_objects SET ParentImageID = \'" + str(imageid) + "\', XCord = \'" + str(x) + "\', YCord = \'" + str(y) + "\', Radius = \'" + str(r) + "\', IsUserDetected = 0;")
     query_database(query)
   
