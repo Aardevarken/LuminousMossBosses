@@ -11,7 +11,7 @@ object if input was gathered from a POST, and a string otherwise.
 Returns the result of the query as a sqlalchemy ResultProxy object
 """
 def query_database(query):
-    gps_eng = create_engine('mysql://%s:%s@%s/%s' % (USER, PASSWORD, HOST, DATABASE), echo=True)
+    gps_eng = create_engine('mysql://%s:%s@%s/%s' % (USER, PASSWORD, HOST, DATABASE), echo=False)
     gps_conn = gps_eng.connect()
     query_result = gps_conn.execute(query)
     return query_result
