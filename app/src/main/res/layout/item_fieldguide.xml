@@ -26,8 +26,8 @@
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:textColor="@color/list_title"
         android:gravity="center_vertical"
-        android:paddingRight="40dp"
-        android:layout_marginLeft="20dp"
+        android:paddingRight="5dp"
+        android:layout_marginLeft="5dp"
         android:typeface="sans"
         android:textStyle="bold" />
 </RelativeLayout>
@@ -42,4 +42,4 @@
     android:paddingRight="16dp"
     android:textColor="#fff"
     android:background="?android:attr/activatedBackgroundIndicator"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"/> --><!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/layout/fieldguide_items.xml -->
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"/> -->

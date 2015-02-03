@@ -14,8 +14,6 @@ import android.widget.TextView;
 import com.luminousmossboss.luminous.R;
 import com.luminousmossboss.luminous.model.ListItem;
 
-import java.util.ArrayList;
-
 /**
  * Created by Brian on 2/2/2015.
  */
@@ -43,7 +41,7 @@ public class FGListAdapter extends BaseAdapter implements ListAdapter {
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.fieldguide_items, null);
+            convertView = mInflater.inflate(R.layout.item_fieldguide, null);
         }
 
         ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);

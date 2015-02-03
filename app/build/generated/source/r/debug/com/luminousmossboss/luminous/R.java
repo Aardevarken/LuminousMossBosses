@@ -52,26 +52,28 @@ public final class R {
         public static final int silene_acaulis=0x7f020012;
     }
     public static final class id {
-        public static final int Field_Guide_button=0x7f080005;
-        public static final int action_settings=0x7f08000c;
-        public static final int add_observation_button=0x7f080006;
-        public static final int counter=0x7f08000b;
+        public static final int Field_Guide_button=0x7f080003;
+        public static final int action_settings=0x7f08000d;
+        public static final int add_observation_button=0x7f080004;
+        public static final int counter=0x7f08000c;
+        public static final int date=0x7f08000b;
         public static final int drawer_layout=0x7f080000;
-        public static final int fragment_layout=0x7f080009;
-        public static final int fragment_list=0x7f08000a;
+        public static final int fragment_layout=0x7f080007;
+        public static final int fragment_list=0x7f080008;
         public static final int frame_container=0x7f080001;
-        public static final int icon=0x7f080003;
+        public static final int icon=0x7f080009;
         public static final int list_slidermenu=0x7f080002;
-        public static final int my_observation_button=0x7f080008;
-        public static final int settings_button=0x7f080007;
-        public static final int title=0x7f080004;
+        public static final int my_observation_button=0x7f080006;
+        public static final int settings_button=0x7f080005;
+        public static final int title=0x7f08000a;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int fieldguide_items=0x7f030001;
-        public static final int fragment_home=0x7f030002;
-        public static final int fragment_listview=0x7f030003;
-        public static final int nav_drawer_items=0x7f030004;
+        public static final int fragment_home=0x7f030001;
+        public static final int fragment_listview=0x7f030002;
+        public static final int item_fieldguide=0x7f030003;
+        public static final int item_myobservations=0x7f030004;
+        public static final int nav_drawer_items=0x7f030005;
     }
     public static final class menu {
         public static final int main=0x7f070000;
