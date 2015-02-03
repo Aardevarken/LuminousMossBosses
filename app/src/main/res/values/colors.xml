@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Gradients -->
+    <item name="home_bg_start" type="color">#e5142814</item>
+    <item name="home_bg_end" type="color">#e5141804</item>
+
+    <!-- List View Fragments -->
+    <item name="list_title" type="color">#696960</item>
+    <item name="list_bg" type="color">#dad9d4</item>
+
+    <!-- Navigation Slider Fragment -->
+    <item name="nav_bg" type="color">#111</item>
+    <item name="nav_title" type="color">#fff</item>
+    <item name="nav_counter_text" type="color">#fff</item>
+    <item name="nav_counter_bg" type="color">#ff1111</item>
+
+    <!-- Home Round Buttons -->
+    <item name="round_btn_nm_solid" type="color">#696</item>
+    <item name="round_btn_nm_stroke" type="color">#474</item>
+    <item name="round_btn_pr_solid" type="color">#585</item>
+    <item name="round_btn_pr_stroke" type="color">#363</item>
+</resources>

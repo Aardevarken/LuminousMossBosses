@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <array name="field_guide_icons">
+        <item>@drawable/silene_acaulis</item>
+        <item>@drawable/rose</item>
+    </array>
+    <string-array name="field_guide_items">
+        <item>Silene Acaulis</item>
+        <item>Rose</item>
+    </string-array>
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_camera</item>
+        <item>@drawable/ic_notepage</item>
+        <item>@drawable/ic_openbook</item>
+        <item>@drawable/ic_cycle</item>
+        <item>@drawable/ic_info</item>
+        <item>@drawable/ic_cogwheel</item>
+        <item>@drawable/ic_help</item>
+    </array>
+    <string-array name="nav_drawer_items">
+        <item>Home</item>
+        <item>Add Observations</item>
+        <item>My Observations</item>
+        <item>Field Guide</item>
+        <item>Sync/Update</item>
+        <item>About</item>
+        <item>Settings</item>
+        <item>Help</item>
+    </string-array>
+    <!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <item name="home_bg_end" type="color">#e5141804</item>
+    <item name="home_bg_start" type="color">#e5142814</item>
+    <item name="list_bg" type="color">#dad9d4</item>
+    <item name="list_title" type="color">#696960</item>
+    <item name="nav_bg" type="color">#111</item>
+    <item name="nav_counter_bg" type="color">#ff1111</item>
+    <item name="nav_counter_text" type="color">#fff</item>
+    <item name="nav_title" type="color">#fff</item>
+    <item name="round_btn_nm_solid" type="color">#696</item>
+    <item name="round_btn_nm_stroke" type="color">#474</item>
+    <item name="round_btn_pr_solid" type="color">#585</item>
+    <item name="round_btn_pr_stroke" type="color">#363</item>
+    <!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">Luminous Plant ID</string>
+    <string name="app_not_available">Sorry, there\'s no web browser available</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="drawer_open">Open navigation drawer</string>
+</resources>

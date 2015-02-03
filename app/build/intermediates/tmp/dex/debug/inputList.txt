@@ -1,0 +1,4 @@
+C:\Users\Brian\AndroidStudioProjects\Luminous\app\build\intermediates\classes\debug
+C:\Users\Brian\AndroidStudioProjects\Luminous\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-deedf2240d356dc36401df13f4fe29fefd0fe353.jar
+C:\Users\Brian\AndroidStudioProjects\Luminous\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-a497035e973fe2d113db701a115d224a9d609814.jar
+C:\Users\Brian\AndroidStudioProjects\Luminous\app\build\intermediates\pre-dexed\debug\classes-589477e54751ffcb6a7bd8dc4ac7b0f13169655f.jar
