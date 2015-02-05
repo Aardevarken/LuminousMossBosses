@@ -1,4 +1,5 @@
 from sqlalchemy import create_engine
+from json import dumps
 
 HOST = 'localhost'
 USER = 'jamie'
@@ -22,18 +23,10 @@ Takes a query result as a sqlalchemy ResultProxy object.
 Returns a JSON-formatted string of the passed query result
 """
 def result_to_json(query_result):
-    column_names = query_result.keys()
-    row_list = []
+    results = []
     for row in query_result:
-        i = 0
-        row_dict = {}
-        for item in row:
-            row_dict[str(column_names[i])] = str(item)
-            i += 1
-        row_list.append(row_dict)
-    #replace single quote with double for valid json
-    json_result = str(row_list).replace('\'', '"')
-    return json_result
+        results.append(dict(row))
+    return dumps(results)
 
 """
 Takes json request data and required parameters.
