@@ -38,7 +38,7 @@
         android:text="01/21/2014"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
-        android:textColor="@color/list_title"
+        android:textColor="@color/list_description"
         android:textSize="14sp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"

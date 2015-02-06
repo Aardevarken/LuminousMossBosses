@@ -27,6 +27,14 @@ public abstract class FragListAdapter extends BaseAdapter {
         this.listItems = listItems;
     }
 
+    protected View basicView(int position, View convertView){
+        ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
+        TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
+        imgIcon.setImageResource(listItems.get(position).getIcon());
+        txtTitle.setText(listItems.get(position).getTitle());
+
+        return convertView;
+    }
     @Override
     public int getCount() { return listItems.size(); }
 
@@ -38,5 +46,6 @@ public abstract class FragListAdapter extends BaseAdapter {
 
     @Override
     abstract public View getView(int position, View convertView, ViewGroup parent);
+
 
 }

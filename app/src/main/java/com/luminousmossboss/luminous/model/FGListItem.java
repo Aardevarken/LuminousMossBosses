@@ -6,9 +6,8 @@ package com.luminousmossboss.luminous.model;
 
 public class FGListItem extends ListItem{
     private String description;
-    private String user;
     private int status;
-
+    final private int MAXCHAR = 25;
     private boolean isStatusVisible = false;
 
     public FGListItem() {}
@@ -17,22 +16,15 @@ public class FGListItem extends ListItem{
         super(title, icon);
     }
 
-    public FGListItem(String title, int icon, String date, String user) {
+    public FGListItem(String title, int icon, String description) {
         super(title, icon);
-        this.description = date;
-        this.user = user;
+        this.description = shortenString(description,MAXCHAR);
     }
 
-    public String getDate() { return this.description; }
+    public String getDescription() { return this.description; }
 
-    public String getUser() { return this.user; }
-
-    public void setDate(String date){
-        this.description = date;
-    }
-
-    public void setUser(String user){
-        this.user = user;
+    public void setDescription(String description){
+        this.description = shortenString(description,MAXCHAR);
     }
 
     public void setStatus(int status) {this.status = status; }

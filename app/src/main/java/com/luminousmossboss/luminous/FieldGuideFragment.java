@@ -51,13 +51,14 @@ public class FieldGuideFragment extends Fragment{
     private void initList(View rootView, ViewGroup container) {
         String[] listTitles = getResources().getStringArray(R.array.field_guide_items);
         TypedArray listIcons = getResources().obtainTypedArray(R.array.field_guide_icons);
+        String[] listDescriptions = getResources().getStringArray(R.array.field_guide_description);
 
         mDrawerList = (ListView) rootView.findViewById(R.id.fragment_list);
 
         listItems = new ArrayList<ListItem>();
 
         for (int i = 0; i < listTitles.length; i++) {
-            listItems.add(new FGListItem(listTitles[i], listIcons.getResourceId(i, -1)));
+            listItems.add(new FGListItem(listTitles[i], listIcons.getResourceId(i, -1), listDescriptions[i]));
         }
         listIcons.recycle();
 

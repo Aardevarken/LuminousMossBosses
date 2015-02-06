@@ -6,6 +6,7 @@
 
     <!-- List View Fragments -->
     <item name="list_title" type="color">#696960</item>
+    <item name="list_description" type="color">#898980</item>
     <item name="list_bg" type="color">#dad9d4</item>
 
     <!-- Navigation Slider Fragment -->

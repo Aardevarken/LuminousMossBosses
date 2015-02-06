@@ -43,10 +43,15 @@
         <item>Silene Acaulis</item>
         <item>Rose</item>
     </string-array>
+    <string-array name="field_guide_description">
+        <item>What we need to identify</item>
+        <item>An example input, this will be purposely long to test how it handles displaying it when the description is too damn big. I just need to add in a little more :)</item>
+    </string-array>
     <array name="field_guide_icons">
         <item>@drawable/silene_acaulis</item>
         <item>@drawable/rose</item>
     </array>
+
     <!-- My Observations Temp -->
 
     <string name="drawer_open">Open navigation drawer</string>

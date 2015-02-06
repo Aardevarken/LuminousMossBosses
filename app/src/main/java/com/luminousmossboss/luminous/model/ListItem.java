@@ -27,5 +27,8 @@ abstract public class ListItem {
         this.icon = icon;
     }
 
+    public String shortenString(String string, int amount) {
+        return string.substring(0, Math.min(string.length(), amount))+"...";
+    }
 
 }

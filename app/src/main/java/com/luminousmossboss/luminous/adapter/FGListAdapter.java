@@ -30,6 +30,7 @@ public class FGListAdapter extends FragListAdapter {
         super(context, listItems);
     }
 
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater)
@@ -37,11 +38,11 @@ public class FGListAdapter extends FragListAdapter {
             convertView = mInflater.inflate(R.layout.item_fieldguide, null);
         }
 
-        ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
-        TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
+        convertView = basicView(position,convertView);
+        FGListItem item = (FGListItem) listItems.get(position);
 
-        imgIcon.setImageResource(listItems.get(position).getIcon());
-        txtTitle.setText(listItems.get(position).getTitle());
+        TextView txtDescription = (TextView) convertView.findViewById(R.id.description);
+        txtDescription.setText(item.getDescription());
 
         return convertView;
     }
