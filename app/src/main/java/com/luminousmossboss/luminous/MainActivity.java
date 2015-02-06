@@ -69,8 +69,8 @@ public class MainActivity extends Activity {
         for (int i = 0; i < navMenuTitles.length; i++) {
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
         }
-        navDrawerItems.get(3).setCounterVisibility(true);
-        navDrawerItems.get(3).setCount(2);
+        ((NavDrawerItem) navDrawerItems.get(3)).setCounterVisibility(true);
+        ((NavDrawerItem) navDrawerItems.get(3)).setCount(2);
 
         // Recycle the typed array
         navMenuIcons.recycle();
