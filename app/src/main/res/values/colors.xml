@@ -3,6 +3,7 @@
     <!-- Gradients -->
     <item name="home_bg_start" type="color">#e5142814</item>
     <item name="home_bg_end" type="color">#e5141804</item>
+    <item name="home_text" type="color">#ffffff</item>
 
     <!-- List View Fragments -->
     <item name="list_title" type="color">#696960</item>
@@ -18,6 +19,11 @@
     <!-- Home Round Buttons -->
     <item name="round_btn_nm_solid" type="color">#696</item>
     <item name="round_btn_nm_stroke" type="color">#474</item>
-    <item name="round_btn_pr_solid" type="color">#585</item>
-    <item name="round_btn_pr_stroke" type="color">#363</item>
+    <item name="round_btn_pr_solid" type="color">#548874</item>
+    <item name="round_btn_pr_stroke" type="color">#236243</item>
+
+    <!-- Status -->
+    <item name="status_pending" type="color">#dd5522</item>
+    <item name="status_identified" type="color">#ddaa22</item>
+    <item name="status_sent" type="color">#22aa44</item>
 </resources>

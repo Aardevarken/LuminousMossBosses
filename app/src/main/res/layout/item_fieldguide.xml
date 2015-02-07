@@ -5,8 +5,8 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:src="@drawable/silene_acaulis"
         android:layout_alignParentTop="true"
         android:paddingStart="0dp"
@@ -21,14 +21,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="title"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:textColor="@color/list_title"
 
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:paddingTop="10dp"
-        android:paddingBottom="4dp"
+        android:paddingBottom="0dp"
 
         android:typeface="sans"
         android:textStyle="bold"
@@ -41,8 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="description"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:textAppearance="?android:attr/textAppearanceListItemSecondary"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="@color/list_description"
 
         android:paddingLeft="5dp"
@@ -50,8 +49,8 @@
         android:paddingTop="1dp"
 
         android:typeface="sans"
-        android:textStyle="bold"
-        android:layout_alignParentBottom="true"
+        android:textStyle="italic"
+        android:textSize="12sp"
         android:layout_below="@+id/title"
         android:layout_toRightOf="@+id/icon"
         android:layout_toEndOf="@+id/icon" />
