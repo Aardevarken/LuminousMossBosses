@@ -1,27 +1,23 @@
 package com.luminousmossboss.luminous;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.luminousmossboss.luminous.adapter.NavDrawerListAdapter;
@@ -186,12 +182,15 @@ public class MainActivity extends Activity {
     protected void displayView(int position) {
         // update the main content by replacing fragments
         Fragment fragment = null;
+        int icon = R.drawable.ic_launcher;
         switch (position) {
             case 0:
                 fragment = new HomeFragment();
+                icon = R.drawable.ic_home;
                 break;
             case 3:
-                fragment = new FieldGuideFragment();
+                fragment = new FieldGuideListFragment();
+                icon = R.drawable.ic_openbook;
                 break;
 
             default:
@@ -200,17 +199,36 @@ public class MainActivity extends Activity {
 
         if (fragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.frame_container, fragment).commit();
+            //fragmentManager.beginTransaction()
+            //.replace(R.id.frame_container, fragment).commit();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame_container, fragment);
+
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            fragmentTransaction.commit();
 
             // update selected item and title, then close the drawer
             mDrawerList.setItemChecked(position, true);
             mDrawerList.setSelection(position);
             setTitle(navMenuTitles[position]);
+            getActionBar().setIcon(icon);
             mDrawerLayout.closeDrawer(mDrawerList);
         } else {
             // error in creating fragment
             Log.e("MainActivity", "Error in creating fragment");
         }
     }
+    public void displayView(Fragment fragment) {
+        if (fragment != null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.frame_container, fragment);
+
+            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            fragmentTransaction.commit();
+        } else {
+            Log.e("MainActivity", "Error in creating fragment");
+        }
+    }
+
 }

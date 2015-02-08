@@ -7,7 +7,7 @@ package com.luminousmossboss.luminous.model;
 public class FGListItem extends ListItem{
     private String description;
     private int status;
-    final private int MAXCHAR = 25;
+    final private int MAXCHAR = 40;
     private boolean isStatusVisible = false;
 
     public FGListItem() {}

@@ -7,7 +7,7 @@
         android:id="@+id/icon"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:src="@drawable/silene_acaulis"
+        android:src="@drawable/silene_acaulis_icon"
         android:layout_alignParentTop="true"
         android:paddingStart="0dp"
         android:paddingLeft="5dp"

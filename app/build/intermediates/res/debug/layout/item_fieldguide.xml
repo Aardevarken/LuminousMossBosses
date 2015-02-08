@@ -5,9 +5,9 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:src="@drawable/silene_acaulis"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:src="@drawable/silene_acaulis_icon"
         android:layout_alignParentTop="true"
         android:paddingStart="0dp"
         android:paddingLeft="5dp"
@@ -19,27 +19,39 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="silene acaulis"
-        android:layout_toRightOf="@id/icon"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:layout_height="wrap_content"
+        android:text="title"
+
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:textColor="@color/list_title"
-        android:gravity="center_vertical"
-        android:paddingRight="5dp"
-        android:layout_marginLeft="5dp"
-        android:typeface="sans"
-        android:textStyle="bold" />
-</RelativeLayout>
 
-<!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/text1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textAppearance="?android:attr/textAppearanceListItemSmall"
-    android:gravity="center_vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:textColor="#fff"
-    android:background="?android:attr/activatedBackgroundIndicator"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"/> --><!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/layout/item_fieldguide.xml -->
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="0dp"
+
+        android:typeface="sans"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/icon"
+        android:layout_toEndOf="@+id/icon" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="description"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:textColor="@color/list_description"
+
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="1dp"
+
+        android:typeface="sans"
+        android:textStyle="italic"
+        android:textSize="12sp"
+        android:layout_below="@+id/title"
+        android:layout_toRightOf="@+id/icon"
+        android:layout_toEndOf="@+id/icon" />
+</RelativeLayout><!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/layout/item_fieldguide.xml -->

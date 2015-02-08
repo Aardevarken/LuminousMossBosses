@@ -5,8 +5,8 @@
     android:background="@drawable/home_bg">
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/round_button"
         android:src="@drawable/ic_openbook"
         android:adjustViewBounds="true"
@@ -24,11 +24,11 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="68dp"
-        android:layout_marginStart="68dp" />
+        android:layout_marginLeft="60dp"
+        android:layout_marginStart="0dp" />
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/round_button"
         android:src="@drawable/ic_camera"
         android:adjustViewBounds="true"
@@ -45,13 +45,13 @@
         android:layout_alignTop="@+id/Field_Guide_button"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="68dp"
-        android:layout_marginEnd="68dp" />
+        android:layout_marginRight="60dp"
+        android:layout_marginEnd="0dp" />
 
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/round_button"
         android:src="@drawable/ic_cogwheel"
         android:adjustViewBounds="true"
@@ -64,16 +64,16 @@
         android:minWidth="130dp"
         android:maxHeight="130dp"
         android:maxWidth="130dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="60dp"
         android:scaleType="fitCenter"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="68dp"
-        android:layout_marginStart="68dp" />
+        android:layout_marginLeft="60dp"
+        android:layout_marginStart="0dp" />
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/round_button"
         android:src="@drawable/ic_notepage"
         android:adjustViewBounds="true"
@@ -90,7 +90,7 @@
         android:layout_alignTop="@+id/settings_button"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="68dp"
-        android:layout_marginEnd="68dp" />
+        android:layout_marginRight="60dp"
+        android:layout_marginEnd="0dp" />
 
 </RelativeLayout><!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/layout/fragment_home.xml -->

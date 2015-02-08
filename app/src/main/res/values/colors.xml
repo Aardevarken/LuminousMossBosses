@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Gradients -->
+    <!-- Home Fragment -->
     <item name="home_bg_start" type="color">#e5142814</item>
     <item name="home_bg_end" type="color">#e5141804</item>
     <item name="home_text" type="color">#ffffff</item>
+
+    <!-- FieldGuide Fragment -->
+    <item name="fieldguide_title" type="color">#696960</item>
+    <item name="fieldguide_description" type="color">#595950</item>
+    <item name="fieldguide_image_bg" type="color">#333333</item>
+    <item name="fieldguide_button" type="color">#6a6964</item>
+    <item name="fieldguide_button_text" type="color">#eee</item>
+    <item name="fieldguide_bg_start" type="color">#dad9b4</item>
+    <item name="fieldguide_bg_end" type="color">#dad9d4</item>
 
     <!-- List View Fragments -->
     <item name="list_title" type="color">#696960</item>

@@ -2,9 +2,18 @@
 <resources>
     <!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string-array name="field_guide_description">
+        <item>Silene acaulis, moss campion, or Cushion Pink is a small mountain-dwelling wildflower that is common all over the high arctic and tundra in the higher mountains of Eurasia and North America, (south to the Alps, Carpathians, southern Siberia, Pyrenees, British Isles, Faroe Islands, Rocky Mountains). It is an evergreen perennial.</item>
+        <item>A rose is a woody perennial of the genus Rosa, within the family Rosaceae. There are over 100 species and thousands of cultivars. They form a group of plants that can be erect shrubs, climbing or trailing with stems that are often armed with sharp prickles. Flowers vary in size and shape and are usually large and showy, in colours ranging from white through yellows and reds. Most species are native to Asia, with smaller numbers native to Europe, North America, and northwest Africa. Species, cultivars and hybrids are all widely grown for their beauty and often are fragrant. Rose plants range in size from compact, miniature roses, to climbers that can reach seven meters in height. Different species hybridize easily, and this has been used in the development of the wide range of garden roses.
+The name rose comes from French, itself from Latin rosa, which was perhaps borrowed from Oscan, from Greek ρόδον rhódon (Aeolic βρόδον wródon), itself borrowed from Old Persian wrd- (wurdi), related to Avestan varəδa, Sogdian ward, Parthian wâr.</item>
+    </string-array>
     <array name="field_guide_icons">
-        <item>@drawable/silene_acaulis</item>
-        <item>@drawable/rose</item>
+        <item>@drawable/silene_acaulis_icon</item>
+        <item>@drawable/rose_icon</item>
+    </array>
+    <array name="field_guide_img">
+        <item>@drawable/silene_acaulis_img</item>
+        <item>@drawable/rose_icon</item>
     </array>
     <string-array name="field_guide_items">
         <item>Silene Acaulis</item>
@@ -32,9 +41,18 @@
     </string-array>
     <!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/values/colors.xml -->
     <eat-comment/>
+    <item name="fieldguide_bg_end" type="color">#dad9d4</item>
+    <item name="fieldguide_bg_start" type="color">#dad9b4</item>
+    <item name="fieldguide_button" type="color">#6a6964</item>
+    <item name="fieldguide_button_text" type="color">#eee</item>
+    <item name="fieldguide_description" type="color">#595950</item>
+    <item name="fieldguide_image_bg" type="color">#333333</item>
+    <item name="fieldguide_title" type="color">#696960</item>
     <item name="home_bg_end" type="color">#e5141804</item>
     <item name="home_bg_start" type="color">#e5142814</item>
+    <item name="home_text" type="color">#ffffff</item>
     <item name="list_bg" type="color">#dad9d4</item>
+    <item name="list_description" type="color">#898980</item>
     <item name="list_title" type="color">#696960</item>
     <item name="nav_bg" type="color">#111</item>
     <item name="nav_counter_bg" type="color">#ff1111</item>
@@ -42,8 +60,11 @@
     <item name="nav_title" type="color">#fff</item>
     <item name="round_btn_nm_solid" type="color">#696</item>
     <item name="round_btn_nm_stroke" type="color">#474</item>
-    <item name="round_btn_pr_solid" type="color">#585</item>
-    <item name="round_btn_pr_stroke" type="color">#363</item>
+    <item name="round_btn_pr_solid" type="color">#548874</item>
+    <item name="round_btn_pr_stroke" type="color">#236243</item>
+    <item name="status_identified" type="color">#ddaa22</item>
+    <item name="status_pending" type="color">#dd5522</item>
+    <item name="status_sent" type="color">#22aa44</item>
     <!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="action_settings">Settings</string>
@@ -51,4 +72,6 @@
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="drawer_open">Open navigation drawer</string>
+    <string name="fieldGuide_Location">Locations</string>
+    <string name="fieldGuide_observation">Add Observation</string>
 </resources>
