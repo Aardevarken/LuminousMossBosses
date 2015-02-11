@@ -1,16 +1,25 @@
 package com.luminousmossboss.luminous;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -19,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.luminousmossboss.luminous.adapter.NavDrawerListAdapter;
 import com.luminousmossboss.luminous.model.ListItem;
@@ -29,6 +39,9 @@ public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
+
+    //For handling location
+   protected GPSTracker mGPS;
 
     // nav drawer title
     private CharSequence mDrawerTitle;
@@ -43,12 +56,15 @@ public class MainActivity extends Activity {
     private ArrayList<ListItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
 
+    static final int REQUEST_TAKE_PHOTO = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mTitle = mDrawerTitle = getTitle();
+        mGPS = new GPSTracker(this);
 
         // load slide menu items
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
@@ -231,4 +247,77 @@ public class MainActivity extends Activity {
         }
     }
 
+
+    private File createImageFile() throws IOException {
+        String mCurrentPhotoPath;
+
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
+    }
+
+    public void startObservation()
+    {
+        if(mGPS.canGetLocation())
+        {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            // Ensure that there's a camera activity to handle the intent
+            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                // Create the File where the photo should go
+                File photoFile = null;
+                try {
+                    photoFile = createImageFile();
+                } catch (IOException ex) {
+                    // Error occurred while creating the File
+
+                }
+                // Continue only if the File was successfully created
+                if (photoFile != null) {
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+                            Uri.fromFile(photoFile));
+                    startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+                }
+            }
+
+        }
+        else
+        {
+            mGPS.showSettingsAlert();
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_TAKE_PHOTO: {
+                if (resultCode == RESULT_OK) {
+                    handlePhoto(data);
+                }
+                break;
+            }
+        } // switch
+    }
+
+    private void handlePhoto(Intent intent)
+    {
+        Location loc = mGPS.getLocation();
+        if( loc == null || (loc.getLatitude() == 0 && loc.getLongitude() == 0))
+        {
+            Toast.makeText(this, "No Location available yet. PLease take another photo when locatoion available", Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            Toast.makeText(this, "We have you image", Toast.LENGTH_LONG).show();
+        }
+    }
 }
