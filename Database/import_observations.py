@@ -21,7 +21,7 @@ for path in sys.argv[1:]:
   print imageid 
 
   # Add observation.
-  query = text("INSERT INTO observations SET ImageID = \'" + str(imageid) + "\';")
+  query = text("INSERT INTO observations SET ImageID = \'" + str(imageid) + "\', Date = CURDATE(), Time = CURTIME(), Latitude = RAND(), Longitude = RAND();")
   query_database(query)
 
   # Add flower objects.
