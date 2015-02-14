@@ -12,7 +12,7 @@ else
 		CFLAGS+=$(LIBS)
 	endif
 	ifeq ($(UNAME_S),Linux)
-		LIBS=`pkg-config --libs --cflags opencv` -lglut -lGLU -lGL -lm 
+		LIBS=`pkg-config --libs --cflags opencv` -lGLU -lGL -lm 
 	endif
 endif
 
