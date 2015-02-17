@@ -5,15 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	<title>Observations List</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<style>
-		canvas {
-			background-color: gray;
-		    border-style: inset;
-		    border-width: 5px;
-		    border-color: green;
-		    
-		}
-	</style>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -22,8 +13,16 @@
 	<script src="js/list-viewer.js"></script>
 </head>
 <body>
+<!--
 	<div class="container">
 		<div id="observationholder" class="row">
 		</div>
-	</div>
+	</div> -->
+   <div class="container">
+    <table class ="table table-striped" id="observationholder">
+        <tr>
+            <td>ID</td><td>Icon</td><td>File Name</td><td>Date</td><td>Verified</td>
+        </tr>
+    </table>
+    </div> 
 </body>

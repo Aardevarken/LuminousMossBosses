@@ -16,9 +16,7 @@ Array.prototype.remove = function(from, to) {
 var canvas = document.getElementById("image_viewer");
 var ctx;
 var image = new Image();
-
-/** IMAGE SOURCE FILE */
-//image.src;// = "http://54.68.101.35/pics/silene/AF4.jpg";//"IMG_1997.jpg";
+var image_id = getUrlVars()['imageid'];
 
 var scale = .3;
 var asp = 1;
@@ -58,34 +56,12 @@ function initIdentified(cv, fp, x, y, r) {
 }
 
 /**
- * Data that will be gained from network
- */
- /*
-identified.push(initIdentified(true,false,1673,1442,46));
-identified.push(initIdentified(true,false,1644,1621,43));
-identified.push(initIdentified(true,false,1303,1547,52));
-identified.push(initIdentified(true,false,1677,1343,44));
-identified.push(initIdentified(true,false,1734,1113,42));
-identified.push(initIdentified(true,false,1861,1280,51));
-identified.push(initIdentified(true,false,1709,1534,48));
-identified.push(initIdentified(true,false,1751,1281,42));
-identified.push(initIdentified(true,false,1899,1372,38));
-identified.push(initIdentified(true,false,1400,1557,52));
-identified.push(initIdentified(true,false,1254,2014,30));
-identified.push(initIdentified(true,false,1267,1358,53));
-identified.push(initIdentified(true,false,1584,1546,39));
-identified.push(initIdentified(true,false,2189,1240,48));
-identified.push(initIdentified(true,false,662,1491,25));*/
-
-
-/**
  * Initialization main code
  */
 $(function () {
     console.log("started");
-    image_id = 241;
-    $.get("http://54.68.101.35:5001/flowerdetections/"+image_id, get_id, "json");
-    $.get("http://54.68.101.35:5001/imagedata/"+image_id, get_image, "json");
+    $.get("/cgi-bin/flowerdetections.py?imageid="+image_id, get_id, "json");
+    $.get("/cgi-bin/observations.py?imageid="+image_id, get_image, "json");
 });
 
 function get_id(data) {
@@ -95,10 +71,24 @@ function get_id(data) {
 }
 
 function get_image(data) {
-
-    image.src = "http://54.68.101.35:5001/images/"+data[0].FileName;
+    observation = data[0];
+    image.src = "/pics/"+observation.FileName;
+    document.getElementById("observation_filename").innerHTML = observation.FileName;
+    document.getElementById("observation_date").innerHTML = observation.Date + ", " + observation.Time;
+    document.getElementById("observation_latitude").innerHTML = observation.Latitude;  
+    document.getElementById("observation_longitude").innerHTML = observation.Longitude;
+    document.getElementById("observation_isPlant").innerHTML =
+         observation.IsSilene == null ? "N/A" : Boolean(observation.IsSilene);
 }
 
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+        function(m, keys, value) {
+            vars[keys] = value;
+        });
+    return vars;
+}
 /**
  * Initialization main code
   */
