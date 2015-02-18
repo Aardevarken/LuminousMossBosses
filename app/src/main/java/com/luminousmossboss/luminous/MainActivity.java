@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -42,7 +44,10 @@ public class MainActivity extends Activity {
 
     //For handling location
    protected GPSTracker mGPS;
+   private DbHandler db;
 
+    //For keeping track of the Photo:
+    String mCurrentPhotoPath;
     // nav drawer title
     private CharSequence mDrawerTitle;
 
@@ -56,7 +61,7 @@ public class MainActivity extends Activity {
     private ArrayList<ListItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
 
-    static final int REQUEST_TAKE_PHOTO = 1;
+    static final int REQUEST_TAKE_PHOTO = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,7 @@ public class MainActivity extends Activity {
 
         mTitle = mDrawerTitle = getTitle();
         mGPS = new GPSTracker(this);
+        db = new DbHandler(this);
 
         // load slide menu items
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
@@ -204,6 +210,10 @@ public class MainActivity extends Activity {
                 fragment = new HomeFragment();
                 icon = R.drawable.ic_home;
                 break;
+            case 2:
+                fragment = new ObservationFragment();
+                icon = R.drawable.ic_notepage;
+                break;
             case 3:
                 fragment = new FieldGuideListFragment();
                 icon = R.drawable.ic_openbook;
@@ -249,7 +259,7 @@ public class MainActivity extends Activity {
 
 
     private File createImageFile() throws IOException {
-        String mCurrentPhotoPath;
+
 
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -263,7 +273,7 @@ public class MainActivity extends Activity {
         );
 
         // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        mCurrentPhotoPath =  image.getAbsolutePath();
         return image;
     }
 
@@ -298,6 +308,7 @@ public class MainActivity extends Activity {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_TAKE_PHOTO: {
                 if (resultCode == RESULT_OK) {
@@ -315,9 +326,32 @@ public class MainActivity extends Activity {
         {
             Toast.makeText(this, "No Location available yet. PLease take another photo when locatoion available", Toast.LENGTH_LONG).show();
         }
+        else if(mCurrentPhotoPath == null)
+        {
+            Toast.makeText(this, "Failed to create photo file. Please try again", Toast.LENGTH_LONG).show();
+        }
         else
         {
-            Toast.makeText(this, "We have you image", Toast.LENGTH_LONG).show();
+
+            Toast.makeText(this, "We have you image: " + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ", Locale.US);
+            String timeNow = sdf.format(new Date());
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put(DbHandler.KEY_GPS_ACCURACY, String.valueOf(loc.getAccuracy()));
+            map.put(DbHandler.KEY_IS_SILENE, String.valueOf(0));
+            map.put(DbHandler.KEY_LOCATION, String.valueOf(loc.getLatitude()) + "," +String.valueOf(loc.getLongitude()));
+            map.put(DbHandler.KEY_PHOTO_PATH, mCurrentPhotoPath);
+            map.put(DbHandler.KEY_SYNCED_STATUS, String.valueOf(0));
+            map.put(DbHandler.KEY_TIME_TAKEN, timeNow);
+
+            db.addObservation(map);
+
+
+
+
+
+
+
         }
     }
 }
