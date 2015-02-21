@@ -1,16 +1,4 @@
 /**
- * Extension to Array that allows for elements to be removed
- * Developed by John Resig
- */
-Array.prototype.remove = function(from, to) {
-	// Uses an || statement to check if 'to' is being passed, this allows for 1 or 2 parameters
-	// The second || is used if a negative number is given
-	var rest = this.slice((to || from) + 1 || this.length);
-	this.length = from < 0 ? this.length + from : from;
-	return this.push.apply(this, rest);
-};
-
-/**
  * Essential variables
  */
 var canvas = document.getElementById("image_viewer");
@@ -40,6 +28,30 @@ canvas.onmouseup 		= 	function(){ mouseup(event) };
 canvas.onmousewheel 	= 	function(){ mousescroll(event) };
 
 /**
+ * Touch Controls
+ */
+/*
+var hammer = new Hammer(canvas);
+hammer.get('pan').set({direction:Hammer.DIRECTION_ALL});
+hammer.on("panleft panright panup pandown", function(ev) {
+    switch(ev.type) {
+        case "panleft":
+            shiftRight();
+            break;
+        case "panright":
+            shiftLeft();
+            break;
+        case "pandown":
+            shiftUp();
+            break;
+        case "panup":
+            shiftDown();
+            break;
+    }
+    ev.gesture.preventDefault();
+});*/
+
+/**
  * Identification object
  */
 function initIdentified(cv, fp, x, y, r) {
@@ -60,6 +72,8 @@ function initIdentified(cv, fp, x, y, r) {
  */
 $(function () {
     console.log("started");
+    canvas.width = document.getElementById('canvas_div').offsetWidth;
+    canvas.height = canvas.width*3/4 
     $.get("/cgi-bin/flowerdetections.py?imageid="+image_id, get_id, "json");
     $.get("/cgi-bin/observations.py?imageid="+image_id, get_image, "json");
 });
@@ -77,39 +91,39 @@ function get_image(data) {
     document.getElementById("observation_date").innerHTML = observation.Date + ", " + observation.Time;
     document.getElementById("observation_latitude").innerHTML = observation.Latitude;  
     document.getElementById("observation_longitude").innerHTML = observation.Longitude;
+    var options = addSelection(observation.IsSilene);
     document.getElementById("observation_isPlant").innerHTML =
-         observation.IsSilene == null ? "N/A" : Boolean(observation.IsSilene);
+         '<select id="id_'+observation.ImageID+'" onclick="updateVerification('+observation.ImageID+')">'+options+'</select>'
+         //observation.IsSilene == null ? "N/A" : Boolean(observation.IsSilene);
 }
 
-function getUrlVars() {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
-        function(m, keys, value) {
-            vars[keys] = value;
-        });
-    return vars;
-}
 /**
  * Initialization main code
   */
 image.onload = function() {
     init();
+    page_init();
+    resetView();
 }
 
 function init() {
-	ctx = canvas.getContext('2d');
-	asp = image.width/image.height;
-	display();
+    
+    asp = image.width/image.height;
+    ctx = canvas.getContext('2d');
 }
 
 /**
- * Loop scene
- * function is not used
+ * Previous, Next Page
  */
-/*function loop() {
-	window.requestAnimationFrame(loop);
-	display();
-}*/
+function page_init(){
+    id = parseInt(image_id);
+    previouspage = document.getElementById('prepage');
+    nextpage = document.getElementById('nextpage');
+    if (id == 1)
+        prepage.style.visibility = 'hidden';
+    prepage.href = "http://flowerid.cheetahjokes.com/webapp/observer.html?imageid="+(id-1)
+    nextpage.href = "http://flowerid.cheetahjokes.com/webapp/observer.html?imageid="+(id+1)
+}
 
 /**
  * Display scene using canvas methods
@@ -254,6 +268,7 @@ function mouseCollision(obj, mp) {
  * Handle mouse events
  */
 mousescroll = function(e) {
+    e.preventDefault();
 	var evt = window.event || e
 	var delta = evt.detail? evt.detail*(-1) : evt.wheelDelta
 	if(delta > 0)
@@ -350,8 +365,8 @@ mouseup = function(e) {
  * Handle Zooming In
  */
 function zoomIn() {
-	scale += .05;
-	if ( scale > 2 ) scale = 2;
+	scale += .05*scale;
+	if ( scale > 10 ) scale = 10;
 	display();
 }
 
@@ -359,7 +374,7 @@ function zoomIn() {
  * Handle Zooming Out
  */
 function zoomOut() {
-	scale -= .05;
+	scale -= .05*scale;
 	if ( scale < .2 ) scale = .2;
 	display();
 }
@@ -368,9 +383,9 @@ function zoomOut() {
  * Reset orientation and scale
  */
 function resetView() {
-	scale = .3;
-	x = -1060;
-	y = -810;
+    scale = Math.min(canvas.width/image.width, canvas.height/image.height);
+    x = -image.width/2+canvas.width/2
+    y = (-image.height+canvas.height)/2 
 	display();
 }
 
@@ -469,7 +484,6 @@ function unselectAll() {
 	selectAmount = 0;
 	display();
 }
-
 /**
  * Handle shifting the views orientation
  */
@@ -489,3 +503,8 @@ function shiftDown() {
 	y-=20/scale;
 	display();
 }
+
+/*window.onresize = function() {
+    canvas.width = window.innerWidth*7/8;
+    canvas.height = canvas.width
+};*/
