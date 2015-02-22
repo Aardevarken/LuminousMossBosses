@@ -29,6 +29,10 @@
 		16CCBC401A773E00008B7E96 /* flower25.xml in Resources */ = {isa = PBXBuildFile; fileRef = 16CCBC3E1A773E00008B7E96 /* flower25.xml */; };
 		16CCBC411A773E00008B7E96 /* flower30.xml in Resources */ = {isa = PBXBuildFile; fileRef = 16CCBC3F1A773E00008B7E96 /* flower30.xml */; };
 		16E2D49B1A64860900CA8845 /* ObsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E2D49A1A64860900CA8845 /* ObsViewController.m */; };
+		F0395FE61A9835F700EE1BF9 /* detector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE51A9835F700EE1BF9 /* detector.cpp */; };
+		F0395FE81A98360A00EE1BF9 /* detector.h in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE71A98360900EE1BF9 /* detector.h */; };
+		F0395FEA1A98365500EE1BF9 /* identified.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE91A98365500EE1BF9 /* identified.cpp */; };
+		F0395FEC1A98366300EE1BF9 /* identified.h in Sources */ = {isa = PBXBuildFile; fileRef = F0395FEB1A98366300EE1BF9 /* identified.h */; };
 		F0D848141A7768250043BEDD /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D848131A7768250043BEDD /* opencv2.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +81,10 @@
 		16CCBC3F1A773E00008B7E96 /* flower30.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = flower30.xml; sourceTree = "<group>"; };
 		16E2D4991A64860900CA8845 /* ObsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObsViewController.h; sourceTree = "<group>"; };
 		16E2D49A1A64860900CA8845 /* ObsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObsViewController.m; sourceTree = "<group>"; };
+		F0395FE51A9835F700EE1BF9 /* detector.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = detector.cpp; path = ../../AlgTester/detector.cpp; sourceTree = "<group>"; };
+		F0395FE71A98360900EE1BF9 /* detector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = detector.h; path = ../../AlgTester/detector.h; sourceTree = "<group>"; };
+		F0395FE91A98365500EE1BF9 /* identified.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = identified.cpp; path = ../../AlgTester/identified.cpp; sourceTree = "<group>"; };
+		F0395FEB1A98366300EE1BF9 /* identified.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = identified.h; path = ../../AlgTester/identified.h; sourceTree = "<group>"; };
 		F0D848131A7768250043BEDD /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../opencv2.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,6 +113,10 @@
 		16B0529E1A5B4BDE007837B4 = {
 			isa = PBXGroup;
 			children = (
+				F0395FEB1A98366300EE1BF9 /* identified.h */,
+				F0395FE91A98365500EE1BF9 /* identified.cpp */,
+				F0395FE71A98360900EE1BF9 /* detector.h */,
+				F0395FE51A9835F700EE1BF9 /* detector.cpp */,
 				16B052A91A5B4BDE007837B4 /* DeveloperBuild */,
 				16B052C31A5B4BDF007837B4 /* DeveloperBuildTests */,
 				16B052A81A5B4BDE007837B4 /* Products */,
@@ -256,6 +268,7 @@
 				TargetAttributes = {
 					16B052A61A5B4BDE007837B4 = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = XZG8RJMGFK;
 					};
 					16B052BF1A5B4BDE007837B4 = {
 						CreatedOnToolsVersion = 6.1;
@@ -314,6 +327,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0395FEC1A98366300EE1BF9 /* identified.h in Sources */,
+				F0395FEA1A98365500EE1BF9 /* identified.cpp in Sources */,
+				F0395FE81A98360A00EE1BF9 /* detector.h in Sources */,
+				F0395FE61A9835F700EE1BF9 /* detector.cpp in Sources */,
 				16B052B31A5B4BDE007837B4 /* ViewController.m in Sources */,
 				16E2D49B1A64860900CA8845 /* ObsViewController.m in Sources */,
 				16A6D8481A636C6F00CB4563 /* ObsTableViewController.m in Sources */,
@@ -443,11 +460,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Jacob/SeniorProjects/iOS,
 					/Users/jamiemiller/LuminousMossBosses/iOS,
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "FORIPHONE=1";
 				INFOPLIST_FILE = DeveloperBuild/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -458,11 +478,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Jacob/SeniorProjects/iOS,
 					/Users/jamiemiller/LuminousMossBosses/iOS,
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = "";
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "FORIPHONE=1";
 				INFOPLIST_FILE = DeveloperBuild/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

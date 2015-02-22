@@ -1,53 +1,45 @@
-#include <opencv/cv.h>
+#ifdef FORIPHONE
+  #import <opencv2/opencv.hpp>
+#else
+  #include <opencv/cv.h>
+#endif
 #include <opencv2/core/core.hpp>
 #include <vector>
 using namespace cv;
 using namespace std;
 
-#include "identified.h"
 #include "detector.h"
 
-/*
+/**
+ * Constructor. This only isn't a static class so that the
+ * classifier only has to be read in from disc once.
+ */
+detector::detector(String flower_xml_name) {
+  // Load the given flower classifier.
+  if (!flower_cascade.load(flower_xml_name)) {
+    printf("Error loading cascade file.\n");
+    abort();
+  };
+}
+
+/**
  * Makes all non-pink pixels in am image black.
  */
 Mat detector::isolatePink(Mat image) {
-  Mat img_hsv;
+  Mat img_hsv, mask, img_filtered;
   cvtColor(image, img_hsv, COLOR_BGR2HSV);
-  Mat image3;
-  inRange(img_hsv, Scalar(140, 50, 100), Scalar(200, 255, 255), image3);
-  Mat image3_color, image3RGB;
-  cvtColor(image3, image3RGB, COLOR_GRAY2RGB);
-  bitwise_and(image3RGB, image, image3_color);
-  return image3_color;
+  inRange(img_hsv, Scalar(140, 50, 100), Scalar(200, 255, 255), mask);
+  image.copyTo(img_filtered, mask);
+  return img_filtered;
 }
 
-/*
- * Show Progress for debugging.
- * Displays the percentage of a current running process
- */
-void showProgress(int i, int total)
-{
-  int percent = floor((float)i/total*100);
-  int amount = percent/10;
-  cout << "\r" << percent << "% complete [";
-  cout << string(amount, '|') << string(10-amount,'-') << "]";
-  cout.flush();
-}
-
-/*
+/**
  * Detect flowers
+ * May miss flowers in corners while rotating image.
  */
 vector<identified> detector::findFlowers(Mat image) {
   // Parameters
   const int increment = 40; // For image rotation.
-
-  // Initialize classifier
-  String flower_cascade_name = "flower.xml";
-  CascadeClassifier flower_cascade;
-  if (!flower_cascade.load(flower_cascade_name)) {
-    printf("Error loading cascafe file.\n");
-    abort();
-  };
 
   // Initialize variables.
   vector<identified> found;
@@ -57,9 +49,7 @@ vector<identified> detector::findFlowers(Mat image) {
   double centery = image.rows/2.0;
   Point2f center(centerx, centery);
   
-  //cout << "Processing\n";
   for (int theta=0; theta<360; theta+=increment) {
-    //showProgress(theta, 360);
     // Rotate image
     temp = getRotationMatrix2D(center, -double(theta), 1.0);
     warpAffine(image, rotated, temp, image.size());
@@ -74,7 +64,7 @@ vector<identified> detector::findFlowers(Mat image) {
     flower_cascade.detectMultiScale(rotated_gray, flowers);
 
     // Convert detections to nonrotated coordinates.
-    for(size_t i = 0; i < flowers.size(); i++) {
+    for (size_t i = 0; i < flowers.size(); i++) {
       double rotated_locationx = flowers[i].x + flowers[i].width*0.5;
       double rotated_locationy = flowers[i].y + flowers[i].height*0.5;
       Point rotated_location(rotated_locationx, rotated_locationy);
@@ -105,13 +95,26 @@ vector<identified> detector::findFlowers(Mat image) {
       }
     }
   }
-  //showProgress(100,100);
-  //cout << endl;
   return found;
 }
 
 
-/*
+/**
+ * Takes an image and returns the same image with pink flowers circled in yellow.
+ */
+Mat detector::circlePinkFlowers(Mat image) {
+    Scalar color = Scalar(255, 255, 31);
+    Mat circledImage = image;
+    Mat pink = detector::isolatePink(image);
+    vector<identified> flower = detector::findFlowers(pink);
+    for (size_t i=0; i < flower.size(); i++) {
+        circle(circledImage, Point(flower[i].get_cvx(), flower[i].get_cvy()), flower[i].get_cvr(), color, 8);
+    }
+    return circledImage;
+}
+
+
+/**
  * True if it is silene, false if not.
  */
 bool detector::isThisSilene(Mat image) {
