@@ -3,6 +3,8 @@ package com.luminousmossboss.luminous;
 import org.opencv.core.Mat;
 import org.opencv.core.Scalar;
 
+import java.util.List;
+
 import static org.opencv.core.Core.inRange;
 import static org.opencv.imgproc.Imgproc.COLOR_BGR2HSV;
 import static org.opencv.imgproc.Imgproc.cvtColor;
@@ -31,5 +33,13 @@ public class FlowerDetector extends Detector
         image.copyTo(img_filtered, mask);
         return  img_filtered;
     }
-    
+
+    /**
+     * Detect flowers
+     * May miss flowers in corners while rotating image
+     */
+    public List<Identified> findFlowers(Mat image)
+    {
+        return null;
+    }
 }
