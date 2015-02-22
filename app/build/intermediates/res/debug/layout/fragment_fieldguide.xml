@@ -81,4 +81,4 @@
         android:layout_alignRight="@+id/description"
         android:layout_alignEnd="@+id/description" />
 
-</RelativeLayout><!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/layout/fragment_fieldguide.xml -->
+</RelativeLayout><!-- From: file:/home/aardevarken/documents/LMB/LuminousMossBosses/app/src/main/res/layout/fragment_fieldguide.xml -->

@@ -54,4 +54,4 @@
         android:layout_below="@+id/title"
         android:layout_toRightOf="@+id/icon"
         android:layout_toEndOf="@+id/icon" />
-</RelativeLayout><!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/layout/item_fieldguide.xml -->
+</RelativeLayout><!-- From: file:/home/aardevarken/documents/LMB/LuminousMossBosses/app/src/main/res/layout/item_fieldguide.xml -->

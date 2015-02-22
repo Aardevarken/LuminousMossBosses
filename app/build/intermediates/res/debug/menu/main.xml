@@ -19,4 +19,4 @@
           android:icon="@drawable/action_search"
           android:title="@string/action_settings"
           android:showAsAction="ifRoom|withText" />
-</menu><!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/menu/main.xml -->
+</menu><!-- From: file:/home/aardevarken/documents/LMB/LuminousMossBosses/app/src/main/res/menu/main.xml -->

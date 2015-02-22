@@ -5,4 +5,4 @@
     <item android:drawable="@drawable/round_button_pressed" android:state_focused="true"/>
 
     <item android:drawable="@drawable/round_button_normal"/>
-</selector><!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/drawable/round_button.xml -->
+</selector><!-- From: file:/home/aardevarken/documents/LMB/LuminousMossBosses/app/src/main/res/drawable/round_button.xml -->

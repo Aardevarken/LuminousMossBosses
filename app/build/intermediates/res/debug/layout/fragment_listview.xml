@@ -15,4 +15,4 @@
         android:dividerHeight="2dp"
         android:background="@color/list_bg"
         android:touchscreenBlocksFocus="false" />
-</RelativeLayout><!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/layout/fragment_listview.xml -->
+</RelativeLayout><!-- From: file:/home/aardevarken/documents/LMB/LuminousMossBosses/app/src/main/res/layout/fragment_listview.xml -->

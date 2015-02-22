@@ -4,4 +4,4 @@
     <solid android:color="@color/round_btn_nm_solid"/>
     <stroke android:width="10dp" android:color="@color/round_btn_nm_stroke" />
 
-</shape><!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/drawable/round_button_normal.xml -->
+</shape><!-- From: file:/home/aardevarken/documents/LMB/LuminousMossBosses/app/src/main/res/drawable/round_button_normal.xml -->

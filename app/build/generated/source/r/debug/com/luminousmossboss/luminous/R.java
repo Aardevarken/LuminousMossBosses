@@ -17,6 +17,32 @@ public final class R {
         public static final int nav_drawer_items=0x7f040005;
     }
     public static final class attr {
+        /** <p>May be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+<p>May be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>any</code></td><td>-1</td><td></td></tr>
+<tr><td><code>back</code></td><td>99</td><td></td></tr>
+<tr><td><code>front</code></td><td>98</td><td></td></tr>
+</table>
+         */
+        public static final int camera_id=0x7f010001;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int show_fps=0x7f010000;
     }
     public static final class color {
         public static final int fieldguide_bg_end=0x7f050000;
@@ -69,36 +95,40 @@ public final class R {
         public static final int silene_acaulis_img=0x7f020015;
     }
     public static final class id {
-        public static final int Field_Guide_button=0x7f080008;
-        public static final int action_settings=0x7f080013;
-        public static final int add_observation_button=0x7f080007;
-        public static final int counter=0x7f080012;
-        public static final int date=0x7f080010;
-        public static final int description=0x7f080005;
-        public static final int drawer_layout=0x7f080000;
-        public static final int fragment_layout=0x7f08000d;
-        public static final int fragment_list=0x7f08000e;
-        public static final int frame_container=0x7f080001;
-        public static final int grid=0x7f08000b;
-        public static final int icon=0x7f08000f;
-        public static final int imageView=0x7f080003;
-        public static final int list_slidermenu=0x7f080002;
-        public static final int locations_button=0x7f080006;
-        public static final int my_observation_button=0x7f08000a;
-        public static final int settings_button=0x7f080009;
-        public static final int status=0x7f080011;
-        public static final int textField_guide=0x7f08000c;
-        public static final int title=0x7f080004;
+        public static final int Field_Guide_button=0x7f08000d;
+        public static final int action_settings=0x7f080016;
+        public static final int add_observation_button=0x7f08000c;
+        public static final int any=0x7f080000;
+        public static final int back=0x7f080001;
+        public static final int button_show=0x7f08000a;
+        public static final int counter=0x7f080015;
+        public static final int date=0x7f080013;
+        public static final int description=0x7f080008;
+        public static final int drawer_layout=0x7f080003;
+        public static final int editText=0x7f080009;
+        public static final int fragment_layout=0x7f080010;
+        public static final int fragment_list=0x7f080011;
+        public static final int frame_container=0x7f080004;
+        public static final int front=0x7f080002;
+        public static final int icon=0x7f080012;
+        public static final int imageView=0x7f080006;
+        public static final int list_slidermenu=0x7f080005;
+        public static final int locations_button=0x7f08000b;
+        public static final int my_observation_button=0x7f08000f;
+        public static final int settings_button=0x7f08000e;
+        public static final int status=0x7f080014;
+        public static final int title=0x7f080007;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int fragment_fieldguide=0x7f030001;
-        public static final int fragment_home=0x7f030002;
-        public static final int fragment_home_exp=0x7f030003;
-        public static final int fragment_listview=0x7f030004;
-        public static final int item_fieldguide=0x7f030005;
-        public static final int item_myobservations=0x7f030006;
-        public static final int item_nav_drawer=0x7f030007;
+        public static final int edit_observation=0x7f030001;
+        public static final int fragment_editobservation=0x7f030002;
+        public static final int fragment_fieldguide=0x7f030003;
+        public static final int fragment_home=0x7f030004;
+        public static final int fragment_listview=0x7f030005;
+        public static final int item_fieldguide=0x7f030006;
+        public static final int item_myobservations=0x7f030007;
+        public static final int item_nav_drawer=0x7f030008;
     }
     public static final class menu {
         public static final int main=0x7f070000;
@@ -112,4 +142,59 @@ public final class R {
         public static final int fieldGuide_Location=0x7f060005;
         public static final int fieldGuide_observation=0x7f060006;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a CameraBridgeViewBase.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #CameraBridgeViewBase_camera_id com.luminousmossboss.luminous:camera_id}</code></td><td></td></tr>
+           <tr><td><code>{@link #CameraBridgeViewBase_show_fps com.luminousmossboss.luminous:show_fps}</code></td><td></td></tr>
+           </table>
+           @see #CameraBridgeViewBase_camera_id
+           @see #CameraBridgeViewBase_show_fps
+         */
+        public static final int[] CameraBridgeViewBase = {
+            0x7f010000, 0x7f010001
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.luminousmossboss.luminous.R.attr#camera_id}
+          attribute's value can be found in the {@link #CameraBridgeViewBase} array.
+
+
+          <p>May be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+<p>May be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>any</code></td><td>-1</td><td></td></tr>
+<tr><td><code>back</code></td><td>99</td><td></td></tr>
+<tr><td><code>front</code></td><td>98</td><td></td></tr>
+</table>
+          @attr name com.luminousmossboss.luminous:camera_id
+        */
+        public static final int CameraBridgeViewBase_camera_id = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.luminousmossboss.luminous.R.attr#show_fps}
+          attribute's value can be found in the {@link #CameraBridgeViewBase} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.luminousmossboss.luminous:show_fps
+        */
+        public static final int CameraBridgeViewBase_show_fps = 0;
+    };
 }

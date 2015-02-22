@@ -6,4 +6,4 @@
         android:startColor="@color/home_bg_start"
         android:endColor="@color/home_bg_end"
         android:type="linear"/>
-</shape><!-- From: file:/C:/Users/Brian/AndroidStudioProjects/Luminous/app/src/main/res/drawable/home_bg.xml -->
+</shape><!-- From: file:/home/aardevarken/documents/LMB/LuminousMossBosses/app/src/main/res/drawable/home_bg.xml -->
