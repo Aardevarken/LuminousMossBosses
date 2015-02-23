@@ -28,7 +28,7 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -rf *o $(EXECUTABLE)
+	rm -rf *o $(EXECUTABLE) test test_db
 
 demo1:
 	algTester samples/IMG_1997.jpg 40
@@ -37,3 +37,6 @@ demo2:
 	
 test:
 	g++ detector_test.cpp identified.cpp detector.cpp `pkg-config --libs --cflags opencv` -o test
+
+test_db:
+	g++ detector_test_db.cpp identified.cpp detector.cpp `pkg-config --libs --cflags opencv` -lmysqlcppconn -o test_db
