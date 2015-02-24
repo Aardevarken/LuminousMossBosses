@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Camera2.xcscheme</key>
+		<key>CameraApp.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,12 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>E6D454C21A6F4348006B1F09</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E6D454DB1A6F434A006B1F09</key>
+		<key>35791CBA171588890011FD1F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
