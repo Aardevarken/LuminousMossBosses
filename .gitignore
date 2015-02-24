@@ -10,3 +10,10 @@ Android/local.properties
 Android/.idea/workspace.xml
 Android/.idea/libraries
 Android/build
+Android/.idea/modules.xml
+Android/app/app.iml
+Android/app/build
+Android/openCVLibrary2410/build
+Android/openCVLibrary2410/openCVLibrary2410.iml
+Android/Android.iml
+Android/LuminousMossBosses.iml
