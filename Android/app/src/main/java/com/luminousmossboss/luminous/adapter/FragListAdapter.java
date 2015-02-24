@@ -30,7 +30,7 @@ public abstract class FragListAdapter extends BaseAdapter {
     protected View basicView(int position, View convertView){
         ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
         TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
-        imgIcon.setImageResource(listItems.get(position).getIcon());
+        imgIcon.setImageURI(listItems.get(position).getIcon());
         txtTitle.setText(listItems.get(position).getTitle());
 
         return convertView;

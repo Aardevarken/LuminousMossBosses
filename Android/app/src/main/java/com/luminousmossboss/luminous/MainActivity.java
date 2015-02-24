@@ -85,7 +85,8 @@ public class MainActivity extends Activity {
         navDrawerItems = new ArrayList<ListItem>();
 
         for (int i = 0; i < navMenuTitles.length; i++) {
-            navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], navMenuIcons.getResourceId(i, -1)));
+            Uri iconUri = Util.resIdToUri(this, navMenuIcons.getResourceId(i, -1));
+            navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], iconUri));
         }
         ((NavDrawerItem) navDrawerItems.get(3)).setCounterVisibility(true);
         ((NavDrawerItem) navDrawerItems.get(3)).setCount(2);

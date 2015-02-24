@@ -1,5 +1,7 @@
 package com.luminousmossboss.luminous.model;
 
+import android.net.Uri;
+
 public class NavDrawerItem extends ListItem{
 
     private String count = "0";
@@ -8,11 +10,11 @@ public class NavDrawerItem extends ListItem{
 
     public NavDrawerItem(){}
 
-    public NavDrawerItem(String title, int icon){
+    public NavDrawerItem(String title, Uri icon){
         super(title, icon);
     }
 
-    public NavDrawerItem(String title, int icon, boolean isCounterVisible, int count) {
+    public NavDrawerItem(String title, Uri icon, boolean isCounterVisible, int count) {
         super(title, icon);
         this.isCounterVisible = isCounterVisible;
         this.count = Integer.toString(count);
