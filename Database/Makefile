@@ -1,5 +1,5 @@
-EXECUTABLE=algTester
-SOURCES=main.cpp identified.cpp glshapes.cpp detector.cpp
+EXECUTABLE=findflowers
+SOURCES=findflowers.cpp ../AlgTester/identified.cpp ../AlgTester/detector.cpp
 
 CFLAGS=-c -Wall
 
@@ -12,7 +12,7 @@ else
 		CFLAGS+=$(LIBS)
 	endif
 	ifeq ($(UNAME_S),Linux)
-		LIBS=`pkg-config --libs --cflags opencv` -lglut -lGLU -lGL -lm 
+		LIBS=`pkg-config --libs --cflags opencv` -lGLU -lGL -lm 
 	endif
 endif
 
@@ -28,15 +28,5 @@ $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -rf *o $(EXECUTABLE) test test_db
+	rm -rf *~ *.o *.pyc $(EXECUTABLE)
 
-demo1:
-	algTester samples/IMG_1997.jpg 40
-demo2:
-	algTester samples/Silene_acaulis_Kalk-Polsternelke.jpg 40
-	
-test:
-	g++ detector_test.cpp identified.cpp detector.cpp `pkg-config --libs --cflags opencv` -o test
-
-test_db:
-	g++ detector_test_db.cpp identified.cpp detector.cpp `pkg-config --libs --cflags opencv` -lmysqlcppconn -o test_db

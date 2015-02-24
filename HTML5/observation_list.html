@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>Observations List</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src="js/bootstrap.min.js"></script>
+	<!-- List ajax script -->
+    <script src="js/util.js"></script>
+	<script src="js/list-viewer.js"></script>
+</head>
+<body>
+<!--
+	<div class="container">
+		<div id="observationholder" class="row">
+		</div>
+	</div> -->
+   <div class="container">
+    <div class="btn-group" role="group" aria-label="options">
+        <button type="button" class="btn btn-default" onclick="changeUrlByFilter('')">All</button>
+        <button type="button" class="btn btn-default" onclick="changeUrlByFilter('1')">Silene</button>
+        <button type="button" class="btn btn-default" onclick="changeUrlByFilter('0')">Not Silene</button>
+        <button type="button" class="btn btn-default" onclick="changeUrlByFilter('null')">Unconfirmed</button>
+    </div>
+    <table class ="table-striped table">
+        <thead>
+            <tr>
+                <td>ID</td><td>Icon</td><td>File Name</td><td>Date</td><td>Verified</td>
+            </tr>
+        </thead>
+        <tbody id="observationholder">
+        </tbody>
+    </table>
+    <div id="pages"></div>
+    </div> 
+</body>
