@@ -1,29 +1,31 @@
 package com.luminousmossboss.luminous.model;
 
+import android.net.Uri;
+
 /**
  * Created by Brian on 2/1/2015.
  */
 
 abstract public class ListItem {
     private String title;
-    private int icon;
+    private Uri icon;
 
     public ListItem() {}
 
-    public ListItem(String title, int icon) {
+    public ListItem(String title, Uri icon) {
         this.title = title;
         this.icon = icon;
     }
 
     public String getTitle() { return this.title; }
 
-    public int getIcon() { return this.icon; }
+    public Uri getIcon() { return this.icon; }
 
     public void setTitle(String title){
         this.title = title;
     }
 
-    public void setIcon(int icon){
+    public void setIcon(Uri icon){
         this.icon = icon;
     }
 

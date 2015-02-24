@@ -1,5 +1,7 @@
 package com.luminousmossboss.luminous.model;
 
+import android.net.Uri;
+
 /**
  * Created by Brian on 2/1/2015.
  */
@@ -12,11 +14,11 @@ public class FGListItem extends ListItem{
 
     public FGListItem() {}
 
-    public FGListItem(String title, int icon) {
+    public FGListItem(String title, Uri icon) {
         super(title, icon);
     }
 
-    public FGListItem(String title, int icon, String description) {
+    public FGListItem(String title, Uri icon, String description) {
         super(title, icon);
         this.description = shortenString(description,MAXCHAR);
     }

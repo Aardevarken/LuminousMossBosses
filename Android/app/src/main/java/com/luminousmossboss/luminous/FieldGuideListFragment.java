@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,15 +83,16 @@ public class FieldGuideListFragment extends Fragment{
         String[] listDescriptions = getResources().getStringArray(R.array.field_guide_description);
 
         this.mDrawerList = (ListView) rootView.findViewById(R.id.fragment_list);
-
+        this.context = container.getContext();
         this.listItems = new ArrayList<ListItem>();
 
         for (int i = 0; i < listTitles.length; i++) {
-            listItems.add(new FGListItem(listTitles[i], listIcons.getResourceId(i, -1), listDescriptions[i]));
+            Uri iconUri = Util.resIdToUri(context,listIcons.getResourceId(i, -1) );
+            listItems.add(new FGListItem(listTitles[i], iconUri, listDescriptions[i]));
         }
         listIcons.recycle();
 
-        context = container.getContext();
+
         adapter = new FGListAdapter(context, listItems);
         mDrawerList.setAdapter(adapter);
     }
