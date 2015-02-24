@@ -1,0 +1,12 @@
+cmake_install.cmake
+CMakeCache.txt
+CMakeFiles
+example.o
+example
+Demo/Makefile
+.DS_Store
+Android/.gradle
+Android/local.properties
+Android/.idea/workspace.xml
+Android/.idea/libraries
+Android/build
