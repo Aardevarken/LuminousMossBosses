@@ -4,7 +4,6 @@ Written By.....Brian Bauer
 '''
 from dbhandler.database import db_session
 
-position = 10
 
 def main():
     testTable('DetectionObject')
@@ -12,7 +11,7 @@ def main():
 
 def testTable(name):
     table = getattr(__import__("dbhandler.models", fromlist=[name]), name)
-    print table.query.get(position)
+    print table.query.first()
 
 '''
 Code below is not suitable for testing however was a great way to help me understand SQLALchemy

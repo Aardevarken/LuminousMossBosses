@@ -1,13 +1,13 @@
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash, jsonify
-import json, md5
+import json, sha
 from dbhandler.database import db_session
 from dbhandler.models import Observation, DetectionObject 
 
 # configuration
-DEBUG = True# Change this to false when put into production 
+DEBUG = False# Change this to false when put into production 
 SECRET_KEY = '90b70bfa992696d63140ca63fcb035cf'
 USERNAME = 'admin'
-PASSWORD = '6218c7f5725db2bfc32d0b413e24a8a7'
+PASSWORD = '19b95897c63fcc7b81d90396ce28bf94dedc67e9'
 
 # initiate application
 app = Flask(__name__)
@@ -29,7 +29,7 @@ def login():
     if request.method == 'POST':
         if request.form['username'] != app.config['USERNAME']:
             error = 'Invalid username'
-        elif md5.new(request.form['password']).hexdigest() != app.config['PASSWORD']:
+        elif sha.new(request.form['password']).hexdigest() != app.config['PASSWORD']:
             error = 'Invalid password'
         else:
             session['logged_in'] = True
@@ -78,8 +78,8 @@ def observation_view():
 
 @app.route('/_get_observation_data')
 def get_observation_data():
-    if not session.get('logged_in'):
-        return redirect(url_for('login'))
+    #if not session.get('logged_in'):
+    #    return redirect(url_for('login'))
     page = request.args.get('imageid', 0, type=int)
     observation = db_session().query(Observation.FileName).filter(Observation.ObsID == page).first()
     observation_object = db_session().query(DetectionObject.XCord, DetectionObject.YCord, DetectionObject.Radius, DetectionObject.IsUserDetected).filter(DetectionObject.ParentObsID == page).all()
