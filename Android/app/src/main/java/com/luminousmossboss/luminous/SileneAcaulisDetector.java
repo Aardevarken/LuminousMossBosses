@@ -13,9 +13,9 @@ import static org.opencv.imgproc.Imgproc.cvtColor;
  * Created by aardevarken on 2/22/15.
  * adapted from detector.cpp and detector.h by Jamie Miller
  */
-public class FlowerDetector extends Detector
+public class SileneAcaulisDetector extends Detector
 {
-    public FlowerDetector(String flower_xml_name)
+    public SileneAcaulisDetector(String flower_xml_name)
     {
         super(flower_xml_name);
     }
