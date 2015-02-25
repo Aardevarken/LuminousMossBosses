@@ -1,0 +1,101 @@
+package com.luminousmossboss.luminous;
+
+import android.app.Activity;
+import android.app.Fragment;
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+
+import com.luminousmossboss.luminous.DbHandler;
+import com.luminousmossboss.luminous.FieldGuideFragment;
+import com.luminousmossboss.luminous.MainActivity;
+import com.luminousmossboss.luminous.R;
+import com.luminousmossboss.luminous.Util;
+import com.luminousmossboss.luminous.adapter.ObservationListAdapter;
+import com.luminousmossboss.luminous.model.FGListItem;
+import com.luminousmossboss.luminous.model.ListItem;
+import com.luminousmossboss.luminous.model.ObservationListItem;
+
+import java.io.File;
+import java.util.ArrayList;
+
+/**
+ *
+ * Created by Brian on 2/1/2015.
+ */
+
+public class ObservationListFragment extends Fragment{
+
+    private Context context;
+    private String mTitle;
+
+    private ListView mDrawerList;
+
+    private ObservationListAdapter adapter;
+    private ArrayList<ListItem> listItems;
+    private DbHandler db;
+
+    public ObservationListFragment(){}
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.fragment_listview, container, false);
+        final Activity activity = getActivity();
+        this.db = new DbHandler(activity);
+        initList(rootView, container);
+
+
+
+        //To be implemented for selectin individual observations
+        /*this.mDrawerList.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(activity instanceof MainActivity) {
+                    CharSequence fragTitle = listItems.get(position).getTitle();
+                    Fragment fragment = null;
+                    fragment = new FieldGuideFragment();
+                    ((MainActivity) activity).setTitle(fragTitle);
+                    ((MainActivity) activity).displayView(fragment);
+                }
+            }
+        });
+    */
+        return rootView;
+    }
+
+    /**
+     * Initial Items in ListView
+     * @param rootView
+     * @param container
+     */
+    private void initList(View rootView, ViewGroup container) {
+
+
+        this.mDrawerList = (ListView) rootView.findViewById(R.id.fragment_list);
+        this.context = container.getContext();
+        this.listItems = new ArrayList<ListItem>();
+        Cursor cursor = db.getAllObservation();
+
+        if (cursor.moveToFirst())
+            do{
+                Uri iconUri = Uri.fromFile(new File(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_PHOTO_PATH))));
+                listItems.add(new ObservationListItem("Siline", iconUri));
+
+            }while(cursor.moveToNext());
+
+
+
+        adapter = new ObservationListAdapter(context, listItems);
+        mDrawerList.setAdapter(adapter);
+    }
+}

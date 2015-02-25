@@ -11,7 +11,11 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:src="@drawable/ic_home"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:minHeight="1dp"
+        android:minWidth="1dp"
+        android:maxHeight="96dp"
+        android:maxWidth="96dp" />
 
     <TextView
         android:id="@+id/title"

@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -16,7 +15,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -212,7 +210,7 @@ public class MainActivity extends Activity {
                 icon = R.drawable.ic_home;
                 break;
             case 2:
-                fragment = new ObservationFragment();
+                fragment = new ObservationListFragment();
                 icon = R.drawable.ic_notepage;
                 break;
             case 3:
