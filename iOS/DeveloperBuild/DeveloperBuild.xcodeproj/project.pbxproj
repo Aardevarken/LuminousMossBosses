@@ -465,6 +465,7 @@
 					"$(inherited)",
 					/Users/Jacob/SeniorProjects/iOS,
 					/Users/jamiemiller/LuminousMossBosses/iOS,
+					/Users/jackdskinner/Dropbox/LuminousMossBosses/iOS,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "FORIPHONE=1";
@@ -483,6 +484,7 @@
 					"$(inherited)",
 					/Users/Jacob/SeniorProjects/iOS,
 					/Users/jamiemiller/LuminousMossBosses/iOS,
+					/Users/jackdskinner/Dropbox/LuminousMossBosses/iOS,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "FORIPHONE=1";
