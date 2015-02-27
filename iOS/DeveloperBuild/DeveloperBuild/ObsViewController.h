@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NewObs.h"
 
 @interface ObsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) NSMutableArray *myObservations;
+@property (nonatomic, strong) NSMutableArray * myObservations;
+@property (nonatomic, strong) NSMutableArray * observationsArray;
+@property (nonatomic, strong) NSMutableArray * imageArray;
+@property (nonatomic, strong) NSMutableArray * json;
+
 
 @end

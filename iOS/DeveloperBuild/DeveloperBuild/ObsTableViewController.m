@@ -11,16 +11,25 @@
 #import "ObsTableViewController.h"
 #import "ObservationCell.h"
 
+@interface ObsTableViewController ()
+
+@end
+
+#define getDataURL @"http://flowerid.cheetahjokes.com/cgi-bin/observations.py"
+#define MAX_NUMB_DISPLAYED 10
 
 @implementation ObsTableViewController
+@synthesize json, observationsArray;
 
 NSMutableArray *_observations;
 int hit = 0;
+
 
 - (void) viewDidLoad
 {
 	[super viewDidLoad];
 	
+	/*
 //	NSLog(@"In ObsTableViewController");
 	_observations = [NSMutableArray arrayWithCapacity:20];
 	
@@ -48,6 +57,9 @@ int hit = 0;
 	
 	self.observations = _observations;
 	//	obsViewController.observations = _observations;
+	*/
+	[self retrieveData];
+	
 	
 }
 
@@ -88,6 +100,33 @@ int hit = 0;
 	percentLabel.text = observation.percent;
 	*/
 	return cell;
+}
+
+- (void) retrieveData
+{
+	NSURL* url = [NSURL URLWithString:getDataURL];
+	NSData* data = [NSData dataWithContentsOfURL:url];
+	
+	json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+	
+	// set up array
+	observationsArray = [[NSMutableArray alloc] init];
+	
+	for (int i = 0; i < json.count && i < MAX_NUMB_DISPLAYED; i++){
+		
+		// print what was retreived for debugging.
+		NSLog(@"#%d: %@", i , [json objectAtIndex:i]);
+		
+		// create objects
+		NSString * newFileName = [[json objectAtIndex:i] objectForKey:@"FileName"];
+		NSNumber * newImageID = [[json objectAtIndex:i] objectForKey:@"ImageID"];
+		NSNumber * newObsID = [[json objectAtIndex:i] objectForKey:@"ObsID"];
+		
+		NewObs * newObs = [[NewObs alloc]initWithFileName:newFileName andImageID:newImageID andObsID:newObsID];
+		
+		[observationsArray addObject:newObs];
+	}
+
 }
 
 @end

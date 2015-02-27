@@ -15,8 +15,11 @@
 
 @end
 
-@implementation ObsViewController
+#define getDataURL @"http://flowerid.cheetahjokes.com/cgi-bin/observations.py"
+#define MAX_NUMB_DISPLAYED 5
 
+@implementation ObsViewController
+@synthesize json, observationsArray;
 NSMutableArray *_myObservations;
 
 - (void)viewDidLoad {
@@ -51,7 +54,7 @@ NSMutableArray *_myObservations;
 	
 	self.myObservations = _myObservations;
 
-	
+	[self retrieveData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,22 +69,119 @@ NSMutableArray *_myObservations;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [self.myObservations count];
+	//return [self.myObservations count];
+	return [self.observationsArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	
 	ObservationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ObservationCell_ID"];
-	Observation *myObservation = [self.myObservations objectAtIndex:indexPath.row];
+	NewObs *myObservation = [self.observationsArray objectAtIndex:indexPath.row];
 	
+	/*
 	cell.nameLabel.text = myObservation.name;
 	cell.dateLabel.text = myObservation.date;
 	cell.percentLabel.text = myObservation.percent;
+	*/
 	
+	/*
+	
+	cell.nameLabel.text = myObservation.FileName;
+	cell.dateLabel.text = [NSString stringWithFormat:@"ImageID: %@",myObservation.ImageID];
+	cell.percentLabel.text = @"";
+	
+	//[self retriveImage: myObservation.FileName];
+	
+	//	"http://flowerid.cheetahjokes.com/pics/silene/"
+	//cell.plantImageView.image = [[UIImageView alloc] init];
+	//cell.plantImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"http://flowerid.cheetahjokes.com/pics/silene/%@", myObservation.FileName]];
+	
+	NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[NSString stringWithFormat: @"http://flowerid.cheetahjokes.com/pics/silene/%@", myObservation.FileName]]];
+	if ( data == nil )
+		return cell;
+	// WARNING: is the cell still using the same data by this point??
+	cell.plantImageView.image = [UIImage imageWithData: data];
+
+		//[data release];
+	
+	//cell.plantImageView.image = [self getImageFromURL:myObservation.FileName];
+	 
+	 */
 	return cell;
 }
 
+
+- (void) retrieveData
+{
+	NSURL* url = [NSURL URLWithString:getDataURL];
+	NSData* data = [NSData dataWithContentsOfURL:url];
+	
+	json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+	
+	// set up array
+	observationsArray = [[NSMutableArray alloc] init];
+	
+	for (int i = 0; i < json.count && i < MAX_NUMB_DISPLAYED; i++){
+		
+		// print what was retreived for debugging.
+		NSLog(@"#%d: %@", i , [json objectAtIndex:i]);
+		
+		// create objects
+		NSString * newFileName = [[json objectAtIndex:i] objectForKey:@"FileName"];
+		NSNumber * newImageID = [[json objectAtIndex:i] objectForKey:@"ImageID"];
+		NSNumber * newObsID = [[json objectAtIndex:i] objectForKey:@"ObsID"];
+		
+		NewObs * newObs = [[NewObs alloc]initWithFileName:newFileName andImageID:newImageID andObsID:newObsID];
+		
+		[observationsArray addObject:newObs];
+	}
+	
+}
+
+- (UIImage *) retriveImage: (NSString *) fName
+{
+	NSURL* url = [NSURL URLWithString:[NSString stringWithFormat: @"http://flowerid.cheetahjokes.com/pics/silene/%@", fName]];
+	NSData* data = [NSData dataWithContentsOfURL:url];
+	
+	json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+	
+	// set up array
+	
+	//observationsArray = [[NSMutableArray alloc] init];
+	/*
+	for (int i = 0; i < json.count && i < MAX_NUMB_DISPLAYED; i++){
+		
+		// print what was retreived for debugging.
+		NSLog(@"#%d: %@", i , [json objectAtIndex:i]);
+		
+		// create objects
+		NSString * newFileName = [[json objectAtIndex:i] objectForKey:@"FileName"];
+		NSNumber * newImageID = [[json objectAtIndex:i] objectForKey:@"ImageID"];
+		NSNumber * newObsID = [[json objectAtIndex:i] objectForKey:@"ObsID"];
+		
+		NewObs * newObs = [[NewObs alloc]initWithFileName:newFileName andImageID:newImageID andObsID:newObsID];
+		
+		[observationsArray addObject:newObs];
+	}
+	*/
+	
+	NSLog(@"%@", [json objectAtIndex:0]);
+	
+	UIImage * newImage = [json objectAtIndex:0];
+	
+	return newImage;
+
+}
+
+-(UIImage *) getImageFromURL:(NSString *)fName {
+	UIImage * result;
+	
+	NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://flowerid.cheetahjokes.com/pics/silene/%@", fName]]];
+	result = [UIImage imageWithData:data];
+	
+	return result;
+}
 
 /*
 #pragma mark - Navigation
