@@ -8,14 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import <opencv2/opencv.hpp>		// Change this later so that only
-									// the needed opencv files are
-									// included.
+#import "detector.h"
 
 @interface ViewController : UIViewController <UIScrollViewDelegate> {
-	cv::CascadeClassifier flower_cc;
-	cv::HOGDescriptor bow;
-	cv::LatentSvmDetector svm;
 	
 	NSArray *testImages;
 	NSUInteger numberOfImages;

@@ -152,7 +152,7 @@ void identified::set_glx(double n, int width, double asp_src){
  */
 void identified::set_gly(double n, int height, double asp_src){
 	gly = n; 
-	y = convertToCVy(y, height);
+	y = convertToCVy(gly, height);
 }
 
 /*
@@ -160,7 +160,7 @@ void identified::set_gly(double n, int height, double asp_src){
  */
 void identified::set_glr(double n, int width, int height, double asp_src){
 	glr = n; 
-	r = convertToCVr(r, width, height, asp_src); 
+	r = convertToCVr(glr, width, height, asp_src); 
 }
 
 /*
