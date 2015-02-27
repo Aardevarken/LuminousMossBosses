@@ -1,7 +1,9 @@
 package com.luminousmossboss.luminous;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,9 +14,12 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +38,10 @@ import android.widget.Toast;
 import com.luminousmossboss.luminous.adapter.NavDrawerListAdapter;
 import com.luminousmossboss.luminous.model.ListItem;
 import com.luminousmossboss.luminous.model.NavDrawerItem;
+
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Mat;
+import org.opencv.android.Utils;
 
 
 public class MainActivity extends Activity {
@@ -317,13 +326,19 @@ public class MainActivity extends Activity {
             }
         } // switch
     }
-
+    static {
+        if (!OpenCVLoader.initDebug())
+        {
+            System.exit(-1);
+        }
+    }
     private void handlePhoto(Intent intent)
     {
+
         Location loc = mGPS.getLocation();
         if( loc == null || (loc.getLatitude() == 0 && loc.getLongitude() == 0))
         {
-            Toast.makeText(this, "No Location available yet. PLease take another photo when locatoion available", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No Location available yet. PLease take another photo when location available", Toast.LENGTH_LONG).show();
         }
         else if(mCurrentPhotoPath == null)
         {
@@ -332,7 +347,48 @@ public class MainActivity extends Activity {
         else
         {
 
-            Toast.makeText(this, "We have you image: " + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
+            /*
+             * Creates the sileneclassifer.xml file on the device to pass to the
+             * SileneAcaulisDetector constructor
+             * Adapted from Eduardo's answer at stackoverflow.com/questions/17189214
+             */
+            InputStream is = getResources().openRawResource(R.raw.sileneclassifier);
+            File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
+            File mCascadeFile = new File(cascadeDir, "sileneclassifier.xml");
+            try
+            {
+                FileOutputStream os = new FileOutputStream(mCascadeFile);
+
+                byte[] buff = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = is.read(buff)) != -1)
+                {
+                    os.write(buff, 0, bytesRead);
+                }
+                is.close();
+                os.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+                Log.v("MainActivity", "Failed to load silene classifier. Exception thrown: " + e);
+            }
+            // create the detector
+            SileneAcaulisDetector sileneDetector = new SileneAcaulisDetector(mCascadeFile.getAbsolutePath());
+            // create an OpenCV Mat from the current photo
+            Mat matImage = new Mat();
+            Bitmap bitmapImage = BitmapFactory.decodeFile(mCurrentPhotoPath);
+            Utils.bitmapToMat(bitmapImage, matImage);
+            boolean wasPicSilene = sileneDetector.isThisSilene(matImage);
+            if (wasPicSilene)
+            {
+                Toast.makeText(this, "We have your SILENE!!! image: " + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                Toast.makeText(this, "We have your image: " + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
+            }
+
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ", Locale.US);
             String timeNow = sdf.format(new Date());
             HashMap<String, String> map = new HashMap<String, String>();

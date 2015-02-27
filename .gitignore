@@ -17,3 +17,6 @@ Android/openCVLibrary2410/build
 Android/openCVLibrary2410/openCVLibrary2410.iml
 Android/Android.iml
 Android/LuminousMossBosses.iml
+Android/.idea/dictionaries
+Android/.idea/misc.xml
+Android/app/src/main/jniLibs

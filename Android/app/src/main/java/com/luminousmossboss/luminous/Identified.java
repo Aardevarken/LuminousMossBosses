@@ -1,7 +1,8 @@
 package com.luminousmossboss.luminous;
 
 /**
- * Created by aardevarken on 2/22/15.
+ * Created by Morgan Garske on 2/22/15.
+ * Adapted from identified.h by Brian Bauer
  */
 public class Identified {
     private boolean OpenCV; // if it was identified by opencv or human input

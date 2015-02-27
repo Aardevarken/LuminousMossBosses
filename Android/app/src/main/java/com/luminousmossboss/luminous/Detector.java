@@ -2,7 +2,7 @@ package com.luminousmossboss.luminous;
 import org.opencv.objdetect.CascadeClassifier;
 
 /**
- * Created by aardevarken on 2/22/15.
+ * Created by Morgan Garske on 2/22/15.
  * adapted from detector.cpp and detector.h by Jamie Miller
  */
 public abstract class Detector
@@ -19,8 +19,7 @@ public abstract class Detector
         }
     }
 
-
-
-
-
+    public CascadeClassifier getClassifier() {
+        return classifier;
+    }
 }
