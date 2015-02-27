@@ -9,22 +9,28 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<style>
 		canvas {
-			background-color: gray;
-		    border-style: inset;
-		    border-width: 5px;
+            background-color: gray;
+            border-style: inset;
+		    border-width: 6px;
 		    border-color: green;
-		    
-		}
+        }
+        .canvas_holder{
+            height: 100%;
+            
+        }
+        .centered {
+            text-align: center;
+        }
 	</style>
 
 </head>
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-2">
+			<div class="col-md-2" id="tools_div">
 				<hr>
 				<h4> Navigation </h4>
-				<center>
+                <center>
 				<div class="btn-group" role="group">
 					<button onclick="zoomIn()" type="button" class="btn btn-default" aria-label="Left Align">
 						<span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
@@ -47,27 +53,30 @@
 						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 					</button>
 				</div>
-				<button onclick="resetView()" class="btn btn-default" aria-label="Left Align">
-					<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Reset View
-				</button>
-				</center>
+                <div class="btn-group" role="group">
+                    <button onclick="resetView()" class="btn btn-default" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Reset View
+                    </button>
+                </div>
+                </center>
 				<hr>
 				<h4> Image Processing </h4>
-				<center>
-				<button id="add" onclick="addEntry()" class="btn btn-default btn-block" aria-label="Left Align">
+                <center>
+				<button id="add" onclick="addEntry()" class="btn btn-default " aria-label="Left Align">
 					Add
 				</button>
-				<button id="remove" onclick="removeEntry()" class="btn btn-default btn-block" aria-label="Left Align">
+				<button id="remove" onclick="removeEntry()" class="btn btn-default " aria-label="Left Align">
 					Remove
 				</button>
-				<button id="mtrue" onclick="markTrue()" class="btn btn-default btn-block" aria-label="Left Align">
+				<button id="mtrue" onclick="markTrue()" class="btn btn-default" aria-label="Left Align">
 					Mark True
 				</button>
-				<button id="mfalse" onclick="markFalse()" class="btn btn-default btn-block" aria-label="Left Align">
+				<button id="mfalse" onclick="markFalse()" class="btn btn-default" aria-label="Left Align">
 					Mark False
 				</button>
-				</center>
+                </center>
 				<hr>
+                <div class="hidden-xs hidden-sm">
 				<h4> Keyboard Shortcuts </h4>
 				<kbd>w</kbd> to zoom in 				<br/>
 				<kbd>s</kbd> to zoom out 				<br/>
@@ -80,32 +89,48 @@
 				<kbd>ctrl</kbd> select multiple entries <br/>
 				<kbd>h,j,k,l</kbd> shift view 			<br/>
 				<hr>
+                </div>
 			</div>
-			<div class="col-md-1">
-				<canvas id="image_viewer" width="910" height="700">Site requires HTML5</canvas>
-			</div>
-		</div>
+			<div class="col-md-9 image_div canvas_holder" id="canvas_div">
+                <canvas id="image_viewer" style="width: 100%;">Site requires HTML5</canvas>
+                
+            </div>
+            </div>
+        <div class="row" style="text-align: center">
+                    <ul class="list-inline banner-social-buttons">
+                    <li>
+                        <a id="prepage" class="btn btn-default btn-lg" href="">Previous Page</a></li>
+                    <li>
+                        <a id="nextpage" class="btn btn-default btn-lg" href="">Next Page</a>
+                    </li>
+                    </ul>
+        </div>
 		<div class="row">
 			<table class="table table-striped">
 				<tr>
-					<td><b>File Name:</b></td><td>IMG_1997.jpg</td>
+					<td><b>File Name:</b></td><td id="observation_filename"></td>
 				</tr>
 				<tr>
-					<td><b>Accuracy:</b></td><td>80%</td>
+					<td><b>Date:</b></td><td id="observation_date"></td>
 				</tr>
 				<tr>
-					<td><b>Rotation Rate:</b></td><td>10 degrees</td>
+					<td><b>Latitude:</b></td><td id="observation_latitude"></td>
 				</tr>
 				<tr>
-					<td><b>Flowers Found:</b></td><td>15</td>
+					<td><b>Longitude:</b></td><td id="observation_longitude"></td>
 				</tr>
+                <tr>
+                    <td><b>Verified As Silene:</b></td><td id="observation_isPlant"></td>
+                </tr>
 			</table>
 		</div>
 	</div>
-	<!-- HTML5 image viewer -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+    <script src="js/jquery.min.js"></script>
+    <!-- HTML5 image viewer -->
+    <script src="js/util.js"></script>
 	<script src="js/image-viewer.js"></script>
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 </body>

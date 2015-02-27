@@ -15,11 +15,22 @@ endif
 
 CC=g++
 
+all: build_vocab_db build_vocab bow_train_db bow_train bow_test_db bow
+
+build_vocab_db: build_vocab_db.o
+	$(CC) build_vocab_db.o $(LIBS) -lmysqlcppconn -o $@
+
 build_vocab: build_vocab.o
 	$(CC) build_vocab.o $(LIBS) -o $@
 
+bow_train_db: bow_train_db.o
+	$(CC) bow_train_db.o $(LIBS) -lmysqlcppconn -o $@
+
 bow_train: bow_train.o
 	$(CC) bow_train.o $(LIBS) -o $@
+
+bow_test_db: bow_test_db.o
+	$(CC) bow_test_db.o $(LIBS) -lmysqlcppconn -o $@
 
 bow: bow.o
 	$(CC) bow.o $(LIBS) -o $@
@@ -28,7 +39,7 @@ bow: bow.o
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm -rf *o *~ build_vocab bow_train bow
+	rm -rf *o *~ build_vocab bow_train bow build_vocab_db bow_train_db bow_test_db
 	
 demo:
 	./example IMG_1997.jpg

@@ -24,26 +24,32 @@ DROP TABLE IF EXISTS `images`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `images` (
   `ImageID` int(11) NOT NULL AUTO_INCREMENT,
-  `Location` varchar(128) DEFAULT NULL,
-  `FileName` varchar(32) DEFAULT NULL,
+  `Location` varchar(256) DEFAULT NULL,
+  `FileName` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`ImageID`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `objlocations`
+-- Table structure for table `detection_objects`
 --
 
-DROP TABLE IF EXISTS `objlocations`;
+DROP TABLE IF EXISTS `detection_objects`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `objlocations` (
-  `ImageID` int(11) NOT NULL,
+CREATE TABLE `detection_objects` (
+  `ObjectID` int(11) NOT NULL AUTO_INCREMENT,
+  `ParentImageID` int(11) NOT NULL,
   `XCord` int(11) NOT NULL,
   `YCord` int(11) NOT NULL,
   `Radius` int(11) NOT NULL,
-  KEY `ImageID` (`ImageID`),
-  CONSTRAINT `objlocations_ibfk_1` FOREIGN KEY (`ImageID`) REFERENCES `images` (`ImageID`)
+  `IsPosDetect` tinyint(1) DEFAULT NULL,
+  `IsUserDetected` tinyint(1) DEFAULT NULL,
+  `FileName` varchar(256) DEFAULT NULL,
+  `Location` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`ObjectID`),
+  KEY `ParentImageID` (`ParentImageID`),
+  CONSTRAINT `detection_objects_ibfk_1` FOREIGN KEY (`ParentImageID`) REFERENCES `images` (`ImageID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -55,21 +61,22 @@ DROP TABLE IF EXISTS `observations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `observations` (
+  `ObsID` int(11) NOT NULL AUTO_INCREMENT,
   `Time` time DEFAULT NULL,
   `Date` date DEFAULT NULL,
   `Latitude` float(9,4) DEFAULT NULL,
   `Longitude` float(9,6) DEFAULT NULL,
-  `ImageURL` varchar(50) DEFAULT NULL,
-  `DiskLoction` varchar(128) DEFAULT NULL,
-  `ObsID` int(11) NOT NULL AUTO_INCREMENT,
+  `ImageURL` varchar(256) DEFAULT NULL,
+  `DiskLoction` varchar(256) DEFAULT NULL,
   `ImageID` int(11) NOT NULL DEFAULT '0',
   `Username` varchar(16) DEFAULT NULL,
+  `IsSilene` boolean DEFAULT NULL,
   PRIMARY KEY (`ObsID`),
   KEY `ImageID` (`ImageID`),
   KEY `user_obs` (`Username`),
   CONSTRAINT `observations_ibfk_1` FOREIGN KEY (`ImageID`) REFERENCES `images` (`ImageID`),
   CONSTRAINT `user_obs` FOREIGN KEY (`Username`) REFERENCES `users` (`Username`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,16 +87,16 @@ DROP TABLE IF EXISTS `testresults`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `testresults` (
+  `TestID` int(11) NOT NULL AUTO_INCREMENT,
   `XMLID` int(11) NOT NULL,
   `ProbCorrectID` float(6,5) DEFAULT NULL,
   `PerFalsePos` float(6,5) DEFAULT NULL,
   `PerFalseNeg` float(6,5) DEFAULT NULL,
   `PerUnknowns` float(6,5) DEFAULT NULL,
-  `TestID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`TestID`),
   KEY `XMLID` (`XMLID`),
   CONSTRAINT `testresults_ibfk_1` FOREIGN KEY (`XMLID`) REFERENCES `xmldata` (`XMLID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,12 +124,11 @@ DROP TABLE IF EXISTS `training`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `training` (
-  `ObsID` int(11) NOT NULL,
+  `ObjectID` int(11) NOT NULL,
   `XMLID` int(11) NOT NULL,
-  `ImagePos` bit(1) DEFAULT NULL,
-  KEY `ObsID` (`ObsID`),
+  KEY `ObjectID` (`ObjectID`),
   KEY `XMLID` (`XMLID`),
-  CONSTRAINT `training_ibfk_1` FOREIGN KEY (`ObsID`) REFERENCES `observations` (`ObsID`),
+  CONSTRAINT `training_ibfk_1` FOREIGN KEY (`ObjectID`) REFERENCES `detection_objects` (`ObjectID`),
   CONSTRAINT `training_ibfk_2` FOREIGN KEY (`XMLID`) REFERENCES `xmldata` (`XMLID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -155,8 +161,8 @@ DROP TABLE IF EXISTS `validplants`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `validplants` (
-  `PlantName` varchar(32) DEFAULT NULL,
   `ScientificName` varchar(32) NOT NULL,
+  `PlantName` varchar(32) DEFAULT NULL,
   `Description` blob,
   PRIMARY KEY (`ScientificName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -170,14 +176,14 @@ DROP TABLE IF EXISTS `xmldata`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `xmldata` (
-  `FileName` varchar(20) NOT NULL,
+  `XMLID` int(11) NOT NULL AUTO_INCREMENT,
+  `FileName` varchar(256) NOT NULL,
   `CreationDate` date DEFAULT NULL,
   `CreationTime` time DEFAULT NULL,
   `TestName` varchar(20) NOT NULL,
-  `XMLID` int(11) NOT NULL AUTO_INCREMENT,
   `AppVersion` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`XMLID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

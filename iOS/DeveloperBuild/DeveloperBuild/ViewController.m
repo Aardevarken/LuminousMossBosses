@@ -12,7 +12,7 @@
 
 #import "ViewController.h"
 #import "opencv2/highgui/ios.h"	// UIImageToMat()
-
+#import "detector.h"
 
 @interface ViewController ()
 //-(void) centerScrollViewContents;
@@ -39,11 +39,6 @@
 	testImages = @[@"IMG_1976.jpg", @"IMG_1997.jpg", @"IMG_2003.jpg", @"IMG_2278.jpg", @"minuartia1.jpg"];
 	numberOfImages = [testImages count];
 	currentImage = 0;
-	
-	NSString* cPath = [[NSBundle mainBundle]
-					   pathForResource:@"flower30"
-					   ofType:@"xml"];
-	flower_cc.load([cPath UTF8String]);
 	
 	// display the first image
 	[self displayImage];
@@ -81,35 +76,24 @@
 -(void) displayImage
 {
 	// For debugging
-//	NSLog(@"Image:%@ Index:%li", testImages[currentImage], currentImage);
+    //	NSLog(@"Image:%@ Index:%li", testImages[currentImage], currentImage);
 	
 	// Update the label to the name of the current image
 	nameOfCurrentImage.text = [NSString stringWithFormat:@"%@", testImages[currentImage]];
 	
 	// Load image
 	UIImage* image = [UIImage imageNamed:testImages[currentImage]];
-	cv::Mat detectedImage;
-	UIImageToMat(image, detectedImage);
+	Mat cvImage;
+	UIImageToMat(image, cvImage);
+    
+    // Load OpenCV classifier
+    NSString* cPath = [[NSBundle mainBundle]
+                       pathForResource:@"flower25"
+                       ofType:@"xml"];
+    detector flowerDetector = detector([cPath UTF8String]);
 	
-	// Convert image to grayscale
-	cv::Mat gray;
-	cvtColor(detectedImage, gray, CV_BGR2GRAY);
-	
-	// Detect
-	std::vector<cv::Rect> ids;
-	flower_cc.detectMultiScale(gray, ids, 1.1, 2, 0|CV_HAAR_SCALE_IMAGE, cv::Size(30, 30));
-	
-	// Draw all detections
-	for(int i = 0; i < ids.size(); ++i){
-		const cv::Rect& imgDet = ids[i];
-		// Get top-left and bottome-right corner points
-		cv::Point tl(imgDet.x, imgDet.y);
-		cv::Point br = tl + cv::Point(imgDet.width, imgDet.height);
-		
-		// Draw rectangle around the face
-		cv::Scalar recColor = cv::Scalar(255, 255, 31);
-		cv::rectangle(detectedImage, tl, br, recColor, 15, 8, 0);
-	}
+    // Circle flowers
+    Mat detectedImage = flowerDetector.circlePinkFlowers(cvImage);
 	
 	// Show image with results
 	imageView.image = MatToUIImage(detectedImage);

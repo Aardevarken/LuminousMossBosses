@@ -11,10 +11,11 @@
 using namespace cv;
 using namespace std;
 
-#include "identified.h"
 #include "detector.h"
 
 int main(int argc, char** argv) {
+  detector sileneDetector = detector("flower.xml");
+
   if (argc != 3) {
     cout << "Usage: test positivedir negativedir" << endl;
     abort();
@@ -53,7 +54,7 @@ int main(int argc, char** argv) {
     cout << positive[i] << endl;
     Mat image = imread(positive[i], CV_LOAD_IMAGE_COLOR);
     
-    if (detector::isThisSilene(image)) {
+    if (sileneDetector.isThisSilene(image)) {
       actual_positive += 1;
     } else {
       cout << "False negative: " << positive[i] << endl;
@@ -65,7 +66,7 @@ int main(int argc, char** argv) {
   for (int i=0; i<negative.size(); i++) {
     cout << negative[i] << endl;
     Mat image = imread(negative[i], CV_LOAD_IMAGE_COLOR);
-    if (detector::isThisSilene(image)) {
+    if (sileneDetector.isThisSilene(image)) {
       cout << "False positive: " << negative[i] << endl;
       false_positive += 1;
     } else {
