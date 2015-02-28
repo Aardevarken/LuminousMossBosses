@@ -341,14 +341,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
 				16B2A6CF1A9D4D2200A73A86 /* ImageViewController.m in Sources */,
-=======
 				F0395FEC1A98366300EE1BF9 /* identified.h in Sources */,
 				F0395FEA1A98365500EE1BF9 /* identified.cpp in Sources */,
 				F0395FE81A98360A00EE1BF9 /* detector.h in Sources */,
 				F0395FE61A9835F700EE1BF9 /* detector.cpp in Sources */,
->>>>>>> 86870b8546bedddc729ff1f5becc1b5a1b8cc8dd
 				16B052B31A5B4BDE007837B4 /* ViewController.m in Sources */,
 				16E2D49B1A64860900CA8845 /* ObsViewController.m in Sources */,
 				16A6D8481A636C6F00CB4563 /* ObsTableViewController.m in Sources */,
