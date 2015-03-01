@@ -90,6 +90,7 @@
     NSString* cPath = [[NSBundle mainBundle]
                        pathForResource:@"flower25"
                        ofType:@"xml"];
+	
     detector flowerDetector = detector([cPath UTF8String]);
 	
     // Circle flowers
@@ -99,4 +100,29 @@
 	imageView.image = MatToUIImage(detectedImage);
 }
 
+-(UIImage*) runDetection: (UIImage*) img: (NSString*) classifierName: (NSString*) classifierType
+{
+	// Convert image to Mat for detection
+	Mat cvImage;
+	UIImageToMat(img, cvImage);
+	
+	// Load Opencv classifier
+	NSString* cPath = [[NSBundle mainBundle]
+					   pathForResource:classifierName
+					   ofType:classifierType];
+	
+	detector flowerDetector = detector([cPath UTF8String]);
+	
+	// circle flowers
+	Mat detectedImage = flowerDetector.circlePinkFlowers(cvImage);
+	
+	// return UIImage
+	return MatToUIImage(detectedImage);
+}
+
 @end
+
+
+
+
+
