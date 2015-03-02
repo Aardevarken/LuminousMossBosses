@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		161F47651A8ED7B300E67313 /* NewObs.m in Sources */ = {isa = PBXBuildFile; fileRef = 161F47641A8ED7B300E67313 /* NewObs.m */; };
+		165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 165B6A201AA3F5C4004FE7CB /* nocamera.png */; };
 		16A6D8481A636C6F00CB4563 /* ObsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 160D23EB1A63396000F7B916 /* ObsTableViewController.m */; };
 		16A6D84C1A63765C00CB4563 /* Observation.m in Sources */ = {isa = PBXBuildFile; fileRef = 16A6D84B1A63765C00CB4563 /* Observation.m */; };
 		16A6D84E1A637DEA00CB4563 /* ObservationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16A6D84D1A637DEA00CB4563 /* ObservationCell.m */; };
@@ -36,7 +37,7 @@
 		F0395FE81A98360A00EE1BF9 /* detector.h in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE71A98360900EE1BF9 /* detector.h */; };
 		F0395FEA1A98365500EE1BF9 /* identified.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE91A98365500EE1BF9 /* identified.cpp */; };
 		F0395FEC1A98366300EE1BF9 /* identified.h in Sources */ = {isa = PBXBuildFile; fileRef = F0395FEB1A98366300EE1BF9 /* identified.h */; };
-		F0D848141A7768250043BEDD /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D848131A7768250043BEDD /* opencv2.framework */; };
+		F0D848141A7768250043BEDD /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D848131A7768250043BEDD /* opencv2.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		160D23F21A635C3F00F7B916 /* ObservationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObservationCell.h; sourceTree = "<group>"; };
 		161F47631A8ED7B300E67313 /* NewObs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewObs.h; sourceTree = "<group>"; };
 		161F47641A8ED7B300E67313 /* NewObs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewObs.m; sourceTree = "<group>"; };
+		165B6A201AA3F5C4004FE7CB /* nocamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nocamera.png; sourceTree = "<group>"; };
 		16A6D84B1A63765C00CB4563 /* Observation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Observation.m; sourceTree = "<group>"; };
 		16A6D84D1A637DEA00CB4563 /* ObservationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObservationCell.m; sourceTree = "<group>"; };
 		16A6D84F1A6386C600CB4563 /* ObsTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObsTableView.h; sourceTree = "<group>"; };
@@ -78,7 +80,7 @@
 		16B052DB1A5B5327007837B4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		16B052DD1A5B5334007837B4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		16B2A6CD1A9D4D2200A73A86 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
-		16B2A6CE1A9D4D2200A73A86 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
+		16B2A6CE1A9D4D2200A73A86 /* ImageViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ImageViewController.m; sourceTree = "<group>"; };
 		16CCBC331A773D71008B7E96 /* IMG_1976.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_1976.jpg; sourceTree = "<group>"; };
 		16CCBC341A773D71008B7E96 /* IMG_1997.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_1997.jpg; sourceTree = "<group>"; };
 		16CCBC351A773D71008B7E96 /* IMG_2003.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_2003.jpg; sourceTree = "<group>"; };
@@ -119,6 +121,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		165B6A1F1AA3F585004FE7CB /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				165B6A201AA3F5C4004FE7CB /* nocamera.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		16B0529E1A5B4BDE007837B4 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +142,7 @@
 				16CCBC3D1A773D87008B7E96 /* Flower Images */,
 				16CCBC421A773E06008B7E96 /* XML Files */,
 				16B052DF1A5B53D4007837B4 /* Frameworks */,
+				165B6A1F1AA3F585004FE7CB /* Images */,
 			);
 			sourceTree = "<group>";
 		};
@@ -163,11 +174,11 @@
 				16A6D84D1A637DEA00CB4563 /* ObservationCell.m */,
 				16B052B11A5B4BDE007837B4 /* ViewController.h */,
 				16B052B21A5B4BDE007837B4 /* ViewController.m */,
-				16B052B41A5B4BDE007837B4 /* Main.storyboard */,
 				16B2A6CD1A9D4D2200A73A86 /* ImageViewController.h */,
 				16B2A6CE1A9D4D2200A73A86 /* ImageViewController.m */,
 				16B052B71A5B4BDE007837B4 /* Images.xcassets */,
 				16B052B91A5B4BDE007837B4 /* LaunchScreen.xib */,
+				16B052B41A5B4BDE007837B4 /* Main.storyboard */,
 				16B052AA1A5B4BDE007837B4 /* Supporting Files */,
 			);
 			path = DeveloperBuild;
@@ -321,6 +332,7 @@
 				16CCBC3B1A773D71008B7E96 /* IMG_2278.JPG in Resources */,
 				16CCBC391A773D71008B7E96 /* IMG_1997.jpg in Resources */,
 				16B052BB1A5B4BDE007837B4 /* LaunchScreen.xib in Resources */,
+				165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */,
 				16CCBC411A773E00008B7E96 /* flower30.xml in Resources */,
 				16CCBC381A773D71008B7E96 /* IMG_1976.jpg in Resources */,
 				16B052B81A5B4BDE007837B4 /* Images.xcassets in Resources */,

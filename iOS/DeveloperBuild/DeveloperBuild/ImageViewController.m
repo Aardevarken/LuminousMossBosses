@@ -7,8 +7,11 @@
 //
 
 #import "ImageViewController.h"
+#import "opencv2/highgui/ios.h"
+#import "detector.h"
 
 @interface ImageViewController ()
+//-(UIImage*) runDetection:(UIImage *)image classifierName:(NSString *)cName classifierType:(NSString *)cType;
 
 @end
 
@@ -21,6 +24,10 @@
 	
 	// check to make sure the device has a camera
 	if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+		// display no camera icon
+		imageView.image = [UIImage imageNamed:@"nocamera.png"];
+		
+		// display alert box
 		UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"ERROR"
 															  message:@"Device has no camera"
 															 delegate:nil
@@ -49,10 +56,37 @@
 	[self presentViewController:picker animated:YES completion:NULL];
 }
 
+- (UIImage*) runDetection:(UIImage *)image classifierName:(NSString *)cName classifierType:(NSString *)cType{
+	
+	//NSString* cName = @"flower25";
+	//NSString* cType = @"xml";
+	// Convert image to Mat for detection
+	Mat cvImage;
+	UIImageToMat(image, cvImage);
+	
+	// Load Opencv classifier
+	NSString* cPath = [[NSBundle mainBundle]
+					   pathForResource:cName
+					   ofType:cType];
+	
+	detector flowerDetector = detector([cPath UTF8String]);
+	
+	// circle flowers
+	Mat detectedImage = flowerDetector.circlePinkFlowers(cvImage);
+	
+	// return UIImage
+	return MatToUIImage(detectedImage);
+}
+
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
 	[picker dismissViewControllerAnimated:YES completion:NULL];
 	imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+	
+	//UIImage* image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+	//imageView.image = [self runDetection:image classifierName:@"flower25" classifierType:@"xml"];
 }
+
+
 
 /*
 #pragma mark - Navigation

@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "detector.h"
 
 @interface ImageViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>{
 	UIImageView * imageView;
 	UIButton * choosePhotoBtn;
 	UIButton * takePhotoBtn;
+	
 }
 
 /* in old tutorial for getting camera to work. */
@@ -26,3 +29,7 @@
 - (IBAction)getPhoto:(id) sender;
 
 @end
+
+
+
+
