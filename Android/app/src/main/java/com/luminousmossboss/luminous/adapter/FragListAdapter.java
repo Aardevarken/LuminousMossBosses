@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.luminousmossboss.luminous.R;
 import com.luminousmossboss.luminous.Util;
 import com.luminousmossboss.luminous.model.ListItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -33,8 +34,8 @@ public abstract class FragListAdapter extends BaseAdapter {
         ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
         TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
 
-        //Bitmap bm  = Util.getPreview(listItems.get(position).getIcon(), this.context);
-        imgIcon.setImageURI(listItems.get(position).getIcon());
+        Picasso.with(context).load(listItems.get(position).getIcon()).fit().centerCrop().into(imgIcon);
+        //imgIcon.setImageURI(listItems.get(position).getIcon());
         //Util.setPic(listItems.get(position).getIcon(),imgIcon);
         txtTitle.setText(listItems.get(position).getTitle());
 
