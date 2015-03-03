@@ -19,6 +19,8 @@ using namespace sql;
 using namespace cv;
 using namespace std;
 
+#include "../AlgTester/img_helper.h"
+
 
 int main(int argc, char** argv) {  
   vector<string> positive;
@@ -33,16 +35,16 @@ int main(int argc, char** argv) {
   // Fetch positives from db.
   ResultSet* positiveResults = stmt->executeQuery("SELECT FileName, Location FROM observations WHERE UseForTraining=true AND isSilene=true;");
   while (positiveResults->next()) {
-    positive.push_back("/work/pics/bow_data/" + positiveResults->getString("FileName"));
-    both.push_back("/work/pics/bow_data/" + positiveResults->getString("FileName"));
+    positive.push_back(positiveResults->getString("Location") + "/" + positiveResults->getString("FileName"));
+    both.push_back(positiveResults->getString("Location") + "/" + positiveResults->getString("FileName"));
   }
   delete positiveResults;
 
   // Fetch negatives from db.
   ResultSet* negativeResults = stmt->executeQuery("SELECT FileName, Location FROM observations WHERE UseForTraining=true AND isSilene=false;");
   while (negativeResults->next()) {
-    negative.push_back("/work/pics/bow_data/" + negativeResults->getString("FileName"));
-    both.push_back("/work/pics/bow_data/" + negativeResults->getString("FileName"));
+    negative.push_back(negativeResults->getString("Location") + "/" + negativeResults->getString("FileName"));
+    both.push_back(negativeResults->getString("Location") + "/" + negativeResults->getString("FileName"));
   }
   delete negativeResults;
   
@@ -69,7 +71,7 @@ int main(int argc, char** argv) {
     Mat img, histogram;
     
     // Get histogram.
-    img = imread(both[i]);
+    img = img_helper::resizeSetWidth(imread(both[i]), 150);
     detector->detect(img, keyPoints);
     bowide->compute(img, keyPoints, histogram);
     
@@ -90,15 +92,3 @@ int main(int argc, char** argv) {
   classifier.save("silene.xml");
   return 0;
 }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
