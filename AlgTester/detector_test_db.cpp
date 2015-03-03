@@ -20,7 +20,7 @@ using namespace std;
 #include "detector.h"
 
 int main(int argc, char** argv) {
-  detector sileneDetector = detector("flower.xml");
+  detector sileneDetector("flower.xml", "../BagOfWords/vocabulary.xml", "../BagOfWords/silene.xml");
 
   vector<string> positive;
   vector<string> negative;

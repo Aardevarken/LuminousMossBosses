@@ -36,7 +36,7 @@ demo2:
 	algTester samples/Silene_acaulis_Kalk-Polsternelke.jpg 40
 	
 test:
-	g++ detector_test.cpp identified.cpp detector.cpp `pkg-config --libs --cflags opencv` -o test
+	g++ detector_test.cpp identified.cpp detector.cpp img_helper.cpp `pkg-config --libs --cflags opencv` -o test
 
 test_db:
-	g++ detector_test_db.cpp identified.cpp detector.cpp `pkg-config --libs --cflags opencv` -lmysqlcppconn -o test_db
+	g++ detector_test_db.cpp identified.cpp detector.cpp img_helper.cpp `pkg-config --libs --cflags opencv` -lmysqlcppconn -o test_db

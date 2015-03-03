@@ -9,17 +9,33 @@ using namespace cv;
 using namespace std;
 
 #include "detector.h"
+#include "img_helper.h"
 
 /**
  * Constructor. This only isn't a static class so that the
  * classifier only has to be read in from disc once.
  */
-detector::detector(String flower_xml_name) {
+detector::detector(String flower_xml, String vocab_xml, String silene_xml) {
   // Load the given flower classifier.
-  if (!flower_cascade.load(flower_xml_name)) {
+  if (!flower_cascade.load(flower_xml)) {
     printf("Error loading cascade file.\n");
     abort();
   };
+
+  // Load classifier
+  classifier.load(silene_xml.c_str());
+
+  // Choose algorithms
+  featureDetector = FeatureDetector::create("SURF");
+  Ptr<DescriptorExtractor> extractor = new OpponentColorDescriptorExtractor(Ptr<DescriptorExtractor>(new SurfDescriptorExtractor()));
+  Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create("BruteForce");
+  bowide = new BOWImgDescriptorExtractor(extractor, matcher);
+
+  // Import vocabulary
+  FileStorage vocabStore(vocab_xml, FileStorage::READ);
+  Mat vocabulary;
+  vocabStore["vocabulary"] >> vocabulary;
+  bowide->setVocabulary(vocabulary);
 }
 
 /**
@@ -115,9 +131,27 @@ Mat detector::circlePinkFlowers(Mat image) {
 
 
 /**
+ * Bag of Words prediction.
+ */
+float detector::predict(Mat image) {
+  // Get histogram for image
+  vector<KeyPoint> keyPoints;
+  Mat histogram;
+  featureDetector->detect(image, keyPoints);
+  bowide->compute(image, keyPoints, histogram);
+
+  // Classify
+  return classifier.predict(histogram, true);
+}
+
+
+/**
  * True if it is silene, false if not.
  */
 bool detector::isThisSilene(Mat image) {
+  Mat thumbnail = img_helper::resizeSetWidth(image, 150);
+  float prediction = predict(thumbnail);
+  if (prediction < 0.95) {return true;}
   Mat pink = detector::isolatePink(image);
   vector<identified> flowers = detector::findFlowers(pink);
   return flowers.size() >= 1;
