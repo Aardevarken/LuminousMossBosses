@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
   // Fetch training images from db.
   ResultSet* trainingResults = stmt->executeQuery("SELECT FileName, Location FROM observations WHERE UseForTraining=true;");
   while (trainingResults->next()) {
-    both.push_back("/work/pics/thumbnails/" + trainingResults->getString("FileName"));
+    both.push_back("/work/pics/bow_data/" + trainingResults->getString("FileName"));
   }
   delete trainingResults;
   

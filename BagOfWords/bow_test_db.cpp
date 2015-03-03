@@ -53,16 +53,16 @@ int main(int argc, char** argv) {
   // Fetch positives from db.
   ResultSet* positiveResults = stmt->executeQuery("SELECT FileName, Location FROM observations WHERE UseForTraining=false AND isSilene=true;");
   while (positiveResults->next()) {
-    positive.push_back("/work/pics/thumbnails/" + positiveResults->getString("FileName"));
-    both.push_back("/work/pics/thumbnails/" + positiveResults->getString("FileName"));
+    positive.push_back("/work/pics/bow_data/" + positiveResults->getString("FileName"));
+    both.push_back("/work/pics/bow_data/" + positiveResults->getString("FileName"));
   }
   delete positiveResults;
 
   // Fetch negatives from db.
   ResultSet* negativeResults = stmt->executeQuery("SELECT FileName, Location FROM observations WHERE UseForTraining=false AND isSilene=false;");
   while (negativeResults->next()) {
-    negative.push_back("/work/pics/thumbnails/" + negativeResults->getString("FileName"));
-    both.push_back("/work/pics/thumbnails/" + negativeResults->getString("FileName"));
+    negative.push_back("/work/pics/bow_data/" + negativeResults->getString("FileName"));
+    both.push_back("/work/pics/bow_data/" + negativeResults->getString("FileName"));
   }
   delete negativeResults;
   
