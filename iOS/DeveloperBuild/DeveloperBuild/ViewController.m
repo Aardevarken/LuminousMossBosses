@@ -87,11 +87,17 @@
 	UIImageToMat(image, cvImage);
     
     // Load OpenCV classifier
-    NSString* cPath = [[NSBundle mainBundle]
-                       pathForResource:@"flower25"
-                       ofType:@"xml"];
-	
-    detector flowerDetector = detector([cPath UTF8String]);
+    NSString* flowerXMLPath = [[NSBundle mainBundle]
+                               pathForResource:@"flower25"
+                               ofType:@"xml"];
+    NSString* vocabXMLPath = [[NSBundle mainBundle]
+                               pathForResource:@"vocabulary"
+                               ofType:@"xml"];
+    NSString* sileneXMLPath = [[NSBundle mainBundle]
+                               pathForResource:@"silene"
+                               ofType:@"xml"];
+    
+    detector flowerDetector([flowerXMLPath UTF8String], [vocabXMLPath UTF8String], [sileneXMLPath UTF8String]);
 	
     // Circle flowers
     Mat detectedImage = flowerDetector.circlePinkFlowers(cvImage);

@@ -56,20 +56,24 @@
 	[self presentViewController:picker animated:YES completion:NULL];
 }
 
-- (UIImage*) runDetection:(UIImage *)image classifierName:(NSString *)cName classifierType:(NSString *)cType{
+- (UIImage*) runDetection:(UIImage *)image{
 	
-	//NSString* cName = @"flower25";
-	//NSString* cType = @"xml";
 	// Convert image to Mat for detection
 	Mat cvImage;
 	UIImageToMat(image, cvImage);
 	
-	// Load Opencv classifier
-	NSString* cPath = [[NSBundle mainBundle]
-					   pathForResource:cName
-					   ofType:cType];
-	
-	detector flowerDetector = detector([cPath UTF8String]);
+    // Load OpenCV classifier
+    NSString* flowerXMLPath = [[NSBundle mainBundle]
+                               pathForResource:@"flower25"
+                               ofType:@"xml"];
+    NSString* vocabXMLPath = [[NSBundle mainBundle]
+                              pathForResource:@"vocabulary"
+                              ofType:@"xml"];
+    NSString* sileneXMLPath = [[NSBundle mainBundle]
+                               pathForResource:@"silene"
+                               ofType:@"xml"];
+    
+    detector flowerDetector([flowerXMLPath UTF8String], [vocabXMLPath UTF8String], [sileneXMLPath UTF8String]);
 	
 	// circle flowers
 	Mat detectedImage = flowerDetector.circlePinkFlowers(cvImage);

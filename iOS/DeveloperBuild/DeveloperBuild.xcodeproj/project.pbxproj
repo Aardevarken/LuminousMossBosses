@@ -34,9 +34,12 @@
 		16CE5B811A7AC7E700FDABA5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CE5B801A7AC7E700FDABA5 /* MapKit.framework */; };
 		16E2D49B1A64860900CA8845 /* ObsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E2D49A1A64860900CA8845 /* ObsViewController.m */; };
 		F0395FE61A9835F700EE1BF9 /* detector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE51A9835F700EE1BF9 /* detector.cpp */; };
-		F0395FE81A98360A00EE1BF9 /* detector.h in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE71A98360900EE1BF9 /* detector.h */; };
 		F0395FEA1A98365500EE1BF9 /* identified.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE91A98365500EE1BF9 /* identified.cpp */; };
-		F0395FEC1A98366300EE1BF9 /* identified.h in Sources */ = {isa = PBXBuildFile; fileRef = F0395FEB1A98366300EE1BF9 /* identified.h */; };
+		F0D4ED171AA59917008CBAD4 /* silene.xml in Resources */ = {isa = PBXBuildFile; fileRef = F0D4ED161AA59917008CBAD4 /* silene.xml */; };
+		F0D4ED191AA59926008CBAD4 /* vocabulary.xml in Resources */ = {isa = PBXBuildFile; fileRef = F0D4ED181AA59926008CBAD4 /* vocabulary.xml */; };
+		F0D4ED1C1AA59A93008CBAD4 /* img_helper.cpp in Resources */ = {isa = PBXBuildFile; fileRef = F0D4ED1B1AA59A93008CBAD4 /* img_helper.cpp */; };
+		F0D4ED1E1AA59AA8008CBAD4 /* img_helper.h in Resources */ = {isa = PBXBuildFile; fileRef = F0D4ED1D1AA59AA8008CBAD4 /* img_helper.h */; };
+		F0D4ED201AA59BAD008CBAD4 /* img_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0D4ED1B1AA59A93008CBAD4 /* img_helper.cpp */; };
 		F0D848141A7768250043BEDD /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D848131A7768250043BEDD /* opencv2.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
@@ -95,6 +98,10 @@
 		F0395FE71A98360900EE1BF9 /* detector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = detector.h; path = ../../AlgTester/detector.h; sourceTree = "<group>"; };
 		F0395FE91A98365500EE1BF9 /* identified.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = identified.cpp; path = ../../AlgTester/identified.cpp; sourceTree = "<group>"; };
 		F0395FEB1A98366300EE1BF9 /* identified.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = identified.h; path = ../../AlgTester/identified.h; sourceTree = "<group>"; };
+		F0D4ED161AA59917008CBAD4 /* silene.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = silene.xml; path = ../../BagOfWords/silene.xml; sourceTree = "<group>"; };
+		F0D4ED181AA59926008CBAD4 /* vocabulary.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = vocabulary.xml; path = ../../BagOfWords/vocabulary.xml; sourceTree = "<group>"; };
+		F0D4ED1B1AA59A93008CBAD4 /* img_helper.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = img_helper.cpp; path = ../../AlgTester/img_helper.cpp; sourceTree = "<group>"; };
+		F0D4ED1D1AA59AA8008CBAD4 /* img_helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = img_helper.h; path = ../../AlgTester/img_helper.h; sourceTree = "<group>"; };
 		F0D848131A7768250043BEDD /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../opencv2.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,10 +139,7 @@
 		16B0529E1A5B4BDE007837B4 = {
 			isa = PBXGroup;
 			children = (
-				F0395FEB1A98366300EE1BF9 /* identified.h */,
-				F0395FE91A98365500EE1BF9 /* identified.cpp */,
-				F0395FE71A98360900EE1BF9 /* detector.h */,
-				F0395FE51A9835F700EE1BF9 /* detector.cpp */,
+				F0D4ED1A1AA5996A008CBAD4 /* Algorithms */,
 				16B052A91A5B4BDE007837B4 /* DeveloperBuild */,
 				16B052C31A5B4BDF007837B4 /* DeveloperBuildTests */,
 				16B052A81A5B4BDE007837B4 /* Products */,
@@ -238,10 +242,25 @@
 		16CCBC421A773E06008B7E96 /* XML Files */ = {
 			isa = PBXGroup;
 			children = (
+				F0D4ED181AA59926008CBAD4 /* vocabulary.xml */,
+				F0D4ED161AA59917008CBAD4 /* silene.xml */,
 				16CCBC3E1A773E00008B7E96 /* flower25.xml */,
 				16CCBC3F1A773E00008B7E96 /* flower30.xml */,
 			);
 			name = "XML Files";
+			sourceTree = "<group>";
+		};
+		F0D4ED1A1AA5996A008CBAD4 /* Algorithms */ = {
+			isa = PBXGroup;
+			children = (
+				F0D4ED1D1AA59AA8008CBAD4 /* img_helper.h */,
+				F0D4ED1B1AA59A93008CBAD4 /* img_helper.cpp */,
+				F0395FE51A9835F700EE1BF9 /* detector.cpp */,
+				F0395FE71A98360900EE1BF9 /* detector.h */,
+				F0395FE91A98365500EE1BF9 /* identified.cpp */,
+				F0395FEB1A98366300EE1BF9 /* identified.h */,
+			);
+			name = Algorithms;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,6 +344,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0D4ED1E1AA59AA8008CBAD4 /* img_helper.h in Resources */,
+				F0D4ED1C1AA59A93008CBAD4 /* img_helper.cpp in Resources */,
+				F0D4ED191AA59926008CBAD4 /* vocabulary.xml in Resources */,
+				F0D4ED171AA59917008CBAD4 /* silene.xml in Resources */,
 				16CCBC3C1A773D71008B7E96 /* minuartia1.jpg in Resources */,
 				16CCBC3A1A773D71008B7E96 /* IMG_2003.jpg in Resources */,
 				16CCBC401A773E00008B7E96 /* flower25.xml in Resources */,
@@ -353,10 +376,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0D4ED201AA59BAD008CBAD4 /* img_helper.cpp in Sources */,
 				16B2A6CF1A9D4D2200A73A86 /* ImageViewController.m in Sources */,
-				F0395FEC1A98366300EE1BF9 /* identified.h in Sources */,
 				F0395FEA1A98365500EE1BF9 /* identified.cpp in Sources */,
-				F0395FE81A98360A00EE1BF9 /* detector.h in Sources */,
 				F0395FE61A9835F700EE1BF9 /* detector.cpp in Sources */,
 				16B052B31A5B4BDE007837B4 /* ViewController.m in Sources */,
 				16E2D49B1A64860900CA8845 /* ObsViewController.m in Sources */,
