@@ -9,7 +9,7 @@ using namespace cv;
 #include "img_helper.h"
 
 /**
- * True if it is silene, false if not.
+ * Resize an image to match a particular width while preserving aspect ratio.
  */
 Mat img_helper::resizeSetWidth(Mat image, int width) {
   Mat newimage;
