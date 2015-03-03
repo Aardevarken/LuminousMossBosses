@@ -19,6 +19,9 @@ using namespace sql;
 using namespace cv;
 using namespace std;
 
+#include "../AlgTester/img_helper.cpp"
+
+
 // Global variables to make things easier.
 Ptr<FeatureDetector> detector;
 Ptr<BOWImgDescriptorExtractor> bowide;
@@ -28,7 +31,7 @@ CvSVM classifier;
  * Given an image filename, will attempt to predict it's classification.
  */
 float predict(String imageFile) {
-  Mat image = imread(imageFile, CV_LOAD_IMAGE_COLOR);
+  Mat image = img_helper::resizeSetWidth(imread(imageFile, CV_LOAD_IMAGE_COLOR), 150);
 
   // Get histogram for image
   vector<KeyPoint> keyPoints;
@@ -53,16 +56,16 @@ int main(int argc, char** argv) {
   // Fetch positives from db.
   ResultSet* positiveResults = stmt->executeQuery("SELECT FileName, Location FROM observations WHERE UseForTraining=false AND isSilene=true;");
   while (positiveResults->next()) {
-    positive.push_back("/work/pics/bow_data/" + positiveResults->getString("FileName"));
-    both.push_back("/work/pics/bow_data/" + positiveResults->getString("FileName"));
+    positive.push_back(positiveResults->getString("Location") + "/" + positiveResults->getString("FileName"));
+    both.push_back(positiveResults->getString("Location") + "/" + positiveResults->getString("FileName"));
   }
   delete positiveResults;
 
   // Fetch negatives from db.
   ResultSet* negativeResults = stmt->executeQuery("SELECT FileName, Location FROM observations WHERE UseForTraining=false AND isSilene=false;");
   while (negativeResults->next()) {
-    negative.push_back("/work/pics/bow_data/" + negativeResults->getString("FileName"));
-    both.push_back("/work/pics/bow_data/" + negativeResults->getString("FileName"));
+    negative.push_back(negativeResults->getString("Location") + "/" + negativeResults->getString("FileName"));
+    both.push_back(negativeResults->getString("Location") + "/" + negativeResults->getString("FileName"));
   }
   delete negativeResults;
   

@@ -18,6 +18,8 @@ using namespace sql;
 using namespace cv;
 using namespace std;
 
+#include "../AlgTester/img_helper.h"
+
 
 int main(int argc, char** argv) {  
   vector<string> both;
@@ -30,7 +32,7 @@ int main(int argc, char** argv) {
   // Fetch training images from db.
   ResultSet* trainingResults = stmt->executeQuery("SELECT FileName, Location FROM observations WHERE UseForTraining=true;");
   while (trainingResults->next()) {
-    both.push_back("/work/pics/bow_data/" + trainingResults->getString("FileName"));
+    both.push_back(trainingResults->getString("Location") + "/" + trainingResults->getString("FileName"));
   }
   delete trainingResults;
   
@@ -46,7 +48,7 @@ int main(int argc, char** argv) {
   for (size_t i=0; i<both.size(); i++) {
     vector<KeyPoint> keyPoints;
     Mat descriptors;
-    Mat img = imread(both[i]);
+    Mat img = img_helper::resizeSetWidth(imread(both[i]), 150);
     detector->detect(img, keyPoints);
     extractor->compute(img, keyPoints, descriptors);
     descriptors.convertTo(descriptors, CV_32F);

@@ -17,14 +17,14 @@ CC=g++
 
 all: build_vocab_db build_vocab bow_train_db bow_train bow_test_db bow
 
-build_vocab_db: build_vocab_db.o
-	$(CC) build_vocab_db.o $(LIBS) -lmysqlcppconn -o $@
+build_vocab_db: build_vocab_db.o ../AlgTester/img_helper.o
+	$(CC) build_vocab_db.o ../AlgTester/img_helper.o $(LIBS) -lmysqlcppconn -o $@
 
 build_vocab: build_vocab.o
 	$(CC) build_vocab.o $(LIBS) -o $@
 
-bow_train_db: bow_train_db.o
-	$(CC) bow_train_db.o $(LIBS) -lmysqlcppconn -o $@
+bow_train_db: bow_train_db.o ../AlgTester/img_helper.o
+	$(CC) bow_train_db.o ../AlgTester/img_helper.o $(LIBS) -lmysqlcppconn -o $@
 
 bow_train: bow_train.o
 	$(CC) bow_train.o $(LIBS) -o $@
