@@ -34,7 +34,7 @@ public abstract class FragListAdapter extends BaseAdapter {
         ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
         TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
 
-        Picasso.with(context).load(listItems.get(position).getIcon()).fit().centerCrop().into(imgIcon);
+        Picasso.with(context).load(listItems.get(position).getIcon()).resize(120,120).centerCrop().onlyScaleDown().into(imgIcon);
         //imgIcon.setImageURI(listItems.get(position).getIcon());
         //Util.setPic(listItems.get(position).getIcon(),imgIcon);
         txtTitle.setText(listItems.get(position).getTitle());

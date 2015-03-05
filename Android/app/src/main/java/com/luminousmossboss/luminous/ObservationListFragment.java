@@ -45,6 +45,9 @@ public class ObservationListFragment extends Fragment{
 
     public ObservationListFragment(){}
 
+    //static method used for setting arguments;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,19 +60,19 @@ public class ObservationListFragment extends Fragment{
 
 
         //To be implemented for selectin individual observations
-        /*this.mDrawerList.setOnItemClickListener(new OnItemClickListener() {
+        this.mDrawerList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(activity instanceof MainActivity) {
                     CharSequence fragTitle = listItems.get(position).getTitle();
                     Fragment fragment = null;
-                    fragment = new FieldGuideFragment();
+                    fragment = ObservationFragment.newInstance((ObservationListItem)listItems.get(position));
                     ((MainActivity) activity).setTitle(fragTitle);
                     ((MainActivity) activity).displayView(fragment);
                 }
             }
         });
-    */
+
         return rootView;
     }
 
@@ -89,7 +92,8 @@ public class ObservationListFragment extends Fragment{
         if (cursor.moveToFirst())
             do{
                 Uri iconUri = Uri.fromFile(new File(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_PHOTO_PATH))));
-                listItems.add(new ObservationListItem("Siline", iconUri));
+                String date= cursor.getString(cursor.getColumnIndex(DbHandler.KEY_TIME_TAKEN));
+                listItems.add(new ObservationListItem("Siline", iconUri,date));
 
             }while(cursor.moveToNext());
 

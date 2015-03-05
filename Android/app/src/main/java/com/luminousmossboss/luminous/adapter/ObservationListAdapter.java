@@ -12,6 +12,7 @@ import com.luminousmossboss.luminous.model.FGListItem;
 import com.luminousmossboss.luminous.model.ListItem;
 import com.luminousmossboss.luminous.model.ObservationListItem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  * Created by Brian on 2/2/2015.
  */
 
-public class ObservationListAdapter extends FragListAdapter {
+public class ObservationListAdapter extends FragListAdapter  {
 
     //private Context context;
     //private ArrayList<ListItem> listItems;
@@ -40,6 +41,11 @@ public class ObservationListAdapter extends FragListAdapter {
 
         convertView = basicView(position,convertView);
         ObservationListItem item = (ObservationListItem) listItems.get(position);
+
+        TextView date  = (TextView) convertView.findViewById(R.id.date);
+        date.setText(item.getDate());
+
+
 
 
 

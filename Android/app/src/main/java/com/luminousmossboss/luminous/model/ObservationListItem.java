@@ -2,14 +2,16 @@ package com.luminousmossboss.luminous.model;
 
 import android.net.Uri;
 
+import java.io.Serializable;
+
 /**
  * Created by Brian on 2/1/2015.
  */
 
-public class ObservationListItem extends ListItem{
+public class ObservationListItem extends ListItem implements Serializable {
     private String date;
     private int status;
-    final private int MAXCHAR = 40;
+    final private int MAXCHAR = 10;
     private boolean isStatusVisible = false;
 
     public ObservationListItem() {}
@@ -18,9 +20,9 @@ public class ObservationListItem extends ListItem{
         super(title, icon);
     }
 
-    public ObservationListItem(String title, Uri icon, String description) {
+    public ObservationListItem(String title, Uri icon, String date) {
         super(title, icon);
-        this.date = shortenString(description,MAXCHAR);
+        this.date = shortenString(date,MAXCHAR);
     }
 
     public String getDate() { return this.date; }
