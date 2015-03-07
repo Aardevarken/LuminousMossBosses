@@ -9,10 +9,15 @@ SECRET_KEY = '90b70bfa992696d63140ca63fcb035cf'
 USERNAME = 'admin'
 PASSWORD = '19b95897c63fcc7b81d90396ce28bf94dedc67e9'
 
+UPLOAD_FOLDER ='/work/pics/pending/all' 
+THUMBNAIL_FOLDER = '/work/pics/thumbnail'
+ALLOWED_EXTENSIONS = set(['jpg', 'jpeg'])
+
 # initiate application
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.from_envvar('FLASK_APP_SETTINGS', silent=True)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 #def connect_db():
 @app.teardown_appcontext
@@ -89,18 +94,45 @@ def get_observation_data():
     return jsonify(FileName=observation.FileName, circles=circles) 
 
 #We need to add in a requirement that user must be logged in to even access this page
-@app.route('/_update_isSilene', methods=["GET","POST"])
+@app.route('/_update_isSilene', methods=["POST"])
 def update_isSilene():
     if not session.get('logged_in'):
-        return redirect(url_for('login'))
-    observation_value = request.args.get('sentValue', type=int)
+        return "I can't let you do that Dave" 
+    
+    observation_value = request.form.get('sentValue', type=int)
     observation_value = bool(observation_value) if observation_value != -1 else None
-    observation_id = request.args.get('sentId', 0, type=int)
-
+    observation_id = request.form.get('sentId', type=int)
     Observation.query.get(observation_id).IsSilene = observation_value
     db_session().commit()
 
-    return "values updated" 
+    return jsonify(flash="values updated")
+
+@app.route('/_post_observation', methods=["POST"])
+def post_observation():
+    # Get Data
+    data = request.get_json().get('username')
+    Obs = data.Obs
+    Detections = data.Detections
+
+    # Get File
+    file = request.files['file']
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+    observation = Observation(Obs.Time, Obs.Date, Obs.Latitude, Obs.Longitude, Obs.Username, IsSilene=False, UseForTraining=False, file.filename); 
+    
+    db_session().add(observation);
+    for detection in Detections:
+        detectionObj = detection_objects(detection.XCord, detection.YCord, detection.Radius, True, Observation.ObsID);
+        db_session().add(detectionObj)
+    
+    results = "observation recieved"
+    return jsonify(results=results)
+
+def allowed_file(filename):
+    return '.' in filename and \
+            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=5003)

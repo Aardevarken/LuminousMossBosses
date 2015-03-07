@@ -16,12 +16,13 @@ class DetectionObject(Base):
     Location = Column(String(256), unique=True)
 
     def __init__(self, XCord=None, YCord=None, Radius=None,
-        IsPosDetect=None, FileName=None, Location=None):
+        IsPosDetect=None, ParentObsID=None, FileName=None, Location=None):
         self.XCord = XCord
         self.YCord = YCord
         self.Radius = Radius
         self.IsPosDetect = IsPosDetect
         self.IsUserDetected = IsUserDetected
+        self.ParentObsID = ParentObsID
         self.FileName = FileName
         self.Location = Location
 
@@ -42,9 +43,9 @@ class Observation(Base):
     FileName = Column(String(256), unique=True)
     Location = Column(String(256), unique=True)
 
-    def __init__(self, ObsID=None, Time=None, Date=None, Latitude=None,
+    def __init__(self, Time=None, Date=None, Latitude=None,
         Longitude=None, Username=None, IsSilene=None, UseForTraining=None, FileName=None, Location=None):
-        self.ObsID = ObsID
+        #self.ObsID = ObsID
         self.Time = Time
         self.Date = Date
         self.Latitude = Latitude
@@ -56,8 +57,31 @@ class Observation(Base):
         self.Location = Location
 
     def __repr__(self):
-        return '<Observation %r %r %r %r %r %r %r %r %r %r>' % (self.ObsID, self.Time,
-            self.Date, self.Latitude, self.Longitude, self.Username, self.IsSilene, self.UseForTraining, self.FileName, self.Location)
+        return '<Observation %r %r %r %r %r %r>' % (self.Time,
+            self.Date, self.Latitude, self.Longitude, self.Username, self.FileName)
+
+class User(Base):
+    __tablename__ = 'users'
+    UserID = Column(Integer, primary_key=True)
+    Username = Column(String(16), unique=True)
+    FirstName = Column(String(16), unique=True)
+    LastName = Column(String(16), unique=True)
+    # Passwords need to be stored as SHA-512 salted, not plain text!!
+    Password = Column(String(128), unique=True)
+    Status = Column(String(16), unique=True)
+    Email = Column(String(64), unique=True)
+
+    def __init__(self, UserID=None, Username=None, FirstName=None, LastName=None, Password=None, Status=None, Email = None):
+        self.UserID = UserID
+        self.Username = Username
+        self.FirstName = FirstName
+        self.LastName = LastName
+        self.Password = Password
+        self.Status = Status
+        self.Email = Email
+
+    def __repr__(self):
+        return '<User %r %r %r %r %r %r %r>' % (self.UserID, self.Username, self.FirstName, self.LastName, self.Password, self.Status, self.Email) 
 
 
 '''
@@ -70,10 +94,6 @@ class Test(Base):
     ObsID = Column(Integer, primary_key=True)
 
 class Training(Base):
-    __tablename__ = 'observations'
-    ObsID = Column(Integer, primary_key=True)
-
-class User(Base):
     __tablename__ = 'observations'
     ObsID = Column(Integer, primary_key=True)
 
