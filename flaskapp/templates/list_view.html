@@ -1,14 +1,6 @@
-<html>
-<head>
-    <title>Observation List</title>
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/utils.js')}}"></script>
-</head>
-<body>
+{% extends "admin_layout.html" %}
+{% block body %}
+<script src="{{ url_for('static', filename='js/utils.js')}}"></script>
     <div class="container">
     <div class="btn-group" role="group" aria-label="options">
         <a href="/observation_list" class="btn btn-default btn-sm">All</a>
@@ -55,5 +47,6 @@
     {% endif %}
     </ul>
     </div>
-</body>
-</html>
+{% endblock %}
+<!--</body>
+</html>-->

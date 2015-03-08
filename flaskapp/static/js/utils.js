@@ -14,10 +14,10 @@ Array.prototype.remove = function(from, to) {
  * Method to update isSilene value in database
  */
 function updateSelection(id) {
-    $.getJSON('/_update_isSilene', {
+    $.post('/_update_isSilene', {
         sentValue: $('#id_'+id+' :selected').val(),
         sentId: id
-    });
+    },function(data){flash = data.flash},'json');
 }
 
 /**
