@@ -98,16 +98,14 @@
             </div>
         <div class="row" style="text-align: center">
             <ul class="list-inline banner-social-buttons">
-                {% if urlargs.page > 0 %}
-                {% set pre = urlargs.page -1 %}
+                {% if urlargs.prepage is not none %}
                 <li>
-                <a href="/observation_view?imageid={{ pre }}{{ urlargs.verified }}" class="btn btn-default btn-sm">Previous Page</a>
+                <a href="/observation_view?imageid={{ urlargs.prepage }}{{ urlargs.verified }}" class="btn btn-default btn-sm">Previous Page</a>
             </li>
             {% endif %}
-            {% if urlargs.page < urlargs.maxpage %}
-            {% set next = urlargs.page +1 %}
+            {% if urlargs.nextpage is not none %}
             <li>
-            <a href="/observation_view?imageid={{ next }}{{ urlargs.verified }}" class="btn btn-default btn-sm">Next Page</a>
+            <a href="/observation_view?imageid={{ urlargs.nextpage }}{{ urlargs.verified }}" class="btn btn-default btn-sm">Next Page</a>
             </li>
             {% endif %}
             </ul>

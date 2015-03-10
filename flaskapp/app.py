@@ -1,16 +1,18 @@
-from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash, jsonify
-import json, sha
+from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash, jsonify 
+from werkzeug.utils import secure_filename
+import json, sha, os
+import datetime
 from dbhandler.database import db_session
-from dbhandler.models import Observation, DetectionObject 
+from dbhandler.models import Observation, DetectionObject, Device 
 
 # configuration
-DEBUG = False# Change this to false when put into production 
+DEBUG = True# Change this to false when put into production 
 SECRET_KEY = '90b70bfa992696d63140ca63fcb035cf'
 USERNAME = 'admin'
 PASSWORD = '19b95897c63fcc7b81d90396ce28bf94dedc67e9'
 
 UPLOAD_FOLDER ='/work/pics/pending/all' 
-THUMBNAIL_FOLDER = '/work/pics/thumbnail'
+THUMBNAIL_FOLDER = '/work/pics/thumbnails'
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg'])
 
 # initiate application
@@ -69,16 +71,24 @@ def observation_list():
     urlargs = {'page':page,'maxpage':maxpage,'verified':verified}
     return render_template('list_view.html', observations=observations, urlargs=urlargs)
 
+def getSQLNoneValue(value):
+    return value if value is None else value[0]
+
 @app.route('/observation_view')
 def observation_view():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
     page = request.args.get('imageid', 0, type=int)
     observation = db_session().query(Observation.ObsID, Observation.Date, Observation.Longitude, Observation.Latitude, Observation.IsSilene, Observation.FileName)
-    maxpage = int(observation.count())
+    obsId = db_session().query(Observation.ObsID)
+
     page = page if page is not None else 1
+
+    prepage = getSQLNoneValue(obsId.order_by(Observation.ObsID.desc()).filter(Observation.ObsID < page).first())
+    nextpage = getSQLNoneValue(obsId.order_by(Observation.ObsID.asc()).filter(Observation.ObsID > page).first())
+
     observation = observation.filter(Observation.ObsID == page).first()
-    urlargs = {'page':page,'maxpage':maxpage}
+    urlargs = {'page':page,'prepage':prepage,'nextpage':nextpage}
     return render_template('image_viewer.html', observation=observation, urlargs=urlargs)
 
 @app.route('/_get_observation_data')
@@ -110,24 +120,45 @@ def update_isSilene():
 @app.route('/_post_observation', methods=["POST"])
 def post_observation():
     # Get Data
-    data = request.get_json().get('username')
-    Obs = data.Obs
-    Detections = data.Detections
+    Obs = request.form
+    Time = str(Obs['Time'])#datetime.datetime.now().time()
+    Date = str(Obs['Date'])#datetime.datetime.now().date()
+    Latitude = float(Obs['Latitude'])
+    Longitude = float(Obs['Longitude'])
+    DeviceId = str(Obs['DeviceId'])
+    DeviceType = str(Obs['DeviceType'])
+
+    # Check if phone is in the database
+    deviceExists = db_session().query(exists().where(and_( \
+            Device.DeviceId == DeviceId, \
+            Device.DeviceType == DeviceType))).scalar()
+    if not phoneExists:
+        device = Device(DeviceId, DeviceType)
+        db_session().add(device)
+    else:
+        device = db_session().filter(and_( \
+            Device.DeviceId == DeviceId, \
+            Device.DeviceType == DeviceType)).first()
 
     # Get File
-    file = request.files['file']
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    newFile = request.files['picture']
+    if newFile and allowed_file(newFile.filename):
+        filename = secure_filename(newFile.filename)
+        newFile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    
+    # Features Needed
+        # Check for duplicates and find a way to handle them, or use hashes
 
-    observation = Observation(Obs.Time, Obs.Date, Obs.Latitude, Obs.Longitude, Obs.Username, IsSilene=False, UseForTraining=False, file.filename); 
-    
-    db_session().add(observation);
-    for detection in Detections:
-        detectionObj = detection_objects(detection.XCord, detection.YCord, detection.Radius, True, Observation.ObsID);
-        db_session().add(detectionObj)
-    
-    results = "observation recieved"
+    # Generate a thumbnail
+    # secure_filename sanitizes filename, but there could be other security risks, worth looking into better ways of calling simple bash commands.
+    os.system("convert -thumbnail 150 " + os.path.join(app.config['UPLOAD_FOLDER'], filename) \
+            + " " + os.path.join(THUMBNAIL_FOLDER, filename))
+
+    observation = Observation(Time, Date, Latitude, Longitude, filename, UPLOAD_FOLDER, device.id) 
+    db_session().add(observation)
+    db_session().commit()
+
+    results = observation.FileName
     return jsonify(results=results)
 
 def allowed_file(filename):
