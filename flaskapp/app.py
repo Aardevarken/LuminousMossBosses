@@ -4,6 +4,7 @@ import json, sha, os
 import datetime
 from dbhandler.database import db_session
 from dbhandler.models import Observation, DetectionObject, Device 
+from sqlalchemy import and_
 
 # configuration
 DEBUG = True# Change this to false when put into production 
@@ -129,16 +130,21 @@ def post_observation():
     DeviceType = str(Obs['DeviceType'])
 
     # Check if phone is in the database
-    deviceExists = db_session().query(exists().where(and_( \
+
+    device = db_session.query(Device.id).filter(and_( \
+        Device.DeviceId == DeviceId, \
+        Device.DeviceType == DeviceType)).first()
+    '''deviceExists = db_session().query(exists().where(and_( \
             Device.DeviceId == DeviceId, \
-            Device.DeviceType == DeviceType))).scalar()
-    if not phoneExists:
+            Device.DeviceType == DeviceType))).scalar()'''
+
+    if device is None:
         device = Device(DeviceId, DeviceType)
         db_session().add(device)
-    else:
+    '''else:
         device = db_session().filter(and_( \
             Device.DeviceId == DeviceId, \
-            Device.DeviceType == DeviceType)).first()
+            Device.DeviceType == DeviceType)).first()'''
 
     # Get File
     newFile = request.files['picture']
@@ -158,7 +164,7 @@ def post_observation():
     db_session().add(observation)
     db_session().commit()
 
-    results = observation.FileName
+    results = "sent"#observation.FileName
     return jsonify(results=results)
 
 def allowed_file(filename):
