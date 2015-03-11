@@ -2,34 +2,29 @@ package com.luminousmossboss.luminous;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.luminousmossboss.luminous.model.ObservationListItem;
+import com.luminousmossboss.luminous.model.Observation;
 import com.squareup.picasso.Picasso;
-
-import java.io.File;
 
 public class ObservationFragment extends Fragment implements OnClickListener {
 
     private final static String OBSERVATION_KEY = "observation_key";
 
-    private ImageView mImageView;
+
     private Button show_button;
-    private ObservationListItem observation;
+    private Observation observation;
 
     public ObservationFragment()  { }
 
-    public static ObservationFragment newInstance(ObservationListItem observation)
+    public static ObservationFragment newInstance(Observation observation)
     {
         ObservationFragment fragment = new ObservationFragment();
         Bundle bundle = new Bundle();
@@ -46,14 +41,20 @@ public class ObservationFragment extends Fragment implements OnClickListener {
         View rootView = inflater.inflate(R.layout.edit_observation, container, false);
 
 
-        this.mImageView = (ImageView) rootView.findViewById(R.id.imageView);
+        ImageView imageView = (ImageView) rootView.findViewById(R.id.imageView);
+        TextView details = (TextView) rootView.findViewById(R.id.details);
+
         final Activity activity = getActivity();
         Bundle bundle = getArguments();
-        this.observation = (ObservationListItem) bundle.getSerializable(OBSERVATION_KEY);
-        Picasso.with(getActivity()).load(observation.getIcon()).into(mImageView);
+        this.observation = (Observation) bundle.getSerializable(OBSERVATION_KEY);
+        imageView.setImageURI(observation.getIcon());
+        Picasso.with(getActivity()).load(observation.getIcon()).into(imageView);
 
+        details.setText("Date take: " + observation.getFullData() + " \n");
 
         // Handle Button Events
+        Button sendButton = (Button) rootView.findViewById(R.id.button_send);
+        sendButton.setOnClickListener(this);
 
         return rootView;
     }
@@ -61,6 +62,13 @@ public class ObservationFragment extends Fragment implements OnClickListener {
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button_send:
+                new SendPostActivity(getActivity()).execute(observation);
+
+
+        }
+
 
     }
 }

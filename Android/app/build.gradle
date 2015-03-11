@@ -9,6 +9,10 @@ android {
         minSdkVersion 14
         targetSdkVersion 17
     }
+    packagingOptions{
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
 
     buildTypes {
         release {
@@ -22,4 +26,5 @@ dependencies {
     compile 'com.android.support:support-v4:21.0.3'
     compile project(':openCVLibrary2410')
     compile 'com.squareup.picasso:picasso:2.5.0'
+    compile "org.apache.httpcomponents:httpmime:4.2.3"
 }

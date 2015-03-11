@@ -3,7 +3,6 @@ package com.luminousmossboss.luminous;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,15 +13,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.luminousmossboss.luminous.DbHandler;
-import com.luminousmossboss.luminous.FieldGuideFragment;
-import com.luminousmossboss.luminous.MainActivity;
-import com.luminousmossboss.luminous.R;
-import com.luminousmossboss.luminous.Util;
 import com.luminousmossboss.luminous.adapter.ObservationListAdapter;
-import com.luminousmossboss.luminous.model.FGListItem;
 import com.luminousmossboss.luminous.model.ListItem;
-import com.luminousmossboss.luminous.model.ObservationListItem;
+import com.luminousmossboss.luminous.model.Observation;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -66,7 +59,7 @@ public class ObservationListFragment extends Fragment{
                 if(activity instanceof MainActivity) {
                     CharSequence fragTitle = listItems.get(position).getTitle();
                     Fragment fragment = null;
-                    fragment = ObservationFragment.newInstance((ObservationListItem)listItems.get(position));
+                    fragment = ObservationFragment.newInstance((Observation)listItems.get(position));
                     ((MainActivity) activity).setTitle(fragTitle);
                     ((MainActivity) activity).displayView(fragment);
                 }
@@ -93,7 +86,7 @@ public class ObservationListFragment extends Fragment{
             do{
                 Uri iconUri = Uri.fromFile(new File(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_PHOTO_PATH))));
                 String date= cursor.getString(cursor.getColumnIndex(DbHandler.KEY_TIME_TAKEN));
-                listItems.add(new ObservationListItem("Siline", iconUri,date));
+                listItems.add(new Observation("Siline", iconUri,date,0,0));
 
             }while(cursor.moveToNext());
 
