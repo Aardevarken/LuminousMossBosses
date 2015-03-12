@@ -15,6 +15,7 @@ PASSWORD = '19b95897c63fcc7b81d90396ce28bf94dedc67e9'
 UPLOAD_FOLDER ='/work/pics/pending/all' 
 THUMBNAIL_FOLDER = '/work/pics/thumbnails'
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg'])
+ALLOWED_DEVICES = set(['iOS','AndroidPhone', 'AndroidDevice'])
 
 # initiate application
 app = Flask(__name__)
@@ -58,7 +59,7 @@ def observation_list():
     verified = request.args.get('verified')
     page = request.args.get('page')
     page = 0 if page is None else int(page)
-    observations = db_session().query(Observation.ObsID, Observation.Date, Observation.IsSilene, Observation.FileName)
+    observations = db_session().query(Observation.ObsID, Observation.Date, Observation.IsSilene, Observation.FileName, Device.DeviceId).outerjoin(Device, Observation.Device_id==Device.id)
     
     if (verified == "null"):
         observations = observations.filter(Observation.IsSilene==None)
@@ -70,7 +71,7 @@ def observation_list():
 
     verified = "" if verified is None else "&verified="+verified
     urlargs = {'page':page,'maxpage':maxpage,'verified':verified}
-    return render_template('list_view.html', observations=observations, urlargs=urlargs)
+    return render_template('observation_list.html', observations=observations, urlargs=urlargs)
 
 def getSQLNoneValue(value):
     return value if value is None else value[0]
@@ -118,54 +119,77 @@ def update_isSilene():
 
     return jsonify(flash="values updated")
 
+def checkValuesExist(*values):
+    return all(value is not None for value in values)
+
+def createUniqueFileName(filename, device):
+    string = filename.split('_')
+    if string[0] == device and string[1].isdigit():
+        string[1] = str(int(string[1]) + 1)
+
+        return "_".join(string)
+    else:
+        return device + "_0_" + filename
+
 @app.route('/_post_observation', methods=["POST"])
 def post_observation():
-    # Get Data
-    Obs = request.form
-    Time = str(Obs['Time'])#datetime.datetime.now().time()
-    Date = str(Obs['Date'])#datetime.datetime.now().date()
-    Latitude = float(Obs['Latitude'])
-    Longitude = float(Obs['Longitude'])
-    DeviceId = str(Obs['DeviceId'])
-    DeviceType = str(Obs['DeviceType'])
+    try:
+            # Get Data
+            Obs = request.form
+            Time = str(Obs['Time'])#datetime.datetime.now().time()
+            Time = Time if Time is not None else datetime.datetime.now().time()
+            Date = str(Obs['Date'])#datetime.datetime.now().date()
+            Date = Date if Date is not None else datetime.datetime.now().date()
+            Latitude = float(Obs['Latitude'])
+            Longitude = float(Obs['Longitude'])
+            DeviceId = str(Obs['DeviceId'])
+            DeviceType = str(Obs['DeviceType'])
 
-    # Check if phone is in the database
+            if not checkValuesExist(Latitude, Longitude, DeviceId, DeviceType):
+                raise ValueError('Values can not be Null')
 
-    device = db_session.query(Device.id).filter(and_( \
-        Device.DeviceId == DeviceId, \
-        Device.DeviceType == DeviceType)).first()
-    '''deviceExists = db_session().query(exists().where(and_( \
-            Device.DeviceId == DeviceId, \
-            Device.DeviceType == DeviceType))).scalar()'''
+            if DeviceType not in ALLOWED_DEVICES:
+                raise ValueError('Device not allowed')
 
-    if device is None:
-        device = Device(DeviceId, DeviceType)
-        db_session().add(device)
-    '''else:
-        device = db_session().filter(and_( \
-            Device.DeviceId == DeviceId, \
-            Device.DeviceType == DeviceType)).first()'''
+            # Check if phone is in the database
+            device = db_session.query(Device.id).filter(and_( \
+                Device.DeviceId == DeviceId, \
+                Device.DeviceType == DeviceType)).first()
 
-    # Get File
-    newFile = request.files['picture']
-    if newFile and allowed_file(newFile.filename):
-        filename = secure_filename(newFile.filename)
-        newFile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    
-    # Features Needed
-        # Check for duplicates and find a way to handle them, or use hashes
+            if device is None:
+                device = Device(DeviceId, DeviceType)
+                db_session().add(device)
+                db_session().commit()
 
-    # Generate a thumbnail
-    # secure_filename sanitizes filename, but there could be other security risks, worth looking into better ways of calling simple bash commands.
-    os.system("convert -thumbnail 150 " + os.path.join(app.config['UPLOAD_FOLDER'], filename) \
-            + " " + os.path.join(THUMBNAIL_FOLDER, filename))
+            # Get File
+            newFile = request.files['picture']
+            if newFile and allowed_file(newFile.filename):
+                filename = secure_filename(newFile.filename)
+                while getSQLNoneValue(db_session().query(Observation.FileName) \
+                        .filter(Observation.FileName == filename).first()) is not None:
+                    filename = createUniqueFileName(filename, DeviceType)
+                print filename
+                newFile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            
+            # Features Needed
+                # Check for duplicates and find a way to handle them, or use hashes
 
-    observation = Observation(Time, Date, Latitude, Longitude, filename, UPLOAD_FOLDER, device.id) 
-    db_session().add(observation)
-    db_session().commit()
+            # Generate a thumbnail
+            # secure_filename sanitizes filename, but there could be other security risks, worth looking into better ways of calling simple bash commands.
+            os.system("convert -thumbnail 150 " + os.path.join(app.config['UPLOAD_FOLDER'], filename) \
+                    + " " + os.path.join(THUMBNAIL_FOLDER, filename))
 
-    results = "sent"#observation.FileName
-    return jsonify(results=results)
+            observation = Observation(Time, Date, Latitude, Longitude, filename, UPLOAD_FOLDER, device.id) 
+            db_session().add(observation)
+            db_session().commit()
+            results = "sent"
+            errors = None
+
+    except Exception,e:
+        results = "failed"
+        errors = str(e) 
+
+    return jsonify(results=results, errors=errors)
 
 def allowed_file(filename):
     return '.' in filename and \
