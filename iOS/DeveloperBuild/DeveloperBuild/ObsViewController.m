@@ -10,6 +10,9 @@
 #import "ObsViewController.h"
 #import "Observation.h"
 #import "ObservationCell.h"
+#import "MyObservations.h"
+#import "UserDateDatabase.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface ObsViewController ()
 
@@ -53,7 +56,7 @@ NSMutableArray *_myObservations;
 	[_myObservations addObject:newObs];
 	
 	self.myObservations = _myObservations;
-
+	
 	[self retrieveData];
 }
 
@@ -69,21 +72,44 @@ NSMutableArray *_myObservations;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+	NSArray *data = [[UserDateDatabase getSharedInstance] findByImgID:@""];
+	NSInteger count = [data count];
+	return count;
 	//return [self.myObservations count];
-	return [self.observationsArray count];
+	//return [self.observationsArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	
 	ObservationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ObservationCell_ID"];
-	NewObs *myObservation = [self.observationsArray objectAtIndex:indexPath.row];
+//	NewObs *myObservation = [self.observationsArray objectAtIndex:indexPath.row];
+	NSArray *data = [[UserDateDatabase getSharedInstance] findByImgID:@""]; // this is inefficent. need to refactor
 	
-	/*
-	cell.nameLabel.text = myObservation.name;
-	cell.dateLabel.text = myObservation.date;
-	cell.percentLabel.text = myObservation.percent;
-	*/
+	NSDictionary *dic = [data objectAtIndex:indexPath.row];
+	
+	NSURL *url = [NSURL URLWithString:[dic objectForKey:@"imghexid"]];
+	
+	if ([url  isEqual: @"(null)"]) {
+		NSLog(@"img path is null");
+		return cell;
+	}
+	
+	ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
+	
+	[lib assetForURL: url resultBlock: ^(ALAsset *asset) {
+		ALAssetRepresentation *r = [asset defaultRepresentation];
+		cell.plantImageView.image = [UIImage imageWithCGImage: r.fullResolutionImage];
+	}
+		failureBlock: nil];
+	
+	cell.nameLabel.text		= [NSString stringWithFormat:@"%@", [dic objectForKey:@"imghexid"]];
+	cell.dateLabel.text		= [NSString stringWithFormat:@"%@", [dic objectForKey:@"date"]];
+	cell.percentLabel.text	= [NSString stringWithFormat:@"%@", [dic objectForKey:@"percentIDed"]];
+	
+	
+	
+	//cell.plantImageView.image = [dic objectForKey:@"imghexid"];
 	
 	/*
 	
@@ -114,6 +140,7 @@ NSMutableArray *_myObservations;
 
 - (void) retrieveData
 {
+	/*
 	NSURL* url = [NSURL URLWithString:getDataURL];
 	NSData* data = [NSData dataWithContentsOfURL:url];
 	
@@ -136,7 +163,7 @@ NSMutableArray *_myObservations;
 		
 		[observationsArray addObject:newObs];
 	}
-	
+	*/
 }
 
 - (UIImage *) retriveImage: (NSString *) fName

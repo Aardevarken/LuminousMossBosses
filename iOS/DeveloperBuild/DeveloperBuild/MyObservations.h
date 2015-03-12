@@ -19,8 +19,9 @@
 
 // @property directive delcares a pulic property.
 
+
 // methods
--(NSMutableArray*) myStaticArray;
+
 
 @end
 

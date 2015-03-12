@@ -10,7 +10,10 @@
 #import "Observation.h"
 #import "ObsTableViewController.h"
 
-
+// test code //
+//#import "UserData.h"
+//#import "UserDateDatabase.h"
+// end test code //
 @interface AppDelegate ()
 
 @end
@@ -18,7 +21,6 @@
 @implementation AppDelegate
 
 NSMutableArray *_observations;
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	
@@ -54,6 +56,7 @@ NSMutableArray *_observations;
 	ObsViewController *obsViewController = [navigationController viewControllers][0];
 	obsViewController.observations = _observations;
 	*/
+	
 	
 	return YES;
 }

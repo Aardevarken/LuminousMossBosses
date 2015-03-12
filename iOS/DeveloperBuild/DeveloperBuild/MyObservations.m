@@ -15,13 +15,6 @@
 // synthesize here
 
 // define methods here
--(NSMutableArray*) myStaticArray{
-	static NSMutableArray* theArray = nil;
-	if(theArray == nil){
-		theArray = [[NSMutableArray alloc] init];
-	}
-	return theArray;
-}
 
 @end
 

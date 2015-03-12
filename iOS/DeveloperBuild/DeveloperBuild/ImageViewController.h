@@ -27,9 +27,9 @@
 @property (nonatomic, retain) IBOutlet UIButton * takePhotoBtn;
 
 - (IBAction)getPhoto:(id) sender;
+- (IBAction)addObservation:(UIButton *)sender;
 
 @end
-
 
 
 

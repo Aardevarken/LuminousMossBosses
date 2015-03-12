@@ -548,6 +548,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
+                                            <action selector="addObservation:" destination="FEo-qL-flj" eventType="touchUpInside" id="hcg-6Y-zmW"/>
                                             <segue destination="TvY-dZ-Mzy" kind="show" id="Mtb-J2-e4p"/>
                                         </connections>
                                     </button>
@@ -572,11 +573,11 @@
                                     <mask key="constraints">
                                         <exclude reference="2w3-hK-Vhi"/>
                                         <exclude reference="6V5-57-q1e"/>
-                                        <exclude reference="ODU-dM-Xak"/>
                                         <exclude reference="UvZ-em-LSy"/>
                                         <exclude reference="lRd-ei-XUf"/>
                                         <exclude reference="tDY-jL-ywu"/>
                                         <exclude reference="tXl-Ik-joX"/>
+                                        <exclude reference="ODU-dM-Xak"/>
                                         <exclude reference="z02-G6-dkY"/>
                                     </mask>
                                 </variation>
@@ -589,11 +590,11 @@
                                     <mask key="constraints">
                                         <include reference="2w3-hK-Vhi"/>
                                         <include reference="6V5-57-q1e"/>
-                                        <include reference="ODU-dM-Xak"/>
                                         <include reference="UvZ-em-LSy"/>
                                         <include reference="lRd-ei-XUf"/>
                                         <include reference="tDY-jL-ywu"/>
                                         <include reference="tXl-Ik-joX"/>
+                                        <include reference="ODU-dM-Xak"/>
                                         <include reference="z02-G6-dkY"/>
                                     </mask>
                                 </variation>
@@ -615,13 +616,13 @@
                                 <exclude reference="5wi-jR-wS1"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="ReS-5A-5sh"/>
+                                <exclude reference="V5X-tx-54h"/>
                                 <exclude reference="39r-uR-bXh"/>
                                 <exclude reference="oje-b2-vab"/>
                                 <exclude reference="uT2-ZH-hQp"/>
                                 <exclude reference="yBP-D2-mAS"/>
                                 <exclude reference="4Wc-gI-7d0"/>
-                                <exclude reference="ReS-5A-5sh"/>
-                                <exclude reference="V5X-tx-54h"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -630,13 +631,13 @@
                                 <include reference="5wi-jR-wS1"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="ReS-5A-5sh"/>
+                                <include reference="V5X-tx-54h"/>
                                 <exclude reference="39r-uR-bXh"/>
                                 <include reference="oje-b2-vab"/>
                                 <include reference="uT2-ZH-hQp"/>
                                 <include reference="yBP-D2-mAS"/>
                                 <include reference="4Wc-gI-7d0"/>
-                                <include reference="ReS-5A-5sh"/>
-                                <include reference="V5X-tx-54h"/>
                             </mask>
                         </variation>
                     </view>
@@ -711,6 +712,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="205" y="25" width="79" height="36"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -900,6 +904,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="205" y="25" width="79" height="36"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
