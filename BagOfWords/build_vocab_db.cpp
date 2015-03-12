@@ -3,7 +3,6 @@
 #include <opencv2/objdetect/objdetect.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/nonfree/nonfree.hpp>
 
 #include <iostream>
 #include <string>
@@ -40,15 +39,15 @@ int main(int argc, char** argv) {
   delete con;
   
   // Choose algorithms
-  Ptr<FeatureDetector> detector = FeatureDetector::create("SURF");
-  Ptr<DescriptorExtractor> extractor = new OpponentColorDescriptorExtractor(Ptr<DescriptorExtractor>(new SurfDescriptorExtractor()));
+  Ptr<FeatureDetector> detector = FeatureDetector::create("ORB");
+  Ptr<DescriptorExtractor> extractor = new OpponentColorDescriptorExtractor(Ptr<DescriptorExtractor>(DescriptorExtractor::create("ORB")));
   
   // Get descriptors for all features in all images.
   Mat allDescriptors(1, extractor->descriptorSize(), CV_32F);
   for (size_t i=0; i<both.size(); i++) {
     vector<KeyPoint> keyPoints;
     Mat descriptors;
-    Mat img = img_helper::resizeSetWidth(imread(both[i]), 150);
+    Mat img = img_helper::resizeSetWidth(imread(both[i]), 200);
     detector->detect(img, keyPoints);
     extractor->compute(img, keyPoints, descriptors);
     descriptors.convertTo(descriptors, CV_32F);
@@ -58,7 +57,9 @@ int main(int argc, char** argv) {
   // Cluster features into groups, called "words"
   BOWKMeansTrainer bowtrainer(1500); //num clusters
   bowtrainer.add(allDescriptors);
-  Mat vocabulary = bowtrainer.cluster();
+  Mat floatVocabulary = bowtrainer.cluster();
+  Mat vocabulary;
+  floatVocabulary.convertTo(vocabulary, CV_8UC1);
   
   // Save to xml file
   FileStorage vocabStore("vocabulary.xml", FileStorage::WRITE);

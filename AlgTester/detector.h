@@ -15,7 +15,6 @@
 #endif
 #include <opencv2/core/core.hpp>
 #include <opencv2/ml/ml.hpp>
-#include <opencv2/nonfree/nonfree.hpp>
 using namespace cv;
 
 #ifndef __IDENTIFIED__

@@ -4,7 +4,6 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/ml/ml.hpp>
-#include <opencv2/nonfree/nonfree.hpp>
 
 #include <iostream>
 #include <string>
@@ -52,8 +51,8 @@ int main(int argc, char** argv) {
   delete con;
   
   // Choose algorithms
-  Ptr<FeatureDetector> detector = FeatureDetector::create("SURF");
-  Ptr<DescriptorExtractor> extractor = new OpponentColorDescriptorExtractor(Ptr<DescriptorExtractor>(new SurfDescriptorExtractor()));
+  Ptr<FeatureDetector> detector = FeatureDetector::create("ORB");
+  Ptr<DescriptorExtractor> extractor = new OpponentColorDescriptorExtractor(Ptr<DescriptorExtractor>(DescriptorExtractor::create("ORB")));
   Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create("BruteForce");
   Ptr<BOWImgDescriptorExtractor> bowide(new BOWImgDescriptorExtractor(extractor, matcher));
   
@@ -71,7 +70,7 @@ int main(int argc, char** argv) {
     Mat img, histogram;
     
     // Get histogram.
-    img = img_helper::resizeSetWidth(imread(both[i]), 150);
+    img = img_helper::resizeSetWidth(imread(both[i]), 200);
     detector->detect(img, keyPoints);
     bowide->compute(img, keyPoints, histogram);
     

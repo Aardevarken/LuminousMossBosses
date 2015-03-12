@@ -4,7 +4,6 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/ml/ml.hpp>
-#include <opencv2/nonfree/nonfree.hpp>
 
 #include <iostream>
 #include <string>
@@ -31,7 +30,7 @@ CvSVM classifier;
  * Given an image filename, will attempt to predict it's classification.
  */
 float predict(String imageFile) {
-  Mat image = img_helper::resizeSetWidth(imread(imageFile, CV_LOAD_IMAGE_COLOR), 150);
+  Mat image = img_helper::resizeSetWidth(imread(imageFile, CV_LOAD_IMAGE_COLOR), 200);
 
   // Get histogram for image
   vector<KeyPoint> keyPoints;
@@ -76,8 +75,8 @@ int main(int argc, char** argv) {
   classifier.load("silene.xml");
   
   // Choose algorithms
-  detector = FeatureDetector::create("SURF");
-  Ptr<DescriptorExtractor> extractor = new OpponentColorDescriptorExtractor(Ptr<DescriptorExtractor>(new SurfDescriptorExtractor()));
+  detector = FeatureDetector::create("ORB");
+  Ptr<DescriptorExtractor> extractor = new OpponentColorDescriptorExtractor(Ptr<DescriptorExtractor>(DescriptorExtractor::create("ORB")));
   Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create("BruteForce");
   bowide = new BOWImgDescriptorExtractor(extractor, matcher);
   

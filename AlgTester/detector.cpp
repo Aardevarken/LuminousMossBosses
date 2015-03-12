@@ -26,8 +26,8 @@ detector::detector(String flower_xml, String vocab_xml, String silene_xml) {
   classifier.load(silene_xml.c_str());
 
   // Choose algorithms
-  featureDetector = FeatureDetector::create("SURF");
-  Ptr<DescriptorExtractor> extractor = new OpponentColorDescriptorExtractor(Ptr<DescriptorExtractor>(new SurfDescriptorExtractor()));
+  featureDetector = FeatureDetector::create("ORB");
+  Ptr<DescriptorExtractor> extractor = new OpponentColorDescriptorExtractor(Ptr<DescriptorExtractor>(DescriptorExtractor::create("ORB")));
   Ptr<DescriptorMatcher> matcher = DescriptorMatcher::create("BruteForce");
   bowide = new BOWImgDescriptorExtractor(extractor, matcher);
 
@@ -149,9 +149,9 @@ float detector::predict(Mat image) {
  * True if it is silene, false if not.
  */
 bool detector::isThisSilene(Mat image) {
-  Mat thumbnail = img_helper::resizeSetWidth(image, 150);
+  Mat thumbnail = img_helper::resizeSetWidth(image, 200);
   float prediction = predict(thumbnail);
-  if (prediction < 0.95) {return true;}
+  if (prediction < 0.967) {return true;}
   Mat pink = detector::isolatePink(image);
   vector<identified> flowers = detector::findFlowers(pink);
   return flowers.size() >= 1;
