@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+import org.apache.tools.ant.taskdefs.condition.Os
 
 android {
     compileSdkVersion 21
@@ -10,13 +11,32 @@ android {
         targetSdkVersion 17
     }
 
+    sourceSets.main {
+        jni.srcDirs = []
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
+    task ndkBuild(type: Exec) {
+        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            commandLine 'C:\\NDK\\ndk-build.cmd', '-C', file('src/main/jni').absolutePath
+        }
+        else {
+            commandLine 'ndk-build', '-C', file('src/main/jni').absolutePath
+        }
+    }
+
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn ndkBuild
+    }
+
 }
+
 
 dependencies {
     compile 'com.android.support:support-v4:21.0.3'
