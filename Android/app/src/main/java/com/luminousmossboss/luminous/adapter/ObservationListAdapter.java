@@ -8,11 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.luminousmossboss.luminous.R;
-import com.luminousmossboss.luminous.model.FGListItem;
 import com.luminousmossboss.luminous.model.ListItem;
-import com.luminousmossboss.luminous.model.ObservationListItem;
+import com.luminousmossboss.luminous.model.Observation;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -40,7 +38,7 @@ public class ObservationListAdapter extends FragListAdapter  {
         }
 
         convertView = basicView(position,convertView);
-        ObservationListItem item = (ObservationListItem) listItems.get(position);
+        Observation item = (Observation) listItems.get(position);
 
         TextView date  = (TextView) convertView.findViewById(R.id.date);
         date.setText(item.getDate());
