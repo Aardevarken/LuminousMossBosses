@@ -1373,26 +1373,10 @@
                         <viewControllerLayoutGuide type="top" id="zDA-6O-1aA"/>
                         <viewControllerLayoutGuide type="bottom" id="E6x-0y-Jmh"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Xqu-FZ-cTW">
+                    <view key="view" contentMode="scaleToFill" id="Xqu-FZ-cTW" customClass="ObservationCell">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IMG_2003.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="dKG-5b-9qa">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="dKG-5b-9qa" secondAttribute="height" multiplier="1:1" id="ASU-e2-hCv"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="ASU-e2-hCv"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="ASU-e2-hCv"/>
-                                    </mask>
-                                </variation>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="###%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ll-Dk-1ka">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1424,6 +1408,22 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dKG-5b-9qa">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="dKG-5b-9qa" secondAttribute="height" multiplier="1:1" id="ASU-e2-hCv"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="ASU-e2-hCv"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="ASU-e2-hCv"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1445,12 +1445,12 @@
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="dKG-5b-9qa"/>
                                 <exclude reference="1ll-Dk-1ka"/>
                                 <exclude reference="fnQ-0G-ZHM"/>
                                 <exclude reference="Ezg-as-d5a"/>
                                 <exclude reference="Rml-ag-MK8"/>
                                 <exclude reference="zRP-fR-jMv"/>
+                                <exclude reference="dKG-5b-9qa"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Z2g-wG-s0C"/>
@@ -1472,12 +1472,12 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="dKG-5b-9qa"/>
                                 <include reference="1ll-Dk-1ka"/>
                                 <include reference="fnQ-0G-ZHM"/>
                                 <include reference="Ezg-as-d5a"/>
                                 <include reference="Rml-ag-MK8"/>
                                 <include reference="zRP-fR-jMv"/>
+                                <include reference="dKG-5b-9qa"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="Z2g-wG-s0C"/>
@@ -1497,6 +1497,10 @@
                                 <include reference="cPR-lh-erN"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <outlet property="percentLabel" destination="1ll-Dk-1ka" id="VFG-Aj-we0"/>
+                            <outlet property="plantImageView" destination="dKG-5b-9qa" id="4jj-cm-ULI"/>
+                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A76-TJ-R77" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1700,7 +1704,6 @@
     <resources>
         <image name="IMG_1976.jpg" width="2448" height="3264"/>
         <image name="IMG_1997.jpg" width="3264" height="2448"/>
-        <image name="IMG_2003.jpg" width="3264" height="2448"/>
         <image name="IMG_2278.JPG" width="3100" height="2325"/>
     </resources>
     <inferredMetricsTieBreakers>

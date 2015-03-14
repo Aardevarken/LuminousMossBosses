@@ -93,10 +93,19 @@ static sqlite3_stmt *statement = nil;
 \************************************************************************************************/
 -(NSArray*) findObsByStatus:(NSString*)status orderBy:(NSString*)orderBy
 {
+	// create optional order by statement
+	NSString *orderBystmt;
+	if (!orderBy || ![orderBy length]) {
+		orderBystmt = [NSString stringWithFormat:@"order by %@", orderBy];
+	}
+	else{
+		orderBystmt = @"";
+	}
+
 	const char *dbpath = [databasePath UTF8String];
 	if (sqlite3_open(dbpath, &database) == SQLITE_OK) {
 		
-		NSString *querySQL = [NSString stringWithFormat:@"select * from observations where status=\"%@\" order by \"%@\"", status, orderBy];
+		NSString *querySQL = [NSString stringWithFormat:@"select * from observations where status=\"%@\" %@", status, orderBystmt];
 		const char *query_stmt = [querySQL UTF8String];
 		NSMutableArray *resultArray = [[NSMutableArray alloc] init];
 		
@@ -113,7 +122,7 @@ static sqlite3_stmt *statement = nil;
 		
 		if (sqlite3_prepare_v2(database, query_stmt, -1, &statement, NULL) == SQLITE_OK) {
 			if (sqlite3_step(statement) == SQLITE_ROW) {
-				while(sqlite3_step(statement) == SQLITE_ROW) {
+				do{
 					NSMutableArray *objectArray = [[NSMutableArray alloc] init];
 					
 					// Position 0 imghexid
@@ -143,10 +152,10 @@ static sqlite3_stmt *statement = nil;
 					
 					NSDictionary *rowResults = [NSDictionary dictionaryWithObjects:objectArray forKeys:keyArray];
 					[resultArray addObject:rowResults];
-				}
+				} while(sqlite3_step(statement) == SQLITE_ROW);
 			}
 			else {
-				NSLog(@"Not found");
+				//NSLog(@"Not found"); not needed
 				return nil;
 			}
 			sqlite3_reset(statement);	// not sure what this is used for

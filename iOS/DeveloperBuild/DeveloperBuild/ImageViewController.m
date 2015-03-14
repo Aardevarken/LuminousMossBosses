@@ -12,7 +12,7 @@
 #import "MyObservations.h"
 
 // for testing //
-#import "UserDateDatabase.h"
+#import "UserDataDatabase.h"
 //#import "UserData.h"
 // end testing //
 #define TESTING 0
@@ -82,7 +82,7 @@
 	NSString *alertString = @"Data insertion failed";
 	NSString *img = [NSString stringWithFormat:@"%@", self.capedImg];
 	if(TRUE){
-		success = [[UserDateDatabase getSharedInstance] saveData:img width:0 height:0 date:0 latitude:[NSNumber numberWithDouble:1.0] longitude:[NSNumber numberWithDouble:-1.0] percentIDed:[NSNumber numberWithDouble:0.05]];
+		success = [[UserDataDatabase getSharedInstance] saveData:img date:0 latitude:[NSNumber numberWithDouble:1.0] longitude:[NSNumber numberWithDouble:-1.0] percentIDed:[NSNumber numberWithDouble:0.05]];
 	}
 	else {
 	}
@@ -92,7 +92,7 @@
 		[alert show];
 	}
 	
-	NSArray *data = [[UserDateDatabase getSharedInstance] findByImgID:@"test1"];
+	NSArray *data = [[UserDataDatabase getSharedInstance] findByImgID:@"test1"];
 	if (data == nil) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data not found" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
@@ -140,7 +140,7 @@
 	return MatToUIImage(detectedImage);
 }
 
-/**
+/*
  * imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"]; 
  * stores the hex id for the image in imageView under _storage in a UIImage format
  */

@@ -11,7 +11,7 @@
 #import "Observation.h"
 #import "ObservationCell.h"
 #import "MyObservations.h"
-#import "UserDateDatabase.h"
+#import "UserDataDatabase.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 @interface ObsViewController ()
@@ -65,18 +65,49 @@ NSMutableArray *_myObservations;
     // Dispose of any resources that can be recreated.
 }
 
+- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section{
+	return 40;
+}
+
+- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+	switch (section) {
+		case 0:
+			return @"Unknown Observations";
+			break;
+		case 1:
+			return @"Identified Observations";
+			break;
+		default:
+			return @"";
+			break;
+	}
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-	return 1;
+	return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	NSArray *data = [[UserDateDatabase getSharedInstance] findByImgID:@""];
-	NSInteger count = [data count];
+	NSInteger count;
+	NSArray *data;
+	
+	// All variable declaration must be pulled out of the switch statment
+	switch (section) {
+		case 0:
+			data = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_noid" orderBy:nil];
+			count = [data count];
+			break;
+		case 1:
+			data = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_gotid" orderBy:nil];
+			count = [data count];
+		default:
+			count = 0;
+			break;
+	}
+	
 	return count;
-	//return [self.myObservations count];
-	//return [self.observationsArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -84,7 +115,7 @@ NSMutableArray *_myObservations;
 	
 	ObservationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ObservationCell_ID"];
 //	NewObs *myObservation = [self.observationsArray objectAtIndex:indexPath.row];
-	NSArray *data = [[UserDateDatabase getSharedInstance] findByImgID:@""]; // this is inefficent. need to refactor
+	NSArray *data = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_noid" orderBy:nil]; // need to refactor
 	
 	NSDictionary *dic = [data objectAtIndex:indexPath.row];
 	
@@ -103,7 +134,7 @@ NSMutableArray *_myObservations;
 	}
 		failureBlock: nil];
 	
-	cell.nameLabel.text		= [NSString stringWithFormat:@"%@", [dic objectForKey:@"imghexid"]];
+	cell.nameLabel.text		= [NSString stringWithFormat:@"%@", [dic objectForKey:@"Unknown"]];
 	cell.dateLabel.text		= [NSString stringWithFormat:@"%@", [dic objectForKey:@"date"]];
 	cell.percentLabel.text	= [NSString stringWithFormat:@"%@", [dic objectForKey:@"percentIDed"]];
 	
