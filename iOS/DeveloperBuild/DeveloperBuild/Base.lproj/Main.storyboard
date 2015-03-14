@@ -967,7 +967,7 @@
                                             <outlet property="nameLabel" destination="8Qh-6b-TmJ" id="egI-rl-4Hr"/>
                                             <outlet property="percentLabel" destination="yya-i8-Fp2" id="RSK-S4-77V"/>
                                             <outlet property="plantImageView" destination="AeM-5O-2qL" id="FdH-x2-VZK"/>
-                                            <segue destination="bdk-Js-Zd1" kind="show" id="A5Q-uz-ERG"/>
+                                            <segue destination="bdk-Js-Zd1" kind="show" identifier="MyObsSegue" id="A5Q-uz-ERG"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ObservationCellPending_ID" editingAccessoryType="checkmark" rowHeight="87" id="ejt-0B-Lu5" customClass="ObservationCell">
@@ -1365,10 +1365,10 @@
             </objects>
             <point key="canvasLocation" x="5499" y="669.75"/>
         </scene>
-        <!--View Controller-->
+        <!--Obs Detail View Controller-->
         <scene sceneID="D8B-Zg-Ktk">
             <objects>
-                <viewController id="bdk-Js-Zd1" sceneMemberID="viewController">
+                <viewController id="bdk-Js-Zd1" customClass="ObsDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zDA-6O-1aA"/>
                         <viewControllerLayoutGuide type="bottom" id="E6x-0y-Jmh"/>
@@ -1499,9 +1499,14 @@
                         </variation>
                         <connections>
                             <outlet property="percentLabel" destination="1ll-Dk-1ka" id="VFG-Aj-we0"/>
-                            <outlet property="plantImageView" destination="dKG-5b-9qa" id="4jj-cm-ULI"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="dateLabel" destination="fnQ-0G-ZHM" id="4Pk-2L-iLd"/>
+                        <outlet property="image" destination="dKG-5b-9qa" id="q7j-lx-BJn"/>
+                        <outlet property="nameLabel" destination="Ezg-as-d5a" id="6Yw-Yk-NsN"/>
+                        <outlet property="percentLabel" destination="1ll-Dk-1ka" id="uMU-h9-FfR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A76-TJ-R77" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

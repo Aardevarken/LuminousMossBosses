@@ -13,6 +13,7 @@
 #import "MyObservations.h"
 #import "UserDataDatabase.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "ObsDetailViewController.h"
 
 @interface ObsViewController ()
 
@@ -21,7 +22,12 @@
 #define getDataURL @"http://flowerid.cheetahjokes.com/cgi-bin/observations.py"
 #define MAX_NUMB_DISPLAYED 5
 
-@implementation ObsViewController
+@implementation ObsViewController{
+	NSArray *plants;
+	NSArray *pendingObservations;
+}
+
+
 @synthesize json, observationsArray;
 NSMutableArray *_myObservations;
 
@@ -57,6 +63,10 @@ NSMutableArray *_myObservations;
 	
 	self.myObservations = _myObservations;
 	
+	// please work
+	pendingObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_noid" orderBy:nil];
+	// keep this work
+	
 	[self retrieveData];
 }
 
@@ -91,16 +101,16 @@ NSMutableArray *_myObservations;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	NSInteger count;
-	NSArray *data;
+	NSArray *data = pendingObservations;
 	
 	// All variable declaration must be pulled out of the switch statment
 	switch (section) {
 		case 0:
-			data = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_noid" orderBy:nil];
+			//data = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_noid" orderBy:nil];
 			count = [data count];
 			break;
 		case 1:
-			data = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_gotid" orderBy:nil];
+			//data = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_gotid" orderBy:nil];
 			count = [data count];
 		default:
 			count = 0;
@@ -115,7 +125,7 @@ NSMutableArray *_myObservations;
 	
 	ObservationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ObservationCell_ID"];
 //	NewObs *myObservation = [self.observationsArray objectAtIndex:indexPath.row];
-	NSArray *data = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_noid" orderBy:nil]; // need to refactor
+	NSArray *data = pendingObservations;//[[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_noid" orderBy:nil]; // need to refactor
 	
 	NSDictionary *dic = [data objectAtIndex:indexPath.row];
 	
@@ -134,7 +144,7 @@ NSMutableArray *_myObservations;
 	}
 		failureBlock: nil];
 	
-	cell.nameLabel.text		= [NSString stringWithFormat:@"%@", [dic objectForKey:@"Unknown"]];
+	cell.nameLabel.text		= @"Unknown";//[NSString stringWithFormat:@"%@", [dic objectForKey:@"imghexid"]];
 	cell.dateLabel.text		= [NSString stringWithFormat:@"%@", [dic objectForKey:@"date"]];
 	cell.percentLabel.text	= [NSString stringWithFormat:@"%@", [dic objectForKey:@"percentIDed"]];
 	
@@ -241,14 +251,19 @@ NSMutableArray *_myObservations;
 	return result;
 }
 
-/*
+
 #pragma mark - Navigation
+
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+	// Get the new view controller using [segue destinationViewController].
+	// Pass the selected object to the new view controller.
+	if ([segue.identifier isEqualToString:@"MyObsSegue"]) {
+		NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+		ObsDetailViewController *destViewController = segue.destinationViewController;
+		destViewController.plantInfo = [pendingObservations objectAtIndex:indexPath.row];
+	}
 }
-*/
 
 @end

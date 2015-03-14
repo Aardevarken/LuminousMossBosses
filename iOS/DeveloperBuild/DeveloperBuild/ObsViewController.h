@@ -16,5 +16,7 @@
 @property (nonatomic, strong) NSMutableArray * imageArray;
 @property (nonatomic, strong) NSMutableArray * json;
 
+// might not need
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @end
