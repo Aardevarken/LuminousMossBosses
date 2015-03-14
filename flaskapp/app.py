@@ -1,10 +1,10 @@
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash, jsonify 
 from werkzeug.utils import secure_filename
-import json, sha, os
-import datetime
-from dbhandler.database import db_session
-from dbhandler.models import Observation, DetectionObject, Device 
+import json, sha, os, datetime
 from sqlalchemy import and_
+from dbhandler.database import db_session, db_update
+from dbhandler.models import Observation, DetectionObject, Device, User 
+from util import filename, miscellaneous 
 
 # configuration
 DEBUG = True# Change this to false when put into production 
@@ -16,6 +16,7 @@ UPLOAD_FOLDER ='/work/pics/pending/all'
 THUMBNAIL_FOLDER = '/work/pics/thumbnails'
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg'])
 ALLOWED_DEVICES = set(['iOS','AndroidPhone', 'AndroidDevice'])
+MAX_LIST_ITEMS = 15
 
 # initiate application
 app = Flask(__name__)
@@ -54,27 +55,43 @@ def logout():
 def observation_list():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
-    listItemCount = 15
 
     verified = request.args.get('verified')
     page = request.args.get('page')
     page = 0 if page is None else int(page)
-    observations = db_session().query(Observation.ObsID, Observation.Date, Observation.IsSilene, Observation.FileName, Device.DeviceId).outerjoin(Device, Observation.Device_id==Device.id)
+    observations = db_session().query(Observation.ObsID, Observation.Date, Observation.IsSilene, Observation.FileName, Device.DeviceId, Device.DeviceType).outerjoin(Device, Observation.Device_id==Device.id)
     
     if (verified == "null"):
         observations = observations.filter(Observation.IsSilene==None)
     elif (verified is not None):
         observations = observations.filter(Observation.IsSilene==verified)
 
-    maxpage = int(observations.count()/listItemCount)        
-    observations = observations.offset(page*listItemCount).limit(listItemCount).all()
+    maxpage = int(observations.count()/MAX_LIST_ITEMS)        
+    observations = observations.offset(page*MAX_LIST_ITEMS).limit(MAX_LIST_ITEMS).all()
 
     verified = "" if verified is None else "&verified="+verified
     urlargs = {'page':page,'maxpage':maxpage,'verified':verified}
     return render_template('observation_list.html', observations=observations, urlargs=urlargs)
 
-def getSQLNoneValue(value):
-    return value if value is None else value[0]
+@app.route('/device_list')
+def device_list():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    
+    isblacklisted = request.args.get('bl')
+    page = request.args.get('page')
+    page = 0 if page is None else int(page)
+    devices = db_session().query(Device.id, Device.DeviceId, Device.DeviceType, Device.IsBlackListed, User.Username).outerjoin(User, Device.UserId == User.UserId)
+    
+    if (isblacklisted is not None):
+        devices = devices.filter(Device.IsBlackListed==isblacklisted)
+
+    maxpage = int(devices.count()/MAX_LIST_ITEMS)
+    devices = devices.offset(page*MAX_LIST_ITEMS).limit(MAX_LIST_ITEMS).all()
+
+    isblacklisted = "" if isblacklisted is None else "&bl="+isblacklisted
+    urlargs = {'page':page, 'maxpage':maxpage,'isblacklisted':isblacklisted}
+    return render_template('device_list.html', devices=devices, urlargs=urlargs)
 
 @app.route('/observation_view')
 def observation_view():
@@ -111,26 +128,27 @@ def update_isSilene():
     if not session.get('logged_in'):
         return "I can't let you do that Dave" 
     
-    observation_value = request.form.get('sentValue', type=int)
-    observation_value = bool(observation_value) if observation_value != -1 else None
-    observation_id = request.form.get('sentId', type=int)
-    Observation.query.get(observation_id).IsSilene = observation_value
-    db_session().commit()
+    value = request.form.get('sentValue', type=int)
+    value = bool(value) if value != -1 else None
+    value_id = request.form.get('sentId', type=int)
+    #Observation.query.get(observation_id).IsSilene = observation_value
+    db_update().query(Observation).filter(Observation.ObsID == value_id).first().update({Observation.IsSilene:value})
+    db_update().commit()
 
     return jsonify(flash="values updated")
 
-def checkValuesExist(*values):
-    return all(value is not None for value in values)
+@app.route('/_update_isBlackListed', methods=["POST"])
+def update_isBlackListed():
+    if not session.get('logged_in'):
+        return "I can't let you do that Dave" 
+    
+    value = request.form.get('sentValue', type=int)
+    #value = bool(value) if value != -1 else None
+    value_id = request.form.get('sentId', type=int)
+    Device.query.get(value_id).IsBlackListed = value
+    db_session().commit()
 
-def createUniqueFileName(filename, device):
-    string = filename.split('_')
-    if string[0] == device and string[1].isdigit():
-        string[1] = str(int(string[1]) + 1)
-
-        return "_".join(string)
-    else:
-        return device + "_0_" + filename
-
+    return jsonify(flash="values updated")
 @app.route('/_post_observation', methods=["POST"])
 def post_observation():
     try:
@@ -171,11 +189,6 @@ def post_observation():
                 print filename
                 newFile.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             
-            # Features Needed
-                # Check for duplicates and find a way to handle them, or use hashes
-
-            # Generate a thumbnail
-            # secure_filename sanitizes filename, but there could be other security risks, worth looking into better ways of calling simple bash commands.
             os.system("convert -thumbnail 150 " + os.path.join(app.config['UPLOAD_FOLDER'], filename) \
                     + " " + os.path.join(THUMBNAIL_FOLDER, filename))
 

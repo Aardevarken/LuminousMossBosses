@@ -1,0 +1,71 @@
+{% extends "admin_layout.html" %}
+{% block body %}
+<script src="{{ url_for('static', filename='js/utils.js')}}"></script>
+    <div class="row">
+        <div class="col-xs-6">
+        <ul class="nav nav-tabs nav-justified" role="group" aria-label="options">
+            <li role="presentation" {% if urlargs.isblacklisted == "" %}class="active"{% endif %}> 
+            <a href="/device_list">All</a>
+            </li>
+            <li role="presentation" {% if urlargs.isblacklisted == "&bl=0" %}class="active"{% endif %}>
+            <a href="/device_list?bl=0">Not Blacklisted</a>
+            </li>
+            <li role="presentation" {% if urlargs.isblacklisted == "&bl=1"  %}class="active"{% endif %}>
+            <a href="/device_list?bl=1" >Blacklisted</a>
+            </li>
+        </ul>
+        </div>
+        <div class="col-lg-12">
+        <table class="table-striped table">
+            <thead><tr>
+                    <b><td class="col-md-1">ID</td>
+                    <td class="col-md-2">Device Name</td>
+                    <td class="col-md-3">Device Number</td>
+                    <td class="col-md-4">User Name</td>
+                    <td class="col-md-2">Blacklisted</td></b>
+            </tr></thead>
+            <tbody>
+            {% for device in devices %}
+                <tr>
+                <td>{{ device.id }}</td>
+                <td>{{ device.DeviceType }}</td>
+                <td>{{ device.DeviceId }}</td>
+                <td>{{ device.Username }}</td>
+                <td>
+                    <select class="form-control" id="id_{{ device.id }}" onchange="updateSelection({{ device.id }},'isBlackListed')">
+                        <option value=0 {% if device.IsBlackListed == 0 %}selected{% endif %}>No</option>
+                        <option value=1 {% if device.IsBlackListed == 1 %}selected{% endif %}>Yes</option>
+                    </select>
+                </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="input-group input-group-sm">
+            <span class="input-group-btn" aria-label="page">
+                <!--<ul class="list-inline banner-social-buttons">-->
+            
+            <a href="/device_list?page=0{{ urlargs.isblacklisted }}" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-step-backward"> </span>
+            </a>
+            {% set pre = urlargs.page -1 %}
+            <a {% if urlargs.page == 0 %} disabled {% endif %}
+            href="/device_list?page={{ pre }}{{ urlargs.isblacklisted }}" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-triangle-left"> </span>
+            </a>
+            <p class="btn btn-default btn-sm" disabled >page {{ urlargs.page }} </p>
+            {% set next = urlargs.page +1 %}
+            <a {% if urlargs.page == urlargs.maxpage %} disabled {% endif %} 
+            href="/device_list?page={{ next }}{{ urlargs.isblacklisted }}" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-triangle-right"> </span>
+            </a>
+            <a href="/device_list?page={{ urlargs.maxpage }}{{ urlargs.isblacklisted }}" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-step-forward"> </span>
+            </a>
+            </span>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+<!--</body>
+</html>-->

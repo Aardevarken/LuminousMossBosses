@@ -13,8 +13,8 @@ Array.prototype.remove = function(from, to) {
 /**
  * Method to update isSilene value in database
  */
-function updateSelection(id) {
-    $.post('/_update_isSilene', {
+function updateSelection(id, type) {
+    $.post('/_update_'+type, {
         sentValue: $('#id_'+id+' :selected').val(),
         sentId: id
     },function(data){flash = data.flash},'json');
