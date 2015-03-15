@@ -17,4 +17,6 @@
 
 @property (nonatomic, strong) NSDictionary *plantInfo;
 
+- (IBAction)startIdentificationButton:(UIButton *)sender;
+
 @end

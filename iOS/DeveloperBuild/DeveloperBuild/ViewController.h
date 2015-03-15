@@ -10,7 +10,9 @@
 #import <Foundation/Foundation.h>
 #import "detector.h"
 
-@interface ViewController : UIViewController <UIScrollViewDelegate> {
+@interface ViewController : NSObject
+//UIViewController <UIScrollViewDelegate>
+/*{
 	
 	NSArray *testImages;
 	NSUInteger numberOfImages;
@@ -21,11 +23,13 @@
 	NSInteger greenRec;
 	NSInteger blueRec;
 	
-}
+}*/
 
 // For adding a scroll view
-@property (nonatomic, strong) IBOutlet UIImageView* imageView;
-@property (nonatomic, strong) IBOutlet UIScrollView* scrollView;
+//@property (nonatomic, strong) IBOutlet UIImageView* imageView;
+//@property (nonatomic, strong) IBOutlet UIScrollView* scrollView;
+
++ (UIImage*) runDetectionAlgorithm:(UIImage*)unknownImage;
 
 
 @end

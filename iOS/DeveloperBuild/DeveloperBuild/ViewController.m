@@ -26,10 +26,45 @@
 \******************/
 
 @implementation ViewController
-
+/*
 @synthesize imageView;	// ??? //
 @synthesize scrollView = _scrollView;
+*/
 
++ (UIImage*) runDetectionAlgorithm:(UIImage *)unknownImage
+{
+	// For debugging
+	//	NSLog(@"Image:%@ Index:%li", testImages[currentImage], currentImage);
+	
+	// Update the label to the name of the current image
+	//nameOfCurrentImage.text = [NSString stringWithFormat:@"%@", testImages[currentImage]];
+	
+	// Load image
+	//UIImage* image = [UIImage imageNamed:testImages[currentImage]];
+	Mat cvImage;
+	UIImageToMat(unknownImage, cvImage);
+	
+	// Load OpenCV classifier
+	NSString* flowerXMLPath = [[NSBundle mainBundle]
+							   pathForResource:@"flower25"
+							   ofType:@"xml"];
+	NSString* vocabXMLPath = [[NSBundle mainBundle]
+							  pathForResource:@"vocabulary"
+							  ofType:@"xml"];
+	NSString* sileneXMLPath = [[NSBundle mainBundle]
+							   pathForResource:@"silene"
+							   ofType:@"xml"];
+	
+	detector flowerDetector([flowerXMLPath UTF8String], [vocabXMLPath UTF8String], [sileneXMLPath UTF8String]);
+	
+	// Circle flowers
+	Mat detectedImage = flowerDetector.circlePinkFlowers(cvImage);
+	
+	return MatToUIImage(detectedImage);
+	// Show image with results
+	//imageView.image = MatToUIImage(detectedImage);
+}
+/*
 - (void)viewDidLoad {
 	NSLog(@"Starting viewDidLoad");
 	[super viewDidLoad];
@@ -41,7 +76,7 @@
 	currentImage = 0;
 	
 	// display the first image
-	[self displayImage];
+	//[self displayImage];
 	
 	NSLog(@"Ending viewDidLoad");
 }
@@ -50,17 +85,17 @@
 	[super didReceiveMemoryWarning];
 	// Dispose of any resources that can be recreated.
 }
-
+*/
 
 
 /***************************\
  * Methods created by Jacob
 \***************************/
-
+/*
 -(IBAction) nextButtonPressed
 {
 	currentImage = (currentImage + 1) % numberOfImages;
-	[self displayImage];
+	//[self displayImage];
 }
 
 -(IBAction) backButtonPressed
@@ -70,41 +105,10 @@
 	}
 	
 	currentImage = (currentImage - 1) % numberOfImages;
-	[self displayImage];
+	//[self displayImage];
 }
 
--(void) displayImage
-{
-	// For debugging
-    //	NSLog(@"Image:%@ Index:%li", testImages[currentImage], currentImage);
-	
-	// Update the label to the name of the current image
-	nameOfCurrentImage.text = [NSString stringWithFormat:@"%@", testImages[currentImage]];
-	
-	// Load image
-	UIImage* image = [UIImage imageNamed:testImages[currentImage]];
-	Mat cvImage;
-	UIImageToMat(image, cvImage);
-    
-    // Load OpenCV classifier
-    NSString* flowerXMLPath = [[NSBundle mainBundle]
-                               pathForResource:@"flower25"
-                               ofType:@"xml"];
-    NSString* vocabXMLPath = [[NSBundle mainBundle]
-                               pathForResource:@"vocabulary"
-                               ofType:@"xml"];
-    NSString* sileneXMLPath = [[NSBundle mainBundle]
-                               pathForResource:@"silene"
-                               ofType:@"xml"];
-    
-    detector flowerDetector([flowerXMLPath UTF8String], [vocabXMLPath UTF8String], [sileneXMLPath UTF8String]);
-	
-    // Circle flowers
-    Mat detectedImage = flowerDetector.circlePinkFlowers(cvImage);
-	
-	// Show image with results
-	imageView.image = MatToUIImage(detectedImage);
-}
+*/
 
 
 @end

@@ -8,6 +8,7 @@
 
 #import "ObsDetailViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "ViewController.h"//"detectionHelper.h"
 
 @interface ObsDetailViewController ()
 
@@ -44,6 +45,13 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (IBAction)startIdentificationButton:(UIButton *)sender {
+	
+	UIImage *idedImage = [ViewController runDetectionAlgorithm:obsImage.image];
+	obsImage.image = idedImage;
 }
 
 
