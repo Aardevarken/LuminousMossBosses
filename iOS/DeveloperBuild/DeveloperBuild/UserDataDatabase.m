@@ -80,7 +80,7 @@ static sqlite3_stmt *statement = nil;
 			NSLog(@"Failed: %s", sqlite3_errmsg(database));
 			return NO;
 		}
-		sqlite3_reset(statement); // not sure why this is here.
+		//sqlite3_reset(statement); // not sure why this is here.
 	}
 	return NO;
 }
@@ -130,8 +130,8 @@ static sqlite3_stmt *statement = nil;
 					[objectArray addObject:imghexid]; // name is the string provided above
 					
 					// Position 1 date
-					int date = sqlite3_column_int(statement, 1);
-					[objectArray addObject: [NSNumber numberWithInt:date]];
+					NSString *date = [[NSString alloc] initWithUTF8String:(const char*) sqlite3_column_text(statement, 1)];
+					[objectArray addObject:date];
 					
 					// Position 2 latitude
 					double latitude = sqlite3_column_double(statement, 2);

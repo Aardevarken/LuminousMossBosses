@@ -81,8 +81,27 @@
 	BOOL success = NO;
 	NSString *alertString = @"Data insertion failed";
 	NSString *img = [NSString stringWithFormat:@"%@", self.capedImg];
+	
+	// get current date and time
+	/* **************************************************************** *\
+	|* for unicode info about the date format reference:				*|
+	|* http://unicode.org/reports/tr35/tr35-6.html#Date_Format_Patterns	*|
+	\* **************************************************************** */
+	NSDate *today = [NSDate date];
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
+	[NSTimeZone resetSystemTimeZone];
+	
+	
+	[dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+	
+	NSString *currentTime = [dateFormatter stringFromDate:today];
+	
+	NSLog(@"%@", currentTime);
+	//[dateFormatter release];
+	
 	if(TRUE){
-		success = [[UserDataDatabase getSharedInstance] saveData:img date:0 latitude:[NSNumber numberWithDouble:1.0] longitude:[NSNumber numberWithDouble:-1.0] percentIDed:[NSNumber numberWithDouble:0.05]];
+		success = [[UserDataDatabase getSharedInstance] saveData:img date:currentTime latitude:[NSNumber numberWithDouble:1.0] longitude:[NSNumber numberWithDouble:-1.0] percentIDed:[NSNumber numberWithDouble:0.05]];
 	}
 	else {
 	}
@@ -92,11 +111,14 @@
 		[alert show];
 	}
 	
+	
+	/// the following code needs to be removed. i think.
 	NSArray *data = [[UserDataDatabase getSharedInstance] findByImgID:@"test1"];
 	if (data == nil) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data not found" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 	}
+	/*
 	else {
 		if (TESTING){
 			for (id row in data){
@@ -110,7 +132,7 @@
 			}
 		}
 	}
-	
+	*/
 	
 }
 
