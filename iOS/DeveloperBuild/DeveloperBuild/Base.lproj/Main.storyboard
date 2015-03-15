@@ -1063,7 +1063,8 @@
                                         <exclude reference="jfe-Iz-mha"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="81" width="400" height="614"/>
                                     <mask key="constraints">
                                         <exclude reference="6XK-kc-RQz"/>
                                         <exclude reference="jfe-Iz-mha"/>
@@ -1122,6 +1123,9 @@
                     <navigationItem key="navigationItem" title="Pending Obs" id="Hl0-eb-uLi">
                         <barButtonItem key="backBarButtonItem" title="here" id="UWb-0k-I8t"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="IsI-qm-tif" id="902-oi-KQh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Fu-2R-ieE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1139,22 +1143,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IMG_1997.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="bCB-jO-wnK">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="bCB-jO-wnK" secondAttribute="height" multiplier="1:1" id="2Ga-zM-Yag"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="2Ga-zM-Yag"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="2Ga-zM-Yag"/>
-                                    </mask>
-                                </variation>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="###%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6os-Up-0Ov">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1212,6 +1200,22 @@
                                     </mask>
                                 </variation>
                             </progressView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nocamera.png" translatesAutoresizingMaskIntoConstraints="NO" id="bCB-jO-wnK">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bCB-jO-wnK" secondAttribute="height" multiplier="1:1" id="2Ga-zM-Yag"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="2Ga-zM-Yag"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="2Ga-zM-Yag"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1259,7 +1263,6 @@
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="bCB-jO-wnK"/>
                                 <exclude reference="6os-Up-0Ov"/>
                                 <exclude reference="sEa-zQ-bgE"/>
                                 <exclude reference="n3s-u4-u0S"/>
@@ -1267,6 +1270,7 @@
                                 <exclude reference="lxG-qf-oNO"/>
                                 <exclude reference="JmI-oj-xoS"/>
                                 <exclude reference="AYX-hz-vup"/>
+                                <exclude reference="bCB-jO-wnK"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Ae4-oE-YKU"/>
@@ -1310,7 +1314,6 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="bCB-jO-wnK"/>
                                 <include reference="6os-Up-0Ov"/>
                                 <include reference="sEa-zQ-bgE"/>
                                 <include reference="n3s-u4-u0S"/>
@@ -1318,6 +1321,7 @@
                                 <include reference="lxG-qf-oNO"/>
                                 <include reference="JmI-oj-xoS"/>
                                 <include reference="AYX-hz-vup"/>
+                                <include reference="bCB-jO-wnK"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Ae4-oE-YKU"/>
@@ -1373,7 +1377,7 @@
                         <viewControllerLayoutGuide type="top" id="zDA-6O-1aA"/>
                         <viewControllerLayoutGuide type="bottom" id="E6x-0y-Jmh"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Xqu-FZ-cTW" customClass="ObservationCell">
+                    <view key="view" contentMode="scaleToFill" id="Xqu-FZ-cTW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -1410,6 +1414,7 @@
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dKG-5b-9qa">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" red="0.45247395833333337" green="0.45247395833333337" blue="0.45247395833333337" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="dKG-5b-9qa" secondAttribute="height" multiplier="1:1" id="ASU-e2-hCv"/>
                                 </constraints>
@@ -1497,14 +1502,11 @@
                                 <include reference="cPR-lh-erN"/>
                             </mask>
                         </variation>
-                        <connections>
-                            <outlet property="percentLabel" destination="1ll-Dk-1ka" id="VFG-Aj-we0"/>
-                        </connections>
                     </view>
                     <connections>
                         <outlet property="dateLabel" destination="fnQ-0G-ZHM" id="4Pk-2L-iLd"/>
-                        <outlet property="image" destination="dKG-5b-9qa" id="q7j-lx-BJn"/>
                         <outlet property="nameLabel" destination="Ezg-as-d5a" id="6Yw-Yk-NsN"/>
+                        <outlet property="obsImage" destination="dKG-5b-9qa" id="1FJ-cz-Htm"/>
                         <outlet property="percentLabel" destination="1ll-Dk-1ka" id="uMU-h9-FfR"/>
                     </connections>
                 </viewController>
@@ -1561,7 +1563,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IMG_1976.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="32m-OU-vDo">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nocamera.png" translatesAutoresizingMaskIntoConstraints="NO" id="32m-OU-vDo">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="32m-OU-vDo" secondAttribute="height" multiplier="1:1" id="Soa-Ud-P70"/>
@@ -1707,9 +1709,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="IMG_1976.jpg" width="2448" height="3264"/>
-        <image name="IMG_1997.jpg" width="3264" height="2448"/>
         <image name="IMG_2278.JPG" width="3100" height="2325"/>
+        <image name="nocamera.png" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Mtb-J2-e4p"/>

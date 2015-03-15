@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "NewObs.h"
 
-@interface ObsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface ObsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
+	NSInteger selectedSection;
+	NSInteger selectedRow;
+}
 
 @property (nonatomic, strong) NSMutableArray * myObservations;
 @property (nonatomic, strong) NSMutableArray * observationsArray;

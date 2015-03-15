@@ -17,7 +17,7 @@
 @synthesize nameLabel;
 @synthesize percentLabel;
 @synthesize dateLabel;
-@synthesize image;
+@synthesize obsImage;
 @synthesize plantInfo;
 
 
@@ -29,13 +29,13 @@
 	dateLabel.text = [NSString stringWithFormat:@"Date: %@", [plantInfo objectForKey:@"date"]];
 	
 	NSURL *url = [NSURL URLWithString:[plantInfo objectForKey:@"imghexid"]];
-	
+
 	if (![url  isEqual: @"(null)"]) {
 		ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
 		
 		[lib assetForURL: url resultBlock: ^(ALAsset *asset) {
 			ALAssetRepresentation *r = [asset defaultRepresentation];
-			image.image = [UIImage imageWithCGImage: r.fullResolutionImage];
+			obsImage.image = [UIImage imageWithCGImage: r.fullResolutionImage];
 		}
 			failureBlock: nil];
 	}

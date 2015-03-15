@@ -65,6 +65,9 @@ NSMutableArray *_myObservations;
 	
 	// please work
 	pendingObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_noid" orderBy:nil];
+	
+	selectedSection = -1;
+	selectedRow = -1;
 	// keep this work
 	
 	[self retrieveData];
@@ -95,7 +98,7 @@ NSMutableArray *_myObservations;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-	return 2;
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -124,6 +127,11 @@ NSMutableArray *_myObservations;
 {
 	
 	ObservationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ObservationCell_ID"];
+	///? what does this do ?///
+	if (cell == nil) {
+		// do something
+	}
+	
 //	NewObs *myObservation = [self.observationsArray objectAtIndex:indexPath.row];
 	NSArray *data = pendingObservations;//[[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_noid" orderBy:nil]; // need to refactor
 	
@@ -147,8 +155,7 @@ NSMutableArray *_myObservations;
 	cell.nameLabel.text		= @"Unknown";//[NSString stringWithFormat:@"%@", [dic objectForKey:@"imghexid"]];
 	cell.dateLabel.text		= [NSString stringWithFormat:@"%@", [dic objectForKey:@"date"]];
 	cell.percentLabel.text	= [NSString stringWithFormat:@"%@", [dic objectForKey:@"percentIDed"]];
-	
-	
+
 	
 	//cell.plantImageView.image = [dic objectForKey:@"imghexid"];
 	
@@ -251,6 +258,10 @@ NSMutableArray *_myObservations;
 	return result;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+	selectedSection = indexPath.section;
+	selectedRow = indexPath.row;
+}
 
 #pragma mark - Navigation
 
@@ -261,8 +272,28 @@ NSMutableArray *_myObservations;
 	// Pass the selected object to the new view controller.
 	if ([segue.identifier isEqualToString:@"MyObsSegue"]) {
 		NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+		//NSLog(@"indexpath: %@", indexPath);
+		NSLog(@"indexpath.section: %ld", (long)indexPath.section);
+		NSLog(@"indexpath.row: %ld", (long)indexPath.row);
+
 		ObsDetailViewController *destViewController = segue.destinationViewController;
-		destViewController.plantInfo = [pendingObservations objectAtIndex:indexPath.row];
+		//NSLog(@"%@", [pendingObservations objectAtIndex:indexPath.row]);
+		
+		
+		NSDictionary *selectedPendingObservation;
+		switch (indexPath.section) {
+			case 0:
+    selectedPendingObservation = [pendingObservations objectAtIndex:indexPath.row];
+    break;
+				
+			default:
+				// show an alert here
+				NSLog(@"ERROR, THIS LINE OF CODE SHOULD NEVER HIT <prepareForSegue ObsViewController.m>");
+    break;
+		}
+		
+		destViewController.plantInfo = selectedPendingObservation;//[pendingObservations objectAtIndex:indexPath.row];
+		//NSLog(@"Leaving prepareForSegue MyObsSegue");
 	}
 }
 

@@ -13,7 +13,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *nameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *percentLabel;
 @property (nonatomic, strong) IBOutlet UILabel *dateLabel;
-@property (nonatomic, strong) UIImageView *image;
+@property (nonatomic, strong) IBOutlet UIImageView *obsImage;
 
 @property (nonatomic, strong) NSDictionary *plantInfo;
 
