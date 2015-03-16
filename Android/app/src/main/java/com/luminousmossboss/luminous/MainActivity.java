@@ -384,17 +384,15 @@ public class MainActivity extends Activity {
             {
                 Toast.makeText(this, "We have your SILENE!!! image: " + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
             }
-            else
-            {
-                Toast.makeText(this, "We have your image: " + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
-            }
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ", Locale.US);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
             String timeNow = sdf.format(new Date());
             HashMap<String, String> map = new HashMap<String, String>();
             map.put(DbHandler.KEY_GPS_ACCURACY, String.valueOf(loc.getAccuracy()));
-            map.put(DbHandler.KEY_IS_SILENE, String.valueOf(0));
-            map.put(DbHandler.KEY_LOCATION, String.valueOf(loc.getLatitude()) + "," +String.valueOf(loc.getLongitude()));
+            map.put(DbHandler.KEY_IS_SILENE, String.valueOf(wasPicSilene));
+            map.put(DbHandler.KEY_LATITUDE, String.valueOf(loc.getLatitude()));
+            map.put(DbHandler.KEY_LONGITUDE, String.valueOf(loc.getLongitude()));
             map.put(DbHandler.KEY_PHOTO_PATH, mCurrentPhotoPath);
             map.put(DbHandler.KEY_SYNCED_STATUS, String.valueOf(0));
             map.put(DbHandler.KEY_TIME_TAKEN, timeNow);

@@ -38,7 +38,7 @@ public class ObservationFragment extends Fragment implements OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.edit_observation, container, false);
+        View rootView = inflater.inflate(R.layout.view_observation, container, false);
 
 
         ImageView imageView = (ImageView) rootView.findViewById(R.id.imageView);
@@ -50,7 +50,7 @@ public class ObservationFragment extends Fragment implements OnClickListener {
         imageView.setImageURI(observation.getIcon());
         Picasso.with(getActivity()).load(observation.getIcon()).into(imageView);
 
-        details.setText("Date take: " + observation.getFullData() + " \n");
+        details.setText("Date take: " + observation.getDate() + " \n Time:" + observation.getFullDate().substring(10) +"\n");
 
         // Handle Button Events
         Button sendButton = (Button) rootView.findViewById(R.id.button_send);

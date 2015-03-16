@@ -16,7 +16,7 @@ import android.database.Cursor;
 public class DbHandler extends SQLiteOpenHelper {
 
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     // Database Name
     private static final String DATABASE_NAME = "Silenedb";
@@ -27,7 +27,8 @@ public class DbHandler extends SQLiteOpenHelper {
     // Contacts Table Columns names
     public static final String KEY_ID = "id";
     public static final String KEY_PHOTO_PATH = "photo_path";
-    public static final String KEY_LOCATION = "location";
+    public static final String KEY_LATITUDE = "latidude";
+    public static final String KEY_LONGITUDE = "longitude";
     public static final String KEY_IS_SILENE = "is_silene";
     public static final String KEY_TIME_TAKEN = "time_taken";
     public static final String KEY_GPS_ACCURACY = "gps_accuracy";
@@ -40,11 +41,11 @@ public class DbHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_OBSERVATIONS + "("
+        String CREATE_OBSERVATION_TABLE = "CREATE TABLE " + TABLE_OBSERVATIONS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"  + KEY_PHOTO_PATH + " TEXT,"
-                + KEY_LOCATION + " TEXT," + KEY_IS_SILENE + " INTEGER," + KEY_TIME_TAKEN + " TEXT," + KEY_GPS_ACCURACY + " REAL," +
+                + KEY_LATITUDE + " TEXT,"  + KEY_LONGITUDE + " TEXT,"+ KEY_IS_SILENE + " INTEGER," + KEY_TIME_TAKEN + " TEXT," + KEY_GPS_ACCURACY + " REAL," +
                 KEY_SYNCED_STATUS + " INTEGER" + ")";
-        db.execSQL(CREATE_CONTACTS_TABLE);
+        db.execSQL(CREATE_OBSERVATION_TABLE);
 
     }
 

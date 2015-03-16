@@ -10,13 +10,10 @@ import java.io.Serializable;
 
 public class Observation extends ListItem implements Serializable {
     private String date;
-    private int status;
-    final private int MAXCHAR = 10;
-
-
+    private boolean syncedStatus;
     private double longitude;
     private double latitude;
-    private boolean isStatusVisible = false;
+    private boolean hasBeenProcceced;
 
     public Observation() {}
 
@@ -31,15 +28,15 @@ public class Observation extends ListItem implements Serializable {
         this.longitude = longitude;
     }
 
-    public String getDate() { return shortenString(date,MAXCHAR);}
+    public String getDate() { return date.substring(0,10);}
 
-    public String getFullData() { return this.date;}
+    public String getFullDate() { return this.date;}
 
     public void setDate(String date){
         this.date = date;
     }
 
-    public void setStatus(int status) {this.status = status; }
+
 
     public double getLongitude() {
         return longitude;

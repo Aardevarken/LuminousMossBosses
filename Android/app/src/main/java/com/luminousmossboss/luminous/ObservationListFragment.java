@@ -86,7 +86,9 @@ public class ObservationListFragment extends Fragment{
             do{
                 Uri iconUri = Uri.fromFile(new File(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_PHOTO_PATH))));
                 String date= cursor.getString(cursor.getColumnIndex(DbHandler.KEY_TIME_TAKEN));
-                listItems.add(new Observation("Siline", iconUri,date,0,0));
+                Double latitude = cursor.getDouble(cursor.getColumnIndex(DbHandler.KEY_LATITUDE));
+                Double longitude = cursor.getDouble(cursor.getColumnIndex(DbHandler.KEY_LONGITUDE));
+                listItems.add(new Observation("Siline", iconUri,date,latitude, longitude));
 
             }while(cursor.moveToNext());
 
