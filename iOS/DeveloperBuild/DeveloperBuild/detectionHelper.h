@@ -14,6 +14,6 @@
 
 @interface detectionHelper : NSObject
 
-+ (UIImage *) runDetectionAlgorithm:(UIImage *) unknownImage;
++ (UIImage *) runDetectionAlgorithm:(UIImage *) unknownImage progressBar:(UIProgressView*)progressBar maxPercentToFill:(float)percentMultiplier;
 
 @end

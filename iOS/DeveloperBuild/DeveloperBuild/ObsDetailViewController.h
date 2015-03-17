@@ -16,6 +16,9 @@
 @property (nonatomic, strong) IBOutlet UIImageView *obsImage;
 
 @property (nonatomic, strong) NSDictionary *plantInfo;
+@property (nonatomic, strong) IBOutlet UIProgressView *progressBar;
+
+@property (nonatomic, strong) IBOutlet UIButton *idButton;
 
 - (IBAction)startIdentificationButton:(UIButton *)sender;
 

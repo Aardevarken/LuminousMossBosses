@@ -904,6 +904,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="205" y="25" width="79" height="36"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -1480,30 +1483,30 @@
                                 <exclude reference="tdI-f7-ckG"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="Iha-ut-Cp2"/>
-                                <exclude reference="Qjd-UK-DSA"/>
-                                <exclude reference="cPR-lh-erN"/>
-                                <exclude reference="IZ8-DK-7KC"/>
-                                <exclude reference="ccS-k9-ewh"/>
-                                <exclude reference="kK5-WB-sj5"/>
-                                <exclude reference="uFB-8t-xvn"/>
-                                <exclude reference="wFW-fq-TOh"/>
+                                <exclude reference="Z2g-wG-s0C"/>
+                                <exclude reference="uRb-Fi-SKq"/>
                                 <exclude reference="4hr-eE-hXF"/>
                                 <exclude reference="Ou6-IQ-R6a"/>
                                 <exclude reference="DRm-8B-urv"/>
                                 <exclude reference="PwK-ZQ-OkW"/>
                                 <exclude reference="Z9K-ta-ceh"/>
-                                <exclude reference="6G5-Zm-lst"/>
-                                <exclude reference="pfX-0e-wou"/>
                                 <exclude reference="Goq-En-DqF"/>
                                 <exclude reference="TDO-xv-zRV"/>
                                 <exclude reference="gNj-jU-Opf"/>
                                 <exclude reference="y88-zC-ReO"/>
+                                <exclude reference="6G5-Zm-lst"/>
+                                <exclude reference="pfX-0e-wou"/>
+                                <exclude reference="IZ8-DK-7KC"/>
+                                <exclude reference="ccS-k9-ewh"/>
+                                <exclude reference="kK5-WB-sj5"/>
+                                <exclude reference="uFB-8t-xvn"/>
+                                <exclude reference="wFW-fq-TOh"/>
                                 <exclude reference="0EL-oy-hSq"/>
                                 <exclude reference="3kG-hq-Qow"/>
                                 <exclude reference="z9z-k9-di4"/>
-                                <exclude reference="Z2g-wG-s0C"/>
-                                <exclude reference="uRb-Fi-SKq"/>
+                                <exclude reference="Iha-ut-Cp2"/>
+                                <exclude reference="Qjd-UK-DSA"/>
+                                <exclude reference="cPR-lh-erN"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -1518,38 +1521,40 @@
                                 <include reference="tdI-f7-ckG"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="Iha-ut-Cp2"/>
-                                <include reference="Qjd-UK-DSA"/>
-                                <include reference="cPR-lh-erN"/>
-                                <include reference="IZ8-DK-7KC"/>
-                                <include reference="ccS-k9-ewh"/>
-                                <include reference="kK5-WB-sj5"/>
-                                <include reference="uFB-8t-xvn"/>
-                                <include reference="wFW-fq-TOh"/>
+                                <include reference="Z2g-wG-s0C"/>
+                                <include reference="uRb-Fi-SKq"/>
                                 <include reference="4hr-eE-hXF"/>
                                 <include reference="Ou6-IQ-R6a"/>
                                 <include reference="DRm-8B-urv"/>
                                 <include reference="PwK-ZQ-OkW"/>
                                 <include reference="Z9K-ta-ceh"/>
-                                <include reference="6G5-Zm-lst"/>
-                                <include reference="pfX-0e-wou"/>
                                 <include reference="Goq-En-DqF"/>
                                 <include reference="TDO-xv-zRV"/>
                                 <include reference="gNj-jU-Opf"/>
                                 <include reference="y88-zC-ReO"/>
+                                <include reference="6G5-Zm-lst"/>
+                                <include reference="pfX-0e-wou"/>
+                                <include reference="IZ8-DK-7KC"/>
+                                <include reference="ccS-k9-ewh"/>
+                                <include reference="kK5-WB-sj5"/>
+                                <include reference="uFB-8t-xvn"/>
+                                <include reference="wFW-fq-TOh"/>
                                 <include reference="0EL-oy-hSq"/>
                                 <include reference="3kG-hq-Qow"/>
                                 <include reference="z9z-k9-di4"/>
-                                <include reference="Z2g-wG-s0C"/>
-                                <include reference="uRb-Fi-SKq"/>
+                                <include reference="Iha-ut-Cp2"/>
+                                <include reference="Qjd-UK-DSA"/>
+                                <include reference="cPR-lh-erN"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="dateLabel" destination="fnQ-0G-ZHM" id="4Pk-2L-iLd"/>
+                        <outlet property="idButton" destination="KKo-F0-Cc3" id="OhZ-2g-2DD"/>
                         <outlet property="nameLabel" destination="Ezg-as-d5a" id="6Yw-Yk-NsN"/>
                         <outlet property="obsImage" destination="dKG-5b-9qa" id="1FJ-cz-Htm"/>
                         <outlet property="percentLabel" destination="1ll-Dk-1ka" id="uMU-h9-FfR"/>
+                        <outlet property="progressBar" destination="tdI-f7-ckG" id="8O7-YE-9AO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A76-TJ-R77" userLabel="First Responder" sceneMemberID="firstResponder"/>

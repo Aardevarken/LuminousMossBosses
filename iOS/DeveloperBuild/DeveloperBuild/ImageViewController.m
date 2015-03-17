@@ -101,7 +101,7 @@
 	//[dateFormatter release];
 	
 	if(TRUE){
-		success = [[UserDataDatabase getSharedInstance] saveData:img date:currentTime latitude:[NSNumber numberWithDouble:1.0] longitude:[NSNumber numberWithDouble:-1.0] percentIDed:[NSNumber numberWithDouble:0.05]];
+		success = [[UserDataDatabase getSharedInstance] saveData:img date:currentTime latitude:[NSNumber numberWithDouble:1.0] longitude:[NSNumber numberWithDouble:-1.0] percentIDed:0];
 	}
 	else {
 	}

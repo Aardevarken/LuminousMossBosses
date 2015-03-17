@@ -36,5 +36,4 @@
 
 -(BOOL) printResults:(NSArray*)array;
 
-
 @end
