@@ -11,7 +11,7 @@
 #define byte uint8_t
 
 
-JNIEXPORT bool JNICALL Java_com_luminousmossboss_luminous_Detector_isSilene
+JNIEXPORT bool JNICALL Java_com_luminousmossboss_luminous_SileneDetector_isSilene
     (JNIEnv * env, jobject obj, jstring flower_xml, jstring vocab_xml, jstring silene_xml, jint height, jint width, jbyteArray img_array)
 {
     // create c-style strings from jstring inputs
