@@ -44,7 +44,6 @@ android {
 
 dependencies {
     compile 'com.android.support:support-v4:21.0.3'
-    compile project(':openCVLibrary2410')
     compile 'com.squareup.picasso:picasso:2.5.0'
     compile "org.apache.httpcomponents:httpmime:4.2.3"
 }
