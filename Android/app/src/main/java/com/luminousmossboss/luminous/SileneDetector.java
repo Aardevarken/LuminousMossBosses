@@ -12,7 +12,7 @@ import java.nio.ByteBuffer;
  * Created by Morgan Garske on 2/22/15.
  * adapted from detector.cpp and detector.h by Jamie Miller
  */
-public class Detector
+public class SileneDetector
 {
 
     static { System.loadLibrary("detect_silene"); }
@@ -21,7 +21,7 @@ public class Detector
     private String vocab_xml;
     private String silene_xml;
 
-    public Detector(String flower_xml, String vocab_xml, String silene_xml)
+    public SileneDetector(String flower_xml, String vocab_xml, String silene_xml)
     {
 //        this.cascadeClassifier = new CascadeClassifier();
 //        if (!this.cascadeClassifier.load(xml_name))
