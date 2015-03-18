@@ -1398,13 +1398,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rml-ag-MK8">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zRP-fR-jMv">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1443,6 +1436,13 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tdI-f7-ckG">
                                 <rect key="frame" x="0.0" y="-2" width="150" height="2"/>
                             </progressView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rml-ag-MK8">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1476,11 +1476,11 @@
                                 <exclude reference="1ll-Dk-1ka"/>
                                 <exclude reference="fnQ-0G-ZHM"/>
                                 <exclude reference="Ezg-as-d5a"/>
-                                <exclude reference="Rml-ag-MK8"/>
                                 <exclude reference="zRP-fR-jMv"/>
                                 <exclude reference="dKG-5b-9qa"/>
                                 <exclude reference="KKo-F0-Cc3"/>
                                 <exclude reference="tdI-f7-ckG"/>
+                                <exclude reference="Rml-ag-MK8"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Z2g-wG-s0C"/>
@@ -1514,11 +1514,11 @@
                                 <include reference="1ll-Dk-1ka"/>
                                 <include reference="fnQ-0G-ZHM"/>
                                 <include reference="Ezg-as-d5a"/>
-                                <include reference="Rml-ag-MK8"/>
                                 <include reference="zRP-fR-jMv"/>
                                 <include reference="dKG-5b-9qa"/>
                                 <include reference="KKo-F0-Cc3"/>
                                 <include reference="tdI-f7-ckG"/>
+                                <include reference="Rml-ag-MK8"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="Z2g-wG-s0C"/>

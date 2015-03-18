@@ -292,8 +292,8 @@
 			children = (
 				F0D4ED1D1AA59AA8008CBAD4 /* img_helper.h */,
 				F0D4ED1B1AA59A93008CBAD4 /* img_helper.cpp */,
-				F0395FE51A9835F700EE1BF9 /* detector.cpp */,
 				F0395FE71A98360900EE1BF9 /* detector.h */,
+				F0395FE51A9835F700EE1BF9 /* detector.cpp */,
 				F0395FE91A98365500EE1BF9 /* identified.cpp */,
 				F0395FEB1A98366300EE1BF9 /* identified.h */,
 			);

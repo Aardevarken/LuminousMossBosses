@@ -14,6 +14,13 @@
 
 @interface detectionHelper : NSObject
 
-+ (UIImage *) runDetectionAlgorithm:(UIImage *) unknownImage progressBar:(UIProgressView*)progressBar maxPercentToFill:(float)percentMultiplier;
+- (void) runDetectionAlgorithm:(UIImage *) unknownImage progressBar:(UIProgressView*)progressBar maxPercentToFill:(float)percentMultiplier;
+- (id) initWithAssetID:(NSString*)newAssetID;
+- (void) updatePercentCompleated:(float)updatePercentage;
+- (float) getCurrentProgress;
+- (UIImage*) getIdentifiedImage;
+- (float) getIDProbability;
+- (BOOL) getIsSilene;
+
 
 @end
