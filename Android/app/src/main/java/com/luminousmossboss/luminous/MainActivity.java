@@ -316,12 +316,10 @@ public class MainActivity extends Activity {
         File vocabXML = rawToFile(R.raw.vocabulary);
         File sileneXML = rawToFile(R.raw.silene);
         // create the detector
-        Log.w("handlePhoto", flowerXML.getAbsolutePath());
-        Log.w("handlePhoto", vocabXML.getAbsolutePath());
-        Log.w("handlePhoto", sileneXML.getAbsolutePath());
         SileneDetector sileneDetector = new SileneDetector(flowerXML.getAbsolutePath(),
                                                            vocabXML.getAbsolutePath(),
                                                            sileneXML.getAbsolutePath());
+        // run the detection
         return sileneDetector.isSilene(image_path);
     }
 
