@@ -151,7 +151,7 @@ float detector::predict(Mat image) {
 float detector::probability(Mat image) {
     Mat thumbnail = img_helper::resizeSetWidth(image, 200);
     float prediction = predict(thumbnail);
-    return 1.0 - 0.16*(prediction-0.88);
+    return 1.0 - (1.0/0.16)*(prediction-0.88);
 }
 
 
