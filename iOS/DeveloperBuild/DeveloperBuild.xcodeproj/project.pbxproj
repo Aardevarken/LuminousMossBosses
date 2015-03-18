@@ -41,6 +41,8 @@
 		16F8F5571AA7EA40007FEEBE /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F8F5561AA7EA40007FEEBE /* UserData.m */; };
 		16F8F55A1AA7F522007FEEBE /* UserDataDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F8F5591AA7F522007FEEBE /* UserDataDatabase.m */; };
 		16F8F55C1AA80828007FEEBE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F8F55B1AA80828007FEEBE /* libsqlite3.dylib */; };
+		7968EC9B1AB91974000644E4 /* ServerAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7968EC9A1AB91974000644E4 /* ServerAPI.m */; };
+		7968EC9D1AB92F87000644E4 /* ServerAPITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7968EC9C1AB92F87000644E4 /* ServerAPITest.m */; };
 		F0395FE61A9835F700EE1BF9 /* detector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE51A9835F700EE1BF9 /* detector.cpp */; };
 		F0395FEA1A98365500EE1BF9 /* identified.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE91A98365500EE1BF9 /* identified.cpp */; };
 		F0D4ED171AA59917008CBAD4 /* silene.xml in Resources */ = {isa = PBXBuildFile; fileRef = F0D4ED161AA59917008CBAD4 /* silene.xml */; };
@@ -115,6 +117,9 @@
 		16F8F5581AA7F522007FEEBE /* UserDataDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDataDatabase.h; sourceTree = "<group>"; };
 		16F8F5591AA7F522007FEEBE /* UserDataDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDataDatabase.m; sourceTree = "<group>"; };
 		16F8F55B1AA80828007FEEBE /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		7968EC991AB91974000644E4 /* ServerAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerAPI.h; sourceTree = "<group>"; };
+		7968EC9A1AB91974000644E4 /* ServerAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerAPI.m; sourceTree = "<group>"; };
+		7968EC9C1AB92F87000644E4 /* ServerAPITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerAPITest.m; path = ../DeveloperBuild/ServerAPITest.m; sourceTree = "<group>"; };
 		F0395FE51A9835F700EE1BF9 /* detector.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = detector.cpp; path = ../../AlgTester/detector.cpp; sourceTree = "<group>"; };
 		F0395FE71A98360900EE1BF9 /* detector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = detector.h; path = ../../AlgTester/detector.h; sourceTree = "<group>"; };
 		F0395FE91A98365500EE1BF9 /* identified.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = identified.cpp; path = ../../AlgTester/identified.cpp; sourceTree = "<group>"; };
@@ -131,11 +136,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0D848141A7768250043BEDD /* opencv2.framework in Frameworks */,
 				16008CCA1AB62A7800672891 /* libc++.dylib in Frameworks */,
 				16C745901AB0EC0E0039AE3C /* AssetsLibrary.framework in Frameworks */,
 				16F8F55C1AA80828007FEEBE /* libsqlite3.dylib in Frameworks */,
 				16CE5B811A7AC7E700FDABA5 /* MapKit.framework in Frameworks */,
-				F0D848141A7768250043BEDD /* opencv2.framework in Frameworks */,
 				16B052DE1A5B5334007837B4 /* CoreGraphics.framework in Frameworks */,
 				16B052DC1A5B5327007837B4 /* UIKit.framework in Frameworks */,
 				16B052D71A5B51AF007837B4 /* Foundation.framework in Frameworks */,
@@ -194,6 +199,8 @@
 				16F8F5561AA7EA40007FEEBE /* UserData.m */,
 				160D23EF1A633E3B00F7B916 /* Observation.h */,
 				16A6D84B1A63765C00CB4563 /* Observation.m */,
+				7968EC991AB91974000644E4 /* ServerAPI.h */,
+				7968EC9A1AB91974000644E4 /* ServerAPI.m */,
 				160D23ED1A63397B00F7B916 /* ObsTableViewController.h */,
 				160D23EB1A63396000F7B916 /* ObsTableViewController.m */,
 				161F47631A8ED7B300E67313 /* NewObs.h */,
@@ -234,6 +241,7 @@
 		16B052C31A5B4BDF007837B4 /* DeveloperBuildTests */ = {
 			isa = PBXGroup;
 			children = (
+				7968EC9C1AB92F87000644E4 /* ServerAPITest.m */,
 				16B052C61A5B4BDF007837B4 /* DeveloperBuildTests.m */,
 				16B052C41A5B4BDF007837B4 /* Supporting Files */,
 			);
@@ -425,6 +433,7 @@
 				165B6A271AA66418004FE7CB /* MyObservations.m in Sources */,
 				16B052B01A5B4BDE007837B4 /* AppDelegate.m in Sources */,
 				16A6D8511A6386C600CB4563 /* ObsTableView.m in Sources */,
+				7968EC9B1AB91974000644E4 /* ServerAPI.m in Sources */,
 				16B052AD1A5B4BDE007837B4 /* main.m in Sources */,
 				16008CCC1AB62C5200672891 /* detectionHelper.m in Sources */,
 				16A6D84E1A637DEA00CB4563 /* ObservationCell.m in Sources */,
@@ -439,6 +448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				16B052C71A5B4BDF007837B4 /* DeveloperBuildTests.m in Sources */,
+				7968EC9D1AB92F87000644E4 /* ServerAPITest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,6 +568,7 @@
 					"$(inherited)",
 					/Users/Jacob/SeniorProjects/iOS,
 					/Users/jamiemiller/LuminousMossBosses/iOS,
+					/Users/jami4331/LuminousMossBosses/iOS,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "FORIPHONE=1";
@@ -578,6 +589,7 @@
 					"$(inherited)",
 					/Users/Jacob/SeniorProjects/iOS,
 					/Users/jamiemiller/LuminousMossBosses/iOS,
+					/Users/jami4331/LuminousMossBosses/iOS,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "FORIPHONE=1";
