@@ -33,6 +33,7 @@ class detector {
     Mat isolatePink(Mat image);
     vector<identified> findFlowers(Mat image);
     Mat circlePinkFlowers(Mat image);
+    float probability(Mat image);
     bool isThisSilene(Mat image);
 };
 

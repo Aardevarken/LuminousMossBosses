@@ -146,6 +146,14 @@ float detector::predict(Mat image) {
 
 
 /**
+ * Bag of Words prediction as a normalized probability.
+ */
+float detector::probability(Mat image) {
+    return 1.0 - 0.16*(predict(image)-0.88);
+}
+
+
+/**
  * True if it is silene, false if not.
  */
 bool detector::isThisSilene(Mat image) {
