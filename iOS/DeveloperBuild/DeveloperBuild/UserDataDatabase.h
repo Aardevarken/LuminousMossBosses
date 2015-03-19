@@ -32,8 +32,12 @@
 -(BOOL) saveData:(NSString*) imghexid date:(NSString*)date latitude:(NSNumber*)latitude longitude:(NSNumber*)longitude percentIDed:(NSNumber*)percentIDed;
 
 -(NSArray*) findByImgID:(NSString*)imghexid;
--(NSArray*) findObsByStatus:(NSString*)status orderBy:(NSString*)orderBy;
+-(NSArray*) findObsByStatus:(NSString*)status like:(BOOL)like orderBy:(NSString*)orderBy;
 
 -(BOOL) printResults:(NSArray*)array;
+
+-(BOOL) updateRow:(NSString*)imghexid andNewPercentIDed:(NSNumber*)percentIDed andNewStatus:(NSString*)status;
+
+-(BOOL) deleteRow:(NSString*)identifier fromColumn:(NSString*)column;
 
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "NewObs.h"
 
+
 @interface ObsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
 	NSInteger selectedSection;
 	NSInteger selectedRow;
@@ -22,5 +23,6 @@
 // might not need
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
+- (IBAction)syncAllBtn:(UIButton *)sender;
 
 @end

@@ -12,7 +12,7 @@
 #import "UserData.h"
 
 #define databaseName "userdata.db"
-#define CREATE_DB_STMT "CREATE TABLE observations (imghexid text not null primary key, date datetime not null, latitude decimal(9,6) not null, longitude decimal(9,6) not null, status text not null default \"pending_noid\", percentIDed tinyint);"
+#define CREATE_DB_STMT "CREATE TABLE observations (imghexid text not null primary key, date datetime not null, latitude decimal(9,6) not null, longitude decimal(9,6) not null, status text not null default \"pending-noid\", percentIDed tinyint);"
 
 static UserDataDatabase *sharedInstance = nil;
 static sqlite3 *database = nil;
@@ -43,7 +43,7 @@ static sqlite3_stmt *statement = nil;
 		const char *dbpath = [databasePath UTF8String];
 		if (sqlite3_open(dbpath, &database) == SQLITE_OK) {
 			char *errMsg;
-			const char *sql_stmt = CREATE_DB_STMT;
+			const char *sql_stmt = "CREATE TABLE observations (imghexid text not null primary key, date datetime not null, latitude decimal(9,6) not null, longitude decimal(9,6) not null, status text not null default \"pending-noid\", percentIDed tinyint);";
 			if (sqlite3_exec(database, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK) {
 				isSuccess = NO;
 				NSLog(@"Failed to create table");
@@ -91,21 +91,31 @@ static sqlite3_stmt *statement = nil;
  *
  * Status: Incomplete
 \************************************************************************************************/
--(NSArray*) findObsByStatus:(NSString*)status orderBy:(NSString*)orderBy
+-(NSArray*) findObsByStatus:(NSString*)status like:(BOOL)like orderBy:(NSString*)orderBy
 {
 	// create optional order by statement
 	NSString *orderBystmt;
-	if (!orderBy || ![orderBy length]) {
-		orderBystmt = [NSString stringWithFormat:@"order by %@", orderBy];
+	NSString *statusStmt;
+	if (orderBy != nil){
+		orderBystmt = [NSString stringWithFormat:@" order by %@", orderBy];
 	}
+	//else if(![orderBy length]) {orderBystmt = [NSString stringWithFormat:@"order by %@", orderBy];}
 	else{
 		orderBystmt = @"";
+	}
+	
+	if (like){
+		statusStmt = [NSString stringWithFormat:@"status LIKE \"%@\"", status];
+	}
+	else {
+		statusStmt = [NSString stringWithFormat:@"status=\"%@\"", status];
 	}
 
 	const char *dbpath = [databasePath UTF8String];
 	if (sqlite3_open(dbpath, &database) == SQLITE_OK) {
 		
-		NSString *querySQL = [NSString stringWithFormat:@"select * from observations where status=\"%@\" %@", status, orderBystmt];
+		NSString *querySQL = [NSString stringWithFormat:@"select * from observations where %@%@;", statusStmt, orderBystmt];
+		//NSLog(@"SQL: %@", querySQL);
 		const char *query_stmt = [querySQL UTF8String];
 		NSMutableArray *resultArray = [[NSMutableArray alloc] init];
 		
@@ -169,6 +179,39 @@ static sqlite3_stmt *statement = nil;
 	return nil;
 }
 
+-(BOOL) updateRow:(NSString *)imghexid andNewPercentIDed:(NSNumber *)percentIDed andNewStatus:(NSString *)status
+{
+	sqlite3_stmt *updateStmt;
+	const char *dbpath = [databasePath UTF8String];
+	BOOL success = NO;
+	if(sqlite3_open(dbpath, &database) == SQLITE_OK){
+		const char *sql = "UPDATE observations SET status=?, percentIDed=? WHERE imghexid=?";
+		//UPDATE Cars SET Name='Skoda Octavia' WHERE Id=3;
+		//NSString *querySQL = [NSString stringWithFormat:@"UPDATE Observations SET state=\"%@\", percentIDed=%@ WHERE imghexid=\"%@\"", state, percentIDed,imghexid];
+		
+		if (sqlite3_prepare_v2(database, sql, -1, &updateStmt, NULL) == SQLITE_OK) {
+			sqlite3_bind_text(updateStmt, 3, [imghexid UTF8String], -1, SQLITE_TRANSIENT);
+			sqlite3_bind_text(updateStmt, 1, [status UTF8String], -1, SQLITE_TRANSIENT);
+			sqlite3_bind_text(updateStmt, 2, [[NSString stringWithFormat:@"%@", percentIDed] UTF8String], -1, SQLITE_TRANSIENT);
+		}
+	}
+	char *errmsg;
+	sqlite3_exec(database, "COMMIT", NULL, NULL, &errmsg);
+	
+	if (SQLITE_DONE != sqlite3_step(updateStmt)){
+		NSLog(@"Error while updating. %s", sqlite3_errmsg(database));
+		return NO;
+	}
+	else {
+		success = YES;
+		//[self clearClick:nil];	// have no idea what this does
+	}
+	
+	sqlite3_finalize(updateStmt);
+	sqlite3_close(database);
+	
+	return success;
+}
 
 -(NSArray*) findByImgID:(NSString *)imghexid
 {
@@ -230,6 +273,33 @@ static sqlite3_stmt *statement = nil;
 	}
 	return nil;
 }
+
+-(BOOL) deleteRow:(NSString *)identifier fromColumn:(NSString *)column
+{
+	sqlite3 *database;
+	
+	if (sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) {
+		sqlite3_stmt *deleteStmt;
+		NSString *sql_str = [NSString stringWithFormat:@"DELETE FROM observations WHERE %@=%@", column, identifier];
+		const char *sql = [sql_str UTF8String];
+		
+		if(sqlite3_prepare_v2(database, sql, -1, &deleteStmt, NULL) == SQLITE_OK){
+			if (sqlite3_step(deleteStmt) != SQLITE_DONE) {
+				NSLog(@"ERROR: %s", sqlite3_errmsg(database));
+				sqlite3_close(database);
+				return NO;
+			}
+			else{
+				// no error
+			}
+		}
+		sqlite3_finalize(deleteStmt);
+	}
+	sqlite3_close(database);
+	return YES;
+}
+
+
 
 -(BOOL) printResults:(NSArray*) array
 {

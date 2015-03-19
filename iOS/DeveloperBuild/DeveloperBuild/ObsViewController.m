@@ -25,6 +25,7 @@
 @implementation ObsViewController{
 	NSArray *plants;
 	NSArray *pendingObservations;
+	NSArray *idedObservations;
 }
 
 
@@ -36,7 +37,7 @@ NSMutableArray *_myObservations;
     // Do any additional setup after loading the view.
 	
 	
-	NSLog(@"In ObsViewController (ObsViewController.m)");
+	//NSLog(@"In ObsViewController (ObsViewController.m)");
 	_myObservations = [NSMutableArray arrayWithCapacity:20];
 	
 	Observation *newObs = [[Observation alloc] init];
@@ -64,10 +65,14 @@ NSMutableArray *_myObservations;
 	self.myObservations = _myObservations;
 	
 	// please work
-	pendingObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_noid" orderBy:nil];
+	pendingObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-noid" like:NO orderBy:NULL];
+	idedObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:NULL];
+	
+	//NSLog(@"po:%lu \t io:%lu", (unsigned long)[pendingObservations count], (unsigned long)[idedObservations count]);
 	
 	selectedSection = -1;
 	selectedRow = -1;
+	//NSLog(@"\n");
 	// keep this work
 	
 	[self retrieveData];
@@ -103,37 +108,51 @@ NSMutableArray *_myObservations;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	NSInteger count;
-	NSArray *data = pendingObservations;
+	NSInteger count = -1;
+	NSArray *data;// = pendingObservations;
 	
 	// All variable declaration must be pulled out of the switch statment
 	switch (section) {
 		case 0:
-			//data = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_noid" orderBy:nil];
-			count = [data count];
+			data = pendingObservations;//[[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-noid" like:NO orderBy:nil];
+			count = [pendingObservations count];
 			break;
 		case 1:
-			//data = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_gotid" orderBy:nil];
-			count = [data count];
+			data = idedObservations;//[[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:nil];
+			count = [idedObservations count];
+			break;
 		default:
 			count = 0;
 			break;
 	}
 	
+	//NSLog(@"section: %ld \t count: %ld", (long)section, (long)count);
 	return count;
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	
-	ObservationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ObservationCell_ID"];
+	ObservationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ObservationCell_ID" forIndexPath:indexPath];
 	///? what does this do ?///
 	if (cell == nil) {
 		// do something
 	}
 	
 //	NewObs *myObservation = [self.observationsArray objectAtIndex:indexPath.row];
-	NSArray *data = pendingObservations;//[[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_noid" orderBy:nil]; // need to refactor
+	NSArray *data;
+	if (indexPath.section == 0) {
+		data = pendingObservations;
+	}
+	else if (indexPath.section == 1){
+		data = idedObservations;
+	}
+	else {
+		return cell;
+	}
+	
+	//[[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_noid" orderBy:nil]; // need to refactor
 	
 	NSDictionary *dic = [data objectAtIndex:indexPath.row];
 	
@@ -154,8 +173,12 @@ NSMutableArray *_myObservations;
 	
 	cell.nameLabel.text		= @"Unknown";//[NSString stringWithFormat:@"%@", [dic objectForKey:@"imghexid"]];
 	cell.dateLabel.text		= [NSString stringWithFormat:@"%@", [dic objectForKey:@"date"]];
-	cell.percentLabel.text	= [NSString stringWithFormat:@"%@", [dic objectForKey:@"percentIDed"]];
-
+	
+	if ([[dic objectForKey:@"percentIDed"]  isEqual: @"(null)"]) {
+		cell.percentLabel.text	= @"";	}
+	else{
+		cell.percentLabel.text	= [NSString stringWithFormat:@"%@%%", [dic objectForKey:@"percentIDed"]];
+	}
 	
 	//cell.plantImageView.image = [dic objectForKey:@"imghexid"];
 	
@@ -273,8 +296,8 @@ NSMutableArray *_myObservations;
 	if ([segue.identifier isEqualToString:@"MyObsSegue"]) {
 		NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 		//NSLog(@"indexpath: %@", indexPath);
-		NSLog(@"indexpath.section: %ld", (long)indexPath.section);
-		NSLog(@"indexpath.row: %ld", (long)indexPath.row);
+		//NSLog(@"indexpath.section: %ld", (long)indexPath.section);
+		//NSLog(@"indexpath.row: %ld", (long)indexPath.row);
 
 		ObsDetailViewController *destViewController = segue.destinationViewController;
 		//NSLog(@"%@", [pendingObservations objectAtIndex:indexPath.row]);
@@ -283,9 +306,11 @@ NSMutableArray *_myObservations;
 		NSDictionary *selectedPendingObservation;
 		switch (indexPath.section) {
 			case 0:
-    selectedPendingObservation = [pendingObservations objectAtIndex:indexPath.row];
-    break;
-				
+				selectedPendingObservation = [pendingObservations objectAtIndex:indexPath.row];
+				break;
+			case 1:
+				selectedPendingObservation = [idedObservations objectAtIndex:indexPath.row];
+				break;
 			default:
 				// show an alert here
 				NSLog(@"ERROR, THIS LINE OF CODE SHOULD NEVER HIT <prepareForSegue ObsViewController.m>");
@@ -296,5 +321,21 @@ NSMutableArray *_myObservations;
 		//NSLog(@"Leaving prepareForSegue MyObsSegue");
 	}
 }
+
+- (IBAction)syncAllBtn:(UIButton *)sender {
+	
+	
+	for(id object in idedObservations){
+		//[[UserDataDatabase getSharedInstance] deleteRow:[object objectForKey:@"imghexid"] fromColumn:@"imghexid"];
+		[[UserDataDatabase getSharedInstance] updateRow:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced"];
+		/********************************************\
+		|* JAMIE: jamie has not yet implemented		*|
+		|* the sending functionality. so this		*|
+		|* us a place holder for him.				*|
+		\********************************************/
+		
+	}
+}
+
 
 @end

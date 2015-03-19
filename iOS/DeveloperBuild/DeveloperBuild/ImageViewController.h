@@ -25,6 +25,7 @@
 @property (nonatomic, retain) IBOutlet UIImageView * imageView;
 @property (nonatomic, retain) IBOutlet UIButton * choosePhotoBtn;
 @property (nonatomic, retain) IBOutlet UIButton * takePhotoBtn;
+@property (nonatomic, retain) IBOutlet UIButton * addObsBtn;
 
 - (IBAction)getPhoto:(id) sender;
 - (IBAction)addObservation:(UIButton *)sender;

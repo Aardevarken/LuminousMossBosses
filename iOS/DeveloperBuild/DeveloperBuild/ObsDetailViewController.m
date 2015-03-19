@@ -11,6 +11,7 @@
 #import "detectionHelper.h"
 #import "detector.h"
 #import "opencv2/highgui/ios.h"
+#import "UserDataDatabase.h"
 
 @interface ObsDetailViewController ()
 
@@ -48,8 +49,16 @@
 	
 	// hide the progress bar when the page is loaded.
 	progressBar.hidden = YES;
-	//progressBar = [[UIProgressView alloc] init];
 	[progressBar setProgress:0.0 animated:NO];
+	
+	// if this came from the identified tab
+	if (![[plantInfo objectForKey:@"status"] isEqual:@"pending-noid"]){
+		[idButton setEnabled:NO];
+		idButton.hidden = YES;
+	}
+	else {
+		[progressBar setProgress:0.0 animated:NO];
+	}
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,114 +80,6 @@
 		detectionHelper *detectionObject = [[detectionHelper alloc] initWithAssetID:[plantInfo objectForKey:@"imghexid"]];
 		[detectionObject runDetectionAlgorithm:obsImage.image progressBar:progressBar maxPercentToFill:1.0];
 		
-		
-		if(FALSE){
-		BOOL animate = NO;
-		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-			NSLog(@"running in background");
-			
-			//Call your function or whatever work that needs to be done
-			//Code in this part is run on a background thread
-			
-			// show progress bar
-			//progressBar.hidden = NO;
-			//NSNumber *totalProgressForDetection = [[NSNumber alloc] initWithFloat:0.9];
-			float totalProgressForDetection = 0.9;
-			//[self performSelectorOnMainThread:@selector(updateProgBar:amount:) withObject:<#(id)#> waitUntilDone:<#(BOOL)#>]
-			dispatch_sync(dispatch_get_main_queue(), ^(void) {
-				
-				//Stop your activity indicator or anything else with the GUI
-				//Code here is run on the main thread
-				//NSLog(@"bar = 0");
-				[progressBar setProgress:0.1 animated:animate];
-				//progressBar.progress = 0.0;
-			});
-
-			//UIImage *idedImage = [detectionHelper runDetectionAlgorithm:obsImage.image progressBar:progressBar maxPercentToFill:totalProgressForDetection];
-			
-			float percentMultiplier = totalProgressForDetection;
-			int numberOfUpdates = 7;
-			int updateNumber = 1;
-			UIImage *unknownImage = obsImage.image;
-			// Create mat image
-			Mat cvImage;
-			//[progressBar setProgress:percentMultiplier*(updateNumber/numberOfUpdates++)];
-			UIImageToMat(unknownImage, cvImage);
-			//[progressBar setProgress:percentMultiplier*(updateNumber/numberOfUpdates++)];
-			// Load OpenCV classifier
-			
-			NSString *flowerXMLPath = [[NSBundle mainBundle] pathForResource:@"flower25" ofType:@"xml"];
-			//[progressBar setProgress:percentMultiplier*(updateNumber/numberOfUpdates++)];
-			NSString *vocabXMLPath = [[NSBundle mainBundle] pathForResource:@"vocabulary" ofType:@"xml"];
-			//[progressBar setProgress:percentMultiplier*(updateNumber/numberOfUpdates++)];
-			NSString *sileneXMLPath = [[NSBundle mainBundle] pathForResource:@"silene" ofType:@"xml"];
-			//[progressBar setProgress:percentMultiplier*(updateNumber/numberOfUpdates++)];
-			
-			
-			
-			// run detection
-			dispatch_sync(dispatch_get_main_queue(), ^{
-				//NSLog(@"bar = 0.3");
-				[progressBar setProgress:0.2 animated:animate];
-				//progressBar.progress = 0.3;//((float)pageDownload/(float)pagesToDownload);
-			});
-			//progressBar.progress = 0.9;
-			detector flowerDetector([flowerXMLPath UTF8String], [vocabXMLPath UTF8String], [sileneXMLPath UTF8String]);
-			//[progressBar setProgress:percentMultiplier*(updateNumber/numberOfUpdates++)];
-			
-			// Circle flowers
-			dispatch_sync(dispatch_get_main_queue(), ^(void) {
-				
-				//Stop your activity indicator or anything else with the GUI
-				//Code here is run on the main thread
-				//NSLog(@"bar = 0.8");
-				[progressBar setProgress:0.3 animated:animate];
-				//progressBar.progress = 0.9;
-			});
-
-			Mat detectedImage = flowerDetector.circlePinkFlowers(cvImage);
-			//[progressBar setProgress:percentMultiplier*(updateNumber/numberOfUpdates++)];
-			dispatch_sync(dispatch_get_main_queue(), ^(void) {
-				
-				//Stop your activity indicator or anything else with the GUI
-				//Code here is run on the main thread
-				//NSLog(@"bar = 0.9");
-				[progressBar setProgress:0.85 animated:YES];
-				//progressBar.progress = 0.9;
-			});
-			
-			UIImage *newImage = MatToUIImage(detectedImage);
-
-			
-			dispatch_sync(dispatch_get_main_queue(), ^(void) {
-				
-				//Stop your activity indicator or anything else with the GUI
-				//Code here is run on the main thread
-				//NSLog(@"bar = 0.9");
-				[progressBar setProgress:0.95 animated:animate];
-				//progressBar.progress = 0.9;
-			});
-			
-			
-			
-			dispatch_sync(dispatch_get_main_queue(), ^(void) {
-				
-				//Stop your activity indicator or anything else with the GUI
-				//Code here is run on the main thread
-				//NSLog(@"updating image");
-				obsImage.image = newImage;
-				percentLabel.text = @"100";
-				
-				[progressBar setProgress:1.00 animated:animate];
-				progressBar.hidden = YES;
-				idButton.hidden = YES;
-			});
-			
-
-			NSLog(@"leaving background");
-		});
-		}
-		
 		dispatch_sync(dispatch_get_main_queue(), ^{
 			if ([detectionObject getIsSilene]) {
 				percentLabel.text = @"100%";
@@ -187,12 +88,52 @@
 				percentLabel.text = @"0%";
 			}
 			
+			// set everthing we just calculated
 			obsImage.image = [detectionObject getIdentifiedImage];
+			percentLabel.text = [NSString stringWithFormat:@"%.0f%%",[detectionObject getIDProbability]*100];
+			if ([detectionObject getIsSilene]) {
+				percentLabel.textColor = [UIColor colorWithRed:0 green:255.f blue:0 alpha:1];
+			} else {
+				percentLabel.textColor = [UIColor colorWithRed:255.f green:0 blue:0 alpha:1];
+			}
+			
+			// update the table row
+			// prep variables
+			NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+			[nf setMaximumFractionDigits:2];
+			float newprob = floorf([detectionObject getIDProbability]*100 + 0.5);
+			NSNumber *NSnewprob = [NSNumber  numberWithFloat:newprob];
+			NSString *assetid = [NSString stringWithFormat:@"%@",[plantInfo objectForKey:@"imghexid"]];
+			NSString *newState = @"pending-id";
+			
+			// update row variables
+			BOOL success = [[UserDataDatabase getSharedInstance]
+							updateRow:assetid andNewPercentIDed:NSnewprob andNewStatus:newState];
+			//[[UserDataDatabase getSharedInstance] updateRow:assetid percentIDed:NSnewprob state:newState];
+							//updateRow:assetid percentIDed:NSnewprob state:newState];
+			
+			
+			// did it all work? if not show an error.
+			NSString *alertString = @"Data update failed";
+			if (success == NO) {
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+				[alert show];
+			}
+			/*
+			NSNumber *dp = [NSNumber numberWithFloat:[detectionObject getIDProbability]];
+			BOOL success = [[UserDataDatabase getSharedInstance] saveData:[plantInfo objectForKey:@"imghexid"] date:[plantInfo objectForKey:@"date"] latitude:[plantInfo objectForKey:@"latitiude"] longitude:[plantInfo objectForKey:@"longitude"] percentIDed:dp];
+			
+			NSString *alertString = @"Data update failed";
+			if (success == NO) {
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+				[alert show];
+			}
+			 */
+			
+			// hide the progress bar and the button so the text can be seen
 			progressBar.hidden = YES;
 			idButton.hidden = YES;
 		});
-		
-			
 	});
 	//progressBar.hidden = YES;
 

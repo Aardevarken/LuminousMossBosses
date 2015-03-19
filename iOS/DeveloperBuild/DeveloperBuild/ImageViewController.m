@@ -17,16 +17,22 @@
 // end testing //
 #define TESTING 0
 
+
 @interface ImageViewController ()
+
 //-(UIImage*) runDetection:(UIImage *)image classifierName:(NSString *)cName classifierType:(NSString *)cType;
 
 @property (nonatomic, weak) NSTimer *cameraTimer;
 @property (nonatomic) NSMutableArray *capturedImages;
 @property (nonatomic, strong) NSString *capedImg;
+
 @end
 
-@implementation ImageViewController
+@implementation ImageViewController{
+	NSString *selectedAsset;
+}
 @synthesize imageView, choosePhotoBtn, takePhotoBtn;
+@synthesize addObsBtn;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,8 +51,11 @@
 													otherButtonTitles:nil];
 		[myAlertView show];
 	}
+	selectedAsset = nil;
 	
 	// create obs list object
+	
+	
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,6 +76,8 @@
 		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
 	}
 	
+	
+	
 	//[self presentModalViewController:picker animated:YES];
 	[self presentViewController:picker animated:YES completion:NULL];
 }
@@ -80,7 +91,7 @@
 	
 	BOOL success = NO;
 	NSString *alertString = @"Data insertion failed";
-	NSString *img = [NSString stringWithFormat:@"%@", self.capedImg];
+	NSString *img = [NSString stringWithFormat:@"%@", selectedAsset];//self.capedImg];
 	
 	// get current date and time
 	/* **************************************************************** *\
@@ -100,8 +111,13 @@
 	NSLog(@"%@", currentTime);
 	//[dateFormatter release];
 	
+	if (selectedAsset == nil){//self.capedImg == [NSString stringWithFormat:@"%@",[UIImage imageNamed:@"nocamera.png"]]) {
+		NSLog(@"You cannot submit that");
+		return;
+	}
+	
 	if(TRUE){
-		success = [[UserDataDatabase getSharedInstance] saveData:img date:currentTime latitude:[NSNumber numberWithDouble:1.0] longitude:[NSNumber numberWithDouble:-1.0] percentIDed:0];
+		success = [[UserDataDatabase getSharedInstance] saveData:img date:currentTime latitude:[NSNumber numberWithDouble:1.0] longitude:[NSNumber numberWithDouble:-1.0] percentIDed:NULL];
 	}
 	else {
 	}
@@ -175,7 +191,7 @@
 	NSString *urlPath = [[info objectForKey:@"UIImagePickerControllerReferenceURL"] absoluteString];
 	self.capedImg = urlPath;
 	imageView.image = image;
-	
+	selectedAsset = urlPath;
 	if(TESTING){
 	static int imgnum = 1;
 		NSString *breakSymbol = @"========================";

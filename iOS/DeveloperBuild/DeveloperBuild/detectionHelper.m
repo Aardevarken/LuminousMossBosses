@@ -67,7 +67,7 @@
 	BOOL animate = YES;	// decides if the should the progress bar be animated.
 	
 	// create a queue for our tasks to be put in.
-	dispatch_queue_t backgroundIdentificationAlg = dispatch_queue_create("IdentificationAlg", DISPATCH_QUEUE_CONCURRENT);
+	//dispatch_queue_t backgroundIdentificationAlg = dispatch_queue_create("IdentificationAlg", DISPATCH_QUEUE_CONCURRENT);
 	
 	//dispatch_async(backgroundIdentificationAlg, ^{
 		// set progress to +0.1*percentMultiplyer to indicate that this thread has started
@@ -82,7 +82,6 @@
 		// stage 0, preping
 		Mat cvImage;
 		UIImageToMat(unknownImage, cvImage);
-		NSLog(@"%d", cvImage.type());
 		// Load openCV classifiers
 		NSString *flowerXMLPath = [[NSBundle mainBundle] pathForResource:@"flower25" ofType:@"xml"];
 		NSString *vocabXMLPath = [[NSBundle mainBundle] pathForResource:@"vocabulary" ofType:@"xml"];
@@ -117,7 +116,9 @@
 		});
 		
 		// do something here for stage 2
-		//probability = flowerDetector.predict(cvImage);
+		Mat cvImageBGR;
+		cvtColor(cvImage, cvImageBGR, CV_BGR2RGB);
+		probability = flowerDetector.probability(cvImageBGR);
 		
 		/////////////////////////
 		// update progress bar //
@@ -128,9 +129,7 @@
 		
 		// do something here for stage 3
 		//UIImageToMat(unknownImage, cvImage);
-		Mat cvImageRGB;
-		cvtColor(cvImage, cvImageRGB, CV_BGR2RGB);
-		isSilene = flowerDetector.isThisSilene(cvImageRGB);
+		isSilene = flowerDetector.isThisSilene(cvImageBGR);
 		
 		/////////////////////////
 		// update progress bar //
@@ -147,8 +146,7 @@
 			[progressBar setProgress:[self getCurrentProgress] animated:animate];
 			progressBar.hidden = YES;
 		});
-		NSLog([self getIsSilene] ? @"Yes" : @"No");
-		
+	
 	//});
 
 	// if the calling thread needs to do anything, do it here
