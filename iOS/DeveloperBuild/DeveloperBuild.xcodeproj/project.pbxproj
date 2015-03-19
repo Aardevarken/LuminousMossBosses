@@ -37,6 +37,7 @@
 		16CCBC401A773E00008B7E96 /* flower25.xml in Resources */ = {isa = PBXBuildFile; fileRef = 16CCBC3E1A773E00008B7E96 /* flower25.xml */; };
 		16CCBC411A773E00008B7E96 /* flower30.xml in Resources */ = {isa = PBXBuildFile; fileRef = 16CCBC3F1A773E00008B7E96 /* flower30.xml */; };
 		16CE5B811A7AC7E700FDABA5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CE5B801A7AC7E700FDABA5 /* MapKit.framework */; };
+		16DBE0621ABA5C0700220872 /* SyncedObsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16DBE0611ABA5C0700220872 /* SyncedObsTVC.m */; };
 		16E2D49B1A64860900CA8845 /* ObsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E2D49A1A64860900CA8845 /* ObsViewController.m */; };
 		16F8F5571AA7EA40007FEEBE /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F8F5561AA7EA40007FEEBE /* UserData.m */; };
 		16F8F55A1AA7F522007FEEBE /* UserDataDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F8F5591AA7F522007FEEBE /* UserDataDatabase.m */; };
@@ -108,6 +109,8 @@
 		16CCBC3E1A773E00008B7E96 /* flower25.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = flower25.xml; sourceTree = "<group>"; };
 		16CCBC3F1A773E00008B7E96 /* flower30.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = flower30.xml; sourceTree = "<group>"; };
 		16CE5B801A7AC7E700FDABA5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		16DBE0601ABA5C0700220872 /* SyncedObsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncedObsTVC.h; sourceTree = "<group>"; };
+		16DBE0611ABA5C0700220872 /* SyncedObsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncedObsTVC.m; sourceTree = "<group>"; };
 		16E2D4991A64860900CA8845 /* ObsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObsViewController.h; sourceTree = "<group>"; };
 		16E2D49A1A64860900CA8845 /* ObsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObsViewController.m; sourceTree = "<group>"; };
 		16F8F5551AA7EA40007FEEBE /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
@@ -206,6 +209,8 @@
 				1627A1261AB430D3009BD6EF /* ObsDetailViewController.m */,
 				16E2D4991A64860900CA8845 /* ObsViewController.h */,
 				16E2D49A1A64860900CA8845 /* ObsViewController.m */,
+				16DBE0601ABA5C0700220872 /* SyncedObsTVC.h */,
+				16DBE0611ABA5C0700220872 /* SyncedObsTVC.m */,
 				16B052AE1A5B4BDE007837B4 /* AppDelegate.h */,
 				16B052AF1A5B4BDE007837B4 /* AppDelegate.m */,
 				160D23F21A635C3F00F7B916 /* ObservationCell.h */,
@@ -426,6 +431,7 @@
 				16B052B01A5B4BDE007837B4 /* AppDelegate.m in Sources */,
 				16A6D8511A6386C600CB4563 /* ObsTableView.m in Sources */,
 				16B052AD1A5B4BDE007837B4 /* main.m in Sources */,
+				16DBE0621ABA5C0700220872 /* SyncedObsTVC.m in Sources */,
 				16008CCC1AB62C5200672891 /* detectionHelper.m in Sources */,
 				16A6D84E1A637DEA00CB4563 /* ObservationCell.m in Sources */,
 				16F8F5571AA7EA40007FEEBE /* UserData.m in Sources */,
