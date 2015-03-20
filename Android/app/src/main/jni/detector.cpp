@@ -39,7 +39,7 @@ detector::detector(String flower_xml, String vocab_xml, String silene_xml) {
 }
 
 /**
- *  Makes all non-pink pixels in am image black.
+ * Makes all non-pink pixels in am image black.
  */
 Mat detector::isolatePink(Mat image) {
   Mat img_hsv, mask, img_filtered;
@@ -142,6 +142,16 @@ float detector::predict(Mat image) {
 
   // Classify
   return classifier.predict(histogram, true);
+}
+
+
+/**
+ * Bag of Words prediction as a normalized probability.
+ */
+float detector::probability(Mat image) {
+    Mat thumbnail = img_helper::resizeSetWidth(image, 200);
+    float prediction = predict(thumbnail);
+    return 1.0 - (1.0/0.16)*(prediction-0.88);
 }
 
 

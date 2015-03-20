@@ -25,15 +25,8 @@ JNIEXPORT bool JNICALL Java_com_luminousmossboss_luminous_SileneDetector_isSilen
     jbyte * img_data = env->GetByteArrayElements(img_array, NULL);
     env->ReleaseByteArrayElements(img_array, img_data, JNI_ABORT);
     // create the mat from the encoded byte array
-    Mat mat_image(height, width, CV_8UC4, (unsigned char*)img_data);
+    Mat mat_image(height, width, CV_8UC3, (unsigned char*)img_data);
     Mat tmp_mat = imdecode(mat_image, 1);
-    // create smaller image for ORB classifier
-    Mat thumbnail = img_helper::resizeSetWidth(tmp_mat, 200);
-    // run classifier (fast)
-    float prediction = sileneDetector.predict(thumbnail);
-    if (prediction < 0.967) { return true;}
-    // run the flower detection if the classifier didn't detect (much slower)
-    Mat pink = sileneDetector.isolatePink(tmp_mat);
-    vector<identified> flowers = sileneDetector.findFlowers(pink);
-    return flowers.size() >= 1;
+    // detect image
+    return sileneDetector.isThisSilene(tmp_mat);
 }
