@@ -29,10 +29,20 @@ public class SileneDetector
 
     public boolean isSilene(String image_path) {
         Bitmap bitmapImage = BitmapFactory.decodeFile(image_path);
-        byte [] photoByteArray;
         ByteArrayOutputStream byte_os = new ByteArrayOutputStream();
+
+        /**
+        Compress image to JPEG format. 0 indicates compress for small size. The fully compressed
+        image seems to be adequate for detection, and results in the smallest memory footprint. This
+        is recommended unless users start having issues with detections or the detection algorithm
+        is updated such that it requires better quality. 100 = best quality.
+        It is not recommended to use lossless Bitmap.CompressFormat.PNG. Out of memory error will
+        likely result on most devices and detection will be significantly slowed down due to the
+        time required for memory allocation and garbage collection.
+        **/
         bitmapImage.compress(Bitmap.CompressFormat.JPEG, 0, byte_os);
-        photoByteArray = byte_os.toByteArray();
+
+        byte [] photoByteArray = byte_os.toByteArray();
         int height = bitmapImage.getHeight();
         int width = bitmapImage.getWidth();
         return this.isSilene(flower_xml, vocab_xml, silene_xml, height, width, photoByteArray);
