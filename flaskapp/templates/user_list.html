@@ -1,52 +1,73 @@
 {% extends "admin_layout.html" %}
 {% block body %}
 <script src="{{ url_for('static', filename='js/utils.js')}}"></script>
-    <div class="container">
-    <div class="btn-group" role="group" aria-label="options">
-        <a href="/observation_list" class="btn btn-default btn-sm">All</a>
-        <a href="/observation_list?verified=1" class="btn btn-default btn-sm">Silene</a>
-        <a href="/observation_list?verified=0" class="btn btn-default btn-sm">Not Silene</a>
-        <a href="/observation_list?verified=null" class="btn btn-default btn-sm">Unconfirmed</a>
+    <div class="row">
+        <div class="col-lg-6">
+            {% macro render_filter_link(link, arg, value, display, role='', active='') -%}
+            <li role='{{role}}' {% if request.args.get(arg) == value %} class='active' {% endif %}>
+            <a href="{{ link }}?{{arg}}={{value}}">{{ display }}</a>
+            </li>
+            {%- endmacro %}
+        <ul class="nav nav-tabs nav-justified" role="group" aria-label="options">
+            {{ render_filter_link('/user_list', 'utype', '', 'All', 'presentation')}}
+            {{ render_filter_link('/user_list', 'utype', 'admin', 'Admin', 'presentation')}}
+            {{ render_filter_link('/user_list', 'utype', 'subadmin', 'Subadmin', 'presentation')}}
+            {{ render_filter_link('/user_list', 'utype', 'developer', 'Developers', 'presentation')}}
+            {{ render_filter_link('/user_list', 'utype', 'normal', 'Regular', 'presentation')}}
+        </ul>
+        </div>
+        <div class="col-lg-12">
+        <table class="table-striped table">
+            <thead><tr>
+                    <b><td class="col-md-1">ID</td>
+                    <td class="col-md-2">User Name</td>
+                    <td class="col-md-3">Name</td>
+                    <td class="col-md-4">Email</td>
+                    <td class="col-md-2">Type</td></b>
+            </tr></thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                <td>{{ user.UserId }}</td>
+                <td>{{ user.Username }}</td>
+                <td>{{ user.FirstName }} {{ user.LastName}}</td>
+                <td>{{ user.Email }}</td>
+                <td>
+                    <select class="form-control" id="id_{{ user.UserId }}" onchange="updateSelection({{ user.UserId }},'isBlackListed')">
+                        <option value=0 {% if user.Type == 'admin' %}selected{% endif %}>admin</option>
+                        <option value=1 {% if user.Type == 'subadmin' %}selected{% endif %}>subadmin</option>
+                        <option value=1 {% if user.Type == 'developer' %}selected{% endif %}>developer</option>
+                        <option value=1 {% if user.Type == 'normal' %}selected{% endif %}>normal</option>
+                    </select>
+                </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="input-group input-group-sm">
+            <span class="input-group-btn" aria-label="page">
+                <!--<ul class="list-inline banner-social-buttons">-->
+            
+            <a href="/device_list?page=0{{ urlargs.isblacklisted }}" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-step-backward"> </span>
+            </a>
+            {% set pre = urlargs.page -1 %}
+            <a {% if urlargs.page == 0 %} disabled {% endif %}
+            href="/device_list?page={{ pre }}{{ urlargs.isblacklisted }}" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-triangle-left"> </span>
+            </a>
+            <p class="btn btn-default btn-sm" disabled >page {{ urlargs.page }} </p>
+            {% set next = urlargs.page +1 %}
+            <a {% if urlargs.page == urlargs.maxpage %} disabled {% endif %} 
+            href="/device_list?page={{ next }}{{ urlargs.isblacklisted }}" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-triangle-right"> </span>
+            </a>
+            <a href="/device_list?page={{ urlargs.maxpage }}{{ urlargs.isblacklisted }}" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-step-forward"> </span>
+            </a>
+            </span>
+        </div>
     </div>
-    <table class="table-striped table">
-        <thead><tr>
-                <td>ID</td><td>Icon</td><td>User ID</td><td>File Name</td><td>Date</td><td>Verified</td>
-        </tr></thead>
-        <tbody>
-        {% for observation in observations %}
-            <tr>
-            <td>{{ observation.ObsID }}</td>
-            <td>
-                <img src="{{ url_for('static', filename='thumbs/')}}{{observation.FileName}}">
-            </td>
-            <td>{{ observation.DeviceId }}</td>
-            <td><a href="/observation_view?imageid={{ observation.ObsID }}">{{ observation.FileName }}</a></td>
-            <td>{{ observation.Date }}</td>
-            <td>
-                <select class="form-control" id="id_{{ observation.ObsID }}" onchange="updateSelection({{ observation.ObsID }})">
-                    <option value=1 {% if observation.IsSilene == 1 %}selected{% endif %}>Silene</option>
-                    <option value=0 {% if observation.IsSilene == 0 %}selected{% endif %}>Not Silene</option>
-                    <option value=-1 {% if observation.IsSilene is none() %}selected{% endif %}>N/A</option>
-                </select>
-            </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <ul class="list-inline banner-social-buttons">
-    {% if urlargs.page > 0 %}
-    {% set pre = urlargs.page -1 %}
-    <li>
-    <a href="/observation_list?page={{ pre }}{{ urlargs.verified }}" class="btn btn-default btn-sm">Previous Page</a>
-    </li>
-    {% endif %}
-    {% if urlargs.page < urlargs.maxpage %}
-    {% set next = urlargs.page +1 %}
-    <li>
-    <a href="/observation_list?page={{ next }}{{ urlargs.verified }}" class="btn btn-default btn-sm">Next Page</a>
-    </li>
-    {% endif %}
-    </ul>
     </div>
 {% endblock %}
 <!--</body>

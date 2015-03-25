@@ -89,13 +89,12 @@ class User(Base):
     Email = Column(String(64), unique=True)
     Type = Column(Enum('admin','developer','normal','subadmin'), unique=True)
 
-    def __init__(self, Username, Password, FirstName=None, LastName=None, Status=None, Email=None, Type='normal'):
+    def __init__(self, Username, Password, FirstName=None, LastName=None, Email=None, Type='normal'):
         self.Username = Username
         set_password(Password)
         
         self.FirstName = FirstName
         self.LastName = LastName
-        self.Status = Status
         self.Email = Email
         self.Type = Type
 

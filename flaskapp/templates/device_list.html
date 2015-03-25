@@ -2,7 +2,7 @@
 {% block body %}
 <script src="{{ url_for('static', filename='js/utils.js')}}"></script>
     <div class="row">
-        <div class="col-xs-6">
+        <div class="col-lg-6">
         <ul class="nav nav-tabs nav-justified" role="group" aria-label="options">
             <li role="presentation" {% if urlargs.isblacklisted == "" %}class="active"{% endif %}> 
             <a href="/device_list">All</a>
