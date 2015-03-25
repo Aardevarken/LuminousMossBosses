@@ -1,16 +1,71 @@
 <html>
 <head>
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/luminous.ico')}}">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Luminous Moss Boss">
+
+    <title>Luminous</title>
+
+    <!-- Bootstrap Core CSS -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/grayscale.css')}}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
 
 </head>
-<body>
-    <div class="container">
-    <div class="jumbotron">
-    <h2>Login</h2>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+ <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">
+                    <span class="light secondary-text"><i class="fa fa-leaf"></i> Luminous ID</span>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll secondary-text" href="/#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll secondary-text" href="/#download">Mobile Apps</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll secondary-text" href="/#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div class="container content-section text-center">
+        <div class="row">
+            <div class="col-md-6">
+                <!--<div class="jumbotron">-->
+    <h1>Login</h1>
     {% if error %}<label class="control-label" for="inputError1"><strong>Error:</strong> {{ error }}</label>{% endif %}
     <form class="form-horizontal" action="{{ url_for('login') }}" method=post>
         <div class="form-group form-group-lg">
@@ -27,7 +82,51 @@
         </div>
         <input class="btn btn-default" type=submit value=Login>
     </form>
-       </div>        
+       </div>
+    <div class="col-md-6">
+        <h1>SignUp</h1>
+        <form class="form-horizontal" action="{{ url_for('signup') }}" method=post>
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label" for="formGroupInputLarge">Username:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" id="formGroupInputLarge" placeholder="username" name=susername>
+                </div>
+            </div>
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label" for="formGroupInputLarge">Passowrd:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="password" id="signup_password" placeholder="password" name=spassword>
+                </div>
+            </div>
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label" for="formGroupInputLarge">Confirm Passowrd:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="password" id="signup_confirm_password" placeholder="confirm password" name=sconfirm_password>
+                </div>
+            </div>
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label" for="formGroupInputLarge">First Name:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" id="formGroupInputLarge" placeholder="first name" name=sfirst>
+                </div>
+            </div>
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label" for="formGroupInputLarge">Last Name:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" id="formGroupInputLarge" placeholder="last name" name=slast>
+                </div>
+            </div>
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label" for="formGroupInputLarge">Email:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" id="formGroupInputLarge" placeholder="email@luminousid.com" name=semail>
+                </div>
+            </div>
+            <input class="btn btn-default" type=sumit id="signup_submit" disabled value=Signup>
+        </form>
     </div>
+   </div>
+</div>   
+<script src="{{ url_for('static', filename='js/signin_check.js') }}"></script>
 </body>
 </html>
