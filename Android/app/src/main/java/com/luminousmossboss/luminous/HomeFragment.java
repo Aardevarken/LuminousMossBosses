@@ -14,6 +14,7 @@ public class HomeFragment extends Fragment implements OnClickListener {
 
     private ImageButton btn_fieldGuide;
     private ImageButton btn_addObservation;
+    private ImageButton btn_myObservations;
     public HomeFragment(){}
 
     @Override
@@ -29,6 +30,8 @@ public class HomeFragment extends Fragment implements OnClickListener {
         btn_fieldGuide.setOnClickListener(this);
         btn_addObservation = (ImageButton) rootView.findViewById(R.id.add_observation_button);
         btn_addObservation.setOnClickListener(this);
+        btn_myObservations = (ImageButton) rootView.findViewById(R.id.my_observation_button);
+        btn_myObservations.setOnClickListener(this);
         return rootView;
     }
 
@@ -39,11 +42,15 @@ public class HomeFragment extends Fragment implements OnClickListener {
         {
             case R.id.Field_Guide_button:
                 if(activity instanceof MainActivity)
-                    ((MainActivity) activity).displayView(3);
+                    ((MainActivity) activity).displayView(new FieldGuideFragment());
                     break;
             case R.id.add_observation_button:
                 if(activity instanceof MainActivity) {
                     ((MainActivity) activity).startObservation();
+                }
+            case R.id.my_observation_button:
+                if(activity instanceof MainActivity) {
+                    ((MainActivity) activity).displayView(new ObservationListFragment());
                 }
                 break;
         }

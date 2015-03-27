@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@drawable/fieldguide_bg">
 
     <ImageView
@@ -20,50 +20,153 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Species: "
+        android:text="Species"
         android:id="@+id/title"
         android:textColor="@color/fieldguide_title"
         android:textStyle="bold"
         android:textSize="26dp"
-        android:layout_below="@+id/imageView"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/fieldguide_description"
-        android:text="Details:"
-        android:id="@+id/description"
-        android:layout_below="@+id/button_send"
-        android:layout_alignLeft="@+id/title"
-        android:layout_alignStart="@+id/title" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:layout_alignLeft="@+id/description"
-        android:layout_alignStart="@+id/description"
-        android:layout_alignParentBottom="true" />
+        android:layout_below="@+id/progressBar"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send"
+        android:drawableLeft="@drawable/ic_cycle"
+        android:text=" Send  "
         android:id="@+id/button_send"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true" />
+        android:background="@color/fieldguide_button"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:typeface="sans"
+        android:capitalize="words"
+        android:elegantTextHeight="false"
+        android:enabled="false"
+        android:textAlignment="center"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/title"
+        android:layout_toStartOf="@+id/title" />
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/details"
-        android:layout_below="@+id/description"
-        android:layout_alignLeft="@+id/description"
-        android:layout_alignStart="@+id/description"
-        android:layout_toLeftOf="@+id/button_send"
-        android:layout_toStartOf="@+id/button_send" />
+        android:drawableLeft="@drawable/ic_trash"
+        android:text=" Remove "
+        android:id="@+id/button_remove"
+        android:background="@color/fieldguide_button"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:typeface="sans"
+        android:capitalize="words"
+        android:elegantTextHeight="false"
+        android:enabled="false"
+        android:textAlignment="center"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/title"
+        android:layout_toEndOf="@+id/title" />
+
+    <ProgressBar
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <GridLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/title"
+        android:layout_alignRight="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_above="@+id/button_send"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView"
+        android:rowCount="3"
+        android:columnCount="2"
+        android:id="@+id/observation_details">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/fieldguide_description"
+            android:text="FileName:"
+            android:textSize="18dp"
+            android:id="@+id/filename_title"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/title"
+            android:layout_alignLeft="@+id/imageView"
+            android:layout_alignStart="@+id/imageView"
+            android:layout_row="0"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="filename.jpg"
+            android:id="@+id/filename"
+            android:layout_above="@+id/location_title"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/date_title"
+            android:layout_marginTop="20dp"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:paddingLeft="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/fieldguide_description"
+            android:text="Date:"
+            android:textSize="18dp"
+            android:id="@+id/date_title"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/title"
+            android:layout_alignLeft="@+id/imageView"
+            android:layout_alignStart="@+id/imageView"
+            android:layout_row="1"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="[mm/dd/yyyy] - 12:00PM"
+            android:id="@+id/date"
+            android:layout_above="@+id/location_title"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/date_title"
+            android:layout_marginTop="20dp"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:paddingLeft="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/fieldguide_description"
+            android:text="Location:"
+            android:textSize="18dp"
+            android:id="@+id/location_title"
+            android:layout_below="@+id/date_title"
+            android:layout_alignLeft="@+id/date_title"
+            android:layout_alignStart="@+id/date_title"
+            android:layout_marginTop="20dp"
+            android:layout_row="2"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:id="@+id/location"
+            android:layout_alignBottom="@+id/location_title"
+            android:layout_toRightOf="@+id/location_title"
+            android:layout_toEndOf="@+id/location_title"
+            android:layout_marginTop="20dp"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:paddingLeft="20dp" />
+    </GridLayout>
+
 
 </RelativeLayout>

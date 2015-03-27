@@ -42,7 +42,9 @@ public class ObservationFragment extends Fragment implements OnClickListener {
 
 
         ImageView imageView = (ImageView) rootView.findViewById(R.id.imageView);
-        TextView details = (TextView) rootView.findViewById(R.id.details);
+        TextView filename = (TextView) rootView.findViewById(R.id.filename);
+        TextView date = (TextView) rootView.findViewById(R.id.date);
+        TextView location = (TextView) rootView.findViewById(R.id.location);
 
         final Activity activity = getActivity();
         Bundle bundle = getArguments();
@@ -50,7 +52,9 @@ public class ObservationFragment extends Fragment implements OnClickListener {
         imageView.setImageURI(observation.getIcon());
         Picasso.with(getActivity()).load(observation.getIcon()).into(imageView);
 
-        details.setText("Date take: " + observation.getFullData() + " \n");
+        filename.setText("observation_filename.jpg");
+        date.setText(observation.getDate());
+        location.setText(observation.getLatitude() + ", " + observation.getLongitude());
 
         // Handle Button Events
         Button sendButton = (Button) rootView.findViewById(R.id.button_send);

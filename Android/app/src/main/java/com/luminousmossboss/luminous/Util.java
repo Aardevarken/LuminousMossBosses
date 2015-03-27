@@ -18,7 +18,7 @@ import java.net.URI;
 public class Util {
     public static final String ANDROID_RESOURCE = "android.resource://";
     public static final String FORESLASH = "/";
-    final static int THUMBNAIL_SIZE = 64;
+    final static int THUMBNAIL_SIZE = 75;
 
 
     public static Uri resIdToUri(Context context, int resId) {
@@ -39,9 +39,6 @@ public class Util {
         File fileName = new File(path);
         try
         {
-
-            final int THUMBNAIL_SIZE = 64;
-
             FileInputStream fis = new FileInputStream(fileName);
             Bitmap imageBitmap = BitmapFactory.decodeStream(fis);
 
