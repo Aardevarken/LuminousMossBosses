@@ -31,6 +31,7 @@
 @synthesize scrollView = _scrollView;
 */
 
+/*
 + (UIImage*) runDetectionAlgorithm:(UIImage *)unknownImage
 {
 	// For debugging
@@ -64,28 +65,16 @@
 	// Show image with results
 	//imageView.image = MatToUIImage(detectedImage);
 }
-/*
+ */
 - (void)viewDidLoad {
-	NSLog(@"Starting viewDidLoad");
 	[super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-	
-	// Load all of the test images into an array and set counting variables.
-	testImages = @[@"IMG_1976.jpg", @"IMG_1997.jpg", @"IMG_2003.jpg", @"IMG_2278.jpg", @"minuartia1.jpg"];
-	numberOfImages = [testImages count];
-	currentImage = 0;
-	
-	// display the first image
-	//[self displayImage];
-	
-	NSLog(@"Ending viewDidLoad");
 }
 
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
 	// Dispose of any resources that can be recreated.
 }
-*/
 
 
 /***************************\

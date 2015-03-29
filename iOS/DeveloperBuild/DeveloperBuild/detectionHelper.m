@@ -24,7 +24,7 @@
 	assetID = newAssetID;
 	identifiedImage = nil;
 	probability = NULL;
-	isSilene = nil;
+	isSilene = NULL;
 	return self;
 }
 

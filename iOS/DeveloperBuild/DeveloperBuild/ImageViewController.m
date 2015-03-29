@@ -10,6 +10,7 @@
 #import "opencv2/highgui/ios.h"
 #import "detector.h"
 #import "MyObservations.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 // for testing //
 #import "UserDataDatabase.h"
@@ -30,7 +31,9 @@
 
 @implementation ImageViewController{
 	NSString *selectedAsset;
+	NSDictionary *pictureInfo;
 }
+
 @synthesize imageView, choosePhotoBtn, takePhotoBtn;
 @synthesize addObsBtn;
 
@@ -52,6 +55,7 @@
 		[myAlertView show];
 	}
 	selectedAsset = nil;
+	pictureInfo = nil;
 	
 	// create obs list object
 	
@@ -82,6 +86,36 @@
 	[self presentViewController:picker animated:YES completion:NULL];
 }
 
+- (void) saveObsToPhotos{
+	// save image to photos
+	__block BOOL didItWork = NO;
+	
+	if(selectedAsset == nil){
+		ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+		[library writeImageToSavedPhotosAlbum:((UIImage *)[pictureInfo objectForKey:UIImagePickerControllerOriginalImage]).CGImage//(imageView.image).CGImage
+									 metadata:[pictureInfo objectForKey:UIImagePickerControllerMediaMetadata]
+							  completionBlock:^(NSURL *assetURL, NSError *error) {
+								  
+								  //NSLog(@"assertURL %@", assetURL);
+								  
+								  selectedAsset = [NSString stringWithFormat:@"%@", assetURL];
+								  /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"assetURL: %@", assetURL]
+																				  message:nil
+																				 delegate:nil
+																		cancelButtonTitle:@"OK"
+																		otherButtonTitles:nil];
+								  */
+								  NSLog(@"selected asset: %@", selectedAsset);
+								  didItWork = YES;
+								  //[alert show];
+							  }];
+		NSLog(@"func selectedAsset: %@", selectedAsset);
+	
+	}
+	
+	selectedAsset = [pictureInfo objectForKey:@"UIImagePickerControllerReferenceURL"];
+	
+}
 
 - (IBAction)addObservation:(UIButton *)sender {
 	
@@ -91,6 +125,11 @@
 	
 	BOOL success = NO;
 	NSString *alertString = @"Data insertion failed";
+	
+	// save image to photos
+	//[self saveObsToPhotos];
+	
+	// get image asset
 	NSString *img = [NSString stringWithFormat:@"%@", selectedAsset];//self.capedImg];
 	
 	// get current date and time
@@ -108,7 +147,7 @@
 	
 	NSString *currentTime = [dateFormatter stringFromDate:today];
 	
-	NSLog(@"%@", currentTime);
+	//NSLog(@"%@", currentTime);
 	//[dateFormatter release];
 	
 	if (selectedAsset == nil){//self.capedImg == [NSString stringWithFormat:@"%@",[UIImage imageNamed:@"nocamera.png"]]) {
@@ -134,21 +173,7 @@
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data not found" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 	}
-	/*
-	else {
-		if (TESTING){
-			for (id row in data){
-				NSEnumerator *enumerator = [row keyEnumerator];
-				id key;
-				while ((key = [enumerator nextObject])) {
-					NSString *element = [row objectForKey:key];
-					NSLog(@"%@: %@", key, element);
-				}
-				NSLog(@"------");
-			}
-		}
-	}
-	*/
+	/// end of code review
 	
 }
 
@@ -182,16 +207,28 @@
  * imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"]; 
  * stores the hex id for the image in imageView under _storage in a UIImage format
  */
-
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
 	[picker dismissViewControllerAnimated:YES completion:NULL];
 	//imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
 	
+	// display the image
 	UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
 	NSString *urlPath = [[info objectForKey:@"UIImagePickerControllerReferenceURL"] absoluteString];
 	self.capedImg = urlPath;
 	imageView.image = image;
 	selectedAsset = urlPath;
+	pictureInfo = info;
+	
+	
+	if(selectedAsset == nil){
+		ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+		[library writeImageToSavedPhotosAlbum:((UIImage *)[pictureInfo objectForKey:UIImagePickerControllerOriginalImage]).CGImage//(imageView.image).CGImage
+									 metadata:[pictureInfo objectForKey:UIImagePickerControllerMediaMetadata]
+							  completionBlock:^(NSURL *assetURL, NSError *error) {
+									selectedAsset = [NSString stringWithFormat:@"%@", assetURL];
+							  }];
+	}
+	// for testing
 	if(TESTING){
 	static int imgnum = 1;
 		NSString *breakSymbol = @"========================";

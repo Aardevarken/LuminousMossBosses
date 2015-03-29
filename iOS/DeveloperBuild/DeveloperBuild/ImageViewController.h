@@ -14,6 +14,7 @@
 	UIImageView * imageView;
 	UIButton * choosePhotoBtn;
 	UIButton * takePhotoBtn;
+	UINavigationController * testNav;
 	
 }
 

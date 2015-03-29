@@ -10,7 +10,9 @@
 #import <Foundation/Foundation.h>
 #import "detector.h"
 
-@interface ViewController : NSObject
+@interface ViewController : UIViewController{
+	// nothing
+}
 //UIViewController <UIScrollViewDelegate>
 /*{
 	
@@ -29,7 +31,7 @@
 //@property (nonatomic, strong) IBOutlet UIImageView* imageView;
 //@property (nonatomic, strong) IBOutlet UIScrollView* scrollView;
 
-+ (UIImage*) runDetectionAlgorithm:(UIImage*)unknownImage;
+//+ (UIImage*) runDetectionAlgorithm:(UIImage*)unknownImage;
 
 
 @end

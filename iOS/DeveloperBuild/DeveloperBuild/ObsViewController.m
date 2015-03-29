@@ -165,7 +165,8 @@ NSMutableArray *_myObservations;
 	
 	ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
 	
-	[lib assetForURL: url resultBlock: ^(ALAsset *asset) {
+	[lib assetForURL: url
+		 resultBlock: ^(ALAsset *asset) {
 		ALAssetRepresentation *r = [asset defaultRepresentation];
 		cell.plantImageView.image = [UIImage imageWithCGImage: r.fullResolutionImage];
 	}
