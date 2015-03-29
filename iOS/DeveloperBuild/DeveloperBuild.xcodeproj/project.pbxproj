@@ -575,6 +575,7 @@
 					/Users/Jacob/SeniorProjects/iOS,
 					/Users/jamiemiller/LuminousMossBosses/iOS,
 					/Users/jami4331/LuminousMossBosses/iOS,
+					/Users/jamie/LuminousMossBosses/iOS,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "FORIPHONE=1";
@@ -596,6 +597,7 @@
 					/Users/Jacob/SeniorProjects/iOS,
 					/Users/jamiemiller/LuminousMossBosses/iOS,
 					/Users/jami4331/LuminousMossBosses/iOS,
+					/Users/jamie/LuminousMossBosses/iOS,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "FORIPHONE=1";
