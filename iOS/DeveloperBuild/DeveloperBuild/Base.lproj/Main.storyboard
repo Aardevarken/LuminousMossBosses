@@ -1310,7 +1310,7 @@
         <image name="IMG_2278.JPG" width="3100" height="2325"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qX3-aw-dSK"/>
         <segue reference="ZLv-PH-1Fc"/>
+        <segue reference="A5Q-uz-ERG"/>
     </inferredMetricsTieBreakers>
 </document>

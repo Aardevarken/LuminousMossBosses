@@ -25,7 +25,7 @@
 @implementation ObsViewController{
 	NSArray *plants;
 	NSArray *pendingObservations;
-	NSArray *idedObservations;
+	NSMutableArray *idedObservations;
 }
 
 
@@ -81,11 +81,14 @@ NSMutableArray *_myObservations;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-	NSLog(@"ViewWillAppear");
 	/**/
 	pendingObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-noid" like:NO orderBy:NULL];
-	idedObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:NULL];
+	//idedObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:NULL];
+	idedObservations = [NSMutableArray array];
 	
+	for(id object in [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:NULL]){
+		[idedObservations addObject:object];
+	}
 	//NSLog(@"po:%lu \t io:%lu", (unsigned long)[pendingObservations count], (unsigned long)[idedObservations count]);
 	
 	selectedSection = -1;
@@ -146,6 +149,15 @@ NSMutableArray *_myObservations;
 	return count;
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+	if (editingStyle == UITableViewCellEditingStyleDelete) {
+		[idedObservations removeObjectAtIndex:indexPath.row];
+		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+	}
+	else {
+		NSLog(@"Unhandled editing sytle! %ld", editingStyle);
+	}
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -191,12 +203,17 @@ NSMutableArray *_myObservations;
 	cell.nameLabel.text		= @"Unknown";//[NSString stringWithFormat:@"%@", [dic objectForKey:@"imghexid"]];
 	cell.dateLabel.text		= [NSString stringWithFormat:@"%@", [dic objectForKey:@"date"]];
 	
-	if ([[dic objectForKey:@"percentIDed"]  isEqual: @"(null)"]) {
-		cell.percentLabel.text	= @"";	}
+//	if ([[dic objectForKey:@"percentIDed"]  isEqual: @"(null)"]) {
+//		cell.percentLabel.text	= @"";	}
+//	else{
+//	NSString *percentString = [NSString stringWithFormat:@"%@", [dic objectForKey:@"percentIDed"]];
+	if ([dic objectForKey:@"percentIDed"] == NULL) {
+		cell.percentLabel.text	= @"";
+	}
 	else{
 		cell.percentLabel.text	= [NSString stringWithFormat:@"%@%%", [dic objectForKey:@"percentIDed"]];
 	}
-	
+//	
 	//cell.plantImageView.image = [dic objectForKey:@"imghexid"];
 	
 	/*

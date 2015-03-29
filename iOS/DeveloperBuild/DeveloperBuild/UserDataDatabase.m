@@ -46,7 +46,7 @@ static sqlite3_stmt *statement = nil;
 			const char *sql_stmt = "CREATE TABLE observations (imghexid text not null primary key, date datetime not null, latitude decimal(9,6) not null, longitude decimal(9,6) not null, status text not null default \"pending-noid\", percentIDed tinyint);";
 			if (sqlite3_exec(database, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK) {
 				isSuccess = NO;
-				NSLog(@"Failed to create table");
+				//NSLog(@"Failed to create table");
 			}
 			
 			
@@ -55,10 +55,10 @@ static sqlite3_stmt *statement = nil;
 		}
 		else {
 			isSuccess = NO;
-			NSLog(@"Failed to open/create database");
+			//NSLog(@"Failed to open/create database");
 		}
 	}
-	NSLog(@"Database creation successful.");
+	//NSLog(@"Database creation successful.");
 	return isSuccess;
 }
 

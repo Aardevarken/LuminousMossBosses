@@ -110,7 +110,7 @@
 			// update row variables
 			BOOL success = [[UserDataDatabase getSharedInstance]
 							updateRow:assetid andNewPercentIDed:NSnewprob andNewStatus:newState];
-			NSLog(@"updated database");
+			
 			//[[UserDataDatabase getSharedInstance] updateRow:assetid percentIDed:NSnewprob state:newState];
 							//updateRow:assetid percentIDed:NSnewprob state:newState];
 			
