@@ -39,10 +39,6 @@ import com.luminousmossboss.luminous.adapter.NavDrawerListAdapter;
 import com.luminousmossboss.luminous.model.ListItem;
 import com.luminousmossboss.luminous.model.NavDrawerItem;
 
-import org.opencv.android.OpenCVLoader;
-import org.opencv.core.Mat;
-import org.opencv.android.Utils;
-
 
 public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
@@ -314,6 +310,19 @@ public class MainActivity extends Activity {
             mGPS.showSettingsAlert();
         }
     }
+
+    private boolean detectImage(String image_path) {
+        File flowerXML = rawToFile(R.raw.flower);
+        File vocabXML = rawToFile(R.raw.vocabulary);
+        File sileneXML = rawToFile(R.raw.silene);
+        // create the detector
+        SileneDetector sileneDetector = new SileneDetector(flowerXML.getAbsolutePath(),
+                                                           vocabXML.getAbsolutePath(),
+                                                           sileneXML.getAbsolutePath());
+        // run the detection
+        return sileneDetector.isSilene(image_path);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -321,17 +330,51 @@ public class MainActivity extends Activity {
             case REQUEST_TAKE_PHOTO: {
                 if (resultCode == RESULT_OK) {
                     handlePhoto(data);
+                    boolean detectionResult = detectImage(mCurrentPhotoPath);
+                    Toast message;
+                    if (detectionResult)
+                    {
+                        message = Toast.makeText(this, "Your image was identified as Silene!!!", Toast.LENGTH_LONG);
+                    }
+                    else
+                    {
+                        message = Toast.makeText(this, "Your image was not a silene. Are you sure it isn't a cow or a pink firetruck?", Toast.LENGTH_LONG);
+                    }
+                    message.show();
                 }
                 break;
             }
         } // switch
     }
-    static {
-        if (!OpenCVLoader.initDebug())
+
+    // creates new file from a raw resource in the file_resources folder
+    // Adapted from Eduardo's answer at stackoverflow.com/questions/17189214
+    private File rawToFile (int resId)
+    {
+        InputStream is = getResources().openRawResource(resId);
+        File dir = getDir("file_resources", Context.MODE_PRIVATE);
+        File file = new File(dir, Integer.toString(resId));
+        try
         {
-            System.exit(-1);
+            FileOutputStream os = new FileOutputStream(file);
+
+            byte[] buff = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = is.read(buff)) != -1)
+            {
+                os.write(buff, 0, bytesRead);
+            }
+            is.close();
+            os.close();
         }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            Log.v("MainActivity", "Failed to load silene classifier. Exception thrown: " + e);
+        }
+        return file;
     }
+
     private void handlePhoto(Intent intent)
     {
 
@@ -346,51 +389,12 @@ public class MainActivity extends Activity {
         }
         else
         {
-
-            /*
-             * Creates the sileneclassifer.xml file on the device to pass to the
-             * SileneAcaulisDetector constructor
-             * Adapted from Eduardo's answer at stackoverflow.com/questions/17189214
-             */
-            InputStream is = getResources().openRawResource(R.raw.sileneclassifier);
-            File cascadeDir = getDir("cascade", Context.MODE_PRIVATE);
-            File mCascadeFile = new File(cascadeDir, "sileneclassifier.xml");
-            try
-            {
-                FileOutputStream os = new FileOutputStream(mCascadeFile);
-
-                byte[] buff = new byte[4096];
-                int bytesRead;
-                while ((bytesRead = is.read(buff)) != -1)
-                {
-                    os.write(buff, 0, bytesRead);
-                }
-                is.close();
-                os.close();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-                Log.v("MainActivity", "Failed to load silene classifier. Exception thrown: " + e);
-            }
-            // create the detector
-            SileneAcaulisDetector sileneDetector = new SileneAcaulisDetector(mCascadeFile.getAbsolutePath());
-            // create an OpenCV Mat from the current photo
-            Mat matImage = new Mat();
-            Bitmap bitmapImage = BitmapFactory.decodeFile(mCurrentPhotoPath);
-            Utils.bitmapToMat(bitmapImage, matImage);
-            boolean wasPicSilene = sileneDetector.isThisSilene(matImage);
-            if (wasPicSilene)
-            {
-                Toast.makeText(this, "We have your SILENE!!! image: " + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
-            }
-
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+            Toast.makeText(this, "We have your image: " + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ", Locale.US);
             String timeNow = sdf.format(new Date());
             HashMap<String, String> map = new HashMap<String, String>();
             map.put(DbHandler.KEY_GPS_ACCURACY, String.valueOf(loc.getAccuracy()));
-            map.put(DbHandler.KEY_IS_SILENE, String.valueOf(wasPicSilene));
+//            map.put(DbHandler.KEY_IS_SILENE, String.valueOf(wasPicSilene));
             map.put(DbHandler.KEY_LATITUDE, String.valueOf(loc.getLatitude()));
             map.put(DbHandler.KEY_LONGITUDE, String.valueOf(loc.getLongitude()));
             map.put(DbHandler.KEY_PHOTO_PATH, mCurrentPhotoPath);
@@ -398,13 +402,6 @@ public class MainActivity extends Activity {
             map.put(DbHandler.KEY_TIME_TAKEN, timeNow);
 
             db.addObservation(map);
-
-
-
-
-
-
-
         }
     }
 }

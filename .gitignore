@@ -20,3 +20,6 @@ Android/LuminousMossBosses.iml
 Android/.idea/dictionaries
 Android/.idea/misc.xml
 Android/app/src/main/jniLibs
+Android/.idea/gradle.xml
+Android/app/src/main/libs
+Android/app/src/main/obj
