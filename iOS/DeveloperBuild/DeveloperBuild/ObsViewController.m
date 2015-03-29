@@ -65,6 +65,7 @@ NSMutableArray *_myObservations;
 	self.myObservations = _myObservations;
 	
 	// please work
+	/** /
 	pendingObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-noid" like:NO orderBy:NULL];
 	idedObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:NULL];
 	
@@ -73,10 +74,25 @@ NSMutableArray *_myObservations;
 	selectedSection = -1;
 	selectedRow = -1;
 	//NSLog(@"\n");
+	/**/
 	// keep this work
 	
 	[self retrieveData];
 }
+
+- (void)viewWillAppear:(BOOL)animated{
+	NSLog(@"ViewWillAppear");
+	/**/
+	pendingObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-noid" like:NO orderBy:NULL];
+	idedObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:NULL];
+	
+	//NSLog(@"po:%lu \t io:%lu", (unsigned long)[pendingObservations count], (unsigned long)[idedObservations count]);
+	
+	selectedSection = -1;
+	selectedRow = -1;
+	/**/
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
