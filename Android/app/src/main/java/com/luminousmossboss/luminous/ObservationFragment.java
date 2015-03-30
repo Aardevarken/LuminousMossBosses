@@ -76,6 +76,8 @@ public class ObservationFragment extends Fragment implements OnClickListener {
             case R.id.button_remove:
                 DbHandler db = new DbHandler(getActivity());
                 db.deleteObservation(observation.getIcon().getPath());
+                MainActivity activity =(MainActivity) getActivity();
+                activity.displayView(MainActivity.OBSERVATION_LIST_POSITION);
                 break;
 
 

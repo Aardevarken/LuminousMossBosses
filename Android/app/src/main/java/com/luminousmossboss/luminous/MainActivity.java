@@ -43,6 +43,13 @@ public class MainActivity extends Activity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
 
+    public static final int HOME_POSITION = 0;
+    public static final int OBSERVATION_POSITION = 1;
+    public static final int OBSERVATION_LIST_POSITION = 2;
+    public static final int FIELD_GUIDE_POSITION = 3;
+
+
+
     //For handling location
    protected GPSTracker mGPS;
    private DbHandler db;
@@ -207,19 +214,19 @@ public class MainActivity extends Activity {
         // update the main content by replacing fragments
         //int icon = R.drawable.ic_launcher;
         switch (position) {
-            case 0:
+            case HOME_POSITION:
                 displayView(new HomeFragment());
                 //icon = R.drawable.ic_home;
                 break;
-            case 1:
+            case OBSERVATION_POSITION:
                 startObservation();
                 break;
-            case 2:
+            case OBSERVATION_LIST_POSITION:
                 displayView(new ObservationListFragment());
                 //fragment = new ObservationListFragment();
                 //icon = R.drawable.ic_notepage;
                 break;
-            case 3:
+            case FIELD_GUIDE_POSITION:
                 displayView(new FieldGuideListFragment());
                 //icon = R.drawable.ic_openbook;
                 break;
