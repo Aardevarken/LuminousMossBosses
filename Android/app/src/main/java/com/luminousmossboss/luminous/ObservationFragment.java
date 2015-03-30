@@ -38,11 +38,13 @@ public class ObservationFragment extends Fragment implements OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.view_observation, container, false);
+        View rootView = inflater.inflate(R.layout.edit_observation, container, false);
 
 
         ImageView imageView = (ImageView) rootView.findViewById(R.id.imageView);
-        TextView details = (TextView) rootView.findViewById(R.id.details);
+        TextView filename = (TextView) rootView.findViewById(R.id.filename);
+        TextView date = (TextView) rootView.findViewById(R.id.date);
+        TextView location = (TextView) rootView.findViewById(R.id.location);
 
         final Activity activity = getActivity();
         Bundle bundle = getArguments();
@@ -50,11 +52,16 @@ public class ObservationFragment extends Fragment implements OnClickListener {
         imageView.setImageURI(observation.getIcon());
         Picasso.with(getActivity()).load(observation.getIcon()).into(imageView);
 
-        details.setText("Date take: " + observation.getDate() + " \n Time:" + observation.getFullDate().substring(10) +"\n");
+
+        filename.setText("observation_filename.jpg");
+        date.setText(observation.getDate());
+        location.setText(observation.getLatitude() + ", " + observation.getLongitude());
 
         // Handle Button Events
         Button sendButton = (Button) rootView.findViewById(R.id.button_send);
         sendButton.setOnClickListener(this);
+        Button removeButton = (Button) rootView.findViewById(R.id.button_remove);
+        removeButton.setOnClickListener(this);
 
         return rootView;
     }
@@ -65,6 +72,12 @@ public class ObservationFragment extends Fragment implements OnClickListener {
         switch (v.getId()){
             case R.id.button_send:
                 new SendPostActivity(getActivity()).execute(observation);
+                break;
+            case R.id.button_remove:
+                DbHandler db = new DbHandler(getActivity());
+                db.deleteObservation(observation.getIcon().getPath());
+                break;
+
 
 
         }

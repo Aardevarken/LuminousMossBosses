@@ -18,8 +18,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -207,27 +205,33 @@ public class MainActivity extends Activity {
      * */
     protected void displayView(int position) {
         // update the main content by replacing fragments
-        Fragment fragment = null;
-        int icon = R.drawable.ic_launcher;
+        //int icon = R.drawable.ic_launcher;
         switch (position) {
             case 0:
-                fragment = new HomeFragment();
-                icon = R.drawable.ic_home;
+                displayView(new HomeFragment());
+                //icon = R.drawable.ic_home;
+                break;
+            case 1:
+                startObservation();
                 break;
             case 2:
-                fragment = new ObservationListFragment();
-                icon = R.drawable.ic_notepage;
+                displayView(new ObservationListFragment());
+                //fragment = new ObservationListFragment();
+                //icon = R.drawable.ic_notepage;
                 break;
             case 3:
-                fragment = new FieldGuideListFragment();
-                icon = R.drawable.ic_openbook;
+                displayView(new FieldGuideListFragment());
+                //icon = R.drawable.ic_openbook;
                 break;
 
             default:
                 break;
         }
-
-        if (fragment != null) {
+        mDrawerList.setItemChecked(position, true);
+        mDrawerList.setSelection(position);
+        setTitle(navMenuTitles[position]);
+        mDrawerLayout.closeDrawer(mDrawerList);
+        /*if (fragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
             //fragmentManager.beginTransaction()
             //.replace(R.id.frame_container, fragment).commit();
@@ -246,7 +250,7 @@ public class MainActivity extends Activity {
         } else {
             // error in creating fragment
             Log.e("MainActivity", "Error in creating fragment");
-        }
+        }*/
     }
     public void displayView(Fragment fragment) {
         if (fragment != null) {

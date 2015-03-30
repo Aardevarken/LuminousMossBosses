@@ -52,7 +52,7 @@ public class ObservationListFragment extends Fragment{
 
 
 
-        //To be implemented for selectin individual observations
+        //To be implemented for selecting individual observations
         this.mDrawerList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -86,9 +86,10 @@ public class ObservationListFragment extends Fragment{
             do{
                 Uri iconUri = Uri.fromFile(new File(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_PHOTO_PATH))));
                 String date= cursor.getString(cursor.getColumnIndex(DbHandler.KEY_TIME_TAKEN));
+
                 Double latitude = cursor.getDouble(cursor.getColumnIndex(DbHandler.KEY_LATITUDE));
                 Double longitude = cursor.getDouble(cursor.getColumnIndex(DbHandler.KEY_LONGITUDE));
-                listItems.add(new Observation("Siline", iconUri,date,latitude, longitude));
+                listItems.add(new Observation("Silene", iconUri,date,latitude, longitude));
 
             }while(cursor.moveToNext());
 

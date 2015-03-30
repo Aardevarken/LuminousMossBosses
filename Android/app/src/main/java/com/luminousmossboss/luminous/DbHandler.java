@@ -102,5 +102,10 @@ public class DbHandler extends SQLiteOpenHelper {
         return db.update(TABLE_OBSERVATIONS, values, KEY_ID + " = ?",
                 new String[] { String.valueOf(id) });
     }
+    public int deleteObservation(String filePath)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_OBSERVATIONS, KEY_PHOTO_PATH + "=" + "'" + filePath + "'", null);
+    }
 
 }

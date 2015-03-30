@@ -16,8 +16,7 @@
         android:paddingBottom="10dp"
         android:minHeight="1dp"
         android:minWidth="1dp"
-        android:maxHeight="96dp"
-        android:maxWidth="96dp" />
+        android:maxHeight="96dp" />
 
     <TextView
         android:id="@+id/title"
