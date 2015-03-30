@@ -49,6 +49,7 @@ NSMutableArray *_observations;
 	newObs.percent = @"30%";
 	[_observations addObject:newObs];
 	
+	NSLog(@"launching app....");
 	
 	/*
 	UITabBarController *tabBarController = (UITabBarController *) self.window.rootViewController;
