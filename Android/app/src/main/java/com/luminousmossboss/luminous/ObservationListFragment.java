@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Created by Brian on 2/1/2015.
  */
 
-public class ObservationListFragment extends Fragment{
+public class ObservationListFragment extends Fragment implements BackButtonInterface{
 
     private Context context;
     private String mTitle;
@@ -39,6 +39,11 @@ public class ObservationListFragment extends Fragment{
     public ObservationListFragment(){}
 
     //static method used for setting arguments;
+
+    @Override
+    public Boolean allowedBackPressed() {
+        return true;
+    }
 
 
     @Override

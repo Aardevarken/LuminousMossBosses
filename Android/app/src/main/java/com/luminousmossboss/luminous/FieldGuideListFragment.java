@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Created by Brian on 2/1/2015.
  */
 
-public class FieldGuideListFragment extends Fragment{
+public class FieldGuideListFragment extends Fragment implements BackButtonInterface{
 
     private Context context;
     private String mTitle;
@@ -36,6 +36,11 @@ public class FieldGuideListFragment extends Fragment{
     private ArrayList<ListItem> listItems;
 
     public FieldGuideListFragment(){}
+
+    @Override
+    public Boolean allowedBackPressed() {
+        return true;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

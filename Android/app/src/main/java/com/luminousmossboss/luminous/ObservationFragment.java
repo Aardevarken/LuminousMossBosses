@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.luminousmossboss.luminous.model.Observation;
 import com.squareup.picasso.Picasso;
 
-public class ObservationFragment extends Fragment implements OnClickListener {
+public class ObservationFragment extends Fragment implements OnClickListener, BackButtonInterface {
 
     private final static String OBSERVATION_KEY = "observation_key";
 
@@ -32,6 +32,11 @@ public class ObservationFragment extends Fragment implements OnClickListener {
         fragment.setArguments(bundle);
         return fragment;
 
+    }
+
+    @Override
+    public Boolean allowedBackPressed() {
+        return true;
     }
 
     @Override

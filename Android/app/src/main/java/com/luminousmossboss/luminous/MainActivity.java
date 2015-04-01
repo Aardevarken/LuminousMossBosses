@@ -238,40 +238,29 @@ public class MainActivity extends Activity {
         mDrawerList.setSelection(position);
         setTitle(navMenuTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
-        /*if (fragment != null) {
-            FragmentManager fragmentManager = getFragmentManager();
-            //fragmentManager.beginTransaction()
-            //.replace(R.id.frame_container, fragment).commit();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_container, fragment);
-
-            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            fragmentTransaction.commit();
-
-            // update selected item and title, then close the drawer
-            mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
-            setTitle(navMenuTitles[position]);
-            getActionBar().setIcon(icon);
-            mDrawerLayout.closeDrawer(mDrawerList);
-        } else {
-            // error in creating fragment
-            Log.e("MainActivity", "Error in creating fragment");
-        }*/
     }
     public void displayView(Fragment fragment) {
         if (fragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_container, fragment);
+            fragmentTransaction.replace(R.id.frame_container, fragment, "TAG");
 
             fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         } else {
             Log.e("MainActivity", "Error in creating fragment");
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        final BackButtonInterface fragment = (BackButtonInterface) getFragmentManager().findFragmentByTag("TAG");
+        int stackSize = getFragmentManager().getBackStackEntryCount();
+        if (fragment.allowedBackPressed() && stackSize > 1) {
+            super.onBackPressed();
+        }
+    }
 
     private File createImageFile() throws IOException {
 

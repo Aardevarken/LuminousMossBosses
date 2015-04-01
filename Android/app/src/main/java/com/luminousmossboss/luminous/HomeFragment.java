@@ -10,12 +10,17 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.view.View.OnClickListener;
 
-public class HomeFragment extends Fragment implements OnClickListener {
+public class HomeFragment extends Fragment implements OnClickListener, BackButtonInterface {
 
     private ImageButton btn_fieldGuide;
     private ImageButton btn_addObservation;
     private ImageButton btn_myObservations;
     public HomeFragment(){}
+
+    @Override
+    public Boolean allowedBackPressed() {
+        return true;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
