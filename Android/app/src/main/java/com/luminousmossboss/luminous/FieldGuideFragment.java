@@ -8,9 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-public class FieldGuideFragment extends Fragment {
+public class FieldGuideFragment extends Fragment implements BackButtonInterface {
 
     public FieldGuideFragment(){}
+
+    @Override
+    public Boolean allowedBackPressed() {
+        return true;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
