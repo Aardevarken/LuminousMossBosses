@@ -318,17 +318,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    private boolean detectImage(String image_path) {
-        File flowerXML = rawToFile(R.raw.flower);
-        File vocabXML = rawToFile(R.raw.vocabulary);
-        File sileneXML = rawToFile(R.raw.silene);
-        // create the detector
-        SileneDetector sileneDetector = new SileneDetector(flowerXML.getAbsolutePath(),
-                                                           vocabXML.getAbsolutePath(),
-                                                           sileneXML.getAbsolutePath());
-        // run the detection
-        return sileneDetector.isSilene(image_path);
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -337,7 +327,7 @@ public class MainActivity extends Activity {
             case REQUEST_TAKE_PHOTO: {
                 if (resultCode == RESULT_OK) {
                     handlePhoto(data);
-                    boolean detectionResult = detectImage(mCurrentPhotoPath);
+                    boolean detectionResult = Util.detectImage(mCurrentPhotoPath,this);
                     Toast message;
                     if (detectionResult)
                     {
@@ -354,33 +344,8 @@ public class MainActivity extends Activity {
         } // switch
     }
 
-    // creates new file from a raw resource in the file_resources folder
-    // Adapted from Eduardo's answer at stackoverflow.com/questions/17189214
-    private File rawToFile (int resId)
-    {
-        InputStream is = getResources().openRawResource(resId);
-        File dir = getDir("file_resources", Context.MODE_PRIVATE);
-        File file = new File(dir, Integer.toString(resId));
-        try
-        {
-            FileOutputStream os = new FileOutputStream(file);
 
-            byte[] buff = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = is.read(buff)) != -1)
-            {
-                os.write(buff, 0, bytesRead);
-            }
-            is.close();
-            os.close();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            Log.v("MainActivity", "Failed to load silene classifier. Exception thrown: " + e);
-        }
-        return file;
-    }
+
 
     private void handlePhoto(Intent intent)
     {

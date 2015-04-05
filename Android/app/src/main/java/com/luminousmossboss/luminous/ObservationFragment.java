@@ -67,6 +67,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         sendButton.setOnClickListener(this);
         Button removeButton = (Button) rootView.findViewById(R.id.button_remove);
         removeButton.setOnClickListener(this);
+        imageView.setOnClickListener(this);
 
         return rootView;
     }
@@ -84,6 +85,9 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
                 MainActivity activity =(MainActivity) getActivity();
                 activity.displayView(MainActivity.OBSERVATION_LIST_POSITION);
                 break;
+            case R.id.imageView:
+                IdActivity idActivity = new IdActivity(getActivity());
+                idActivity.execute(observation.getIcon().getPath());
 
 
 
