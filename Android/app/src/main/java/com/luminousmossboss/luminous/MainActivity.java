@@ -46,13 +46,15 @@ public class MainActivity extends Activity {
     public static final int HOME_POSITION = 0;
     public static final int OBSERVATION_POSITION = 1;
     public static final int OBSERVATION_LIST_POSITION = 2;
-    public static final int FIELD_GUIDE_POSITION = 3;
-
-
+    public static final int SYNC_OBSERVATION_POSITION = 3;
+    public static final int FIELD_GUIDE_POSITION = 4;
+    public static final int ABOUT_POSITION = 5;
+    public static final int SETTINGS_POSITION = 6;
+    public static final int HELP_POSITION = 7;
 
     //For handling location
-   protected GPSTracker mGPS;
-   private DbHandler db;
+    protected GPSTracker mGPS;
+    private DbHandler db;
 
     //For keeping track of the Photo:
     String mCurrentPhotoPath;
@@ -96,8 +98,8 @@ public class MainActivity extends Activity {
             Uri iconUri = Util.resIdToUri(this, navMenuIcons.getResourceId(i, -1));
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], iconUri));
         }
-        ((NavDrawerItem) navDrawerItems.get(3)).setCounterVisibility(true);
-        ((NavDrawerItem) navDrawerItems.get(3)).setCount(2);
+        ((NavDrawerItem) navDrawerItems.get(FIELD_GUIDE_POSITION)).setCounterVisibility(true);
+        ((NavDrawerItem) navDrawerItems.get(FIELD_GUIDE_POSITION)).setCount(2);
 
         // Recycle the typed array
         navMenuIcons.recycle();
@@ -175,6 +177,12 @@ public class MainActivity extends Activity {
         getActionBar().setTitle(mTitle);
     }
 
+    @Override
+    public void setTitle(int position) {
+        mTitle = navMenuTitles[position];
+        getActionBar().setTitle(mTitle);
+    }
+
     /**
      * When using the ActionBarDrawerToggle, you must call it during
      * onPostCreate() and onConfigurationChanged()...
@@ -236,7 +244,6 @@ public class MainActivity extends Activity {
         }
         mDrawerList.setItemChecked(position, true);
         mDrawerList.setSelection(position);
-        setTitle(navMenuTitles[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
     public void displayView(Fragment fragment) {

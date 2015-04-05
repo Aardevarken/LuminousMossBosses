@@ -94,6 +94,16 @@ public class DbHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
     }
+
+    public Cursor getObservationBySyncStatus(int has_been_synced) {
+        String selectQuery = "SELECT * FROM " + TABLE_OBSERVATIONS +
+                " WHERE has_been_synced =" + has_been_synced;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        return cursor;
+    }
+
     public int updateSyncedStatus(int id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -102,6 +112,7 @@ public class DbHandler extends SQLiteOpenHelper {
         return db.update(TABLE_OBSERVATIONS, values, KEY_ID + " = ?",
                 new String[] { String.valueOf(id) });
     }
+
     public int deleteObservation(String filePath)
     {
         SQLiteDatabase db = this.getWritableDatabase();

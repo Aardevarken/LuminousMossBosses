@@ -43,7 +43,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.edit_observation, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_editobservation, container, false);
 
 
         ImageView imageView = (ImageView) rootView.findViewById(R.id.imageView);

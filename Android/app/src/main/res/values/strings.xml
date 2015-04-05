@@ -15,13 +15,13 @@
   -->
 
 <resources>
-    <string name="app_name">Luminous Plant ID</string>
+    <string name="app_name">Luminous Id</string>
     <string-array name="nav_drawer_items">
         <item>Home</item>
         <item>Add Observations</item>
         <item>My Observations</item>
+        <item>Sync Observations</item>
         <item>Field Guide</item>
-        <item>Sync/Update</item>
         <item>About</item>
         <item>Settings</item>
         <item>Help</item>
@@ -30,8 +30,8 @@
         <item>@drawable/ic_home</item>
         <item>@drawable/ic_camera</item>
         <item>@drawable/ic_notepage</item>
+        <item>@drawable/ic_upload</item>
         <item>@drawable/ic_openbook</item>
-        <item>@drawable/ic_cycle</item>
         <item>@drawable/ic_info</item>
         <item>@drawable/ic_cogwheel</item>
         <item>@drawable/ic_help</item>

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.RadioButton;
 
 import com.luminousmossboss.luminous.adapter.ObservationListAdapter;
 import com.luminousmossboss.luminous.model.ListItem;
@@ -25,16 +26,22 @@ import java.util.ArrayList;
  * Created by Brian on 2/1/2015.
  */
 
-public class ObservationListFragment extends Fragment implements BackButtonInterface{
+public class ObservationListFragment extends Fragment implements View.OnClickListener, BackButtonInterface{
 
     private Context context;
     private String mTitle;
 
     private ListView mDrawerList;
+    private View rootView;
+    private ViewGroup container;
 
     private ObservationListAdapter adapter;
     private ArrayList<ListItem> listItems;
     private DbHandler db;
+
+    private RadioButton mTabPending;
+    private RadioButton mTabSynced;
+
 
     public ObservationListFragment(){}
 
@@ -50,10 +57,11 @@ public class ObservationListFragment extends Fragment implements BackButtonInter
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_listview, container, false);
+        rootView = inflater.inflate(R.layout.fragment_observationlist, container, false);
+        this.container = container;
         final Activity activity = getActivity();
         this.db = new DbHandler(activity);
-        initList(rootView, container);
+        initList(rootView, container, 0);
 
 
 
@@ -71,21 +79,46 @@ public class ObservationListFragment extends Fragment implements BackButtonInter
             }
         });
 
+        // Handle Button Events
+        mTabPending = (RadioButton) rootView.findViewById(R.id.tab_pending);
+        mTabPending.setOnClickListener(this);
+        mTabSynced = (RadioButton) rootView.findViewById(R.id.tab_synced);
+        mTabSynced.setOnClickListener(this);
+
+        activity.setTitle(MainActivity.OBSERVATION_LIST_POSITION);
         return rootView;
+    }
+
+    /**
+     * Handle click events from tab elements
+     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.tab_pending:
+                initList(rootView, container, 0);
+                break;
+            case R.id.tab_synced:
+                initList(rootView, container, 1);
+                break;
+        }
     }
 
     /**
      * Initial Items in ListView
      * @param rootView
      * @param container
+     * @param status
      */
-    private void initList(View rootView, ViewGroup container) {
+    private void initList(View rootView, ViewGroup container, int status) {
 
 
         this.mDrawerList = (ListView) rootView.findViewById(R.id.fragment_list);
         this.context = container.getContext();
         this.listItems = new ArrayList<ListItem>();
-        Cursor cursor = db.getAllObservation();
+        //Cursor cursor = db.getAllObservation();
+        Cursor cursor = db.getObservationBySyncStatus(status);
 
         if (cursor.moveToFirst())
             do{

@@ -65,6 +65,7 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
             }
         });
 
+        activity.setTitle(MainActivity.FIELD_GUIDE_POSITION);
         return rootView;
 
         /*btn_fieldGuide = (ImageButton) rootView.findViewById(R.id.Field_Guide_button);
