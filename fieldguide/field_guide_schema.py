@@ -6,6 +6,12 @@ from sqlalchemy.orm import sessionmaker, relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
 import os, sys
 
+"""
+This file creates a database for the FieldGuide. Currently, it only supports Forbs species and
+the glossary terms outlined in the schema. Those making significant changes to this file should
+have a basic understanding of relationships in relational databases and sqlalchemy.
+"""
+
 db_name = 'FieldGuide.db'
 
 # if os.path.exists(db_name):
@@ -15,13 +21,6 @@ engine = create_engine('sqlite:///' + db_name)
 Session = sessionmaker(bind=engine)()
 
 Base = declarative_base()
-
-
-# class SpeciesPicture(Base):
-# 	__tablename__ = 'speciespicture'
-# 	id = Column(Integer, primary_key=True)
-# 	species_id = Column(Integer, ForeignKey('species.id'))
-# 	name = Column(String)
 
 
 class Synonym(Base):
@@ -156,10 +155,17 @@ class Species(Base):
 	cf = relationship("CF")
 	# speciespicture = relationship ("SpeciesPicture")
 
+	"""
+	error message for if a glossary term is found in the species sheet but does not exist in any of the glossary
+	terms tables.
+	"""
 	def speciesInitErrorOut(self,tablename, itemname):
 		print "error: " + self.binomial_name + ": '" + itemname + "' does not exist in the " + tablename + " table. Check spelling or add to glossary"
 		sys.exit(1)
 
+	"""
+	initialization for the species records
+	"""
 	def __init__(self, growthform, code, binomial_name, common_name, family, synonyms, description, flowercolor, flowershape, petalnumber, 
 		inflorescence, leafarrangement, leafshape, leafshapefilter, habitat, cf):
 		self.growthform = Session.query(GrowthForm).filter_by(name=growthform).first()
@@ -236,6 +242,10 @@ Base.metadata.create_all(engine)
 Session.commit()
 
 
+
+"""
+populates the database with the glossary terms
+"""
 glossary_terms = FieldGuideParser.parseGlossaryTerms('GlossaryTerms.csv')
 for table_name in glossary_terms:
 	for term in glossary_terms[table_name]:
@@ -246,6 +256,9 @@ for table_name in glossary_terms:
 			row = table_class(name=term)
 		Session.add(row)
 
+"""
+populates the database with Forbs species
+"""
 for forb in FieldGuideParser.parseForbsSpecies('Forbs.csv'):
 	if len(forb) != 16:
 		print "error: incorrect number of columns in input (" + str(len(forb)) + "). This program will need to be updated in order to handle more/less columns"
