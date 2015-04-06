@@ -1,7 +1,12 @@
 package com.luminousmossboss.luminous.model;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 
+import com.luminousmossboss.luminous.DbHandler;
+
+import java.io.File;
 import java.io.Serializable;
 
 /**
@@ -14,6 +19,8 @@ public class Observation extends ListItem implements Serializable {
     private double longitude;
     private double latitude;
     private boolean hasBeenProcceced;
+    private boolean is_silene;
+    private int id;
 
     public Observation() {}
 
@@ -26,6 +33,37 @@ public class Observation extends ListItem implements Serializable {
         this.date = date;
         this.latitude = latitude;
         this.longitude = longitude;
+
+    }
+    public Observation(int id, Context context)
+    {
+        this.id = id;
+        DbHandler db =  new DbHandler(context);
+        Cursor cursor = db.getObservationById(id);
+        if(cursor.moveToFirst()) {
+            setIcon(Uri.fromFile(new File(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_PHOTO_PATH)))));
+            setDate(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_TIME_TAKEN)));
+
+            latitude = cursor.getDouble(cursor.getColumnIndex(DbHandler.KEY_LATITUDE));
+            longitude = cursor.getDouble(cursor.getColumnIndex(DbHandler.KEY_LONGITUDE));
+
+            is_silene = cursor.getInt(cursor.getColumnIndex(DbHandler.KEY_IS_SILENE)) > 0;
+
+            if (is_silene)
+                setTitle("Silene Aculis");
+            else
+                setTitle("Unknown");
+        }
+    }
+    public void updateIsSilene(boolean status, Context context)
+    {
+        DbHandler db = new DbHandler(context);
+        db.updateIsSilene(id, status);
+        if(status)
+        {
+            setTitle("Silene Aculis");
+        }
+        else setTitle("Unknown");
     }
 
     public String getDate() { return date.substring(0,10);}
@@ -52,4 +90,5 @@ public class Observation extends ListItem implements Serializable {
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
+
 }

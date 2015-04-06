@@ -103,6 +103,24 @@ public class DbHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
     }
+    public Cursor getObservationById(int id) {
+        String selectQuery = "SELECT * FROM " + TABLE_OBSERVATIONS +
+                " WHERE id =" + id;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        return cursor;
+    }
+
+    public int updateIsSilene(int id, boolean status)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_IS_SILENE, String.valueOf(status));
+        return db.update(TABLE_OBSERVATIONS, values, KEY_ID + " = ?",
+                new String[] { String.valueOf(id) });
+    }
+
 
     public int updateSyncedStatus(int id)
     {

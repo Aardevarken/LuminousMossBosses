@@ -131,20 +131,23 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
 
         //Cursor cursor = db.getAllObservation();
         Cursor cursor = db.getObservationBySyncStatus(status);
-
+        int is_silene;
+        int id;
         if (cursor.moveToFirst())
             do{
-                Uri iconUri = Uri.fromFile(new File(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_PHOTO_PATH))));
+               /* Uri iconUri = Uri.fromFile(new File(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_PHOTO_PATH))));
                 String date= cursor.getString(cursor.getColumnIndex(DbHandler.KEY_TIME_TAKEN));
 
                 Double latitude = cursor.getDouble(cursor.getColumnIndex(DbHandler.KEY_LATITUDE));
                 Double longitude = cursor.getDouble(cursor.getColumnIndex(DbHandler.KEY_LONGITUDE));
 
-                int is_silene = cursor.getInt(cursor.getColumnIndex(DbHandler.KEY_IS_SILENE));
+*/
+                is_silene = cursor.getInt(cursor.getColumnIndex(DbHandler.KEY_IS_SILENE));
+                id = cursor.getInt(cursor.getColumnIndex(DbHandler.KEY_ID));
                 if (is_silene == 1)
-                    sileneList.add(new Observation("Silene Aculis", iconUri,date,latitude, longitude));
+                    sileneList.add(new Observation(id, getActivity()));
                 else
-                    unknownList.add(new Observation("Unknown", iconUri,date,latitude, longitude));
+                    unknownList.add(new Observation(id, getActivity()));
 
             }while(cursor.moveToNext());
 
