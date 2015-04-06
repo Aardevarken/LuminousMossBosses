@@ -36,8 +36,7 @@ public class Observation extends ListItem implements Serializable {
         this.date = date;
     }
 
-
-
+    //west east
     public double getLongitude() {
         return longitude;
     }

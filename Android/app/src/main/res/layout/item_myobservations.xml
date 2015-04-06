@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="75dp">
+    android:layout_height="96dp">
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:src="@drawable/silene_acaulis_icon"
         android:layout_alignParentTop="true"
         android:paddingStart="0dp"
@@ -16,51 +16,58 @@
         android:paddingBottom="10dp"
         android:minHeight="1dp"
         android:minWidth="1dp"
-        android:maxHeight="96dp" />
+        android:maxHeight="126dp" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="Silene Acaulis"
-        android:layout_toRightOf="@id/icon"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:layout_height="wrap_content"
+        android:text="type"
+
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:textColor="@color/list_title"
-        android:gravity="center_vertical"
+
         android:paddingRight="5dp"
-        android:layout_marginLeft="5dp"
+        android:paddingTop="10dp"
+
         android:typeface="sans"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/icon"
+        android:layout_toEndOf="@+id/icon" />
 
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="01/21/2014"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:text="time"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="@color/list_description"
-        android:textSize="14sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp"/>
+
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="0dp"
+
+        android:typeface="sans"
+        android:textStyle="italic"
+        android:textSize="12sp"
+        android:layout_below="@+id/title"
+        android:layout_toRightOf="@+id/icon"
+        android:layout_toEndOf="@+id/icon" />
+
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="pending"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="@color/status_pending"
         android:textSize="14sp"
         android:paddingRight="10dp"
-        android:paddingTop="10dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/date"
-        android:layout_alignEnd="@+id/date" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:paddingBottom="10dp" />
 </RelativeLayout>
 
 <!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"

@@ -17,9 +17,12 @@ import android.widget.RadioButton;
 import com.luminousmossboss.luminous.adapter.ObservationListAdapter;
 import com.luminousmossboss.luminous.model.ListItem;
 import com.luminousmossboss.luminous.model.Observation;
+import com.luminousmossboss.luminous.model.Separator;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import info.hoang8f.android.segmented.SegmentedGroup;
 
 /**
  *
@@ -69,7 +72,7 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
         this.mDrawerList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(activity instanceof MainActivity) {
+                if(activity instanceof MainActivity && listItems.get(position) instanceof Observation) {
                     CharSequence fragTitle = listItems.get(position).getTitle();
                     Fragment fragment = null;
                     fragment = ObservationFragment.newInstance((Observation)listItems.get(position));
@@ -84,6 +87,10 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
         mTabPending.setOnClickListener(this);
         mTabSynced = (RadioButton) rootView.findViewById(R.id.tab_synced);
         mTabSynced.setOnClickListener(this);
+
+        // Set tab color
+        SegmentedGroup tab_host = (SegmentedGroup) rootView.findViewById(R.id.tab_host);
+        tab_host.setTintColor(getResources().getColor(R.color.fieldguide_button));
 
         activity.setTitle(MainActivity.OBSERVATION_LIST_POSITION);
         return rootView;
@@ -117,6 +124,11 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
         this.mDrawerList = (ListView) rootView.findViewById(R.id.fragment_list);
         this.context = container.getContext();
         this.listItems = new ArrayList<ListItem>();
+        ArrayList<ListItem> sileneList = new ArrayList<ListItem>();
+        sileneList.add(new Separator("Silene Aculis"));
+        ArrayList<ListItem> unknownList = new ArrayList<ListItem>();
+        unknownList.add(new Separator("Unknown"));
+
         //Cursor cursor = db.getAllObservation();
         Cursor cursor = db.getObservationBySyncStatus(status);
 
@@ -127,11 +139,19 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
 
                 Double latitude = cursor.getDouble(cursor.getColumnIndex(DbHandler.KEY_LATITUDE));
                 Double longitude = cursor.getDouble(cursor.getColumnIndex(DbHandler.KEY_LONGITUDE));
-                listItems.add(new Observation("Silene", iconUri,date,latitude, longitude));
+
+                int is_silene = cursor.getInt(cursor.getColumnIndex(DbHandler.KEY_IS_SILENE));
+                if (is_silene == 1)
+                    sileneList.add(new Observation("Silene Aculis", iconUri,date,latitude, longitude));
+                else
+                    unknownList.add(new Observation("Unknown", iconUri,date,latitude, longitude));
 
             }while(cursor.moveToNext());
 
-
+        if (unknownList.size() > 1)
+            listItems.addAll(unknownList);
+        if (sileneList.size() > 1)
+            listItems.addAll(sileneList);
 
         adapter = new ObservationListAdapter(context, listItems);
         mDrawerList.setAdapter(adapter);

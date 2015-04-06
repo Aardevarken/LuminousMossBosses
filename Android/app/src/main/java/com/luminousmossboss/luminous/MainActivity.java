@@ -326,8 +326,9 @@ public class MainActivity extends Activity {
         switch (requestCode) {
             case REQUEST_TAKE_PHOTO: {
                 if (resultCode == RESULT_OK) {
-                    handlePhoto(data);
                     boolean detectionResult = Util.detectImage(mCurrentPhotoPath,this);
+                    handlePhoto(data,detectionResult);
+
                     Toast message;
                     if (detectionResult)
                     {
@@ -347,7 +348,7 @@ public class MainActivity extends Activity {
 
 
 
-    private void handlePhoto(Intent intent)
+    private void handlePhoto(Intent intent, Boolean is_silene)
     {
 
         Location loc = mGPS.getLocation();
@@ -366,7 +367,7 @@ public class MainActivity extends Activity {
             String timeNow = sdf.format(new Date());
             HashMap<String, String> map = new HashMap<String, String>();
             map.put(DbHandler.KEY_GPS_ACCURACY, String.valueOf(loc.getAccuracy()));
-//            map.put(DbHandler.KEY_IS_SILENE, String.valueOf(wasPicSilene));
+            map.put(DbHandler.KEY_IS_SILENE, String.valueOf(is_silene?1:0));
             map.put(DbHandler.KEY_LATITUDE, String.valueOf(loc.getLatitude()));
             map.put(DbHandler.KEY_LONGITUDE, String.valueOf(loc.getLongitude()));
             map.put(DbHandler.KEY_PHOTO_PATH, mCurrentPhotoPath);
