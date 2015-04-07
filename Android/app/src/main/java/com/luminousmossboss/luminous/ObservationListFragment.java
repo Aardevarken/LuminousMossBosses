@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 
@@ -40,6 +41,8 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
 
     private ObservationListAdapter adapter;
     private ArrayList<ListItem> listItems;
+
+    private ArrayList<Observation> selectedObservations;
     private DbHandler db;
 
     private RadioButton mTabPending;
