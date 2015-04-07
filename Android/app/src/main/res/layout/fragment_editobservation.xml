@@ -76,129 +76,137 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp" />
 
-    <GridLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:rowCount="4"
-        android:columnCount="2"
-        android:id="@+id/observation_details"
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
         android:layout_below="@+id/title"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:nestedScrollingEnabled="true"
-        android:layout_above="@+id/button_remove">
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/fieldguide_description"
-            android:text="Filename:"
-            android:textSize="18dp"
-            android:id="@+id/filename_title"
-            android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/button_send" />
+    <!--
+        <GridLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:rowCount="4"
+            android:columnCount="2"
+            android:id="@+id/observation_details"
             android:layout_below="@+id/title"
-            android:layout_alignLeft="@+id/imageView"
-            android:layout_alignStart="@+id/imageView"
-            android:layout_row="0"
-            android:layout_column="0" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:nestedScrollingEnabled="true"
+            android:layout_above="@+id/button_remove">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="filename.jpg"
-            android:id="@+id/filename"
-            android:layout_above="@+id/latitude_title"
-            android:layout_centerHorizontal="true"
-            android:layout_toRightOf="@+id/date_title"
-            android:layout_marginTop="20dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:paddingLeft="20dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/fieldguide_description"
-            android:text="Date:"
-            android:textSize="18dp"
-            android:id="@+id/date_title"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/title"
-            android:layout_alignLeft="@+id/imageView"
-            android:layout_alignStart="@+id/imageView"
-            android:layout_row="1"
-            android:layout_column="0" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/fieldguide_description"
+                android:text="Filename:"
+                android:textSize="18dp"
+                android:id="@+id/filename_title"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/title"
+                android:layout_alignLeft="@+id/imageView"
+                android:layout_alignStart="@+id/imageView"
+                android:layout_row="0"
+                android:layout_column="0" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="[mm/dd/yyyy] - 12:00PM"
-            android:id="@+id/date"
-            android:layout_above="@+id/latitude_title"
-            android:layout_centerHorizontal="true"
-            android:layout_toRightOf="@+id/date_title"
-            android:layout_marginTop="20dp"
-            android:layout_row="1"
-            android:layout_column="1"
-            android:paddingLeft="20dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="filename.jpg"
+                android:id="@+id/filename"
+                android:layout_above="@+id/latitude_title"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@+id/date_title"
+                android:layout_marginTop="20dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:paddingLeft="20dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/fieldguide_description"
-            android:text="Latitude:"
-            android:textSize="18dp"
-            android:id="@+id/latitude_title"
-            android:layout_below="@+id/date_title"
-            android:layout_alignLeft="@+id/date_title"
-            android:layout_alignStart="@+id/date_title"
-            android:layout_marginTop="20dp"
-            android:layout_row="2"
-            android:layout_column="0" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/fieldguide_description"
+                android:text="Date:"
+                android:textSize="18dp"
+                android:id="@+id/date_title"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/title"
+                android:layout_alignLeft="@+id/imageView"
+                android:layout_alignStart="@+id/imageView"
+                android:layout_row="1"
+                android:layout_column="0" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Location"
-            android:id="@+id/latitude"
-            android:layout_alignBottom="@+id/latitude_title"
-            android:layout_toRightOf="@+id/latitude_title"
-            android:layout_toEndOf="@+id/latitude_title"
-            android:layout_marginTop="20dp"
-            android:layout_row="2"
-            android:layout_column="1"
-            android:paddingLeft="20dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="[mm/dd/yyyy] - 12:00PM"
+                android:id="@+id/date"
+                android:layout_above="@+id/latitude_title"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@+id/date_title"
+                android:layout_marginTop="20dp"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:paddingLeft="20dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/fieldguide_description"
-            android:text="Longitude:"
-            android:textSize="18dp"
-            android:id="@+id/longitude_title"
-            android:layout_below="@+id/date_title"
-            android:layout_alignLeft="@+id/date_title"
-            android:layout_alignStart="@+id/date_title"
-            android:layout_marginTop="20dp"
-            android:layout_row="3"
-            android:layout_column="0" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/fieldguide_description"
+                android:text="Latitude:"
+                android:textSize="18dp"
+                android:id="@+id/latitude_title"
+                android:layout_below="@+id/date_title"
+                android:layout_alignLeft="@+id/date_title"
+                android:layout_alignStart="@+id/date_title"
+                android:layout_marginTop="20dp"
+                android:layout_row="2"
+                android:layout_column="0" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Location"
-            android:id="@+id/longitude"
-            android:layout_alignBottom="@+id/latitude_title"
-            android:layout_toRightOf="@+id/latitude_title"
-            android:layout_toEndOf="@+id/latitude_title"
-            android:layout_marginTop="20dp"
-            android:layout_row="3"
-            android:layout_column="1"
-            android:paddingLeft="20dp" />
-    </GridLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:id="@+id/latitude"
+                android:layout_alignBottom="@+id/latitude_title"
+                android:layout_toRightOf="@+id/latitude_title"
+                android:layout_toEndOf="@+id/latitude_title"
+                android:layout_marginTop="20dp"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:paddingLeft="20dp" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/fieldguide_description"
+                android:text="Longitude:"
+                android:textSize="18dp"
+                android:id="@+id/longitude_title"
+                android:layout_below="@+id/date_title"
+                android:layout_alignLeft="@+id/date_title"
+                android:layout_alignStart="@+id/date_title"
+                android:layout_marginTop="20dp"
+                android:layout_row="3"
+                android:layout_column="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:id="@+id/longitude"
+                android:layout_alignBottom="@+id/latitude_title"
+                android:layout_toRightOf="@+id/latitude_title"
+                android:layout_toEndOf="@+id/latitude_title"
+                android:layout_marginTop="20dp"
+                android:layout_row="3"
+                android:layout_column="1"
+                android:paddingLeft="20dp" />
+        </GridLayout>
+    -->
 
 </RelativeLayout>
