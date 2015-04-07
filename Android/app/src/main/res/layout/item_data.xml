@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:text="Here is where the description or this item goes"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/textView5"
+        android:id="@+id/description"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/title"
         android:layout_toEndOf="@+id/title"

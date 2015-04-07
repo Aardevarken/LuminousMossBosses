@@ -38,10 +38,12 @@ public class DataListAdapter extends FragListAdapter {
             convertView = mInflater.inflate(R.layout.item_data, null);
         }
 
-        convertView = basicSeparator(position,convertView);
+        //convertView = basicSeparator(position,convertView);
         DataItem item = (DataItem) listItems.get(position);
 
+        TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
         TextView txtDescription = (TextView) convertView.findViewById(R.id.description);
+        txtTitle.setText(item.getTitle());
         txtDescription.setText(item.getDescription());
 
         return convertView;
