@@ -153,6 +153,7 @@ class Species(Base):
 	leafshapefilter = relationship('LeafShapeFilter')
 	habitat = relationship ("Habitat", secondary = species_habitat_table)
 	cf = relationship("CF")
+	photocredit = Column(String)
 	# speciespicture = relationship ("SpeciesPicture")
 
 	"""
@@ -167,7 +168,7 @@ class Species(Base):
 	initialization for the species records
 	"""
 	def __init__(self, growthform, code, binomial_name, common_name, family, synonyms, description, flowercolor, flowershape, petalnumber, 
-		inflorescence, leafarrangement, leafshape, leafshapefilter, habitat, cf):
+		inflorescence, leafarrangement, leafshape, leafshapefilter, habitat, cf, photocredit):
 		self.growthform = Session.query(GrowthForm).filter_by(name=growthform).first()
 		self.code = code
 		self.binomial_name = binomial_name
@@ -178,6 +179,7 @@ class Species(Base):
 			self.synonyms.append(Synonym(name = s))
 
 		self.description = description
+		self.photocredit = photocredit
 
 		for fc in flowercolor.split(','):
 			fc = fc.strip()
@@ -260,7 +262,7 @@ for table_name in glossary_terms:
 populates the database with Forbs species
 """
 for forb in FieldGuideParser.parseForbsSpecies('Forbs.csv'):
-	if len(forb) != 16:
+	if len(forb) != 17:
 		print "error: incorrect number of columns in input (" + str(len(forb)) + "). This program will need to be updated in order to handle more/less columns"
 		sys.exit()
 	else:
