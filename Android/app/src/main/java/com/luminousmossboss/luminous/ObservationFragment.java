@@ -1,8 +1,8 @@
 package com.luminousmossboss.luminous;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,8 +25,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import dialog.DeleteDialogFragment;
+import dialog.DialogListener;
 
-public class ObservationFragment extends Fragment implements OnClickListener, BackButtonInterface {
+public class ObservationFragment extends Fragment implements OnClickListener, BackButtonInterface, DialogListener {
 
     private final static String OBSERVATION_KEY = "observation_key";
 
@@ -84,13 +85,26 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         dataSet.setAdapter(adapter);
 
         // Handle Button Events
-        Button sendButton = (Button) rootView.findViewById(R.id.button_send);
+        Button sendButton = (Button) rootView.findViewById(R.id.button_context);
         sendButton.setOnClickListener(this);
-        Button removeButton = (Button) rootView.findViewById(R.id.button_remove);
-        removeButton.setOnClickListener(this);
+        //Button removeButton = (Button) rootView.findViewById(R.id.button_remove);
+        //removeButton.setOnClickListener(this);
         imageView.setOnClickListener(this);
 
         return rootView;
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        DbHandler db = new DbHandler(getActivity());
+        db.deleteObservation(observation.getIcon().getPath());
+        MainActivity activity = (MainActivity) getActivity();
+        activity.displayView(MainActivity.OBSERVATION_LIST_POSITION);
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        // do something
     }
 
     @Override
@@ -103,7 +117,9 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_remove:
-                new DeleteDialogFragment().show(getFragmentManager(), null);
+                DeleteDialogFragment dialog = DeleteDialogFragment.getInstance(ObservationFragment.this);
+                dialog.show(getActivity().getFragmentManager(), "dialog");
+                //new DeleteDialogFragment().show(getFragmentManager(), null);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -112,18 +128,8 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.button_send:
+            case R.id.button_context:
                 new SendPostActivity(getActivity()).execute(observation);
-                break;
-            case R.id.button_remove:
-                DeleteDialogFragment ddf = new DeleteDialogFragment();
-                ddf.show(getFragmentManager(), null);
-                if (ddf.getConfirmation()) {
-                    DbHandler db = new DbHandler(getActivity());
-                    db.deleteObservation(observation.getIcon().getPath());
-                    MainActivity activity = (MainActivity) getActivity();
-                    activity.displayView(MainActivity.OBSERVATION_LIST_POSITION);
-                }
                 break;
             case R.id.imageView:
                 IdActivity idActivity = new IdActivity(getActivity());
