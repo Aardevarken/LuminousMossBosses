@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+	<title>Detection Objects</title>
+
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		canvas {
+			background-color: gray;
+		    border-style: inset;
+		    border-width: 5px;
+		    border-color: green;
+
+		}
+	</style>
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-sm-4">
+				<hr>
+				<h4> Peddles </h4>
+				<table class="table table-striped" id=orientation_sheet>
+				</table>
+				<button class="btn btn-default" onclick="addOrientation()">Add Orientation</button>
+				<br/>
+				<br/>
+				<input type="range" min="0" max="360" value="0" step="1" id="rot_value" onmousemove="setRotation()">
+				<br/>
+				<hr>
+			</div>
+			<div class="col-md-8 col-sm-8" id="canvas_div">
+				<canvas id="image_viewer" width="910" height="700">Site requires HTML5</canvas>
+			</div>
+		</div>
+		<button class="btn btn-default" onclick="addOrientation()">Previous</button>
+		<button class="btn btn-default" onclick="addOrientation()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+		<button class="btn btn-default" onclick="addOrientation()">Next</button>
+		<div class="row">
+			<table class="table table-striped">
+				<tr>
+					<td><b>Source File:</b></td><td>IMG_1997.jpg</td>
+				</tr>
+				<tr>
+					<td><b>Type:</b></td><td>Positive</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<!-- HTML5 image viewer -->
+	<script src="js/rotation.js"></script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
