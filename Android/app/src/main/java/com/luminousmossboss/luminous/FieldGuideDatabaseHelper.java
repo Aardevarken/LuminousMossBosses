@@ -9,7 +9,7 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
  */
 public class FieldGuideDatabaseHelper extends SQLiteAssetHelper {
 
-    private static final String DATABASE_NAME = "FieldGuide.db";
+    private static final String DATABASE_NAME = "fieldguide.db";
     private static final int DATABASE_VERSION = 1;
 
     public FieldGuideDatabaseHelper(Context context) {

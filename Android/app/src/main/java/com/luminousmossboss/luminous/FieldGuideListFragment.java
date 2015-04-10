@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.luminousmossboss.luminous.adapter.FGListAdapter;
 import com.luminousmossboss.luminous.model.FGListItem;
@@ -91,6 +91,27 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
         this.mDrawerList = (ListView) rootView.findViewById(R.id.fragment_list);
         this.context = container.getContext();
         this.listItems = new ArrayList<ListItem>();
+
+        FieldGuideDatabaseHelper fieldGuideDBH = new FieldGuideDatabaseHelper(context);
+
+        SQLiteDatabase fieldGuideDB = fieldGuideDBH.getReadableDatabase();
+
+        Cursor dbCursor = fieldGuideDB.rawQuery("select binomial_name, code from species;", null);
+
+        dbCursor.moveToFirst();
+
+        for (int i = 0; i < dbCursor.getCount(); i++) {
+//            Uri iconUri = Util.resIdToUri(context, R.drawable.(dbCursor.getString(2)));
+
+            String imageName = dbCursor.getString(1);
+//            Uri uri = Uri.fromFile(new File("assets/GlossaryImages/" + imageName));
+//            Uri iconUri = Uri.parse("file:res/drawable/FORBS/"+imageName);
+            Uri iconUri  = Uri.parse("android.resource://com.luminousmossboss.luminous/drawable/" + imageName.toLowerCase());
+            listItems.add(new FGListItem(dbCursor.getString(0), iconUri));
+            dbCursor.moveToNext();
+        }
+
+        dbCursor.close();
 
         for (int i = 0; i < listTitles.length; i++) {
             Uri iconUri = Util.resIdToUri(context,listIcons.getResourceId(i, -1) );

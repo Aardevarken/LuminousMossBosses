@@ -1,18 +1,17 @@
 package com.luminousmossboss.luminous.adapter;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.luminousmossboss.luminous.R;
 import com.luminousmossboss.luminous.model.FGListItem;
 import com.luminousmossboss.luminous.model.ListItem;
+
+import java.util.ArrayList;
 
 /**
  *
