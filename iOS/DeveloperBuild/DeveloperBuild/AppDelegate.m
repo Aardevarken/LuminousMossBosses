@@ -7,13 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "Observation.h"
-#import "ObsTableViewController.h"
 
-// test code //
-//#import "UserData.h"
-//#import "UserDateDatabase.h"
-// end test code //
 @interface AppDelegate ()
 
 @end
@@ -23,42 +17,7 @@
 NSMutableArray *_observations;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	
-	// Override point for customization after application launch.
-	_observations = [NSMutableArray arrayWithCapacity:20];
-	
-	Observation *newObs = [[Observation alloc] init];
-	newObs.name = @"name test 1";
-	newObs.date = @"data test 1";
-//	observation.plantImage = 1;
-	newObs.percent = @"10%";
-	[_observations addObject:newObs];
-	
-	newObs = [[Observation alloc] init];
-	newObs.name = @"name test 2";
-	newObs.date = @"data test 2";
-//	observation.plantImage = 2;
-	newObs.percent = @"20%";
-	[_observations addObject:newObs];
-	
-	newObs = [[Observation alloc] init];
-	
-	newObs.name = @"name test 3";
-	newObs.date = @"data test 3";
-//	observation.plantImage = 3;
-	newObs.percent = @"30%";
-	[_observations addObject:newObs];
-	
-	NSLog(@"launching app....");
-	
-	/*
-	UITabBarController *tabBarController = (UITabBarController *) self.window.rootViewController;
-	UINavigationController *navigationController = [tabBarController viewControllers][0];
-	ObsViewController *obsViewController = [navigationController viewControllers][0];
-	obsViewController.observations = _observations;
-	*/
-	
-	
+
 	return YES;
 }
 
