@@ -95,7 +95,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
+    public void onDialogPositiveClick() {
         DbHandler db = new DbHandler(getActivity());
         db.deleteObservation(observation.getIcon().getPath());
         MainActivity activity = (MainActivity) getActivity();
@@ -103,7 +103,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
     }
 
     @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
+    public void onDialogNegativeClick() {
         // do something
     }
 
@@ -129,7 +129,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button_context:
-                new SendPostActivity(getActivity()).execute(observation);
+                new SendPostActivity(getActivity(), observation.getId()).execute(observation);
                 break;
             case R.id.imageView:
                 IdActivity idActivity = new IdActivity(getActivity());

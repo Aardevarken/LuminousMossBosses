@@ -22,21 +22,22 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.provider.Settings;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.luminousmossboss.luminous.model.Observation;
 
-public class SendPostActivity extends AsyncTask<Object,Void,String>{
+public class SendPostActivity extends AsyncTask<Object,Void,Integer>{
 
-    private TextView responseField;
+    private int observationId;
     private Context context;
 
     private final String POST_URL = "http://luminousid.com/_post_observation";
-    private final String SUCCESS = "Success";
+    private final int STATUS_OK = 200;
 
 
-    public SendPostActivity(Context context) {
+    public SendPostActivity(Context context, int id) {
         this.context = context;
-
+        observationId = id;
 
 
     }
@@ -45,7 +46,7 @@ public class SendPostActivity extends AsyncTask<Object,Void,String>{
 
     }
     @Override
-    protected String doInBackground(Object... arg0) {
+    protected Integer doInBackground(Object... arg0) {
 
         Observation observation= (Observation) arg0[0];
         HttpClient httpclient = new DefaultHttpClient();
@@ -66,13 +67,9 @@ public class SendPostActivity extends AsyncTask<Object,Void,String>{
             httppost.setEntity(entity);
             HttpResponse response = httpclient.execute(httppost);
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
-            String json = reader.readLine();
-            JSONTokener tokener = new JSONTokener(json);
-            JSONArray finalResult = new JSONArray(tokener);
-
-            return finalResult.toString();
-        } catch (Exception e) {return e.getMessage();
+            int statusCode =response.getStatusLine().getStatusCode();
+            return statusCode;
+        } catch (Exception e) {return e.hashCode();}
 
 
         }
@@ -80,9 +77,20 @@ public class SendPostActivity extends AsyncTask<Object,Void,String>{
 
 
 
-    }
+
     @Override
-    protected void onPostExecute(String result){
+    protected void onPostExecute(Integer result){
+        if (result == STATUS_OK){
+            Toast.makeText(context,"Your Observation was sent! Thanks for conributing to science",Toast.LENGTH_LONG).show();
+
+            DbHandler db = new DbHandler(context);
+            db.updateSyncedStatus(observationId);
+
+        }
+        else {
+            Toast.makeText(context,"There was an issue connecting, please try again with better service",Toast.LENGTH_LONG).show();
+
+        }
 
     }
 }

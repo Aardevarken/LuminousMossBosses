@@ -25,6 +25,10 @@ public class Observation extends ListItem implements Serializable {
     private boolean is_silene;
     private int id;
 
+    public int getId() {
+        return id;
+    }
+
     public Observation() {}
 
     public Observation(String title, Uri icon) {
