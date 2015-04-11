@@ -69,8 +69,8 @@ The name rose comes from French, itself from Latin rosa, which was perhaps borro
 
     <!-- Dialog Messages -->
     <string name="dialog_remove_obs_msg">Are you sure you want to remove this observation?</string>
-    <string name="dialog_send_obs_msg">Observation was not identified as Silene Aculis, are you sure you want to send data?</string>
-    <string name="dialog_identify_obs_msg">Would you like to run identification program now?</string>
+    <string name="dialog_send_obs_msg">Observation was not identified as Silene Acaulis, are you sure you want to send data?</string>
+    <string name="dialog_identify_obs_msg">Would you like to run the identification program now?</string>
     <string name="dialog_confirm">Yes</string>
     <string name="dialog_decline">Cancel</string>
     <string name="dialog_neutral">Later</string>

@@ -3,28 +3,22 @@ package com.luminousmossboss.luminous;
 /**
  * Created by andrey on 3/9/15.
  */
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.provider.Settings;
+import android.widget.Toast;
+
+import com.luminousmossboss.luminous.model.Observation;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONTokener;
+import org.apache.http.impl.client.DefaultHttpClient;
 
-import android.content.Context;
-import android.os.AsyncTask;
-import android.provider.Settings;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.luminousmossboss.luminous.model.Observation;
+import java.io.File;
 
 public class SendPostActivity extends AsyncTask<Object,Void,Integer>{
 
@@ -81,7 +75,7 @@ public class SendPostActivity extends AsyncTask<Object,Void,Integer>{
     @Override
     protected void onPostExecute(Integer result){
         if (result == STATUS_OK){
-            Toast.makeText(context,"Your Observation was sent! Thanks for conributing to science",Toast.LENGTH_LONG).show();
+            Toast.makeText(context,"Your observation was sent! Thanks for contributing to science",Toast.LENGTH_LONG).show();
 
             DbHandler db = new DbHandler(context);
             db.updateSyncedStatus(observationId);
