@@ -113,10 +113,10 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
 
         dbCursor.close();
 
-        for (int i = 0; i < listTitles.length; i++) {
-            Uri iconUri = Util.resIdToUri(context,listIcons.getResourceId(i, -1) );
-            listItems.add(new FGListItem(listTitles[i], iconUri, listDescriptions[i]));
-        }
+//        for (int i = 0; i < listTitles.length; i++) {
+//            Uri iconUri = Util.resIdToUri(context,listIcons.getResourceId(i, -1) );
+//            listItems.add(new FGListItem(listTitles[i], iconUri, listDescriptions[i]));
+//        }
         listIcons.recycle();
 
 
