@@ -106,7 +106,8 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
             String imageName = dbCursor.getString(1);
 //            Uri uri = Uri.fromFile(new File("assets/GlossaryImages/" + imageName));
 //            Uri iconUri = Uri.parse("file:res/drawable/FORBS/"+imageName);
-            Uri iconUri  = Uri.parse("android.resource://com.luminousmossboss.luminous/drawable/" + imageName.toLowerCase());
+//            Uri iconUri  = Uri.parse("android.resource://com.luminousmossboss.luminous/drawable/" + imageName.toLowerCase());
+            Uri iconUri = Uri.parse("file:///android_asset/FORBS/" + imageName + ".jpg");
             listItems.add(new FGListItem(dbCursor.getString(0), iconUri));
             dbCursor.moveToNext();
         }
