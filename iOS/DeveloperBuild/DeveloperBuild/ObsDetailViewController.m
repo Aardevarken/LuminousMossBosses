@@ -41,7 +41,9 @@
 		
 		[lib assetForURL: url resultBlock: ^(ALAsset *asset) {
 			ALAssetRepresentation *r = [asset defaultRepresentation];
-			obsImage.image = [UIImage imageWithCGImage: r.fullResolutionImage];
+            UIImageOrientation orientation = (UIImageOrientation) (int) r.orientation;
+			obsImage.image = [UIImage imageWithCGImage:r.fullResolutionImage scale:r.scale orientation:orientation];
+            
 		}
 			failureBlock: nil];
 	}

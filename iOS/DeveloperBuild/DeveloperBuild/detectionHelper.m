@@ -78,10 +78,27 @@
 		dispatch_sync(dispatch_get_main_queue(), ^{
 			[progressBar setProgress:[self getCurrentProgress] animated:animate];
 		});
+    
+
+    
+    
 		
 		// stage 0, preping
 		Mat cvImage;
-		UIImageToMat(unknownImage, cvImage);
+        // By default all images saved to the gallery on iPhone are landscape with a field in the EXIF data specifying if
+        // it is actually portrait. This will remove that orientation field from the EXIF data and rotate the physical pixels,
+        // making it easier to convert back and forth to a Mat.
+        UIImage* normalizedImage;
+        if (unknownImage.imageOrientation == UIImageOrientationUp) {
+            normalizedImage = unknownImage;
+        } else {
+            UIGraphicsBeginImageContextWithOptions(unknownImage.size, NO, unknownImage.scale);
+            [unknownImage drawInRect:(CGRect){0, 0, unknownImage.size}];
+            normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+        }
+		UIImageToMat(normalizedImage, cvImage);
+
 		// Load openCV classifiers
 		NSString *flowerXMLPath = [[NSBundle mainBundle] pathForResource:@"flower25" ofType:@"xml"];
 		NSString *vocabXMLPath = [[NSBundle mainBundle] pathForResource:@"vocabulary" ofType:@"xml"];
@@ -103,9 +120,7 @@
 		Mat detectedImage = flowerDetector.circlePinkFlowers(cvImage);
 		
 		// convert image to UIImage
-		UIImage *newImage = MatToUIImage(detectedImage);
-		
-		// store reference to converted image in private variable identifiedImage
+		UIImage* newImage = MatToUIImage(detectedImage);
 		identifiedImage = newImage;
 		
 		/////////////////////////
