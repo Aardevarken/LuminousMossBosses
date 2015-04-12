@@ -156,7 +156,7 @@
 	}
 	
 	if(TRUE){
-		success = [[UserDataDatabase getSharedInstance] saveData:img date:currentTime latitude:[NSNumber numberWithDouble:1.0] longitude:[NSNumber numberWithDouble:-1.0] percentIDed:NULL];
+		success = [[UserDataDatabase getSharedInstance] saveObservation:img date:currentTime latitude:[NSNumber numberWithDouble:1.0] longitude:[NSNumber numberWithDouble:-1.0] locationError:[NSNumber numberWithDouble:100.0] percentIDed:NULL];
 	}
 	else {
 	}
@@ -165,15 +165,6 @@
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 	}
-	
-	
-	/// the following code needs to be removed. i think.
-	NSArray *data = [[UserDataDatabase getSharedInstance] findByImgID:@"test1"];
-	if (data == nil) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data not found" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-	}
-	/// end of code review
 	
 }
 

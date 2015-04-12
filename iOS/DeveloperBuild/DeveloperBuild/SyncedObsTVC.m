@@ -25,7 +25,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-	syncedObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"synced" like:NO orderBy:NULL];
+	syncedObservations = [[UserDataDatabase getSharedInstance] findObservationsByStatus:@"synced" like:NO orderBy:NULL];
 	
 }
 
@@ -74,7 +74,7 @@
 	
 	// set text fields
 	cell.nameLabel.text = [plantInformation objectForKey:@"imghexid"];
-	cell.dateLabel.text = [plantInformation objectForKey:@"date"];
+	cell.dateLabel.text = [plantInformation objectForKey:@"datetime"];
 	cell.percentLabel.text = [NSString stringWithFormat:@"%@%%", [plantInformation objectForKey:@"percentIDed"]];
 	
     return cell;

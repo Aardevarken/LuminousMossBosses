@@ -32,7 +32,7 @@
     // Do any additional setup after loading the view.
 	nameLabel.text = [NSString stringWithFormat:@"Name: %@", [plantInfo objectForKey:@"imghexid"]];
 	percentLabel.text = [NSString stringWithFormat:@"%@%% ", [plantInfo objectForKey:@"percentIDed"]];
-	dateLabel.text = [NSString stringWithFormat:@"Date: %@", [plantInfo objectForKey:@"date"]];
+	dateLabel.text = [NSString stringWithFormat:@"Date: %@", [plantInfo objectForKey:@"datetime"]];
 	
 	NSURL *url = [NSURL URLWithString:[plantInfo objectForKey:@"imghexid"]];
 
@@ -111,7 +111,7 @@
 			
 			// update row variables
 			BOOL success = [[UserDataDatabase getSharedInstance]
-							updateRow:assetid andNewPercentIDed:NSnewprob andNewStatus:newState];
+							updateObservation:assetid andNewPercentIDed:NSnewprob andNewStatus:newState];
 			
 			//[[UserDataDatabase getSharedInstance] updateRow:assetid percentIDed:NSnewprob state:newState];
 							//updateRow:assetid percentIDed:NSnewprob state:newState];

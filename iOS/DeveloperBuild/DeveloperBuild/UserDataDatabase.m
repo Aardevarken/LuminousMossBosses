@@ -12,90 +12,207 @@
 #import "UserData.h"
 
 #define databaseName "userdata.db"
-#define CREATE_DB_STMT "CREATE TABLE observations (imghexid text not null primary key, date datetime not null, latitude decimal(9,6) not null, longitude decimal(9,6) not null, status text not null default \"pending-noid\", percentIDed tinyint);"
 
-static UserDataDatabase *sharedInstance = nil;
-static sqlite3 *database = nil;
-static sqlite3_stmt *statement = nil;
+static UserDataDatabase* sharedInstance = nil;
+static NSString* databasePath = nil;
+static NSDictionary* typeMap = nil;
+
+// Private methods.
+@interface UserDataDatabase()
+    -(BOOL) runBoolQuery:(NSString*) query;
+    -(NSArray*) runTableQuery:(NSString*) query;
+    -(sqlite3*) openDB;
+    -(void) closeDB:(sqlite3*) database;
+@end
+
 
 @implementation UserDataDatabase
 
-+(UserDataDatabase*) getSharedInstance{
+
++(UserDataDatabase*) getSharedInstance {
 	if (!sharedInstance) {
 		sharedInstance = [[super allocWithZone:NULL] init];
 		[sharedInstance createDB];
 	}
-	
 	return sharedInstance;
 }
 
+
 -(BOOL) createDB {
-	NSString *docsDir;
-	NSArray *dirPaths;
-	// get the document directory
-	dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	docsDir = dirPaths[0];
-	// build the path to the database file
-	databasePath = [[NSString alloc] initWithString:[docsDir stringByAppendingPathComponent: @"userdata.db"]];
-	BOOL isSuccess = YES;
-	NSFileManager *filemgr = [NSFileManager defaultManager];
-	if ([filemgr fileExistsAtPath:databasePath] == NO) {
-		const char *dbpath = [databasePath UTF8String];
-		if (sqlite3_open(dbpath, &database) == SQLITE_OK) {
-			char *errMsg;
-			const char *sql_stmt = "CREATE TABLE observations (imghexid text not null primary key, date datetime not null, latitude decimal(9,6) not null, longitude decimal(9,6) not null, status text not null default \"pending-noid\", percentIDed tinyint);";
-			if (sqlite3_exec(database, sql_stmt, NULL, NULL, &errMsg) != SQLITE_OK) {
-				isSuccess = NO;
-				//NSLog(@"Failed to create table");
-			}
-			
-			
-			sqlite3_close(database);
-			return isSuccess;
-		}
-		else {
-			isSuccess = NO;
-			//NSLog(@"Failed to open/create database");
-		}
-	}
-	//NSLog(@"Database creation successful.");
-	return isSuccess;
+    // Create missing tables.
+    NSString* createTables = @"CREATE TABLE IF NOT EXISTS observations ("
+        @"imghexid text not null primary key,"
+        @"datetime text not null,"
+        @"latitude double not null,"
+        @"longitude double not null,"
+        @"locationerror double,"
+        @"status text not null default 'pending-noid',"
+        @"percentIDed double"
+    @");";
+    typeMap = @{
+        @"imghexid" : @"string", // These strings decide if NSString or NSNumber should be used later.
+        @"datetime" : @"string",
+        @"latitude" : @"double",
+        @"longitude" : @"double",
+        @"locationerror" : @"double",
+        @"status" : @"string",
+        @"percentIDed" : @"double"
+    };
+    
+    // Uncomment this line the first time you run code with a new database schema.
+    //[self runBoolQuery:@"DROP TABLE IF EXISTS observations;"];
+    
+    return [self runBoolQuery:createTables];
 }
 
--(BOOL) saveData:(NSString*) imghexid date:(NSString*)date latitude:(NSNumber*)latitude longitude:(NSNumber*)longitude percentIDed:(NSNumber*)percentIDed;
+
+/**
+ * Returns an open database if successful or nil if not.
+ */
+-(sqlite3*) openDB {
+    // Find path to database file if it hasn't been found already.
+    if (databasePath == nil) {
+        // get the document directory
+        NSString *docsDir;
+        NSArray *dirPaths;
+        dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        docsDir = dirPaths[0];
+        
+        // build the path to the database file
+        databasePath = [[NSString alloc] initWithString:[docsDir stringByAppendingPathComponent: @"userdata.db"]];
+    }
+    
+    // Open database handler.
+    sqlite3* database = nil;
+    if (sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) {
+        return database;
+    } else {
+        NSLog(@"Failed to open database: %s", sqlite3_errmsg(database));
+        sqlite3_close(database);
+        return nil;
+    }
+}
+
+
+/**
+ * Make sure to close any opened db at end of your method.
+ */
+-(void) closeDB:(sqlite3*) database {
+    sqlite3_close(database);
+}
+
+
+/**
+ * Runs a query that either succeeds or fails, such as an insert or delete, and reports if it was successful.
+ */
+-(BOOL) runBoolQuery:(NSString*) query {
+    // Open DB
+    sqlite3* database = [self openDB];
+    if (database == nil) {
+        return NO;
+    }
+    
+    // Build Statement
+    const char *insert_stmt = [query UTF8String];
+    sqlite3_stmt *statement = nil;
+    sqlite3_prepare_v2(database, insert_stmt, -1, &statement, NULL);
+    
+    // Get status and close DB.
+    int queryStatus = sqlite3_step(statement);
+    sqlite3_finalize(statement);
+    
+    // Return or log errors.
+    if (queryStatus == SQLITE_DONE) {
+        [self closeDB: database];
+        return YES;
+    } else {
+        NSLog(@"Bool Query Failed: %s", sqlite3_errmsg(database));
+        [self closeDB: database];
+        return NO;
+    }
+}
+
+
+-(BOOL) saveObservation:(NSString*) imghexid date:(NSString*)date latitude:(NSNumber*)latitude longitude:(NSNumber*)longitude locationError:(NSNumber*) locationError percentIDed:(NSNumber*)percentIDed {
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO observations (imghexid, datetime, latitude, longitude, locationerror, percentIDed) VALUES ('%@','%@','%@','%@','%@','%@');", imghexid, date, latitude, longitude, locationError, percentIDed];
+    return [self runBoolQuery:insertSQL];
+}
+
+
+-(BOOL) updateObservation:(NSString *)imghexid andNewPercentIDed:(NSNumber *)percentIDed andNewStatus:(NSString *)status
 {
-	const char *dbpath = [databasePath UTF8String];
-	if (sqlite3_open(dbpath, &database) == SQLITE_OK) {
-		// the following string may be wrong. NSInteger might need to be an in, and NSNumber a double/fload.
-		
-		NSString *insertSQL = [NSString stringWithFormat:@"insert into observations (imghexid, date, latitude, longitude, percentIDed) values (\"%@\", \"%@\", \"%@\", \"%@\", \"%@\")", imghexid, date, latitude, longitude, percentIDed];
-		
-		
-		const char *insert_stmt = [insertSQL UTF8String];
-		sqlite3_prepare_v2(database, insert_stmt, -1, &statement, NULL);
-		if (sqlite3_step(statement) == SQLITE_DONE) {
-			return YES;
-		}
-		else {
-			NSLog(@"Failed: %s", sqlite3_errmsg(database));
-			return NO;
-		}
-		//sqlite3_reset(statement); // not sure why this is here.
-	}
-	return NO;
+    NSString *query = [NSString stringWithFormat:@"UPDATE observations SET status='%@', percentIDed='%@' WHERE imghexid='%@';", status, percentIDed, imghexid];
+    return [self runBoolQuery:query];
 }
 
 
-/***********************************************************************************************\
- * this function will take in a sqlite stament and return the results in an array of ditionaries.
- *
- * Status: Incomplete
-\************************************************************************************************/
--(NSArray*) findObsByStatus:(NSString*)status like:(BOOL)like orderBy:(NSString*)orderBy
+-(BOOL) deleteObservationByID:(NSString*) imghexid {
+    NSString *deleteSQL = [NSString stringWithFormat:@"DELETE FROM observations WHERE imghexid='%@';", imghexid];
+    return [self runBoolQuery:deleteSQL];
+}
+
+
+/**
+ * Runs a query that returns a table, table will be given back as an NSArray of NSDictionaries, with keys being the string
+ * column names of the query. Returns nil on error, reserving an empty array for successful queries with no results.
+ */
+-(NSArray*) runTableQuery:(NSString*) query {
+    // Open DB
+    sqlite3* database = [self openDB];
+    if (database == nil) {
+        return nil;
+    }
+    
+    // Build Statement
+    sqlite3_stmt *statement = nil;
+    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
+    
+    // Convert result table into an array of dictionaries.
+    NSMutableArray* results = [[NSMutableArray alloc] init];
+    int queryStatus;
+    for(queryStatus = sqlite3_step(statement); queryStatus == SQLITE_ROW; queryStatus = sqlite3_step(statement)) {
+        NSMutableDictionary* dictionary = [[NSMutableDictionary alloc] init];
+        
+        // Iterate through columns and insert name->value pairs based on typing of the column.
+        int count = sqlite3_column_count(statement);
+        for (int i=0; i < count; i++) {
+            NSString* name = [NSString stringWithUTF8String:sqlite3_column_name(statement, i)];
+            NSObject* value = nil;
+            NSString* typeName = [typeMap valueForKey:name];
+            if ([typeName isEqual: @"string"]) {
+                value = [[NSString alloc] initWithUTF8String:(const char*) sqlite3_column_text(statement, i)];
+            } else if ([typeName isEqual:@"double"]) {
+                value = [NSNumber numberWithDouble:sqlite3_column_double(statement, i)];
+            }
+            [dictionary setObject:value forKey:name];
+        }
+        // Add to results array.
+        [results addObject:(NSDictionary*) dictionary];
+    }
+    
+    // Get status and close DB.
+    sqlite3_finalize(statement);
+    
+    // Return results if all is good.
+    if (queryStatus == SQLITE_DONE) {
+        [self closeDB: database];
+        return results;
+    } else {
+        NSLog(@"Table Query Failed: %s", sqlite3_errmsg(database));
+        [self closeDB: database];
+        return nil;
+    }
+}
+
+
+/**
+ * This function will take in a sqlite statement and return the results in an array of ditionaries, or nil on error.
+ */
+-(NSArray*) findObservationsByStatus:(NSString*)status like:(BOOL)like orderBy:(NSString*)orderBy
 {
 	// create optional order by statement
-	NSString *orderBystmt;
-	NSString *statusStmt;
+	NSString* orderBystmt;
+	NSString* statusStmt;
 	if (orderBy != nil){
 		orderBystmt = [NSString stringWithFormat:@" order by %@", orderBy];
 	}
@@ -106,199 +223,26 @@ static sqlite3_stmt *statement = nil;
 	
 	if (like){
 		statusStmt = [NSString stringWithFormat:@"status LIKE \"%@\"", status];
-	}
-	else {
+	} else {
 		statusStmt = [NSString stringWithFormat:@"status=\"%@\"", status];
 	}
 
-	const char *dbpath = [databasePath UTF8String];
-	if (sqlite3_open(dbpath, &database) == SQLITE_OK) {
-		
-		NSString *querySQL = [NSString stringWithFormat:@"select * from observations where %@%@;", statusStmt, orderBystmt];
-		//NSLog(@"SQL: %@", querySQL);
-		const char *query_stmt = [querySQL UTF8String];
-		NSMutableArray *resultArray = [[NSMutableArray alloc] init];
-		
-		// get the name of each column
-		/*
-		 0|imghexid|text|1||1
-		 1|date|datetime|1||0
-		 2|latitude|decimal(9,6)|1||0
-		 3|longitude|decimal(9,6)|1||0
-		 4|status|text|1|"pending_noid"|0
-		 5|percentIDed|tinyint|0||0
-		 */
-		NSArray *keyArray = @[@"imghexid", @"date", @"latitude", @"longitude", @"status", @"percentIDed"];
-		
-		if (sqlite3_prepare_v2(database, query_stmt, -1, &statement, NULL) == SQLITE_OK) {
-			if (sqlite3_step(statement) == SQLITE_ROW) {
-				do{
-					NSMutableArray *objectArray = [[NSMutableArray alloc] init];
-					
-					// Position 0 imghexid
-					NSString *imghexid = [[NSString alloc] initWithUTF8String:(const char*) sqlite3_column_text(statement, 0)];
-					[objectArray addObject:imghexid]; // name is the string provided above
-					
-					// Position 1 date
-					NSString *date = [[NSString alloc] initWithUTF8String:(const char*) sqlite3_column_text(statement, 1)];
-					[objectArray addObject:date];
-					
-					// Position 2 latitude
-					double latitude = sqlite3_column_double(statement, 2);
-					[objectArray addObject:[NSNumber numberWithDouble:latitude]];
-					
-					// Position 3 longitude
-					double longitude = sqlite3_column_double(statement, 3);
-					[objectArray addObject:[NSNumber numberWithDouble:longitude]];
-					
-					//Position 4 status
-					NSString *status = [[NSString alloc] initWithUTF8String:(const char*) sqlite3_column_text(statement, 4)];
-					[objectArray addObject:status];
-					
-					//Position 6 percentIDed
-					double percentIDed = sqlite3_column_double(statement, 5);
-					[objectArray addObject:[NSNumber numberWithDouble:percentIDed]];
-					
-					
-					NSDictionary *rowResults = [NSDictionary dictionaryWithObjects:objectArray forKeys:keyArray];
-					[resultArray addObject:rowResults];
-				} while(sqlite3_step(statement) == SQLITE_ROW);
-			}
-			else {
-				//NSLog(@"Not found"); not needed
-				return nil;
-			}
-			sqlite3_reset(statement);	// not sure what this is used for
-			return resultArray;
-		}
-		else {
-			NSLog(@"Failed: %s", sqlite3_errmsg(database));
-		}
-		
-	}
-	return nil;
+    NSString* query = [NSString stringWithFormat:@"SELECT * FROM observations WHERE %@%@;", statusStmt, orderBystmt];
+    return [self runTableQuery:query];
 }
 
--(BOOL) updateRow:(NSString *)imghexid andNewPercentIDed:(NSNumber *)percentIDed andNewStatus:(NSString *)status
-{
-	sqlite3_stmt *updateStmt;
-	const char *dbpath = [databasePath UTF8String];
-	BOOL success = NO;
-	if(sqlite3_open(dbpath, &database) == SQLITE_OK){
-		const char *sql = "UPDATE observations SET status=?, percentIDed=? WHERE imghexid=?";
-		//UPDATE Cars SET Name='Skoda Octavia' WHERE Id=3;
-		//NSString *querySQL = [NSString stringWithFormat:@"UPDATE Observations SET state=\"%@\", percentIDed=%@ WHERE imghexid=\"%@\"", state, percentIDed,imghexid];
-		
-		if (sqlite3_prepare_v2(database, sql, -1, &updateStmt, NULL) == SQLITE_OK) {
-			sqlite3_bind_text(updateStmt, 3, [imghexid UTF8String], -1, SQLITE_TRANSIENT);
-			sqlite3_bind_text(updateStmt, 1, [status UTF8String], -1, SQLITE_TRANSIENT);
-			sqlite3_bind_text(updateStmt, 2, [[NSString stringWithFormat:@"%@", percentIDed] UTF8String], -1, SQLITE_TRANSIENT);
-		}
-	}
-	char *errmsg;
-	sqlite3_exec(database, "COMMIT", NULL, NULL, &errmsg);
-	
-	if (SQLITE_DONE != sqlite3_step(updateStmt)){
-		NSLog(@"Error while updating. %s", sqlite3_errmsg(database));
-		return NO;
-	}
-	else {
-		success = YES;
-		//[self clearClick:nil];	// have no idea what this does
-	}
-	
-	sqlite3_finalize(updateStmt);
-	sqlite3_close(database);
-	
-	return success;
+/**
+ * Finds a single observation by id and returns it's columns as a dictionary, or nil on error.
+ */
+-(NSDictionary*) findObservationByID:(NSString *)imghexid {
+	NSString* query = [NSString stringWithFormat:@"SELECT * FROM observations WHERE imghexid='%@' LIMIT 1;", imghexid];
+    NSArray* results = [self runTableQuery:query];
+    if (results != nil && results.count > 0) {
+        return results[0];
+    } else {
+        return nil;
+    }
 }
-
--(NSArray*) findByImgID:(NSString *)imghexid
-{
-	const char *dbpath = [databasePath UTF8String];
-	if (sqlite3_open(dbpath, &database) == SQLITE_OK) {
-		NSString *querySQL = [NSString stringWithFormat:@"select * from observations"];// where imghexid=\"%@\"", imghexid];
-		const char *query_stmt = [querySQL UTF8String];
-		NSMutableArray *resultArray = [[NSMutableArray alloc] init];
-		NSArray *keyArray = @[@"imghexid", @"width", @"height", @"date", @"latitude", @"longitude", @"percentIDed"];
-		
-		if (sqlite3_prepare_v2(database, query_stmt, -1, &statement, NULL) == SQLITE_OK) {
-			if (sqlite3_step(statement) == SQLITE_ROW) {
-				do {
-					NSMutableArray *objectArray = [[NSMutableArray alloc] init];
-					
-					// Position 0 imghexid
-					NSString *imghexid = [[NSString alloc] initWithUTF8String:(const char*) sqlite3_column_text(statement, 0)];
-					[objectArray addObject:imghexid]; // name is the string provided above
-					
-					// Position 1 width
-					int width = sqlite3_column_int(statement, 1);
-					[objectArray addObject: [NSNumber numberWithInt:width]];
-					
-					// Position 2 height
-					int height = sqlite3_column_int(statement, 2);
-					[objectArray addObject: [NSNumber numberWithInt:height]];
-					
-					// Position 3 date
-					int date = sqlite3_column_int(statement, 3);
-					[objectArray addObject: [NSNumber numberWithInt:date]];
-					
-					// Position 4 latitude
-					double latitude = sqlite3_column_double(statement, 4);
-					[objectArray addObject:[NSNumber numberWithDouble:latitude]];
-					
-					// Position 5 longitude
-					double longitude = sqlite3_column_double(statement, 5);
-					[objectArray addObject:[NSNumber numberWithDouble:longitude]];
-					
-					//Position 6 percentIDed
-					double percentIDed = sqlite3_column_double(statement, 6);
-					[objectArray addObject:[NSNumber numberWithDouble:percentIDed]]; // name is the string provided above
-					
-					NSDictionary *rowResults = [NSDictionary dictionaryWithObjects:objectArray forKeys:keyArray];
-					[resultArray addObject:rowResults];
-				}while(sqlite3_step(statement) == SQLITE_ROW);
-			}
-			else {
-				NSLog(@"Not found");
-				return nil;
-			}
-			sqlite3_reset(statement);	// not sure what this is used for
-			return resultArray;
-		}
-		else {
-			NSLog(@"Failed: %s", sqlite3_errmsg(database));
-		}
-		
-	}
-	return nil;
-}
-
--(BOOL) deleteRow:(NSString *)identifier fromColumn:(NSString *)column
-{
-	sqlite3 *database;
-	
-	if (sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) {
-		sqlite3_stmt *deleteStmt;
-		NSString *sql_str = [NSString stringWithFormat:@"DELETE FROM observations WHERE %@=%@", column, identifier];
-		const char *sql = [sql_str UTF8String];
-		
-		if(sqlite3_prepare_v2(database, sql, -1, &deleteStmt, NULL) == SQLITE_OK){
-			if (sqlite3_step(deleteStmt) != SQLITE_DONE) {
-				NSLog(@"ERROR: %s", sqlite3_errmsg(database));
-				sqlite3_close(database);
-				return NO;
-			}
-			else{
-				// no error
-			}
-		}
-		sqlite3_finalize(deleteStmt);
-	}
-	sqlite3_close(database);
-	return YES;
-}
-
 
 
 -(BOOL) printResults:(NSArray*) array
@@ -314,7 +258,6 @@ static sqlite3_stmt *statement = nil;
 	}
 	return YES;
 }
-
 
 
 @end

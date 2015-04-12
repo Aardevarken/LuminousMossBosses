@@ -83,11 +83,11 @@ NSMutableArray *_myObservations;
 
 - (void)viewWillAppear:(BOOL)animated{
 	/**/
-	pendingObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-noid" like:NO orderBy:NULL];
+	pendingObservations = [[UserDataDatabase getSharedInstance] findObservationsByStatus:@"pending-noid" like:NO orderBy:NULL];
 	//idedObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:NULL];
 	idedObservations = [NSMutableArray array];
 	
-	for(id object in [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:NULL]){
+	for(id object in [[UserDataDatabase getSharedInstance] findObservationsByStatus:@"pending-id" like:NO orderBy:NULL]){
 		[idedObservations addObject:object];
 	}
 	//NSLog(@"po:%lu \t io:%lu", (unsigned long)[pendingObservations count], (unsigned long)[idedObservations count]);
@@ -203,7 +203,7 @@ NSMutableArray *_myObservations;
 		failureBlock: nil];
 	
 	cell.nameLabel.text		= @"Unknown";//[NSString stringWithFormat:@"%@", [dic objectForKey:@"imghexid"]];
-	cell.dateLabel.text		= [NSString stringWithFormat:@"%@", [dic objectForKey:@"date"]];
+	cell.dateLabel.text		= [NSString stringWithFormat:@"%@", [dic objectForKey:@"datetime"]];
 	
 //	if ([[dic objectForKey:@"percentIDed"]  isEqual: @"(null)"]) {
 //		cell.percentLabel.text	= @"";	}
@@ -360,7 +360,7 @@ NSMutableArray *_myObservations;
 
 - (IBAction)syncAllBtn:(UIButton *)sender {
 	for(id object in idedObservations){
-		[[UserDataDatabase getSharedInstance] updateRow:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced"];
+		[[UserDataDatabase getSharedInstance] updateObservation:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced"];
         NSDictionary* observationData = object;
         
         // Get position and time data
