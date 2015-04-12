@@ -45,7 +45,7 @@ android {
 
 dependencies {
     compile 'com.android.support:support-v4:21.0.3'
-    compile 'com.squareup.picasso:picasso:2.5.0'
+    compile 'com.squareup.picasso:picasso:2.4.0'
     compile 'org.apache.httpcomponents:httpmime:4.2.3'
     compile 'info.hoang8f:android-segmented:1.0.4'
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'

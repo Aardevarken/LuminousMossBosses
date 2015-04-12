@@ -1,9 +1,6 @@
 package com.luminousmossboss.luminous.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.luminousmossboss.luminous.R;
-import com.luminousmossboss.luminous.Util;
 import com.luminousmossboss.luminous.model.ListItem;
 import com.squareup.picasso.Picasso;
 
@@ -34,7 +30,7 @@ public abstract class FragListAdapter extends BaseAdapter {
         ImageView imgIcon = (ImageView) convertView.findViewById(R.id.icon);
         TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
 
-        Picasso.with(context).load(listItems.get(position).getIcon()).resize(96,96).centerCrop().onlyScaleDown().into(imgIcon);
+        Picasso.with(context).load(listItems.get(position).getIcon()).resize(96,96).centerCrop().into(imgIcon);
         //imgIcon.setImageURI(listItems.get(position).getIcon());
         //Util.setPic(listItems.get(position).getIcon(),imgIcon);
         txtTitle.setText(listItems.get(position).getTitle());

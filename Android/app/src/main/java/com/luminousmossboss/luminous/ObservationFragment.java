@@ -69,7 +69,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         Bundle bundle = getArguments();
         this.observation = (Observation) bundle.getSerializable(OBSERVATION_KEY);
         imageView.setImageURI(observation.getIcon());
-        Picasso.with(getActivity()).load(observation.getIcon()).resize(1365, 1024).centerCrop().onlyScaleDown().into(imageView);
+        Picasso.with(getActivity()).load(observation.getIcon()).resize(1365, 1024).centerCrop().into(imageView);
 
 
         title.setText(observation.getTitle());
