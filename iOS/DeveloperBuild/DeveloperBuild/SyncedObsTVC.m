@@ -68,7 +68,8 @@
 	
 	[lib assetForURL:url resultBlock:^(ALAsset *asset) {
 		ALAssetRepresentation *r = [asset defaultRepresentation];
-		cell.plantImageView.image = [UIImage imageWithCGImage:r.fullResolutionImage];
+        UIImageOrientation orientation = (UIImageOrientation) (int) r.orientation;
+        cell.plantImageView.image = [UIImage imageWithCGImage:r.fullResolutionImage scale:r.scale orientation:orientation];
 	} failureBlock:nil];
 	
 	// set text fields
