@@ -14,6 +14,7 @@
 #import "UserDataDatabase.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "ObsDetailViewController.h"
+#import "ServerAPI.h"
 
 @interface ObsViewController ()
 
@@ -358,17 +359,42 @@ NSMutableArray *_myObservations;
 }
 
 - (IBAction)syncAllBtn:(UIButton *)sender {
-	
-	
 	for(id object in idedObservations){
-		//[[UserDataDatabase getSharedInstance] deleteRow:[object objectForKey:@"imghexid"] fromColumn:@"imghexid"];
 		[[UserDataDatabase getSharedInstance] updateRow:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced"];
-		/********************************************\
-		|* JAMIE: jamie has not yet implemented		*|
-		|* the sending functionality. so this		*|
-		|* us a place holder for him.				*|
-		\********************************************/
-		
+        NSDictionary* observationData = object;
+        
+        // Get position and time data
+        NSString* date = [NSString stringWithFormat:@"%@", [observationData objectForKey:@"date"]];
+        float lat = [[observationData objectForKey:@"latitude"] floatValue];
+        float lng = [[observationData objectForKey:@"longitude"] floatValue];
+        
+        // Get image url
+        NSURL *url = [NSURL URLWithString:[observationData objectForKey:@"imghexid"]];
+        if ([url  isEqual: @"(null)"]) {
+            NSLog(@"img path is null");
+        }
+        
+        // Fetch image at url
+        ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
+        [lib assetForURL: url
+             resultBlock: ^(ALAsset *asset) {
+                 ALAssetRepresentation *r = [asset defaultRepresentation];
+                 UIImageOrientation orientation = (UIImageOrientation) (int) r.orientation;
+                 UIImage* image = [UIImage imageWithCGImage:r.fullResolutionImage scale:r.scale orientation:orientation];
+                 // Unrotate image
+                 UIImage* normalizedImage;
+                 if (image.imageOrientation == UIImageOrientationUp) {
+                     normalizedImage = image;
+                 } else {
+                     UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
+                     [image drawInRect:(CGRect){0, 0, image.size}];
+                     normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
+                     UIGraphicsEndImageContext();
+                 }
+                 // Send to server.
+                 [ServerAPI uploadObservation:date time:date lat:lat lng:lng image:normalizedImage];
+             }
+            failureBlock: nil];
 	}
 }
 
