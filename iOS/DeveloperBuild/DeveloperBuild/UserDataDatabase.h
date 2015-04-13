@@ -32,17 +32,17 @@
  */
 -(BOOL) createDB;
 
--(BOOL) saveData:(NSString*) imghexid date:(NSString*)date latitude:(NSNumber*)latitude longitude:(NSNumber*)longitude percentIDed:(NSNumber*)percentIDed;
+-(BOOL) saveObservation:(NSString*) imghexid date:(NSString*)date latitude:(NSNumber*)latitude longitude:(NSNumber*)longitude locationError:(NSNumber*) locationError percentIDed:(NSNumber*)percentIDed;
 
--(NSArray*) findByImgID:(NSString*)imghexid;
+-(NSArray*) findObservationByID:(NSString*)imghexid;
 
--(NSArray*) findObsByStatus:(NSString*)status like:(BOOL)like orderBy:(NSString*)orderBy;
+-(NSArray*) findObservationsByStatus:(NSString*)status like:(BOOL)like orderBy:(NSString*)orderBy;
 
 -(BOOL) printResults:(NSArray*)array;
 
--(BOOL) updateRow:(NSString*)imghexid andNewPercentIDed:(NSNumber*)percentIDed andNewStatus:(NSString*)status;
+-(BOOL) updateObservation:(NSString*)imghexid andNewPercentIDed:(NSNumber*)percentIDed andNewStatus:(NSString*)status;
 
--(BOOL) deleteRow:(NSString*)identifier fromColumn:(NSString*)column;
+-(BOOL) deleteObservationByID:(NSString*) imghexid;
 
 -(void) startLocationTracking;
 -(void) stopLocationTracking;
