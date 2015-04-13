@@ -94,7 +94,7 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
 
         SQLiteDatabase fieldGuideDB = fieldGuideDBH.getReadableDatabase();
 
-        Cursor dbCursor = fieldGuideDB.rawQuery("select id from species;", null);
+        Cursor dbCursor = fieldGuideDB.rawQuery("select id from species order by binomial_name;", null);
 
         if (dbCursor.moveToFirst()) {
             do {
