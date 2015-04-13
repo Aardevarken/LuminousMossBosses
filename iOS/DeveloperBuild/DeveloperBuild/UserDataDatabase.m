@@ -302,7 +302,7 @@ static NSDictionary* typeMap = nil;
 	//
 	CLLocation *newLocation = locations.lastObject;
 
-	/**/
+	/** /
 	static unsigned int updateCount = 0;
 	if (locations.count == 1) {
 		NSLog(@"Update(%u) \t%@", updateCount, newLocation.description);
