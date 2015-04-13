@@ -94,6 +94,7 @@ NSMutableArray *_myObservations;
 	
 	selectedSection = -1;
 	selectedRow = -1;
+	[self.tableView reloadData];
 	/**/
 }
 
