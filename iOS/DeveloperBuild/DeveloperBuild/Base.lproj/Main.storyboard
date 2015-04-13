@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="c0s-mH-NwH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="c0s-mH-NwH">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -19,21 +19,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L94-9U-Kep">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L94-9U-Kep">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="ROD-hx-KXK"/>
                                 </constraints>
-                                <state key="normal" title="Settings">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <state key="normal" image="ic_settings copy.png"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="ROD-hx-KXK"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="64" y="695" width="75" height="75"/>
                                     <mask key="constraints">
                                         <include reference="ROD-hx-KXK"/>
                                     </mask>
@@ -42,23 +40,24 @@
                                     <segue destination="gpg-h8-n5S" kind="show" id="zCK-Qw-VCU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XRM-Qt-9Gc">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XRM-Qt-9Gc">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="My Obs">
+                                <state key="normal" image="ic_notepad_copy.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="231" y="695" width="75" height="75"/>
+                                </variation>
                                 <connections>
                                     <segue destination="TvY-dZ-Mzy" kind="show" id="g0l-tS-fy1"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oU-al-whV">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oU-al-whV">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="Sdc-3A-IFM"/>
                                 </constraints>
-                                <state key="normal" title="Encyclopedia">
+                                <state key="normal" image="ic_fieldguide copy.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="default">
@@ -66,7 +65,8 @@
                                         <exclude reference="Sdc-3A-IFM"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="64" y="605" width="75" height="75"/>
                                     <mask key="constraints">
                                         <include reference="Sdc-3A-IFM"/>
                                     </mask>
@@ -75,18 +75,19 @@
                                     <segue destination="D35-K4-Nvt" kind="show" id="IQF-lg-oaN"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1CL-2k-Gvr">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1CL-2k-Gvr">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Add Obs">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <state key="normal" image="ic_addobservation copy.png"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                                    <rect key="frame" x="231" y="605" width="75" height="75"/>
+                                </variation>
                                 <connections>
                                     <segue destination="FEo-qL-flj" kind="show" id="s9o-7d-XRk"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.74715909089999999" blue="0.091518882519999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.08235294118" green="0.35686274509999999" blue="0.039215686270000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="L94-9U-Kep" firstAttribute="leading" secondItem="W1Z-gG-xe5" secondAttribute="leading" constant="30" id="2vo-Nh-JNK"/>
                             <constraint firstItem="pBA-ZR-2jU" firstAttribute="top" secondItem="L94-9U-Kep" secondAttribute="bottom" constant="30" id="3Oc-ID-beE"/>
@@ -969,7 +970,8 @@
                                                             <exclude reference="Cua-1J-580"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="233" y="31" width="79" height="24"/>
                                                         <mask key="constraints">
                                                             <include reference="Cua-1J-580"/>
                                                         </mask>
@@ -983,6 +985,9 @@
                                                 </label>
                                                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="mtZ-DR-iHF">
                                                     <rect key="frame" x="0.0" y="-2" width="150" height="2"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="8" y="76" width="304" height="2"/>
+                                                    </variation>
                                                 </progressView>
                                             </subviews>
                                             <constraints>
@@ -1311,7 +1316,7 @@
                                 <exclude reference="tMr-p1-BDC"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="Iha-ut-Cp2"/>
+								<exclude reference="Iha-ut-Cp2"/>
                                 <exclude reference="N2S-Et-tUf"/>
                                 <exclude reference="Qjd-UK-DSA"/>
                                 <exclude reference="cPR-lh-erN"/>
@@ -1322,6 +1327,7 @@
                                 <exclude reference="kK5-WB-sj5"/>
                                 <exclude reference="uFB-8t-xvn"/>
                                 <exclude reference="wFW-fq-TOh"/>
+                                <exclude reference="Z2g-wG-s0C"/>
                                 <exclude reference="4hr-eE-hXF"/>
                                 <exclude reference="Ou6-IQ-R6a"/>
                                 <exclude reference="DRm-8B-urv"/>
@@ -1337,6 +1343,10 @@
                                 <exclude reference="jRo-F2-PUu"/>
                                 <exclude reference="vfs-PL-bKo"/>
                                 <exclude reference="vzq-xF-saX"/>
+                                <exclude reference="Goq-En-DqF"/>
+                                <exclude reference="TDO-xv-zRV"/>
+                                <exclude reference="gNj-jU-Opf"/>
+                                <exclude reference="y88-zC-ReO"/>
                                 <exclude reference="J5b-fZ-d7n"/>
                                 <exclude reference="OGS-TA-K36"/>
                                 <exclude reference="duE-9f-eMx"/>
@@ -1346,6 +1356,14 @@
                                 <exclude reference="Lph-2V-eeC"/>
                                 <exclude reference="ugp-PE-GPP"/>
                                 <exclude reference="Z2g-wG-s0C"/>
+                                <exclude reference="IZ8-DK-7KC"/>
+                                <exclude reference="ccS-k9-ewh"/>
+                                <exclude reference="kK5-WB-sj5"/>
+                                <exclude reference="uFB-8t-xvn"/>
+                                <exclude reference="wFW-fq-TOh"/>
+                                <exclude reference="Iha-ut-Cp2"/>
+                                <exclude reference="Qjd-UK-DSA"/>
+                                <exclude reference="cPR-lh-erN"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -1373,6 +1391,7 @@
                                 <include reference="kK5-WB-sj5"/>
                                 <include reference="uFB-8t-xvn"/>
                                 <include reference="wFW-fq-TOh"/>
+                                <include reference="Z2g-wG-s0C"/>
                                 <include reference="4hr-eE-hXF"/>
                                 <include reference="Ou6-IQ-R6a"/>
                                 <include reference="DRm-8B-urv"/>
@@ -1388,15 +1407,27 @@
                                 <exclude reference="jRo-F2-PUu"/>
                                 <include reference="vfs-PL-bKo"/>
                                 <exclude reference="vzq-xF-saX"/>
+                                <include reference="Goq-En-DqF"/>
+                                <include reference="TDO-xv-zRV"/>
+                                <include reference="gNj-jU-Opf"/>
+                                <include reference="y88-zC-ReO"/>
                                 <include reference="J5b-fZ-d7n"/>
                                 <exclude reference="OGS-TA-K36"/>
                                 <exclude reference="duE-9f-eMx"/>
                                 <include reference="jOQ-MZ-7m9"/>
-                                <include reference="qSD-Mp-XdV"/>
+								<include reference="qSD-Mp-XdV"/>
                                 <include reference="u4n-L5-2Sx"/>
                                 <include reference="Lph-2V-eeC"/>
                                 <include reference="ugp-PE-GPP"/>
                                 <include reference="Z2g-wG-s0C"/>
+                                <include reference="IZ8-DK-7KC"/>
+                                <include reference="ccS-k9-ewh"/>
+                                <include reference="kK5-WB-sj5"/>
+                                <include reference="uFB-8t-xvn"/>
+                                <include reference="wFW-fq-TOh"/>
+                                <include reference="Iha-ut-Cp2"/>
+                                <include reference="Qjd-UK-DSA"/>
+                                <include reference="cPR-lh-erN"/>
                             </mask>
                         </variation>
                     </view>
@@ -1473,9 +1504,13 @@
     </scenes>
     <resources>
         <image name="IMG_2278.JPG" width="3100" height="2325"/>
+        <image name="ic_addobservation copy.png" width="75" height="75"/>
+        <image name="ic_fieldguide copy.png" width="75" height="75"/>
+        <image name="ic_notepad_copy.png" width="75" height="75"/>
+        <image name="ic_settings copy.png" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="exE-zT-RkC"/>
+        <segue reference="g0l-tS-fy1"/>
         <segue reference="A5Q-uz-ERG"/>
     </inferredMetricsTieBreakers>
 </document>
