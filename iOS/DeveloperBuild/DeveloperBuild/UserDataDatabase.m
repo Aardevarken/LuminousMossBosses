@@ -13,10 +13,12 @@
 
 #define databaseName "userdata.db"
 #define CREATE_DB_STMT "CREATE TABLE observations (imghexid text not null primary key, date datetime not null, latitude decimal(9,6) not null, longitude decimal(9,6) not null, status text not null default \"pending-noid\", percentIDed tinyint);"
+#define TESTING YES
 
 static UserDataDatabase *sharedInstance = nil;
 static sqlite3 *database = nil;
 static sqlite3_stmt *statement = nil;
+
 
 @implementation UserDataDatabase
 
@@ -64,6 +66,13 @@ static sqlite3_stmt *statement = nil;
 
 -(BOOL) saveData:(NSString*) imghexid date:(NSString*)date latitude:(NSNumber*)latitude longitude:(NSNumber*)longitude percentIDed:(NSNumber*)percentIDed;
 {
+	
+	if([latitude isKindOfClass:[NSNull class]] && [longitude isKindOfClass:[NSNull class]] && [date isKindOfClass:[NSNull class]]){
+#warning Change latitude and longitude to floats/doubles to reduce the amount of conversion for NSNumber?
+		latitude = [NSNumber numberWithFloat:bestEffortAtLocation.coordinate.latitude];
+		longitude = [NSNumber numberWithFloat:bestEffortAtLocation.coordinate.longitude];
+		date = bestEffortAtLocation.timestamp;
+	}
 	const char *dbpath = [databasePath UTF8String];
 	if (sqlite3_open(dbpath, &database) == SQLITE_OK) {
 		// the following string may be wrong. NSInteger might need to be an in, and NSNumber a double/fload.
@@ -315,8 +324,188 @@ static sqlite3_stmt *statement = nil;
 	return YES;
 }
 
+-(void) startLocationTracking
+{
+	// Create the manager object
+	_locationManager = [[CLLocationManager alloc] init];
+	self.locationManager.delegate = self;
+	
+	// This is the most important property to set for the manager. It ultimately determines how the mannager will attempt to acquire location and thus, the amount of power that will be consumed.
+	self.locationManager.desiredAccuracy =  kCLLocationAccuracyBest;//kCLLocationAccuracyNearestTenMeters;
+	
+	// NOT SURE WHAT THE FOLLOWING IS FOR
+	//
+	// for iOS 9, specific user level permissions is required, "when-in-use" authorization grants access to the user's location.
+	//
+	// Important: Be sure to inlcude NSLocationWhenInUseUsageDescription along with its explanation string in your Info.plist or startUpdatingLocation will not work.
+	if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+		[self.locationManager requestWhenInUseAuthorization];
+	}
+	
+	// This is where the fun begins :-)
+	self.locationManager.pausesLocationUpdatesAutomatically = NO;
+	[self.locationManager startUpdatingLocation];
+}
 
+- (void)stopLocationTracking
+{
+	[self.locationManager stopUpdatingLocation];
+}
 
+- (void) getGPS
+{
+	/** /
+	// Create the manager object
+	_locationManager = [[CLLocationManager alloc] init];
+	self.locationManager.delegate = self;
+	
+	// This is the most important property to set for the manager. It ultimately determines how the mannager will attempt to acquire location and thus, the amount of power that will be consumed.
+	self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+	
+	// NOT SURE WHAT THE FOLLOWING IS FOR
+	//
+	// for iOS 9, specific user level permissions is required, "when-in-use" authorization grants access to the user's location.
+	//
+	// Important: Be sure to inlcude NSLocationWhenInUseUsageDescription along with its explanation string in your Info.plist or startUpdatingLocation will not work.
+	if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+		[self.locationManager requestWhenInUseAuthorization];
+	}
+	
+	// This is where the fun begins :-)
+	self.locationManager.pausesLocationUpdatesAutomatically = NO;
+	[self.locationManager startUpdatingLocation];
+	/**/
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
+	//
+	CLLocation *newLocation = locations.lastObject;
+
+	/** /
+	static unsigned int updateCount = 0;
+	if (locations.count == 1) {
+		NSLog(@"Update(%u) \t%@", updateCount, newLocation.description);
+	}
+	else if (locations.count > 1){
+		#warning Need to check time stamp when multible GPS coordinates.
+	}
+	else {
+		#warning THIS SHOULD NEVER HIT!
+	}
+	++updateCount;
+	/**/
+	
+	
+	// test that the horizontal accuracy does not indicate an invalid mesurement.
+	if (newLocation.horizontalAccuracy < 0) {
+		return;
+	}
+	
+	// ???
+	// Test the age of the location mesurement to determine if the mesurement is cached, in most cases you will not want to rely on chached mesurements
+	// ???
+	NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
+	if (locationAge > 5.0) {
+		return;
+	}
+	
+	
+	//NSLog(@"New Horizontal Accuracy \t%f (float)", newLocation.horizontalAccuracy);
+	//NSLog(@"New Vertial Accuracy \t%f (float)", newLocation.verticalAccuracy);
+	//NSLog(@"Desired Accuracy \t\t%f (float)", self.locationManager.desiredAccuracy);
+	//NSLog(@"Best Horizontal Accuracy\t%f (float)", bestEffortAtLocation.horizontalAccuracy);
+	//NSLog(@"Best Vertial Accuracy\t%f (float)", bestEffortAtLocation.verticalAccuracy);
+	//NSLog(@"\n---------------------------\n");
+	
+	// test the mesurement to see if it is more accurate than the previous mesurement
+	if (bestEffortAtLocation == nil || bestEffortAtLocation.horizontalAccuracy > newLocation.horizontalAccuracy) {
+		// store the new mesurement
+		bestEffortAtLocation = newLocation;
+		
+		// test the measurment to see if it meets the desired accuracy
+		//
+		// IMPORTANT!!! kCLLocationAccuracyBest should not be used for comparison with location coordinate or altitude accuracy becuase it is a negative value. Instead, compare against some predetermined "real" measure of acceptable accuracy, or depend on the timeout to stop updating. This sample depends on the timeout.
+		//
+		if (newLocation.horizontalAccuracy <= self.locationManager.desiredAccuracy) {
+			if (TESTING) {
+				NSLog(@"Self \t%@", newLocation.self);
+				NSLog(@"Super Class \t%@", newLocation.superclass);
+				NSLog(@"Description \t%@", newLocation.description);
+				NSLog(@"Latitude \t%f (float)", newLocation.coordinate.latitude);
+				NSLog(@"Longitude \t%f (float)", newLocation.coordinate.longitude);
+				NSLog(@"Altitude \t%f (float)", newLocation.altitude);
+				NSLog(@"Course \t%f (float)", newLocation.course);
+				NSLog(@"Speed \t%f  (float)", newLocation.speed);
+				NSLog(@"Horizontal Accuracy \t%f (float)", newLocation.horizontalAccuracy);
+				NSLog(@"Vertial Accuracy \t%f (float)", newLocation.verticalAccuracy);
+				NSLog(@"Time Stamp \t%@", newLocation.timestamp);
+				NSLog(@"Floor \t%@", newLocation.floor);
+				
+				NSLog(@"\n");
+				NSLog(@"Self \t%@", self.locationManager.self);
+				NSLog(@"Super Class \t%@", self.locationManager.superclass);
+				NSLog(@"Description \t%@", self.locationManager.description);
+				NSLog(@"Desired Accuracy \t%f (float)", self.locationManager.desiredAccuracy);
+				NSLog(@"Distance Filter \t%f", self.locationManager.distanceFilter);
+				NSLog(@"Heading \t%@", self.locationManager.heading);
+				NSLog(@"Heading Filter \t%f (float)", self.locationManager.headingFilter);
+				NSLog(@"Heading Orientation \t%d (32-bit int)", self.locationManager.headingOrientation);
+
+				
+				NSLog(@"\n");
+			}
+			else {
+				NSLog(@"Description \t%@", newLocation.description);
+			}
+			[self stopUpdatingLocationWithMessage:NSLocalizedString(@"Aquired Location", @"Acuired Location")];
+		}
+	}
+}
+
+// We want to get and store a location mesurement that meets teh desired accuracy. For this we are going to use horizontal accuracy as the deciding factor. In some cases, if may be better to use vertical accuracy or both together.
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
+	// test that the horizontal accuracy does not indicate an invalid mesurement.
+	if (newLocation.horizontalAccuracy < 0) {
+		return;
+	}
+	
+	// ???
+	// Test the age of the location mesurement to determine if the mesurement is cached, in most cases you will not want to rely on chached mesurements
+	// ???
+	NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
+	if (locationAge > 5.0) {
+		return;
+	}
+	
+	// test the mesurement to see if it is more accurate than the previous mesurement
+	if (bestEffortAtLocation == nil || bestEffortAtLocation.horizontalAccuracy > newLocation.horizontalAccuracy) {
+		// store the new mesurement
+		bestEffortAtLocation = newLocation;
+		
+		// test the measurment to see if it meets the desired accuracy
+		//
+		// IMPORTANT!!! kCLLocationAccuracyBest should not be used for comparison with location coordinate or altitude accuracy becuase it is a negative balue. Instead, compare against some predetermined "real" measure of acceptable accuracy, or depend on the timeout to stop updating. This sample depends on the timeout.
+		//
+		if (newLocation.horizontalAccuracy <= self.locationManager.desiredAccuracy) {
+			[self stopUpdatingLocationWithMessage:NSLocalizedString(@"Aquired Location", @"Acuired Location")];
+			
+		}
+	}
+	
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+	// The location 'unknown" error simply means the manager is currently unable to get the location.
+	if ([error code] != kCLErrorLocationUnknown) {
+		[self stopUpdatingLocationWithMessage:NSLocalizedString(@"Error", @"Error")];
+	}
+}
+
+- (void)stopUpdatingLocationWithMessage:(NSString *) state{
+	NSLog(@"%@", state);
+	[self.locationManager stopUpdatingLocation];
+	self.locationManager.delegate = nil;
+}
 @end
 
 

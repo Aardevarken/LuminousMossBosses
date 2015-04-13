@@ -7,15 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 #import <sqlite3.h>
 
-@interface UserDataDatabase : NSObject{
+@interface UserDataDatabase : NSObject <CLLocationManagerDelegate>{
 	NSString *databasePath;
 	
 	@private
 	NSArray *columnNamesArray;
+	CLLocation *bestEffortAtLocation;
 }
 
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) NSMutableArray *locations;
 /**
  Test to see if an instance of the database exists, if there is not instance of the database then call createDB.
  @returns instance of the database.
@@ -39,5 +43,11 @@
 -(BOOL) updateRow:(NSString*)imghexid andNewPercentIDed:(NSNumber*)percentIDed andNewStatus:(NSString*)status;
 
 -(BOOL) deleteRow:(NSString*)identifier fromColumn:(NSString*)column;
+
+-(void) startLocationTracking;
+-(void) stopLocationTracking;
+-(void) getGPS;
+
+-(void) pauseLocationTracking;
 
 @end
