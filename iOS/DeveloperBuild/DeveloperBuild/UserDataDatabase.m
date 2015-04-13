@@ -12,7 +12,7 @@
 #import "UserData.h"
 
 #define databaseName "userdata.db"
-#define CREATE_DB_STMT "CREATE TABLE observations (imghexid text not null primary key, date datetime not null, latitude decimal(9,6) not null, longitude decimal(9,6) not null, status text not null default \"pending-noid\", percentIDed tinyint);"
+//#define CREATE_DB_STMT "CREATE TABLE observations (imghexid text not null primary key, date datetime not null, latitude decimal(12,9) not null, longitude decimal(9,6) not null, status text not null default \"pending-noid\", percentIDed tinyint);"
 #define TESTING YES
 
 static UserDataDatabase* sharedInstance = nil;
@@ -60,7 +60,7 @@ static NSDictionary* typeMap = nil;
     };
     
     // Uncomment this line the first time you run code with a new database schema.
-    //[self runBoolQuery:@"DROP TABLE IF EXISTS observations;"];
+	//[self runBoolQuery:@"DROP TABLE IF EXISTS observations;"];
     
     return [self runBoolQuery:createTables];
 }
@@ -137,8 +137,8 @@ static NSDictionary* typeMap = nil;
 	
 	#warning Change latitude and longitude to floats/doubles to reduce the amount of conversion for NSNumber?
 	if(latitude == nil && longitude == nil && date == nil){
-		latitude = [NSNumber numberWithFloat:bestEffortAtLocation.coordinate.latitude];
-		longitude = [NSNumber numberWithFloat:bestEffortAtLocation.coordinate.longitude];
+		latitude = [NSNumber numberWithDouble:bestEffortAtLocation.coordinate.latitude];
+		longitude = [NSNumber numberWithDouble:bestEffortAtLocation.coordinate.longitude];
 		date = bestEffortAtLocation.timestamp;
 		//NSLog(@"getting data from GPS");
 	} else {
@@ -302,7 +302,7 @@ static NSDictionary* typeMap = nil;
 	//
 	CLLocation *newLocation = locations.lastObject;
 
-	/** /
+	/**/
 	static unsigned int updateCount = 0;
 	if (locations.count == 1) {
 		NSLog(@"Update(%u) \t%@", updateCount, newLocation.description);
