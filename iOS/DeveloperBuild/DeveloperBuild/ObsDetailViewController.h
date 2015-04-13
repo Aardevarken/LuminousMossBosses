@@ -14,6 +14,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *percentLabel;
 @property (nonatomic, strong) IBOutlet UILabel *dateLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *obsImage;
+@property (strong, nonatomic) IBOutlet UILabel *latitudeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *longitudeLabel;
 
 @property (nonatomic, strong) NSDictionary *plantInfo;
 @property (nonatomic, strong) IBOutlet UIProgressView *progressBar;

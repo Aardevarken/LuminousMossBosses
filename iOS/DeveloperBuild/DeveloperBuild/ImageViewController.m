@@ -156,7 +156,7 @@
 	}
 	
 	if(TRUE){
-		success = [[UserDataDatabase getSharedInstance] saveObservation:img date:currentTime latitude:[NSNumber numberWithDouble:1.0] longitude:[NSNumber numberWithDouble:-1.0] locationError:[NSNumber numberWithDouble:100.0] percentIDed:NULL];
+		success = [[UserDataDatabase getSharedInstance] saveObservation:img date:nullptr latitude:nullptr longitude:nullptr locationError:[NSNumber numberWithDouble:100.0] percentIDed:NULL];
 	}
 	else {
 	}

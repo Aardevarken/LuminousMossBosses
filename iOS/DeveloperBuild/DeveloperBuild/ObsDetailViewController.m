@@ -25,7 +25,8 @@
 @synthesize plantInfo;
 @synthesize progressBar;
 @synthesize idButton;
-
+@synthesize longitudeLabel;
+@synthesize latitudeLabel;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,6 +34,10 @@
 	nameLabel.text = [NSString stringWithFormat:@"Name: %@", [plantInfo objectForKey:@"imghexid"]];
 	percentLabel.text = [NSString stringWithFormat:@"%@%% ", [plantInfo objectForKey:@"percentIDed"]];
 	dateLabel.text = [NSString stringWithFormat:@"Date: %@", [plantInfo objectForKey:@"datetime"]];
+	longitudeLabel.text = [NSString stringWithFormat:@"%@", [plantInfo objectForKey:@"latitude"]];
+	latitudeLabel.text = [NSString stringWithFormat:@"%@", [plantInfo objectForKey:@"latitude"]];
+
+	
 	
 	NSURL *url = [NSURL URLWithString:[plantInfo objectForKey:@"imghexid"]];
 
