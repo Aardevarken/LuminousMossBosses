@@ -7,8 +7,8 @@ import android.net.Uri;
  */
 
 abstract public class ListItem {
-    private String title;
-    private Uri icon;
+    protected String title;
+    protected Uri icon;
 
     public ListItem() {}
 

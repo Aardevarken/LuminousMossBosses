@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.luminousmossboss.luminous.adapter.FGListAdapter;
-import com.luminousmossboss.luminous.model.FGListItem;
+import com.luminousmossboss.luminous.model.FieldGuideItem;
 import com.luminousmossboss.luminous.model.ListItem;
 
 import java.util.ArrayList;
@@ -57,8 +56,7 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(activity instanceof MainActivity) {
                     CharSequence fragTitle = listItems.get(position).getTitle();
-                    Fragment fragment = null;
-                    fragment = new FieldGuideFragment();
+                    Fragment fragment = FieldGuideFragment.newInstance((FieldGuideItem) listItems.get(position));
                     ((MainActivity) activity).setTitle(fragTitle);
                     ((MainActivity) activity).displayView(fragment);
                 }
@@ -96,28 +94,19 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
 
         SQLiteDatabase fieldGuideDB = fieldGuideDBH.getReadableDatabase();
 
-        Cursor dbCursor = fieldGuideDB.rawQuery("select binomial_name, code from species;", null);
+        Cursor dbCursor = fieldGuideDB.rawQuery("select id from species;", null);
 
-        dbCursor.moveToFirst();
-
-        for (int i = 0; i < dbCursor.getCount(); i++) {
-//            Uri iconUri = Util.resIdToUri(context, R.drawable.(dbCursor.getString(2)));
-
-            String imageName = dbCursor.getString(1);
-//            Uri uri = Uri.fromFile(new File("assets/GlossaryImages/" + imageName));
-//            Uri iconUri = Uri.parse("file:res/drawable/FORBS/"+imageName);
-//            Uri iconUri  = Uri.parse("android.resource://com.luminousmossboss.luminous/drawable/" + imageName.toLowerCase());
-            Uri iconUri = Uri.parse("file:///android_asset/FORBS/" + imageName + ".jpg");
-            listItems.add(new FGListItem(dbCursor.getString(0), iconUri));
-            dbCursor.moveToNext();
+        if (dbCursor.moveToFirst()) {
+            do {
+                int id = dbCursor.getInt(0);
+                listItems.add(new FieldGuideItem(id, context));
+            } while (dbCursor.moveToNext());
         }
+
+
 
         dbCursor.close();
 
-//        for (int i = 0; i < listTitles.length; i++) {
-//            Uri iconUri = Util.resIdToUri(context,listIcons.getResourceId(i, -1) );
-//            listItems.add(new FGListItem(listTitles[i], iconUri, listDescriptions[i]));
-//        }
         listIcons.recycle();
 
 

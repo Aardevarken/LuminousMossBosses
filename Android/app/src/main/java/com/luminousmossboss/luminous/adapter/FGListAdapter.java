@@ -5,10 +5,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.luminousmossboss.luminous.R;
-import com.luminousmossboss.luminous.model.FGListItem;
+import com.luminousmossboss.luminous.model.FieldGuideItem;
 import com.luminousmossboss.luminous.model.ListItem;
 
 import java.util.ArrayList;
@@ -38,10 +37,10 @@ public class FGListAdapter extends FragListAdapter {
         }
 
         convertView = basicView(position,convertView);
-        FGListItem item = (FGListItem) listItems.get(position);
+        FieldGuideItem item = (FieldGuideItem) listItems.get(position);
 
-        TextView txtDescription = (TextView) convertView.findViewById(R.id.description);
-        txtDescription.setText(item.getDescription());
+//        TextView txtDescription = (TextView) convertView.findViewById(R.id.description);
+//        txtDescription.setText(item.getDescription());
 
         return convertView;
     }
