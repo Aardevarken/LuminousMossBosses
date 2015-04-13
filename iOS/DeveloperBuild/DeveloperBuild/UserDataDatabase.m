@@ -135,11 +135,14 @@ static NSDictionary* typeMap = nil;
 
 -(BOOL) saveObservation:(NSString*) imghexid date:(NSString*)date latitude:(NSNumber*)latitude longitude:(NSNumber*)longitude locationError:(NSNumber*) locationError percentIDed:(NSNumber*)percentIDed {
 	
-	if([latitude isKindOfClass:[NSNull class]] && [longitude isKindOfClass:[NSNull class]] && [date isKindOfClass:[NSNull class]]){
-#warning Change latitude and longitude to floats/doubles to reduce the amount of conversion for NSNumber?
+	#warning Change latitude and longitude to floats/doubles to reduce the amount of conversion for NSNumber?
+	if(latitude == nil && longitude == nil && date == nil){
 		latitude = [NSNumber numberWithFloat:bestEffortAtLocation.coordinate.latitude];
 		longitude = [NSNumber numberWithFloat:bestEffortAtLocation.coordinate.longitude];
 		date = bestEffortAtLocation.timestamp;
+		//NSLog(@"getting data from GPS");
+	} else {
+		//NSLog(@"Using user data");
 	}
 	
     NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO observations (imghexid, datetime, latitude, longitude, locationerror, percentIDed) VALUES ('%@','%@','%@','%@','%@','%@');", imghexid, date, latitude, longitude, locationError, percentIDed];
@@ -293,31 +296,6 @@ static NSDictionary* typeMap = nil;
 - (void)stopLocationTracking
 {
 	[self.locationManager stopUpdatingLocation];
-}
-
-- (void) getGPS
-{
-	/** /
-	// Create the manager object
-	_locationManager = [[CLLocationManager alloc] init];
-	self.locationManager.delegate = self;
-	
-	// This is the most important property to set for the manager. It ultimately determines how the mannager will attempt to acquire location and thus, the amount of power that will be consumed.
-	self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-	
-	// NOT SURE WHAT THE FOLLOWING IS FOR
-	//
-	// for iOS 9, specific user level permissions is required, "when-in-use" authorization grants access to the user's location.
-	//
-	// Important: Be sure to inlcude NSLocationWhenInUseUsageDescription along with its explanation string in your Info.plist or startUpdatingLocation will not work.
-	if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-		[self.locationManager requestWhenInUseAuthorization];
-	}
-	
-	// This is where the fun begins :-)
-	self.locationManager.pausesLocationUpdatesAutomatically = NO;
-	[self.locationManager startUpdatingLocation];
-	/**/
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
