@@ -44,6 +44,11 @@
 		16F8F55C1AA80828007FEEBE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F8F55B1AA80828007FEEBE /* libsqlite3.dylib */; };
 		7968EC9B1AB91974000644E4 /* ServerAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7968EC9A1AB91974000644E4 /* ServerAPI.m */; };
 		7968EC9D1AB92F87000644E4 /* ServerAPITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7968EC9C1AB92F87000644E4 /* ServerAPITest.m */; };
+		E6ED3AE21ADB7C5200099064 /* ic_notepad_copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3ADF1ADB7C5200099064 /* ic_notepad_copy.png */; };
+		E6ED3AE31ADB7DBC00099064 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D848131A7768250043BEDD /* opencv2.framework */; };
+		E6ED3AE71ADB837800099064 /* ic_addobservation copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3AE41ADB837800099064 /* ic_addobservation copy.png */; };
+		E6ED3AE81ADB837800099064 /* ic_fieldguide copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3AE51ADB837800099064 /* ic_fieldguide copy.png */; };
+		E6ED3AE91ADB837800099064 /* ic_settings copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3AE61ADB837800099064 /* ic_settings copy.png */; };
 		F0395FE61A9835F700EE1BF9 /* detector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE51A9835F700EE1BF9 /* detector.cpp */; };
 		F0395FEA1A98365500EE1BF9 /* identified.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE91A98365500EE1BF9 /* identified.cpp */; };
 		F0D4ED171AA59917008CBAD4 /* silene.xml in Resources */ = {isa = PBXBuildFile; fileRef = F0D4ED161AA59917008CBAD4 /* silene.xml */; };
@@ -51,7 +56,6 @@
 		F0D4ED1C1AA59A93008CBAD4 /* img_helper.cpp in Resources */ = {isa = PBXBuildFile; fileRef = F0D4ED1B1AA59A93008CBAD4 /* img_helper.cpp */; };
 		F0D4ED1E1AA59AA8008CBAD4 /* img_helper.h in Resources */ = {isa = PBXBuildFile; fileRef = F0D4ED1D1AA59AA8008CBAD4 /* img_helper.h */; };
 		F0D4ED201AA59BAD008CBAD4 /* img_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0D4ED1B1AA59A93008CBAD4 /* img_helper.cpp */; };
-		F0D848141A7768250043BEDD /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D848131A7768250043BEDD /* opencv2.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +127,10 @@
 		7968EC991AB91974000644E4 /* ServerAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerAPI.h; sourceTree = "<group>"; };
 		7968EC9A1AB91974000644E4 /* ServerAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerAPI.m; sourceTree = "<group>"; };
 		7968EC9C1AB92F87000644E4 /* ServerAPITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerAPITest.m; path = ../DeveloperBuild/ServerAPITest.m; sourceTree = "<group>"; };
+		E6ED3ADF1ADB7C5200099064 /* ic_notepad_copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_notepad_copy.png; sourceTree = "<group>"; };
+		E6ED3AE41ADB837800099064 /* ic_addobservation copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_addobservation copy.png"; sourceTree = "<group>"; };
+		E6ED3AE51ADB837800099064 /* ic_fieldguide copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_fieldguide copy.png"; sourceTree = "<group>"; };
+		E6ED3AE61ADB837800099064 /* ic_settings copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_settings copy.png"; sourceTree = "<group>"; };
 		F0395FE51A9835F700EE1BF9 /* detector.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = detector.cpp; path = ../../AlgTester/detector.cpp; sourceTree = "<group>"; };
 		F0395FE71A98360900EE1BF9 /* detector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = detector.h; path = ../../AlgTester/detector.h; sourceTree = "<group>"; };
 		F0395FE91A98365500EE1BF9 /* identified.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = identified.cpp; path = ../../AlgTester/identified.cpp; sourceTree = "<group>"; };
@@ -139,7 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0D848141A7768250043BEDD /* opencv2.framework in Frameworks */,
+				E6ED3AE31ADB7DBC00099064 /* opencv2.framework in Frameworks */,
 				16008CCA1AB62A7800672891 /* libc++.dylib in Frameworks */,
 				16C745901AB0EC0E0039AE3C /* AssetsLibrary.framework in Frameworks */,
 				16F8F55C1AA80828007FEEBE /* libsqlite3.dylib in Frameworks */,
@@ -163,6 +171,10 @@
 		165B6A1F1AA3F585004FE7CB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E6ED3AE41ADB837800099064 /* ic_addobservation copy.png */,
+				E6ED3AE51ADB837800099064 /* ic_fieldguide copy.png */,
+				E6ED3AE61ADB837800099064 /* ic_settings copy.png */,
+				E6ED3ADF1ADB7C5200099064 /* ic_notepad_copy.png */,
 				165B6A201AA3F5C4004FE7CB /* nocamera.png */,
 			);
 			name = Images;
@@ -394,20 +406,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6ED3AE91ADB837800099064 /* ic_settings copy.png in Resources */,
 				F0D4ED1E1AA59AA8008CBAD4 /* img_helper.h in Resources */,
 				F0D4ED1C1AA59A93008CBAD4 /* img_helper.cpp in Resources */,
 				F0D4ED191AA59926008CBAD4 /* vocabulary.xml in Resources */,
 				F0D4ED171AA59917008CBAD4 /* silene.xml in Resources */,
 				16CCBC3C1A773D71008B7E96 /* minuartia1.jpg in Resources */,
+				E6ED3AE81ADB837800099064 /* ic_fieldguide copy.png in Resources */,
 				16CCBC3A1A773D71008B7E96 /* IMG_2003.jpg in Resources */,
 				16CCBC401A773E00008B7E96 /* flower25.xml in Resources */,
 				16B052B61A5B4BDE007837B4 /* Main.storyboard in Resources */,
 				16CCBC3B1A773D71008B7E96 /* IMG_2278.JPG in Resources */,
 				16CCBC391A773D71008B7E96 /* IMG_1997.jpg in Resources */,
+				E6ED3AE21ADB7C5200099064 /* ic_notepad_copy.png in Resources */,
 				16B052BB1A5B4BDE007837B4 /* LaunchScreen.xib in Resources */,
 				165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */,
 				16CCBC411A773E00008B7E96 /* flower30.xml in Resources */,
 				16CCBC381A773D71008B7E96 /* IMG_1976.jpg in Resources */,
+				E6ED3AE71ADB837800099064 /* ic_addobservation copy.png in Resources */,
 				16B052B81A5B4BDE007837B4 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -576,6 +592,7 @@
 					/Users/jamiemiller/LuminousMossBosses/iOS,
 					/Users/jami4331/LuminousMossBosses/iOS,
 					/Users/jamie/LuminousMossBosses/iOS,
+					/Users/jackdskinner/Dropbox/LuminousMossBosses/iOS,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "FORIPHONE=1";
@@ -598,6 +615,7 @@
 					/Users/jamiemiller/LuminousMossBosses/iOS,
 					/Users/jami4331/LuminousMossBosses/iOS,
 					/Users/jamie/LuminousMossBosses/iOS,
+					/Users/jackdskinner/Dropbox/LuminousMossBosses/iOS,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "FORIPHONE=1";
