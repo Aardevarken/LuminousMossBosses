@@ -71,7 +71,7 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
 
 
 
-        //To be implemented for selecting individual observations
+        //For selecting individual observations in the list
         this.mDrawerList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -136,6 +136,7 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
         Cursor cursor = db.getObservationBySyncStatus(status);
         int is_silene;
         int id;
+        File file;
         if (cursor.moveToFirst())
             do{
                /* Uri iconUri = Uri.fromFile(new File(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_PHOTO_PATH))));
@@ -147,10 +148,16 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
 */
                 is_silene = cursor.getInt(cursor.getColumnIndex(DbHandler.KEY_IS_SILENE));
                 id = cursor.getInt(cursor.getColumnIndex(DbHandler.KEY_ID));
-                if (is_silene == 1)
-                    sileneList.add(new Observation(id, getActivity()));
-                else
-                    unknownList.add(new Observation(id, getActivity()));
+                file = new File(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_PHOTO_PATH)));
+                if(file.exists()) {
+                    if (is_silene == 1)
+                        sileneList.add(new Observation(id, getActivity()));
+                    else
+                        unknownList.add(new Observation(id, getActivity()));
+                }
+                else{
+                    db.deleteObservation(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_PHOTO_PATH)));
+                }
 
             }while(cursor.moveToNext());
 
