@@ -8,10 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		16008CCA1AB62A7800672891 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 16008CC91AB62A7800672891 /* libc++.dylib */; };
-		16008CCC1AB62C5200672891 /* detectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 165C45FD1AB54EE8006ECDDC /* detectionHelper.m */; };
+		16008CCC1AB62C5200672891 /* detectionHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 165C45FD1AB54EE8006ECDDC /* detectionHelper.mm */; };
 		161F47651A8ED7B300E67313 /* NewObs.m in Sources */ = {isa = PBXBuildFile; fileRef = 161F47641A8ED7B300E67313 /* NewObs.m */; };
 		1627A1271AB430D4009BD6EF /* ObsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1627A1261AB430D3009BD6EF /* ObsDetailViewController.m */; };
 		1642DE501ADC9A84002FB11C /* homeBtnIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */; };
+		1642DE531ADCA085002FB11C /* MyObsTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1642DE521ADCA085002FB11C /* MyObsTabBarController.m */; };
 		165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 165B6A201AA3F5C4004FE7CB /* nocamera.png */; };
 		165B6A271AA66418004FE7CB /* MyObservations.m in Sources */ = {isa = PBXBuildFile; fileRef = 165B6A251AA66418004FE7CB /* MyObservations.m */; };
 		16A6D8481A636C6F00CB4563 /* ObsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 160D23EB1A63396000F7B916 /* ObsTableViewController.m */; };
@@ -75,16 +76,19 @@
 		160D23ED1A63397B00F7B916 /* ObsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObsTableViewController.h; sourceTree = "<group>"; };
 		160D23EF1A633E3B00F7B916 /* Observation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Observation.h; sourceTree = "<group>"; };
 		160D23F21A635C3F00F7B916 /* ObservationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObservationCell.h; sourceTree = "<group>"; };
+		1616F7D51ADCA24000D9D7E8 /* libc++.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.1.dylib"; path = "usr/lib/libc++.1.dylib"; sourceTree = SDKROOT; };
 		161F47631A8ED7B300E67313 /* NewObs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewObs.h; sourceTree = "<group>"; };
 		161F47641A8ED7B300E67313 /* NewObs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewObs.m; sourceTree = "<group>"; };
 		1627A1251AB430D3009BD6EF /* ObsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObsDetailViewController.h; sourceTree = "<group>"; };
 		1627A1261AB430D3009BD6EF /* ObsDetailViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ObsDetailViewController.m; sourceTree = "<group>"; };
 		1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = homeBtnIcon.png; path = DeveloperBuild/homeBtnIcon.png; sourceTree = "<group>"; };
+		1642DE511ADCA085002FB11C /* MyObsTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyObsTabBarController.h; sourceTree = "<group>"; };
+		1642DE521ADCA085002FB11C /* MyObsTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyObsTabBarController.m; sourceTree = "<group>"; };
 		165B6A201AA3F5C4004FE7CB /* nocamera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nocamera.png; sourceTree = "<group>"; };
 		165B6A251AA66418004FE7CB /* MyObservations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyObservations.m; sourceTree = "<group>"; };
 		165B6A261AA66418004FE7CB /* MyObservations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyObservations.h; sourceTree = "<group>"; };
 		165C45FC1AB54EE8006ECDDC /* detectionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = detectionHelper.h; sourceTree = "<group>"; };
-		165C45FD1AB54EE8006ECDDC /* detectionHelper.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = detectionHelper.m; sourceTree = "<group>"; };
+		165C45FD1AB54EE8006ECDDC /* detectionHelper.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = detectionHelper.mm; sourceTree = "<group>"; };
 		16A6D84B1A63765C00CB4563 /* Observation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Observation.m; sourceTree = "<group>"; };
 		16A6D84D1A637DEA00CB4563 /* ObservationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObservationCell.m; sourceTree = "<group>"; };
 		16A6D84F1A6386C600CB4563 /* ObsTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObsTableView.h; sourceTree = "<group>"; };
@@ -103,7 +107,6 @@
 		16B052C51A5B4BDF007837B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16B052C61A5B4BDF007837B4 /* DeveloperBuildTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeveloperBuildTests.m; sourceTree = "<group>"; };
 		16B052D41A5B50C2007837B4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		16B052D91A5B51D7007837B4 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = System/Library/Frameworks/opencv2.framework; sourceTree = SDKROOT; };
 		16B052DB1A5B5327007837B4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		16B052DD1A5B5334007837B4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		16B2A6CD1A9D4D2200A73A86 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
@@ -210,7 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				165C45FC1AB54EE8006ECDDC /* detectionHelper.h */,
-				165C45FD1AB54EE8006ECDDC /* detectionHelper.m */,
+				165C45FD1AB54EE8006ECDDC /* detectionHelper.mm */,
 				16F8F5581AA7F522007FEEBE /* UserDataDatabase.h */,
 				16F8F5591AA7F522007FEEBE /* UserDataDatabase.m */,
 				16F8F5551AA7EA40007FEEBE /* UserData.h */,
@@ -235,6 +238,8 @@
 				16DBE0611ABA5C0700220872 /* SyncedObsTVC.m */,
 				16B052AE1A5B4BDE007837B4 /* AppDelegate.h */,
 				16B052AF1A5B4BDE007837B4 /* AppDelegate.m */,
+				1642DE511ADCA085002FB11C /* MyObsTabBarController.h */,
+				1642DE521ADCA085002FB11C /* MyObsTabBarController.m */,
 				160D23F21A635C3F00F7B916 /* ObservationCell.h */,
 				16A6D84D1A637DEA00CB4563 /* ObservationCell.m */,
 				16B052B11A5B4BDE007837B4 /* ViewController.h */,
@@ -279,6 +284,7 @@
 		16B052DF1A5B53D4007837B4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1616F7D51ADCA24000D9D7E8 /* libc++.1.dylib */,
 				16008CC91AB62A7800672891 /* libc++.dylib */,
 				16C7458F1AB0EC0E0039AE3C /* AssetsLibrary.framework */,
 				16F8F55B1AA80828007FEEBE /* libsqlite3.dylib */,
@@ -286,7 +292,6 @@
 				F0D848131A7768250043BEDD /* opencv2.framework */,
 				16B052DD1A5B5334007837B4 /* CoreGraphics.framework */,
 				16B052DB1A5B5327007837B4 /* UIKit.framework */,
-				16B052D91A5B51D7007837B4 /* opencv2.framework */,
 				16B052D41A5B50C2007837B4 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -460,8 +465,9 @@
 				16A6D8511A6386C600CB4563 /* ObsTableView.m in Sources */,
 				7968EC9B1AB91974000644E4 /* ServerAPI.m in Sources */,
 				16B052AD1A5B4BDE007837B4 /* main.m in Sources */,
+				1642DE531ADCA085002FB11C /* MyObsTabBarController.m in Sources */,
 				16DBE0621ABA5C0700220872 /* SyncedObsTVC.m in Sources */,
-				16008CCC1AB62C5200672891 /* detectionHelper.m in Sources */,
+				16008CCC1AB62C5200672891 /* detectionHelper.mm in Sources */,
 				16A6D84E1A637DEA00CB4563 /* ObservationCell.m in Sources */,
 				16F8F5571AA7EA40007FEEBE /* UserData.m in Sources */,
 				16A6D84C1A63765C00CB4563 /* Observation.m in Sources */,

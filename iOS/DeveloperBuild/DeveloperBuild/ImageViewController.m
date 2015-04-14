@@ -7,8 +7,8 @@
 //
 
 #import "ImageViewController.h"
-#import "opencv2/highgui/ios.h"
-#import "detector.h"
+//#import "opencv2/highgui/ios.h"
+//#import "detector.h"
 #import "MyObservations.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
@@ -168,6 +168,7 @@
 	
 }
 
+/*
 - (UIImage*) runDetection:(UIImage *)image{
 	
 	// Convert image to Mat for detection
@@ -193,7 +194,7 @@
 	// return UIImage
 	return MatToUIImage(detectedImage);
 }
-
+*/
 /*
  * imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"]; 
  * stores the hex id for the image in imageView under _storage in a UIImage format

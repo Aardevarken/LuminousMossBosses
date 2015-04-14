@@ -9,8 +9,8 @@
 #import "ObsDetailViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "detectionHelper.h"
-#import "detector.h"
-#import "opencv2/highgui/ios.h"
+//#import "detector.h"
+//#import "opencv2/highgui/ios.h"
 #import "UserDataDatabase.h"
 
 @interface ObsDetailViewController ()
