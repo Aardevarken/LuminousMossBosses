@@ -10,5 +10,6 @@
 
 @interface MyObsTabBarController : UITabBarController
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *camerBarBarIcon;
+- (IBAction)homeButton:(UIBarButtonItem *)sender;
 
 @end
