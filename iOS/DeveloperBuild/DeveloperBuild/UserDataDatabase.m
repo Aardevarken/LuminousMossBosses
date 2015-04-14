@@ -12,8 +12,7 @@
 #import "UserData.h"
 
 #define databaseName "userdata.db"
-//#define CREATE_DB_STMT "CREATE TABLE observations (imghexid text not null primary key, date datetime not null, latitude decimal(12,9) not null, longitude decimal(9,6) not null, status text not null default \"pending-noid\", percentIDed tinyint);"
-#define TESTING YES
+#define TESTING NO
 
 static UserDataDatabase* sharedInstance = nil;
 static NSString* databasePath = nil;
@@ -140,9 +139,8 @@ static NSDictionary* typeMap = nil;
 		latitude = [NSNumber numberWithDouble:bestEffortAtLocation.coordinate.latitude];
 		longitude = [NSNumber numberWithDouble:bestEffortAtLocation.coordinate.longitude];
 		date = bestEffortAtLocation.timestamp;
-		//NSLog(@"getting data from GPS");
 	} else {
-		//NSLog(@"Using user data");
+
 	}
 	
     NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO observations (imghexid, datetime, latitude, longitude, locationerror, percentIDed) VALUES ('%@','%@','%@','%@','%@','%@');", imghexid, date, latitude, longitude, locationError, percentIDed];
@@ -299,23 +297,22 @@ static NSDictionary* typeMap = nil;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-	//
-	CLLocation *newLocation = locations.lastObject;
+	// Get the last object updated.
+	CLLocation *newLocation = locations.lastObject;	// This could be factored out.
 
-	/** /
-	static unsigned int updateCount = 0;
-	if (locations.count == 1) {
-		NSLog(@"Update(%u) \t%@", updateCount, newLocation.description);
+	if (TESTING) {
+		static unsigned int updateCount = 0;
+		if (locations.count == 1) {
+			NSLog(@"Update(%u) \t%@", updateCount, newLocation.description);
+		}
+		else if (locations.count > 1){
+			#warning Need to check time stamp when multible GPS coordinates.
+		}
+		else {
+			#warning THIS SHOULD NEVER HIT!
+		}
+		++updateCount;
 	}
-	else if (locations.count > 1){
-		#warning Need to check time stamp when multible GPS coordinates.
-	}
-	else {
-		#warning THIS SHOULD NEVER HIT!
-	}
-	++updateCount;
-	/**/
-	
 	
 	// test that the horizontal accuracy does not indicate an invalid mesurement.
 	if (newLocation.horizontalAccuracy < 0) {
@@ -329,14 +326,6 @@ static NSDictionary* typeMap = nil;
 	if (locationAge > 5.0) {
 		return;
 	}
-	
-	
-	//NSLog(@"New Horizontal Accuracy \t%f (float)", newLocation.horizontalAccuracy);
-	//NSLog(@"New Vertial Accuracy \t%f (float)", newLocation.verticalAccuracy);
-	//NSLog(@"Desired Accuracy \t\t%f (float)", self.locationManager.desiredAccuracy);
-	//NSLog(@"Best Horizontal Accuracy\t%f (float)", bestEffortAtLocation.horizontalAccuracy);
-	//NSLog(@"Best Vertial Accuracy\t%f (float)", bestEffortAtLocation.verticalAccuracy);
-	//NSLog(@"\n---------------------------\n");
 	
 	// test the mesurement to see if it is more accurate than the previous mesurement
 	if (bestEffortAtLocation == nil || bestEffortAtLocation.horizontalAccuracy > newLocation.horizontalAccuracy) {
@@ -374,9 +363,6 @@ static NSDictionary* typeMap = nil;
 
 				
 				NSLog(@"\n");
-			}
-			else {
-				NSLog(@"Description \t%@", newLocation.description);
 			}
 			[self stopUpdatingLocationWithMessage:NSLocalizedString(@"Aquired Location", @"Acuired Location")];
 		}
@@ -423,7 +409,6 @@ static NSDictionary* typeMap = nil;
 }
 
 - (void)stopUpdatingLocationWithMessage:(NSString *) state{
-	NSLog(@"%@", state);
 	[self.locationManager stopUpdatingLocation];
 	self.locationManager.delegate = nil;
 }
