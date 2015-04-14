@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YG4-3z-Mqu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="JZg-NG-KoW">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -7,10 +7,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--MainMenu-->
         <scene sceneID="a5D-DU-B3L">
             <objects>
-                <viewController id="JZg-NG-KoW" sceneMemberID="viewController">
+                <viewController title="MainMenu" id="JZg-NG-KoW" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IK4-Ys-Ccv"/>
                         <viewControllerLayoutGuide type="bottom" id="pBA-ZR-2jU"/>
@@ -158,10 +158,10 @@
             </objects>
             <point key="canvasLocation" x="2692.5" y="236.25"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings-->
         <scene sceneID="QQg-he-mJm">
             <objects>
-                <viewController id="gpg-h8-n5S" sceneMemberID="viewController">
+                <viewController title="Settings" id="gpg-h8-n5S" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XII-zF-bMX"/>
                         <viewControllerLayoutGuide type="bottom" id="nTu-cn-gzB"/>
@@ -205,12 +205,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JTR-HQ-ZHX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2722.5" y="1125.75"/>
+            <point key="canvasLocation" x="2692.5" y="1857.75"/>
         </scene>
-        <!--Table View Controller-->
+        <!--List of Plants-->
         <scene sceneID="98H-hs-FcN">
             <objects>
-                <tableViewController id="UHb-zH-YtC" sceneMemberID="viewController">
+                <tableViewController title="List of Plants" id="UHb-zH-YtC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="92" sectionHeaderHeight="22" sectionFooterHeight="22" id="vB9-4p-oYj">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -313,10 +313,10 @@
             </objects>
             <point key="canvasLocation" x="3703.5" y="-776.25"/>
         </scene>
-        <!--View Controller-->
+        <!--Plant Description-->
         <scene sceneID="4pz-fn-JBo">
             <objects>
-                <viewController id="TcK-e3-pBG" sceneMemberID="viewController">
+                <viewController title="Plant Description" id="TcK-e3-pBG" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="n1G-7b-M8M"/>
                         <viewControllerLayoutGuide type="bottom" id="Szz-dO-qRs"/>
@@ -438,10 +438,10 @@
             </objects>
             <point key="canvasLocation" x="4623" y="-776.25"/>
         </scene>
-        <!--View Controller-->
+        <!--Map-->
         <scene sceneID="dl1-Tm-UwQ">
             <objects>
-                <viewController id="UlK-1z-G1m" sceneMemberID="viewController">
+                <viewController title="Map" id="UlK-1z-G1m" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2Cr-zF-XSr"/>
                         <viewControllerLayoutGuide type="bottom" id="CHM-zm-mtN"/>
@@ -516,9 +516,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f8J-9J-QBo">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" red="0.56078361742424243" green="0.56078361742424243" blue="0.56078361742424243" alpha="1" colorSpace="calibratedRGB"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
-                                </variation>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5wi-jR-wS1">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -529,9 +526,6 @@
                                         <state key="normal" title="Take Photo">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="0.0" y="18" width="282" height="30"/>
-                                        </variation>
                                         <connections>
                                             <action selector="getPhoto:" destination="FEo-qL-flj" eventType="touchUpInside" id="Hx3-Kb-7Jh"/>
                                         </connections>
@@ -542,9 +536,6 @@
                                         <state key="normal" title="Select Photo">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="286" y="18" width="282" height="30"/>
-                                        </variation>
                                         <connections>
                                             <action selector="getPhoto:" destination="FEo-qL-flj" eventType="touchUpInside" id="nhT-4q-9Jn"/>
                                         </connections>
@@ -555,12 +546,9 @@
                                         <state key="normal" title="Add Observation">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="0.0" y="52" width="568" height="30"/>
-                                        </variation>
                                         <connections>
                                             <action selector="addObservation:" destination="FEo-qL-flj" eventType="touchUpInside" id="hcg-6Y-zmW"/>
-                                            <segue destination="RUX-GZ-8M9" kind="show" id="N9D-NG-IVE"/>
+                                            <segue destination="RUX-GZ-8M9" kind="show" identifier="" id="N9D-NG-IVE"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -618,8 +606,7 @@
                                         <exclude reference="z02-G6-dkY"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="16" y="446" width="568" height="90"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="7Rf-uj-uvT"/>
                                         <include reference="HR0-6K-ExJ"/>
@@ -763,9 +750,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="200" y="25" width="79" height="36"/>
-                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -840,8 +824,7 @@
                                         <exclude reference="j4F-6U-mEO"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="47" width="600" height="630"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <exclude reference="6cp-Pn-uAs"/>
                                         <include reference="awU-vT-vA3"/>
@@ -1171,10 +1154,7 @@
                         </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Pending" id="Cq2-ta-QY5"/>
-                    <toolbarItems>
-                        <barButtonItem title="Item" id="TgU-9I-T4P"/>
-                        <barButtonItem title="Item" id="g1t-fW-ULI"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="IsI-qm-tif" id="902-oi-KQh"/>
@@ -1429,10 +1409,10 @@
             </objects>
             <point key="canvasLocation" x="7215" y="813.75"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation to My Observations List-->
         <scene sceneID="4Rc-KZ-DDb">
             <objects>
-                <navigationController id="RUX-GZ-8M9" sceneMemberID="viewController">
+                <navigationController title="Navigation to My Observations List" id="RUX-GZ-8M9" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BgZ-T9-fND">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1450,6 +1430,11 @@
             <objects>
                 <tabBarController title="MyObservations" id="TvY-dZ-Mzy" customClass="MyObsTabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="0GP-Qo-gX9">
+                        <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="V3J-ma-crV">
+                            <connections>
+                                <segue destination="JZg-NG-KoW" kind="show" id="A6a-AQ-xda"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="yyX-HC-nkN">
                             <connections>
                                 <segue destination="FEo-qL-flj" kind="show" identifier="CameraBarButtonSegue" id="mth-UZ-qS1"/>
@@ -1472,10 +1457,10 @@
             </objects>
             <point key="canvasLocation" x="5293.5" y="813.75"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation to Feild Guide-->
         <scene sceneID="lmD-9e-tns">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="D35-K4-Nvt" sceneMemberID="viewController">
+                <navigationController title="Navigation to Feild Guide" automaticallyAdjustsScrollViewInsets="NO" id="D35-K4-Nvt" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="geF-RU-ew8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1490,10 +1475,10 @@
             </objects>
             <point key="canvasLocation" x="2785.5" y="-773.25"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation to Settings-->
         <scene sceneID="Lwh-Zh-GQV">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uiJ-Hk-4AH" sceneMemberID="viewController">
+                <navigationController title="Navigation to Settings" automaticallyAdjustsScrollViewInsets="NO" id="uiJ-Hk-4AH" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Q2y-Y5-L3h">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1506,28 +1491,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JrF-sB-Uoj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1804.5" y="1125.75"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="M4a-tu-wlT">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YG4-3z-Mqu" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="AgS-YF-K8L">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="3yW-jY-phr">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
-                    <connections>
-                        <segue destination="JZg-NG-KoW" kind="relationship" relationship="rootViewController" id="UUU-o4-rZe"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XVN-bW-Rjk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1804.5" y="302.25"/>
+            <point key="canvasLocation" x="2692.5" y="1095.75"/>
         </scene>
     </scenes>
     <resources>
@@ -1540,6 +1504,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="N9D-NG-IVE"/>
         <segue reference="mth-UZ-qS1"/>
-        <segue reference="A5Q-uz-ERG"/>
+        <segue reference="qX3-aw-dSK"/>
     </inferredMetricsTieBreakers>
 </document>

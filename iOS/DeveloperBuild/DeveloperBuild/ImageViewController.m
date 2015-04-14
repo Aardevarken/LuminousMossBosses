@@ -250,6 +250,15 @@
 }
 */
 
+#pragma mark - Navigation
+
+/*
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+	if ([segue.identifier isEqualToString:@"AddingObservationSegue"]) {
+		[self.navigationController popViewControllerAnimated:NO];
+	}
+}
+*/
 @end
 
 
