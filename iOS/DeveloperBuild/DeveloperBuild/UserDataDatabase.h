@@ -44,6 +44,8 @@
 
 -(BOOL) deleteObservationByID:(NSString*) imghexid;
 
+-(void) removeDeletedAssets;
+
 -(void) startLocationTracking;
 -(void) stopLocationTracking;
 -(void) getGPS;

@@ -11,6 +11,7 @@
 		16008CCC1AB62C5200672891 /* detectionHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 165C45FD1AB54EE8006ECDDC /* detectionHelper.mm */; };
 		161F47651A8ED7B300E67313 /* NewObs.m in Sources */ = {isa = PBXBuildFile; fileRef = 161F47641A8ED7B300E67313 /* NewObs.m */; };
 		1627A1271AB430D4009BD6EF /* ObsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1627A1261AB430D3009BD6EF /* ObsDetailViewController.m */; };
+		162FAD841ADDA83100F811CD /* MyObservationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 162FAD831ADDA83100F811CD /* MyObservationData.m */; };
 		1642DE501ADC9A84002FB11C /* homeBtnIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */; };
 		1642DE531ADCA085002FB11C /* MyObsTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1642DE521ADCA085002FB11C /* MyObsTabBarController.m */; };
 		165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 165B6A201AA3F5C4004FE7CB /* nocamera.png */; };
@@ -81,6 +82,8 @@
 		161F47641A8ED7B300E67313 /* NewObs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewObs.m; sourceTree = "<group>"; };
 		1627A1251AB430D3009BD6EF /* ObsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObsDetailViewController.h; sourceTree = "<group>"; };
 		1627A1261AB430D3009BD6EF /* ObsDetailViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ObsDetailViewController.m; sourceTree = "<group>"; };
+		162FAD821ADDA83100F811CD /* MyObservationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyObservationData.h; sourceTree = "<group>"; };
+		162FAD831ADDA83100F811CD /* MyObservationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyObservationData.m; sourceTree = "<group>"; };
 		1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = homeBtnIcon.png; path = DeveloperBuild/homeBtnIcon.png; sourceTree = "<group>"; };
 		1642DE511ADCA085002FB11C /* MyObsTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyObsTabBarController.h; sourceTree = "<group>"; };
 		1642DE521ADCA085002FB11C /* MyObsTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyObsTabBarController.m; sourceTree = "<group>"; };
@@ -216,6 +219,8 @@
 				165C45FD1AB54EE8006ECDDC /* detectionHelper.mm */,
 				16F8F5581AA7F522007FEEBE /* UserDataDatabase.h */,
 				16F8F5591AA7F522007FEEBE /* UserDataDatabase.m */,
+				162FAD821ADDA83100F811CD /* MyObservationData.h */,
+				162FAD831ADDA83100F811CD /* MyObservationData.m */,
 				16F8F5551AA7EA40007FEEBE /* UserData.h */,
 				16F8F5561AA7EA40007FEEBE /* UserData.m */,
 				160D23EF1A633E3B00F7B916 /* Observation.h */,
@@ -467,6 +472,7 @@
 				16B052AD1A5B4BDE007837B4 /* main.m in Sources */,
 				1642DE531ADCA085002FB11C /* MyObsTabBarController.m in Sources */,
 				16DBE0621ABA5C0700220872 /* SyncedObsTVC.m in Sources */,
+				162FAD841ADDA83100F811CD /* MyObservationData.m in Sources */,
 				16008CCC1AB62C5200672891 /* detectionHelper.mm in Sources */,
 				16A6D84E1A637DEA00CB4563 /* ObservationCell.m in Sources */,
 				16F8F5571AA7EA40007FEEBE /* UserData.m in Sources */,

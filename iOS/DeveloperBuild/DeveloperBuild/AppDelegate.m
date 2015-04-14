@@ -29,8 +29,13 @@ NSMutableArray *_observations;
 		[servicesDisabledAlert show];
 	}
 	else{
+		// Start the GPS tracking
 		[[UserDataDatabase getSharedInstance] startLocationTracking];
 	}
+	
+	// Clean up the database
+	[[UserDataDatabase getSharedInstance] removeDeletedAssets];
+
 	return YES;
 }
 
@@ -52,6 +57,9 @@ NSMutableArray *_observations;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 	// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+
+	// Clean up the database
+	[[UserDataDatabase getSharedInstance] removeDeletedAssets];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

@@ -10,6 +10,7 @@
 
 #import "UserDataDatabase.h"
 #import "UserData.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 #define databaseName "userdata.db"
 #define TESTING NO
@@ -160,6 +161,19 @@ static NSDictionary* typeMap = nil;
     return [self runBoolQuery:deleteSQL];
 }
 
+/**
+ * Finds a single observation by id and returns it's columns as a dictionary, or nil on error.
+ */
+-(NSDictionary*) findObservationByID:(NSString *)imghexid {
+	NSString* query = [NSString stringWithFormat:@"SELECT * FROM observations WHERE imghexid='%@' LIMIT 1;", imghexid];
+	NSArray* results = [self runTableQuery:query];
+	if (results != nil && results.count > 0) {
+		return results[0];
+	} else {
+		return nil;
+	}
+}
+
 
 /**
  * Runs a query that returns a table, table will be given back as an NSArray of NSDictionaries, with keys being the string
@@ -241,18 +255,27 @@ static NSDictionary* typeMap = nil;
 }
 
 /**
- * Finds a single observation by id and returns it's columns as a dictionary, or nil on error.
+ * Remove all assets that no longer exists
  */
--(NSDictionary*) findObservationByID:(NSString *)imghexid {
-	NSString* query = [NSString stringWithFormat:@"SELECT * FROM observations WHERE imghexid='%@' LIMIT 1;", imghexid];
-    NSArray* results = [self runTableQuery:query];
-    if (results != nil && results.count > 0) {
-        return results[0];
-    } else {
-        return nil;
-    }
+- (void)removeDeletedAssets{
+	NSString *allDataStmt = [NSString stringWithFormat:@"SELECT imghexid FROM observations;"];
+	NSArray *allData = [self runTableQuery:allDataStmt];
+	
+	
+	ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
+	//NSURL *url;
+	for (id object in allData){
+		NSURL *url = [NSURL URLWithString:[object objectForKey:@"imghexid"]];
+		
+		[lib assetForURL:url
+			 resultBlock:^(ALAsset *asset) {
+				 NSLog(@"Asset: %@ exists", asset);
+			 }
+			failureBlock:^(NSError *error) {
+				[self deleteObservationByID:[object objectForKey:@"imghexid"]];
+		}];
+	}
 }
-
 
 -(BOOL) printResults:(NSArray*) array
 {
@@ -275,7 +298,7 @@ static NSDictionary* typeMap = nil;
 	self.locationManager.delegate = self;
 	
 	// This is the most important property to set for the manager. It ultimately determines how the mannager will attempt to acquire location and thus, the amount of power that will be consumed.
-	self.locationManager.desiredAccuracy =  kCLLocationAccuracyBest;//kCLLocationAccuracyNearestTenMeters;
+	self.locationManager.desiredAccuracy =  kCLLocationAccuracyBest;
 	
 	// NOT SURE WHAT THE FOLLOWING IS FOR
 	//
