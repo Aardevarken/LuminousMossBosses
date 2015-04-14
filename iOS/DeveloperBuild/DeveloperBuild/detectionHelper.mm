@@ -66,105 +66,91 @@
 	// Local variables
 	BOOL animate = YES;	// decides if the should the progress bar be animated.
 	
-	// create a queue for our tasks to be put in.
-	//dispatch_queue_t backgroundIdentificationAlg = dispatch_queue_create("IdentificationAlg", DISPATCH_QUEUE_CONCURRENT);
+	// set progress to +0.1*percentMultiplyer to indicate that this thread has started
+	[self updatePercentCompleated: 0.1*percentMultiplier];
 	
-	//dispatch_async(backgroundIdentificationAlg, ^{
-		// set progress to +0.1*percentMultiplyer to indicate that this thread has started
-		[self updatePercentCompleated: 0.1*percentMultiplier];
-		
-		/////////////////////////
-		// update progress bar //
-		dispatch_sync(dispatch_get_main_queue(), ^{
-			[progressBar setProgress:[self getCurrentProgress] animated:animate];
-		});
-    
-
-    
-    
-		
-		// stage 0, preping
-		Mat cvImage;
-        // By default all images saved to the gallery on iPhone are landscape with a field in the EXIF data specifying if
-        // it is actually portrait. This will remove that orientation field from the EXIF data and rotate the physical pixels,
-        // making it easier to convert back and forth to a Mat.
-        UIImage* normalizedImage;
-        if (unknownImage.imageOrientation == UIImageOrientationUp) {
-            normalizedImage = unknownImage;
-        } else {
-            UIGraphicsBeginImageContextWithOptions(unknownImage.size, NO, unknownImage.scale);
-            [unknownImage drawInRect:(CGRect){0, 0, unknownImage.size}];
-            normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
-            UIGraphicsEndImageContext();
-        }
-		UIImageToMat(normalizedImage, cvImage);
-
-		// Load openCV classifiers
-		NSString *flowerXMLPath = [[NSBundle mainBundle] pathForResource:@"flower25" ofType:@"xml"];
-		NSString *vocabXMLPath = [[NSBundle mainBundle] pathForResource:@"vocabulary" ofType:@"xml"];
-		NSString *sileneXMLPath = [[NSBundle mainBundle] pathForResource:@"silene" ofType:@"xml"];
-		
-		/////////////////////////
-		// update progress bar //
-		[self updatePercentCompleated:0.2*percentMultiplier];
-		dispatch_sync(dispatch_get_main_queue(), ^{
-			[progressBar setProgress:[self getCurrentProgress] animated:animate];
-		});
-		
-		// stage 1
-		
-		// run detection
-		detector flowerDetector([flowerXMLPath UTF8String], [vocabXMLPath UTF8String], [sileneXMLPath UTF8String]);
-		
-		// circle flowers
-		Mat detectedImage = flowerDetector.circlePinkFlowers(cvImage);
-		
-		// convert image to UIImage
-		UIImage* newImage = MatToUIImage(detectedImage);
-		identifiedImage = newImage;
-		
-		/////////////////////////
-		// update progress bar //
-		[self updatePercentCompleated:0.4*percentMultiplier];
-		dispatch_sync(dispatch_get_main_queue(), ^{
-			[progressBar setProgress:[self getCurrentProgress] animated:animate];
-		});
-		
-		// do something here for stage 2
-		Mat cvImageBGR;
-		cvtColor(cvImage, cvImageBGR, CV_BGR2RGB);
-		probability = flowerDetector.probability(cvImageBGR);
-		
-		/////////////////////////
-		// update progress bar //
-		[self updatePercentCompleated:0.6*percentMultiplier];
-		dispatch_sync(dispatch_get_main_queue(), ^{
-			[progressBar setProgress:[self getCurrentProgress] animated:animate];
-		});
-		
-		// do something here for stage 3
-		//UIImageToMat(unknownImage, cvImage);
-		isSilene = flowerDetector.isThisSilene(cvImageBGR);
-		
-		/////////////////////////
-		// update progress bar //
-		[self updatePercentCompleated:0.8*percentMultiplier];
-		dispatch_sync(dispatch_get_main_queue(), ^{
-			[progressBar setProgress:[self getCurrentProgress] animated:animate];
-		});
-		
-		// do something here for stage 4
-		
-		// set progress bar to 100%
-		[self updatePercentCompleated:1.0*percentMultiplier];
-		dispatch_sync(dispatch_get_main_queue(), ^{
-			[progressBar setProgress:[self getCurrentProgress] animated:animate];
-			progressBar.hidden = YES;
-		});
+	/*** CODE REVIEW THE FOLLOWING ***/
+	// update progress bar
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		[progressBar setProgress:[self getCurrentProgress] animated:animate];
+	});
+	/*** END OF CODE REVIEW ***/
 	
-	//});
+	//////////////////////
+	// stage 0: Preping //
+	Mat cvImage;
+	// By default all images saved to the gallery on iPhone are landscape with a field in the EXIF data specifying if it is actually portrait. This will remove that orientation field from the EXIF data and rotate the physical pixels, making it easier to convert back and forth to a Mat.
+	UIImage* normalizedImage;
+	if (unknownImage.imageOrientation == UIImageOrientationUp) {
+		normalizedImage = unknownImage;
+	} else {
+		UIGraphicsBeginImageContextWithOptions(unknownImage.size, NO, unknownImage.scale);
+		[unknownImage drawInRect:(CGRect){0, 0, unknownImage.size}];
+		normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
+		UIGraphicsEndImageContext();
+	}
+	UIImageToMat(normalizedImage, cvImage);
 
-	// if the calling thread needs to do anything, do it here
+	// Load openCV classifiers
+	NSString *flowerXMLPath = [[NSBundle mainBundle] pathForResource:@"flower25" ofType:@"xml"];
+	NSString *vocabXMLPath = [[NSBundle mainBundle] pathForResource:@"vocabulary" ofType:@"xml"];
+	NSString *sileneXMLPath = [[NSBundle mainBundle] pathForResource:@"silene" ofType:@"xml"];
+	
+	// update progress bar
+	[self updatePercentCompleated:0.2*percentMultiplier];
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		[progressBar setProgress:[self getCurrentProgress] animated:animate];
+	});
+
+	/////////////
+	// stage 1 //
+	// run detection
+	detector flowerDetector([flowerXMLPath UTF8String], [vocabXMLPath UTF8String], [sileneXMLPath UTF8String]);
+	
+	// circle flowers
+	Mat detectedImage = flowerDetector.circlePinkFlowers(cvImage);
+	
+	// convert image to UIImage
+	UIImage* newImage = MatToUIImage(detectedImage);
+	identifiedImage = newImage;
+	
+	// update progress bar
+	[self updatePercentCompleated:0.4*percentMultiplier];
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		[progressBar setProgress:[self getCurrentProgress] animated:animate];
+	});
+	
+	/////////////
+	// stage 2 //
+	Mat cvImageBGR;
+	cvtColor(cvImage, cvImageBGR, CV_BGR2RGB);
+	probability = flowerDetector.probability(cvImageBGR);
+	
+	// update progress bar //
+	[self updatePercentCompleated:0.6*percentMultiplier];
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		[progressBar setProgress:[self getCurrentProgress] animated:animate];
+	});
+	
+	/////////////
+	// stage 3 //
+	//UIImageToMat(unknownImage, cvImage);
+	isSilene = flowerDetector.isThisSilene(cvImageBGR);
+	
+	// update progress bar
+	[self updatePercentCompleated:0.8*percentMultiplier];
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		[progressBar setProgress:[self getCurrentProgress] animated:animate];
+	});
+	
+	/////////////
+	// stage 4 //
+	// set progress bar to 100%
+	[self updatePercentCompleated:1.0*percentMultiplier];
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		[progressBar setProgress:[self getCurrentProgress] animated:animate];
+		progressBar.hidden = YES;
+	});
 }
 
 @end
