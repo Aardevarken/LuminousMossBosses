@@ -72,8 +72,6 @@
 									 metadata:[pictureInfo objectForKey:UIImagePickerControllerMediaMetadata]
 							  completionBlock:^(NSURL *assetURL, NSError *error) {
 								  
-								  //NSLog(@"assertURL %@", assetURL);
-								  
 								  selectedAsset = [NSString stringWithFormat:@"%@", assetURL];
 								  /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"assetURL: %@", assetURL]
 								   message:nil
@@ -113,12 +111,13 @@
 	
 	if(selectedAsset == nil){
 		ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-		[library writeImageToSavedPhotosAlbum:((UIImage *)[pictureInfo objectForKey:UIImagePickerControllerOriginalImage]).CGImage//(imageView.image).CGImage
+		[library writeImageToSavedPhotosAlbum:((UIImage *)[pictureInfo objectForKey:UIImagePickerControllerOriginalImage]).CGImage
 									 metadata:[pictureInfo objectForKey:UIImagePickerControllerMediaMetadata]
 							  completionBlock:^(NSURL *assetURL, NSError *error) {
 									selectedAsset = [NSString stringWithFormat:@"%@", assetURL];
 							  }];
 	}
+
 	// for testing
 	if(TESTING){
 	static int imgnum = 1;
@@ -128,8 +127,6 @@
 		NSLog(@"object: %@", [info objectForKey:@"UIImagePickerControllerOriginalImage"]);
 		NSLog(@"%@===%@",breakSymbol, breakSymbol);
 	}
-	//UIImage* image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-	//imageView.image = [self runDetection:image classifierName:@"flower25" classifierType:@"xml"];
 }
 
 
@@ -145,31 +142,28 @@
 		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
 	}
 	
-	
-	
-	//[self presentModalViewController:picker animated:YES];
 	[self presentViewController:picker animated:YES completion:NULL];
 }
 
 - (IBAction)addObservation:(UIButton *)sender {
 	
 	// use this to find the location of the database on your mechine disk.
-	if(false)
+	if(TESTING){
 		NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject]);
+	}
 	
 	BOOL success = NO;
 	NSString *alertString = @"Data insertion failed";
 	
-	// save image to photos
-	//[self saveObsToPhotos];
-	
 	// get image asset
 	NSString *img = [NSString stringWithFormat:@"%@", selectedAsset];//self.capedImg];
 	
+	
+	/*** NEEDS CODE REVIEW ***/
 	// get current date and time
-	/* **************************************************************** *\
-	 |* for unicode info about the date format reference:				*|
-	 |* http://unicode.org/reports/tr35/tr35-6.html#Date_Format_Patterns	*|
+	 /* **************************************************************** *\
+	 |* for unicode info about the date format reference:				 *|
+	 |* http://unicode.org/reports/tr35/tr35-6.html#Date_Format_Patterns *|
 	 \* **************************************************************** */
 	NSDate *today = [NSDate date];
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -189,17 +183,14 @@
 		return;
 	}
 	
-	if(TRUE){
-		success = [[UserDataDatabase getSharedInstance] saveObservation:img date:nullptr latitude:nullptr longitude:nullptr locationError:[NSNumber numberWithDouble:100.0] percentIDed:NULL];
-	}
-	else {
-	}
+	
+	success = [[UserDataDatabase getSharedInstance] saveObservation:img date:nullptr latitude:nullptr longitude:nullptr locationError:[NSNumber numberWithDouble:100.0] percentIDed:NULL];
 	
 	if (success == NO) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 	}
-	
+	/*** END OF CODE REVIEW ***/
 }
 
 /*

@@ -17,15 +17,10 @@
 	
 }
 
-/* in old tutorial for getting camera to work. */
-//@property (strong, nonatomic) IBOutlet UIImageView *imageView;
-//- (IBAction)takePhoto:(UIButton *)sender;
-//- (IBAction)selectPhoto:(UIButton *)sender;
-
 @property (nonatomic, retain) IBOutlet UIImageView * imageView;
 @property (nonatomic, retain) IBOutlet UIButton * choosePhotoBtn;
 @property (nonatomic, retain) IBOutlet UIButton * takePhotoBtn;
-@property (nonatomic, retain) IBOutlet UIButton * addObsBtn;
+@property (nonatomic, retain) IBOutlet UIButton * addObsBtn;	// might not need
 
 - (IBAction)getPhoto:(id) sender;
 - (IBAction)addObservation:(UIButton *)sender;
