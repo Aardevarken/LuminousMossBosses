@@ -77,7 +77,7 @@ public class SendPostActivity extends AsyncTask<Object,Void,Integer>{
         if (result == STATUS_OK){
             Toast.makeText(context,"Your observation was sent! Thanks for contributing to science",Toast.LENGTH_LONG).show();
 
-            DbHandler db = new DbHandler(context);
+            ObservationDBHandler db = new ObservationDBHandler(context);
             db.updateSyncedStatus(observationId);
 
         }

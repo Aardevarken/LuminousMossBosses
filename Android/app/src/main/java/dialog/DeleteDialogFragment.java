@@ -1,19 +1,12 @@
 package dialog;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import com.luminousmossboss.luminous.DbHandler;
-import com.luminousmossboss.luminous.MainActivity;
-import com.luminousmossboss.luminous.ObservationFragment;
 import com.luminousmossboss.luminous.R;
-import com.luminousmossboss.luminous.model.Observation;
 
 /**
  * Created by Brian on 4/6/2015.

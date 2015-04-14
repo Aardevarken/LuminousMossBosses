@@ -5,11 +5,10 @@ import android.database.Cursor;
 import android.location.Location;
 import android.net.Uri;
 
-import com.luminousmossboss.luminous.DbHandler;
+import com.luminousmossboss.luminous.ObservationDBHandler;
 
 import java.io.File;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 
 /**
  * Created by Andrey on 2/1/2015.
@@ -45,16 +44,16 @@ public class Observation extends ListItem implements Serializable {
     public Observation(int id, Context context)
     {
         this.id = id;
-        DbHandler db =  new DbHandler(context);
+        ObservationDBHandler db =  new ObservationDBHandler(context);
         Cursor cursor = db.getObservationById(id);
         if(cursor.moveToFirst()) {
-            setIcon(Uri.fromFile(new File(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_PHOTO_PATH)))));
-            setDate(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_TIME_TAKEN)));
+            setIcon(Uri.fromFile(new File(cursor.getString(cursor.getColumnIndex(ObservationDBHandler.KEY_PHOTO_PATH)))));
+            setDate(cursor.getString(cursor.getColumnIndex(ObservationDBHandler.KEY_TIME_TAKEN)));
 
-            latitude = cursor.getDouble(cursor.getColumnIndex(DbHandler.KEY_LATITUDE));
-            longitude = cursor.getDouble(cursor.getColumnIndex(DbHandler.KEY_LONGITUDE));
+            latitude = cursor.getDouble(cursor.getColumnIndex(ObservationDBHandler.KEY_LATITUDE));
+            longitude = cursor.getDouble(cursor.getColumnIndex(ObservationDBHandler.KEY_LONGITUDE));
 
-            is_silene = cursor.getInt(cursor.getColumnIndex(DbHandler.KEY_IS_SILENE)) > 0;
+            is_silene = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_IS_SILENE)) > 0;
 
             if (is_silene)
                 setTitle("Silene Aculis");
@@ -64,7 +63,7 @@ public class Observation extends ListItem implements Serializable {
     }
     public void updateIsSilene(boolean status, Context context)
     {
-        DbHandler db = new DbHandler(context);
+        ObservationDBHandler db = new ObservationDBHandler(context);
         db.updateIsSilene(id, status);
         if(status)
         {

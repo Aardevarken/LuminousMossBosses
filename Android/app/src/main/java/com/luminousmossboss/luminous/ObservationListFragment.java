@@ -4,14 +4,12 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 
@@ -43,7 +41,7 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
     private ArrayList<ListItem> listItems;
 
     private ArrayList<Observation> selectedObservations;
-    private DbHandler db;
+    private ObservationDBHandler db;
 
     private RadioButton mTabPending;
     private RadioButton mTabSynced;
@@ -66,7 +64,7 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
         rootView = inflater.inflate(R.layout.fragment_observationlist, container, false);
         this.container = container;
         final Activity activity = getActivity();
-        this.db = new DbHandler(activity);
+        this.db = new ObservationDBHandler(activity);
         initList(rootView, container, 0);
 
 
@@ -139,16 +137,16 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
         File file;
         if (cursor.moveToFirst())
             do{
-               /* Uri iconUri = Uri.fromFile(new File(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_PHOTO_PATH))));
-                String date= cursor.getString(cursor.getColumnIndex(DbHandler.KEY_TIME_TAKEN));
+               /* Uri iconUri = Uri.fromFile(new File(cursor.getString(cursor.getColumnIndex(ObservationDBHandler.KEY_PHOTO_PATH))));
+                String date= cursor.getString(cursor.getColumnIndex(ObservationDBHandler.KEY_TIME_TAKEN));
 
-                Double latitude = cursor.getDouble(cursor.getColumnIndex(DbHandler.KEY_LATITUDE));
-                Double longitude = cursor.getDouble(cursor.getColumnIndex(DbHandler.KEY_LONGITUDE));
+                Double latitude = cursor.getDouble(cursor.getColumnIndex(ObservationDBHandler.KEY_LATITUDE));
+                Double longitude = cursor.getDouble(cursor.getColumnIndex(ObservationDBHandler.KEY_LONGITUDE));
 
 */
-                is_silene = cursor.getInt(cursor.getColumnIndex(DbHandler.KEY_IS_SILENE));
-                id = cursor.getInt(cursor.getColumnIndex(DbHandler.KEY_ID));
-                file = new File(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_PHOTO_PATH)));
+                is_silene = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_IS_SILENE));
+                id = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_ID));
+                file = new File(cursor.getString(cursor.getColumnIndex(ObservationDBHandler.KEY_PHOTO_PATH)));
                 if(file.exists()) {
                     if (is_silene == 1)
                         sileneList.add(new Observation(id, getActivity()));
@@ -156,7 +154,7 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
                         unknownList.add(new Observation(id, getActivity()));
                 }
                 else{
-                    db.deleteObservation(cursor.getString(cursor.getColumnIndex(DbHandler.KEY_PHOTO_PATH)));
+                    db.deleteObservation(cursor.getString(cursor.getColumnIndex(ObservationDBHandler.KEY_PHOTO_PATH)));
                 }
 
             }while(cursor.moveToNext());

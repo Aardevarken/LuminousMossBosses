@@ -1,9 +1,7 @@
 package com.luminousmossboss.luminous;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,7 +12,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -54,7 +51,7 @@ public class MainActivity extends Activity {
 
     //For handling location
     protected GPSTracker mGPS;
-    private DbHandler db;
+    private ObservationDBHandler db;
 
     //For keeping track of the Photo:
     String mCurrentPhotoPath;
@@ -80,7 +77,7 @@ public class MainActivity extends Activity {
 
         mTitle = mDrawerTitle = getTitle();
         mGPS = new GPSTracker(this);
-        db = new DbHandler(this);
+        db = new ObservationDBHandler(this);
 
         // load slide menu items
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
@@ -366,13 +363,13 @@ public class MainActivity extends Activity {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ", Locale.US);
             String timeNow = sdf.format(new Date());
             HashMap<String, String> map = new HashMap<String, String>();
-            map.put(DbHandler.KEY_GPS_ACCURACY, String.valueOf(loc.getAccuracy()));
-            map.put(DbHandler.KEY_IS_SILENE, String.valueOf(is_silene?1:0));
-            map.put(DbHandler.KEY_LATITUDE, String.valueOf(loc.getLatitude()));
-            map.put(DbHandler.KEY_LONGITUDE, String.valueOf(loc.getLongitude()));
-            map.put(DbHandler.KEY_PHOTO_PATH, mCurrentPhotoPath);
-            map.put(DbHandler.KEY_SYNCED_STATUS, String.valueOf(0));
-            map.put(DbHandler.KEY_TIME_TAKEN, timeNow);
+            map.put(ObservationDBHandler.KEY_GPS_ACCURACY, String.valueOf(loc.getAccuracy()));
+            map.put(ObservationDBHandler.KEY_IS_SILENE, String.valueOf(is_silene?1:0));
+            map.put(ObservationDBHandler.KEY_LATITUDE, String.valueOf(loc.getLatitude()));
+            map.put(ObservationDBHandler.KEY_LONGITUDE, String.valueOf(loc.getLongitude()));
+            map.put(ObservationDBHandler.KEY_PHOTO_PATH, mCurrentPhotoPath);
+            map.put(ObservationDBHandler.KEY_SYNCED_STATUS, String.valueOf(0));
+            map.put(ObservationDBHandler.KEY_TIME_TAKEN, timeNow);
 
             db.addObservation(map);
         }

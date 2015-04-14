@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
-import com.luminousmossboss.luminous.FieldGuideDatabaseHelper;
+import com.luminousmossboss.luminous.FieldGuideDBHandler;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class FieldGuideItem extends ListItem implements Serializable {
     public FieldGuideItem (int id, Context context) {
         this.id = id;
         properties = new HashMap<String, String>();
-        FieldGuideDatabaseHelper db = new FieldGuideDatabaseHelper(context);
+        FieldGuideDBHandler db = new FieldGuideDBHandler(context);
         SQLiteDatabase fieldGuideDB = db.getReadableDatabase();
         Cursor dbCursor = fieldGuideDB.rawQuery("select * from species where id = " + Integer.toString(id), null);
         this.columns = dbCursor.getColumnNames();
