@@ -9,12 +9,8 @@
 #import "MyObservations.h"
 
 @implementation MyObservations{
-	// put private instace variables here
+	//...
 }
-
-// synthesize here
-
-// define methods here
 
 @end
 

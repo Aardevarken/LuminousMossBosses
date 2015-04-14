@@ -14,14 +14,8 @@
  * NSObject is the super class name
  */
 @interface MyObservations : NSObject{
-	// Protected instance variables
+	//...
 }
-
-// @property directive delcares a pulic property.
-
-
-// methods
-
 
 @end
 
