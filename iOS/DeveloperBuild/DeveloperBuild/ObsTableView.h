@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ * NEEDS CODE REVIEW 
+ */
+
 @interface ObsTableView : UITableView
 
 @property (nonatomic, strong) NSMutableArray *myObservations;
