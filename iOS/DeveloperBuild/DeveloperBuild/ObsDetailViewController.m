@@ -7,11 +7,9 @@
 //
 
 #import "ObsDetailViewController.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 #import "detectionHelper.h"
-//#import "detector.h"
-//#import "opencv2/highgui/ios.h"
 #import "UserDataDatabase.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface ObsDetailViewController ()
 
@@ -84,7 +82,7 @@
 	progressBar.hidden = NO;
 	
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		//[detectionHelper runDetectionAlgorithm:obsImage.image progressBar:progressBar maxPercentToFill:1.0];
+
 		detectionHelper *detectionObject = [[detectionHelper alloc] initWithAssetID:[plantInfo objectForKey:@"imghexid"]];
 		[detectionObject runDetectionAlgorithm:obsImage.image progressBar:progressBar maxPercentToFill:1.0];
 		
@@ -118,34 +116,17 @@
 			BOOL success = [[UserDataDatabase getSharedInstance]
 							updateObservation:assetid andNewPercentIDed:NSnewprob andNewStatus:newState];
 			
-			//[[UserDataDatabase getSharedInstance] updateRow:assetid percentIDed:NSnewprob state:newState];
-							//updateRow:assetid percentIDed:NSnewprob state:newState];
-			
-			
 			// did it all work? if not show an error.
 			NSString *alertString = @"Data update failed";
 			if (success == NO) {
 				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 				[alert show];
 			}
-			/*
-			NSNumber *dp = [NSNumber numberWithFloat:[detectionObject getIDProbability]];
-			BOOL success = [[UserDataDatabase getSharedInstance] saveData:[plantInfo objectForKey:@"imghexid"] date:[plantInfo objectForKey:@"date"] latitude:[plantInfo objectForKey:@"latitiude"] longitude:[plantInfo objectForKey:@"longitude"] percentIDed:dp];
-			
-			NSString *alertString = @"Data update failed";
-			if (success == NO) {
-				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-				[alert show];
-			}
-			 */
-			
 			// hide the progress bar and the button so the text can be seen
 			progressBar.hidden = YES;
 			idButton.hidden = YES;
 		});
 	});
-	//progressBar.hidden = YES;
-
 }
 
 
