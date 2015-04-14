@@ -12,26 +12,6 @@
 @interface ViewController : UIViewController{
 	// nothing
 }
-//UIViewController <UIScrollViewDelegate>
-/*{
-	
-	NSArray *testImages;
-	NSUInteger numberOfImages;
-	NSInteger currentImage;
-	IBOutlet UILabel *nameOfCurrentImage;
-
-	NSInteger redRec;
-	NSInteger greenRec;
-	NSInteger blueRec;
-	
-}*/
-
-// For adding a scroll view
-//@property (nonatomic, strong) IBOutlet UIImageView* imageView;
-//@property (nonatomic, strong) IBOutlet UIScrollView* scrollView;
-
-//+ (UIImage*) runDetectionAlgorithm:(UIImage*)unknownImage;
-
 
 @end
 
