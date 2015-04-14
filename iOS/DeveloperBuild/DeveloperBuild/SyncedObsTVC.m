@@ -127,13 +127,7 @@
 	// Pass the selected object to the new view controller.
 	if ([segue.identifier isEqualToString:@"MyObsSegue"]) {
 		NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-		//NSLog(@"indexpath: %@", indexPath);
-		//NSLog(@"indexpath.section: %ld", (long)indexPath.section);
-		//NSLog(@"indexpath.row: %ld", (long)indexPath.row);
-		
 		ObsDetailViewController *destViewController = segue.destinationViewController;
-		//NSLog(@"%@", [pendingObservations objectAtIndex:indexPath.row]);
-		
 		
 		NSDictionary *selectedObservation;
 		switch (indexPath.section) {
