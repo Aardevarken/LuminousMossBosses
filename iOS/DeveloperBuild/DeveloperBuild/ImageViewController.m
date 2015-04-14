@@ -7,8 +7,6 @@
 //
 
 #import "ImageViewController.h"
-//#import "opencv2/highgui/ios.h"
-//#import "detector.h"
 #import "MyObservations.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
@@ -20,8 +18,6 @@
 
 
 @interface ImageViewController ()
-
-//-(UIImage*) runDetection:(UIImage *)image classifierName:(NSString *)cName classifierType:(NSString *)cType;
 
 @property (nonatomic, weak) NSTimer *cameraTimer;
 @property (nonatomic) NSMutableArray *capturedImages;
@@ -169,36 +165,10 @@
 }
 
 /*
-- (UIImage*) runDetection:(UIImage *)image{
-	
-	// Convert image to Mat for detection
-	Mat cvImage;
-	UIImageToMat(image, cvImage);
-	
-    // Load OpenCV classifier
-    NSString* flowerXMLPath = [[NSBundle mainBundle]
-                               pathForResource:@"flower25"
-                               ofType:@"xml"];
-    NSString* vocabXMLPath = [[NSBundle mainBundle]
-                              pathForResource:@"vocabulary"
-                              ofType:@"xml"];
-    NSString* sileneXMLPath = [[NSBundle mainBundle]
-                               pathForResource:@"silene"
-                               ofType:@"xml"];
-    
-    detector flowerDetector([flowerXMLPath UTF8String], [vocabXMLPath UTF8String], [sileneXMLPath UTF8String]);
-	
-	// circle flowers
-	Mat detectedImage = flowerDetector.circlePinkFlowers(cvImage);
-	
-	// return UIImage
-	return MatToUIImage(detectedImage);
-}
-*/
-/*
  * imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"]; 
  * stores the hex id for the image in imageView under _storage in a UIImage format
  */
+// This method is called when an image has been chosen from the library or taken from the camera.
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
 	[picker dismissViewControllerAnimated:YES completion:NULL];
 	//imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
@@ -233,33 +203,12 @@
 	//imageView.image = [self runDetection:image classifierName:@"flower25" classifierType:@"xml"];
 }
 
-
-// This method is called when an image has been chosen from the library or taken from the camera.
 /*
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-	UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
- 
-	[self.capturedImages addObject:image];
- 
-	if ([self.cameraTimer isValid])
-	{
-		return;
-	}
- 
-	[self finishAndUpdate];
-}
-*/
-
 #pragma mark - Navigation
-
-/** /
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-	if ([segue.identifier isEqualToString:@"AddingObservationSegue"]) {
-		[self.navigationController popToRootViewControllerAnimated:NO];
-	}
+
 }
-/**/
+ */
 @end
 
 
