@@ -9,7 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @interface MyObsTabBarController : UITabBarController
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *camerBarBarIcon;
+
+
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *cameraButton;
+
+
+/**
+ * When the user hits the home button, remove everything from the
+ navigation stack and go to the root.
+ * This button replaces the back button in the naviation bar.
+ */
 - (IBAction)homeButton:(UIBarButtonItem *)sender;
 
 @end

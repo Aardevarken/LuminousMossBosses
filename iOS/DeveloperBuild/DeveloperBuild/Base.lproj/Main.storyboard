@@ -1446,7 +1446,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <outlet property="camerBarBarIcon" destination="yyX-HC-nkN" id="Zgq-A0-KpN"/>
+                        <outlet property="cameraButton" destination="yyX-HC-nkN" id="HJm-zt-0yq"/>
                         <segue destination="BXN-rw-8Rd" kind="relationship" relationship="viewControllers" id="dRc-bm-FuW"/>
                         <segue destination="VLs-h4-4dX" kind="relationship" relationship="viewControllers" id="S8p-uE-bFe"/>
                     </connections>
@@ -1483,7 +1483,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="D2J-0e-PDE"/>
-        <segue reference="s9o-7d-XRk"/>
+        <segue reference="mth-UZ-qS1"/>
         <segue reference="qX3-aw-dSK"/>
     </inferredMetricsTieBreakers>
 </document>
