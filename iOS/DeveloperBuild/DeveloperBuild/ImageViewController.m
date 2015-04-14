@@ -5,16 +5,15 @@
 //  Created by Jacob Rail on 2/24/15.
 //  Copyright (c) 2015 CU Boulder. All rights reserved.
 //
+//	Last Modified on 4/13/15 by Jacob
 
 #import "ImageViewController.h"
 #import "MyObservations.h"
+#import "UserDataDatabase.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-// for testing //
-#import "UserDataDatabase.h"
-//#import "UserData.h"
-// end testing //
-#define TESTING 0
+
+#define TESTING YES
 
 
 @interface ImageViewController ()
@@ -63,25 +62,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-
-- (IBAction)getPhoto:(id)sender{
-	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
-	picker.delegate = self;
-	
-	
-	if ((UIButton *) sender == choosePhotoBtn) {
-		picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-	} else {
-		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-	}
-	
-	
-	
-	//[self presentModalViewController:picker animated:YES];
-	[self presentViewController:picker animated:YES completion:NULL];
-}
-
 - (void) saveObsToPhotos{
 	// save image to photos
 	__block BOOL didItWork = NO;
@@ -96,71 +76,20 @@
 								  
 								  selectedAsset = [NSString stringWithFormat:@"%@", assetURL];
 								  /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"assetURL: %@", assetURL]
-																				  message:nil
-																				 delegate:nil
-																		cancelButtonTitle:@"OK"
-																		otherButtonTitles:nil];
-								  */
+								   message:nil
+								   delegate:nil
+								   cancelButtonTitle:@"OK"
+								   otherButtonTitles:nil];
+								   */
 								  NSLog(@"selected asset: %@", selectedAsset);
 								  didItWork = YES;
 								  //[alert show];
 							  }];
 		NSLog(@"func selectedAsset: %@", selectedAsset);
-	
+		
 	}
 	
 	selectedAsset = [pictureInfo objectForKey:@"UIImagePickerControllerReferenceURL"];
-	
-}
-
-- (IBAction)addObservation:(UIButton *)sender {
-	
-	// use this to find the location of the database on your mechine disk.
-	if(false)
-		NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject]);
-	
-	BOOL success = NO;
-	NSString *alertString = @"Data insertion failed";
-	
-	// save image to photos
-	//[self saveObsToPhotos];
-	
-	// get image asset
-	NSString *img = [NSString stringWithFormat:@"%@", selectedAsset];//self.capedImg];
-	
-	// get current date and time
-	/* **************************************************************** *\
-	|* for unicode info about the date format reference:				*|
-	|* http://unicode.org/reports/tr35/tr35-6.html#Date_Format_Patterns	*|
-	\* **************************************************************** */
-	NSDate *today = [NSDate date];
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
-	[NSTimeZone resetSystemTimeZone];
-	
-	
-	[dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
-	
-	NSString *currentTime = [dateFormatter stringFromDate:today];
-	
-	//NSLog(@"%@", currentTime);
-	//[dateFormatter release];
-	
-	if (selectedAsset == nil){//self.capedImg == [NSString stringWithFormat:@"%@",[UIImage imageNamed:@"nocamera.png"]]) {
-		NSLog(@"You cannot submit that");
-		return;
-	}
-	
-	if(TRUE){
-		success = [[UserDataDatabase getSharedInstance] saveObservation:img date:nullptr latitude:nullptr longitude:nullptr locationError:[NSNumber numberWithDouble:100.0] percentIDed:NULL];
-	}
-	else {
-	}
-	
-	if (success == NO) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-	}
 	
 }
 
@@ -201,6 +130,76 @@
 	}
 	//UIImage* image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
 	//imageView.image = [self runDetection:image classifierName:@"flower25" classifierType:@"xml"];
+}
+
+
+#pragma mark - Actions
+- (IBAction)getPhoto:(id)sender{
+	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+	picker.delegate = self;
+	
+	
+	if ((UIButton *) sender == choosePhotoBtn) {
+		picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+	} else {
+		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+	}
+	
+	
+	
+	//[self presentModalViewController:picker animated:YES];
+	[self presentViewController:picker animated:YES completion:NULL];
+}
+
+- (IBAction)addObservation:(UIButton *)sender {
+	
+	// use this to find the location of the database on your mechine disk.
+	if(false)
+		NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject]);
+	
+	BOOL success = NO;
+	NSString *alertString = @"Data insertion failed";
+	
+	// save image to photos
+	//[self saveObsToPhotos];
+	
+	// get image asset
+	NSString *img = [NSString stringWithFormat:@"%@", selectedAsset];//self.capedImg];
+	
+	// get current date and time
+	/* **************************************************************** *\
+	 |* for unicode info about the date format reference:				*|
+	 |* http://unicode.org/reports/tr35/tr35-6.html#Date_Format_Patterns	*|
+	 \* **************************************************************** */
+	NSDate *today = [NSDate date];
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
+	[NSTimeZone resetSystemTimeZone];
+	
+	
+	[dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+	
+	NSString *currentTime = [dateFormatter stringFromDate:today];
+	
+	//NSLog(@"%@", currentTime);
+	//[dateFormatter release];
+	
+	if (selectedAsset == nil){//self.capedImg == [NSString stringWithFormat:@"%@",[UIImage imageNamed:@"nocamera.png"]]) {
+		NSLog(@"You cannot submit that");
+		return;
+	}
+	
+	if(TRUE){
+		success = [[UserDataDatabase getSharedInstance] saveObservation:img date:nullptr latitude:nullptr longitude:nullptr locationError:[NSNumber numberWithDouble:100.0] percentIDed:NULL];
+	}
+	else {
+	}
+	
+	if (success == NO) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+	}
+	
 }
 
 /*
