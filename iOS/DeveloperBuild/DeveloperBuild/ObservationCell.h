@@ -17,7 +17,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *dateLabel;
 @property (nonatomic, weak) IBOutlet UILabel *percentLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *plantImageView;
-//@property (weak, nonatomic) IBOutlet UIImageView * plantImageView2;
 
 @end
 
