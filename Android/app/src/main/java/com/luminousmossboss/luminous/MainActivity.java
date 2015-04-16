@@ -15,6 +15,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.database.Cursor;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +34,8 @@ import android.widget.Toast;
 import com.luminousmossboss.luminous.adapter.NavDrawerListAdapter;
 import com.luminousmossboss.luminous.model.ListItem;
 import com.luminousmossboss.luminous.model.NavDrawerItem;
+
+import dialog.IdentifiyDialogFragment;
 
 
 public class MainActivity extends Activity {
@@ -323,10 +326,10 @@ public class MainActivity extends Activity {
         switch (requestCode) {
             case REQUEST_TAKE_PHOTO: {
                 if (resultCode == RESULT_OK) {
-                    boolean detectionResult = Util.detectImage(mCurrentPhotoPath,this);
-                    handlePhoto(data,detectionResult);
+                  //  boolean detectionResult = Util.detectImage(mCurrentPhotoPath,this);
+                    handlePhoto(data,false);
 
-                    Toast message;
+                   /* Toast message;
                     if (detectionResult)
                     {
                         message = Toast.makeText(this, "Your image was identified as Silene!!!", Toast.LENGTH_LONG);
@@ -335,7 +338,7 @@ public class MainActivity extends Activity {
                     {
                         message = Toast.makeText(this, "Your image was not a silene. Are you sure it isn't a cow or a pink firetruck?", Toast.LENGTH_LONG);
                     }
-                    message.show();
+                    message.show();*/
                 }
                 break;
             }
@@ -359,7 +362,7 @@ public class MainActivity extends Activity {
         }
         else
         {
-            Toast.makeText(this, "We have your image: " + mCurrentPhotoPath, Toast.LENGTH_LONG).show();
+
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ", Locale.US);
             String timeNow = sdf.format(new Date());
             HashMap<String, String> map = new HashMap<String, String>();
@@ -372,6 +375,11 @@ public class MainActivity extends Activity {
             map.put(ObservationDBHandler.KEY_TIME_TAKEN, timeNow);
 
             db.addObservation(map);
+            Cursor cursor = db.getObservationByFilePath(mCurrentPhotoPath);
+            cursor.moveToFirst();
+            int id =cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_ID));
+            IdentifiyDialogFragment identifiyDialogFragment = IdentifiyDialogFragment.getInstance(id);
+            identifiyDialogFragment.show(getFragmentManager(),"dialog");
         }
     }
 }

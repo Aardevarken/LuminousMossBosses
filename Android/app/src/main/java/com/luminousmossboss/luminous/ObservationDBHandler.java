@@ -112,6 +112,14 @@ public class ObservationDBHandler extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor getObservationByFilePath(String filePath){
+       String selectQuery ="SELECT * FROM " + TABLE_OBSERVATIONS +
+               " WHERE " + KEY_PHOTO_PATH + "=" + "'" + filePath + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        return cursor;
+    }
+
     public int updateIsSilene(int id, boolean status)
     {
         SQLiteDatabase db = this.getWritableDatabase();
