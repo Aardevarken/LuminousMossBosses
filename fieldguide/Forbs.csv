@@ -1,4 +1,4 @@
-growth form,code,binomial name,common name,family,synonyms,description,flower color,flower shape ,petal number ,inflorescence ,leaf arrangement ,leaf shape ,leaf shape FILTER,habitat ,c.f.,photo credit
+growth form,code,latin name,common name,family,synonyms,description,flower color,flower shape ,petal number ,inflorescence ,leaf arrangement ,leaf shape ,leaf shape FILTER,habitat ,c.f.,photo credit
 forb,OREALP,Oreoxis alpina ,alpine parsley,Apiaceae,Cymopterus alpinus,.,yellow,radial,5,umbellate,basal,pinnatifid,dissected,snowbed,.,Jane Smith
 forb,ACHMIL,Achillea millefolium ,Garrett common yarrow,Asteraceae,"Achillea fusca, Achillea lanulosa ssp. alpicola, Achillea lanulosa var. alpicola, Achillea millefolium var. fusca, Achillea alpicola, Achillea subalpine",.,white,composite,.,corymbiform ,alternate,"linear, pinnatisect",dissected,"dry meadow, moist meadow",.,Jane Smith
 forb,ANTMED,Antennaria media ,Rocky Mountain pussytoes,Asteraceae,Antennaria alpina,.,white,composite,.,cyme,"basal, alternate","oblanceolate, spatulate",oblong,"dry meadow, moist meadow",.,Jane Smith

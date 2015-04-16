@@ -26,13 +26,13 @@ Base = declarative_base()
 class Synonym(Base):
 	__tablename__ = 'synonym'
 	id = Column(Integer, primary_key=True)
-	species_id = Column(Integer, ForeignKey('species.id'))
+	speciesid = Column(Integer, ForeignKey('species.id'))
 	name = Column(String)
 
 class CF(Base):
 	__tablename__ = 'cf'
 	id = Column(Integer, primary_key=True)
-	species_id = Column(Integer, ForeignKey('species.id'))
+	speciesid = Column(Integer, ForeignKey('species.id'))
 	name = Column(String)
 
 class LeafShapeFilter(Base):
@@ -40,21 +40,21 @@ class LeafShapeFilter(Base):
 	id = Column(Integer, primary_key=True)
 	name = Column(String)
 	picture_filename = Column(String)
-
-species_growthform_table = Table('species_growthform', Base.metadata,
-	Column('species_id', Integer, ForeignKey('species.id')),
-	Column('growthform_id', Integer, ForeignKey('growthform.id'))
-)
-
+	
 class GrowthForm(Base):
 	__tablename__ = 'growthform'
 	id = Column(Integer, primary_key=True)
 	name = Column(String)
 
+class FlowerShape(Base):
+	__tablename__ = 'flowershape'
+	id = Column(Integer, primary_key=True)
+	name = Column(String)
+	picture_filename = Column(String)
 
 species_flowercolor_table = Table('species_flowercolor', Base.metadata,
-	Column('species_id', Integer, ForeignKey('species.id')),
-	Column('flowercolor_id', Integer, ForeignKey('flowercolor.id'))
+	Column('speciesid', Integer, ForeignKey('species.id')),
+	Column('flowercolorid', Integer, ForeignKey('flowercolor.id'))
 )
 
 class FlowerColor(Base):
@@ -64,8 +64,8 @@ class FlowerColor(Base):
 
 
 species_inflorescence_table = Table('species_inflorescence', Base.metadata,
-	Column('species_id', Integer, ForeignKey('species.id')),
-	Column('inflorescence_id', Integer, ForeignKey('inflorescence.id'))
+	Column('speciesid', Integer, ForeignKey('species.id')),
+	Column('inflorescenceid', Integer, ForeignKey('inflorescence.id'))
 )
 
 class Inflorescence(Base):
@@ -74,22 +74,9 @@ class Inflorescence(Base):
 	name = Column(String)
 	picture_filename = Column(String)
 
-
-species_flowershape_table = Table('species_flowershape', Base.metadata,
-	Column('species_id', Integer, ForeignKey('species.id')),
-	Column('flowershape_id', Integer, ForeignKey('flowershape.id'))
-)
-
-class FlowerShape(Base):
-	__tablename__ = 'flowershape'
-	id = Column(Integer, primary_key=True)
-	name = Column(String)
-	picture_filename = Column(String)
-
-
 species_petalnumber_table = Table('species_petalnumber', Base.metadata,
-	Column('species_id', Integer, ForeignKey('species.id')),
-	Column('petalnumber_id', Integer, ForeignKey('petalnumber.id'))
+	Column('speciesid', Integer, ForeignKey('species.id')),
+	Column('petalnumberid', Integer, ForeignKey('petalnumber.id'))
 )
 
 class PetalNumber(Base):
@@ -99,8 +86,8 @@ class PetalNumber(Base):
 
 
 species_leafarrangement_table = Table('species_leafarrangement', Base.metadata,
-	Column('species_id', Integer, ForeignKey('species.id')),
-	Column('leafarrangement_id', Integer, ForeignKey('leafarrangement.id'))
+	Column('speciesid', Integer, ForeignKey('species.id')),
+	Column('leafarrangementid', Integer, ForeignKey('leafarrangement.id'))
 )
 
 class LeafArrangement(Base):
@@ -111,8 +98,8 @@ class LeafArrangement(Base):
 
 
 species_leafshape_table = Table('species_leafshape', Base.metadata,
-	Column('species_id', Integer, ForeignKey('species.id')),
-	Column('leafshape_id', Integer, ForeignKey('leafshape.id'))
+	Column('speciesid', Integer, ForeignKey('species.id')),
+	Column('leafshapeid', Integer, ForeignKey('leafshape.id'))
 )
 
 class LeafShape(Base):
@@ -123,8 +110,8 @@ class LeafShape(Base):
 
 
 species_habitat_table = Table('species_habitat', Base.metadata,
-	Column('species_id', Integer, ForeignKey('species.id')),
-	Column('habitat_id', Integer, ForeignKey('habitat.id'))
+	Column('speciesid', Integer, ForeignKey('species.id')),
+	Column('habitatid', Integer, ForeignKey('habitat.id'))
 )
 
 class Habitat(Base):
@@ -135,21 +122,22 @@ class Habitat(Base):
 class Species(Base):
 	__tablename__ = 'species'
 	id = Column(Integer, primary_key=True)
-	growthform_id = Column(Integer, ForeignKey('growthform.id'))
+	growthformid = Column(Integer, ForeignKey('growthform.id'))
 	growthform = relationship ("GrowthForm")
 	code = Column(String)
-	binomial_name = Column(String)
+	latin_name = Column(String)
 	common_name = Column(String)
 	family = Column(String)
 	synonyms = relationship("Synonym")
 	description = Column(String)
 	flowercolor = relationship ("FlowerColor", secondary = species_flowercolor_table)
-	flowershape = relationship ("FlowerShape", secondary = species_flowershape_table)
+	flowershapeid = Column(Integer, ForeignKey('flowershape.id'))
+	flowershape = relationship ("FlowerShape")
 	petalnumber = relationship ("PetalNumber", secondary = species_petalnumber_table)
 	inflorescence = relationship ("Inflorescence", secondary = species_inflorescence_table)
 	leafarrangement = relationship ("LeafArrangement", secondary = species_leafarrangement_table)
 	leafshape = relationship ("LeafShape", secondary = species_leafshape_table)
-	leafshapefilter_id = Column(Integer, ForeignKey('leafshapefilter.id'))
+	leafshapefilterid = Column(Integer, ForeignKey('leafshapefilter.id'))
 	leafshapefilter = relationship('LeafShapeFilter')
 	habitat = relationship ("Habitat", secondary = species_habitat_table)
 	cf = relationship("CF")
@@ -161,19 +149,20 @@ class Species(Base):
 	terms tables.
 	"""
 	def speciesInitErrorOut(self,tablename, itemname):
-		print "error: " + self.binomial_name + ": '" + itemname + "' does not exist in the " + tablename + " table. Check spelling or add to glossary"
+		print "error: " + self.latin_name + ": '" + itemname + "' does not exist in the " + tablename + " table. Check spelling or add to glossary"
 		sys.exit(1)
 
 	"""
 	initialization for the species records
 	"""
-	def __init__(self, growthform, code, binomial_name, common_name, family, synonyms, description, flowercolor, flowershape, petalnumber, 
+	def __init__(self, growthform, code, latin_name, common_name, family, synonyms, description, flowercolor, flowershape, petalnumber, 
 		inflorescence, leafarrangement, leafshape, leafshapefilter, habitat, cf, photocredit):
 		self.growthform = Session.query(GrowthForm).filter_by(name=growthform).first()
 		self.code = code
-		self.binomial_name = binomial_name
+		self.latin_name = latin_name
 		self.common_name = common_name
 		self.family = family
+		self.flowershape = Session.query(FlowerShape).filter_by(name=flowershape).first()
 
 		for s in synonyms.split(','):
 			self.synonyms.append(Synonym(name = s))
@@ -187,13 +176,6 @@ class Species(Base):
 			if (fc_object): self.flowercolor.append(fc_object)
 			else:
 				if fc not in ['.', '']: self.speciesInitErrorOut("flowercolor", fc)
-
-		for fs in flowershape.split(','):
-			fs = fs.strip()
-			fs_object = Session.query(FlowerShape).filter_by(name = fs.strip()).first()
-			if (fs_object): self.flowershape.append(fs_object)
-			else:
-				if fs not in ['.', '']: self.speciesInitErrorOut("flowershape", fs)
 
 		for pn in petalnumber.split(','):
 			pn = pn.strip()
