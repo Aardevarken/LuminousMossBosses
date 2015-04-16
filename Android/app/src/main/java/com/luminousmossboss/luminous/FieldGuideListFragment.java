@@ -90,7 +90,7 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
         this.context = container.getContext();
         this.listItems = new ArrayList<ListItem>();
 
-        FieldGuideDatabaseHelper fieldGuideDBH = new FieldGuideDatabaseHelper(context);
+        FieldGuideDBHandler fieldGuideDBH = new FieldGuideDBHandler(context);
 
         SQLiteDatabase fieldGuideDB = fieldGuideDBH.getReadableDatabase();
 
