@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import com.luminousmossboss.luminous.FieldGuideDBHandler;
 
@@ -34,21 +35,30 @@ public class FieldGuideItem extends ListItem implements Serializable {
                           List<String> inflorescence, List<String> leafarrangments,
                           List<String> leafshapes, List<String> habitats, List<String> cfs) {
         this.id = id;
-        String[] order = {"growthform", "code", "latin_name", "common_name", "family", "description",
-                    "flowershape", "leafshapefilter", "photocredit"};
+        String[] order = {"Growth Form", "code", "Latin Name", "Common Name", "Family", "Synonyms",
+                "Description", "Flower Color", "Flower Shape", "Petal Number", "Inflorescence",
+                "Leaf Arrangement", "Leaf Shape", "Leaf Shape Filter", "Habitat", "c.f.", "Photo Credit"};
         columns = order;
         properties = new HashMap<>();
-        properties.put("growthform", growthform);
-        properties.put("code", code);
-        properties.put("latin_name", latin_name);
-        properties.put("common_name", common_name);
-        properties.put("family", family);
-        properties.put("description", description);
-        properties.put("flowershape", flowershape);
-        properties.put("leafshapefilter", leafshapefilter);
-        properties.put("photocredit", photocredit);
-        this.title = properties.get("latin_name");
-        this.icon = Uri.parse("file:///android_asset/FORBS/" + properties.get("code") + ".jpg");
+        properties.put(columns[0], growthform);
+        properties.put(columns[1], code);
+        properties.put(columns[2], latin_name);
+        properties.put(columns[3], common_name);
+        properties.put(columns[4], family);
+        properties.put(columns[5], TextUtils.join("\n", synonyms));
+        properties.put(columns[6], description);
+        properties.put(columns[7], TextUtils.join("\n", flowercolors));
+        properties.put(columns[8], flowershape);
+        properties.put(columns[9], TextUtils.join("\n", petalnumbers));
+        properties.put(columns[10], TextUtils.join("\n", inflorescence));
+        properties.put(columns[11], TextUtils.join("\n", leafarrangments));
+        properties.put(columns[12], TextUtils.join("\n", leafshapes));
+        properties.put(columns[13], leafshapefilter);
+        properties.put(columns[14], TextUtils.join("\n", habitats));
+        properties.put(columns[15], TextUtils.join("\n", cfs));
+        properties.put(columns[16], photocredit);
+        this.title = latin_name;
+        this.icon = Uri.parse("file:///android_asset/FORBS/" + code + ".jpg");
     }
 
     public String getProperty(String property_name) {
