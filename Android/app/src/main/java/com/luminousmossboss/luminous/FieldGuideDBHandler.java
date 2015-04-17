@@ -23,13 +23,11 @@ public class FieldGuideDBHandler extends SQLiteAssetHelper {
     private static HashMap<Integer, String> iconPaths;
     private static HashMap<Integer, String> latinNames;
     private static HashMap<Integer, String> commonNames;
-    private static HashMap<Integer, FieldGuideItem> fgItemCache;
     private static FieldGuideDBHandler instance;
 
     private FieldGuideDBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         ids = new ArrayList<>();
-        fgItemCache = new HashMap<>();
         iconPaths = new HashMap<>();
         latinNames = new HashMap<>();
         commonNames = new HashMap<>();
@@ -199,9 +197,6 @@ public class FieldGuideDBHandler extends SQLiteAssetHelper {
     }
 
     public FieldGuideItem getFGItemWithID(int id) {
-        if (fgItemCache.containsKey(id)) {
-            return fgItemCache.get(id);
-        }
         String growthform, code, latin_name, common_name, family, description, flowershape,
                 leafshapefilter, photocredit;
         List<String> synonyms = getSynonyms(id);
@@ -241,7 +236,6 @@ public class FieldGuideDBHandler extends SQLiteAssetHelper {
         FieldGuideItem item =  new FieldGuideItem(id, growthform, code, latin_name, common_name, family, description,
                 flowershape, leafshapefilter, photocredit, synonyms, flowercolors, petalnumbers,
                 inflorescence, leafarrangments, leafshapes, habitats, cfs);
-        fgItemCache.put(id, item);
         return item;
     }
 
