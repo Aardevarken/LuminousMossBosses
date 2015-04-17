@@ -154,7 +154,7 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
                         unknownList.add(new Observation(id, getActivity()));
                 }
                 else{
-                    db.deleteObservation(cursor.getString(cursor.getColumnIndex(ObservationDBHandler.KEY_PHOTO_PATH)));
+                    db.deleteObservation(cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_ID)));
                 }
 
             }while(cursor.moveToNext());

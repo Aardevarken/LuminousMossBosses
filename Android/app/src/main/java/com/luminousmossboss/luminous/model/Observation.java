@@ -23,10 +23,9 @@ public class Observation extends ListItem implements Serializable {
     private boolean hasBeenProcceced;
     private boolean is_silene;
     private int id;
+    private float accuracy;
 
-    public int getId() {
-        return id;
-    }
+
 
     public Observation() {}
 
@@ -47,11 +46,16 @@ public class Observation extends ListItem implements Serializable {
         ObservationDBHandler db =  new ObservationDBHandler(context);
         Cursor cursor = db.getObservationById(id);
         if(cursor.moveToFirst()) {
+
+           ;
+
             setIcon(Uri.fromFile(new File(cursor.getString(cursor.getColumnIndex(ObservationDBHandler.KEY_PHOTO_PATH)))));
             setDate(cursor.getString(cursor.getColumnIndex(ObservationDBHandler.KEY_TIME_TAKEN)));
+            accuracy =cursor.getFloat(cursor.getColumnIndex(ObservationDBHandler.KEY_GPS_ACCURACY));
 
             latitude = cursor.getDouble(cursor.getColumnIndex(ObservationDBHandler.KEY_LATITUDE));
             longitude = cursor.getDouble(cursor.getColumnIndex(ObservationDBHandler.KEY_LONGITUDE));
+
 
             is_silene = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_IS_SILENE)) > 0;
 
@@ -71,7 +75,13 @@ public class Observation extends ListItem implements Serializable {
         }
         else setTitle("Unknown");
     }
+    public float getAccuracy() {
+        return accuracy;
+    }
 
+    public int getId() {
+        return id;
+    }
     public String getDate() { return date.substring(0,10);}
 
     public String getFullDate() { return this.date;}

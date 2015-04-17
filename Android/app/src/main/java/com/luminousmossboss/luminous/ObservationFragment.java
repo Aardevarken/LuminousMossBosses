@@ -97,7 +97,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         ObservationDBHandler db = new ObservationDBHandler(getActivity());
-        db.deleteObservation(observation.getIcon().getPath());
+        db.deleteObservation(observation.getId());
         MainActivity activity = (MainActivity) getActivity();
         activity.displayView(MainActivity.OBSERVATION_LIST_POSITION);
     }
@@ -117,12 +117,12 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_remove:
-                DeleteDialogFragment dialog = DeleteDialogFragment.getInstance(ObservationFragment.this);
+                DeleteDialogFragment dialog = DeleteDialogFragment.getInstance(observation.getId());
                 dialog.show(getActivity().getFragmentManager(), "dialog");
                 //new DeleteDialogFragment().show(getFragmentManager(), null);
                 break;
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @Override

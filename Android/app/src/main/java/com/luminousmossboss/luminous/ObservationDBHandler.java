@@ -112,6 +112,14 @@ public class ObservationDBHandler extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public Cursor getObservationByFilePath(String filePath){
+       String selectQuery ="SELECT * FROM " + TABLE_OBSERVATIONS +
+               " WHERE " + KEY_PHOTO_PATH + "=" + "'" + filePath + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        return cursor;
+    }
+
     public int updateIsSilene(int id, boolean status)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -131,10 +139,10 @@ public class ObservationDBHandler extends SQLiteOpenHelper {
                 new String[] { String.valueOf(id) });
     }
 
-    public int deleteObservation(String filePath)
+    public int deleteObservation(int id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_OBSERVATIONS, KEY_PHOTO_PATH + "=" + "'" + filePath + "'", null);
+        return db.delete(TABLE_OBSERVATIONS, KEY_ID + "=" + id , null);
     }
 
 }
