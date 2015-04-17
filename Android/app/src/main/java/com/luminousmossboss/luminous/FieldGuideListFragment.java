@@ -18,6 +18,7 @@ import com.luminousmossboss.luminous.model.FieldGuideItem;
 import com.luminousmossboss.luminous.model.ListItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -92,20 +93,24 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
 
         FieldGuideDBHandler fieldGuideDBH = new FieldGuideDBHandler(context);
 
-        SQLiteDatabase fieldGuideDB = fieldGuideDBH.getReadableDatabase();
-
-        Cursor dbCursor = fieldGuideDB.rawQuery("select id from species order by binomial_name;", null);
-
-        if (dbCursor.moveToFirst()) {
-            do {
-                int id = dbCursor.getInt(0);
-                listItems.add(new FieldGuideItem(id, context));
-            } while (dbCursor.moveToNext());
+        List<Integer> ids = fieldGuideDBH.getIDs();
+        for (int i = 0; i < ids.size(); i++) {
+            listItems.add(fieldGuideDBH.getFGItemWithID(ids.get(i)));
         }
-
-
-
-        dbCursor.close();
+//        SQLiteDatabase fieldGuideDB = fieldGuideDBH.getReadableDatabase();
+//
+//        Cursor dbCursor = fieldGuideDB.rawQuery("select id from species order by latin_name;", null);
+//
+//        if (dbCursor.moveToFirst()) {
+//            do {
+//                int id = dbCursor.getInt(0);
+//                listItems.add(new FieldGuideItem(id, context));
+//            } while (dbCursor.moveToNext());
+//        }
+//
+//
+//
+//        dbCursor.close();
 
         listIcons.recycle();
 

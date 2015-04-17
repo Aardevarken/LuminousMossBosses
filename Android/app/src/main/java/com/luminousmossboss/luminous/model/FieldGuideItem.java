@@ -17,11 +17,13 @@ public class FieldGuideItem extends ListItem implements Serializable {
     int id;
     HashMap<String,String> properties;
     String[] columns;
+    String growthform, code, latin_name, common_name, family, description, flowershape,
+            leafshapefilter, photocredit;
 
 
     public FieldGuideItem (int id, Context context) {
         this.id = id;
-        properties = new HashMap<String, String>();
+        properties = new HashMap<>();
         FieldGuideDBHandler db = new FieldGuideDBHandler(context);
         SQLiteDatabase fieldGuideDB = db.getReadableDatabase();
         Cursor dbCursor = fieldGuideDB.rawQuery("select * from species where id = " + Integer.toString(id), null);
@@ -33,7 +35,28 @@ public class FieldGuideItem extends ListItem implements Serializable {
                 }
             }
         }
-        this.title = properties.get("binomial_name");
+        this.title = properties.get("latin_name");
+        this.icon = Uri.parse("file:///android_asset/FORBS/" + properties.get("code") + ".jpg");
+    }
+
+    public FieldGuideItem(int id, String growthform, String code, String latin_name, String common_name,
+                          String family, String description, String flowershape,
+                          String leafshapefilter, String photocredit) {
+        this.id = id;
+        String[] arr = {"growthform", "code", "latin_name", "common_name", "family", "description",
+                    "flowershape", "leafshapefilter", "photocredit"};
+        columns = arr;
+        properties = new HashMap<>();
+        properties.put("growthform", growthform);
+        properties.put("code", code);
+        properties.put("latin_name", latin_name);
+        properties.put("common_name", common_name);
+        properties.put("family", family);
+        properties.put("description", description);
+        properties.put("flowershape", flowershape);
+        properties.put("leafshapefilter", leafshapefilter);
+        properties.put("photocredit", photocredit);
+        this.title = properties.get("latin_name");
         this.icon = Uri.parse("file:///android_asset/FORBS/" + properties.get("code") + ".jpg");
     }
 
@@ -42,6 +65,6 @@ public class FieldGuideItem extends ListItem implements Serializable {
     }
 
     public String[] getColumns() {
-        return columns;
+        return properties.keySet().toArray(new String[properties.keySet().size()]);
     }
 }
