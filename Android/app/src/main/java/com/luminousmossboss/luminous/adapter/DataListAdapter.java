@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.luminousmossboss.luminous.R;
 import com.luminousmossboss.luminous.model.DataItem;
-import com.luminousmossboss.luminous.model.FGListItem;
 import com.luminousmossboss.luminous.model.ListItem;
 
 import java.util.ArrayList;

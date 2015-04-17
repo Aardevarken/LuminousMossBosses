@@ -53,8 +53,8 @@ public class FieldGuideFragment extends Fragment implements BackButtonInterface 
         ImageView imageView = (ImageView) rootView.findViewById(R.id.imageView);
         TextView title = (TextView) rootView.findViewById(R.id.title);
         ListView dataSet = (ListView) rootView.findViewById(R.id.listView);
-
-        this.fgitem = (FieldGuideItem) bundle.getSerializable(FGITEM_KEY);
+        FieldGuideDBHandler fgDBHelper = FieldGuideDBHandler.getInstance(container.getContext());
+        this.fgitem = fgDBHelper.getFGItemWithID(((FieldGuideItem) bundle.getSerializable(FGITEM_KEY)).getId());
         imageView.setImageURI(fgitem.getIcon());
         Picasso.with(getActivity()).load(fgitem.getIcon()).into(imageView);
 
@@ -66,6 +66,7 @@ public class FieldGuideFragment extends Fragment implements BackButtonInterface 
         }
 
         DataListAdapter adapter = new DataListAdapter(container.getContext(), listItems);
+
         dataSet.setAdapter(adapter);
 
 

@@ -9,6 +9,7 @@ import com.luminousmossboss.luminous.model.ListItem;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -18,21 +19,41 @@ public class FieldGuideDBHandler extends SQLiteAssetHelper {
 
     private static final String DATABASE_NAME = "fieldguide.db";
     private static final int DATABASE_VERSION = 1;
-    private List<Integer> ids;
+    private static List<Integer> ids;
+    private static HashMap<Integer, String> iconPaths;
+    private static HashMap<Integer, String> latinNames;
+    private static HashMap<Integer, String> commonNames;
+    private static HashMap<Integer, FieldGuideItem> fgItemCache;
+    private static FieldGuideDBHandler instance;
 
-    public FieldGuideDBHandler(Context context) {
+    private FieldGuideDBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         ids = new ArrayList<>();
+        fgItemCache = new HashMap<>();
+        iconPaths = new HashMap<>();
+        latinNames = new HashMap<>();
+        commonNames = new HashMap<>();
     }
 
+    public static FieldGuideDBHandler getInstance(Context context) {
+        if (instance == null) {
+            instance = new FieldGuideDBHandler(context);
+        }
+        return instance;
+    }
 
     public List<Integer> getIDs() {
         if (ids.isEmpty()) {
             SQLiteDatabase db = this.getReadableDatabase();
-            Cursor cursor = db.rawQuery("select id from species order by latin_name;", null);
+            Cursor cursor = db.rawQuery("select id, code, latin_name, common_name " +
+                    "from species order by latin_name;", null);
             if (cursor.moveToFirst()){
                 do {
-                    ids.add(cursor.getInt(0));
+                    int id = cursor.getInt(0);
+                    ids.add(id);
+                    iconPaths.put(id, "file:///android_asset/FORBS/" + cursor.getString(1) + ".jpg");
+                    latinNames.put(id, cursor.getString(2));
+                    commonNames.put(id, cursor.getString(3));
                 } while (cursor.moveToNext());
             }
             cursor.close();
@@ -41,50 +62,156 @@ public class FieldGuideDBHandler extends SQLiteAssetHelper {
         return ids;
     }
 
+    public HashMap<Integer, String> getIconPaths() {
+        if (ids.isEmpty())
+        {
+            this.getIDs();
+        }
+        return iconPaths;
+    }
+
+    public HashMap<Integer, String> getLatinNames() {
+        if (ids.isEmpty())
+        {
+            this.getIDs();
+        }
+        return latinNames;
+    }
+
+    public HashMap<Integer, String> getCommonNames() {
+        if (ids.isEmpty())
+        {
+            this.getIDs();
+        }
+        return commonNames;
+    }
+
+    private List<String> listFromCursor (Cursor cursor) {
+        List<String> list = new ArrayList<>();
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+        return list;
+    }
+
     private List<String> getSynonyms(int id) {
-        return  new ArrayList<>();
+        List<String> synonyms;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select synonym.name from species " +
+                "join synonym on species_id = species.id " +
+                "where species.id = " + Integer.toString(id), null);
+        synonyms = listFromCursor(cursor);
+        cursor.close();
+        db.close();
+        return synonyms;
     }
 
     private List<String> getFlowerColors(int id) {
-        List<String> flowercolors = new ArrayList<>();
+        List<String> flowercolors;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select flowercolor.name from species " +
+                "join species_flowercolor on species.id = species_id " +
+                "join flowercolor on flowercolor.id = flowercolor_id " +
+                "where species.id = " + Integer.toString(id), null);
+        flowercolors = listFromCursor(cursor);
+        cursor.close();
+        db.close();
         return flowercolors;
     }
 
     private List<String> getPetalNumbers(int id) {
-        return  new ArrayList<>();
+        List<String> petalnumbers;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select petalnumber.name from species " +
+                "join species_petalnumber on species.id = species_id " +
+                "join petalnumber on petalnumber.id = petalnumber_id " +
+                "where species.id = " + Integer.toString(id), null);
+        petalnumbers = listFromCursor(cursor);
+        cursor.close();
+        db.close();
+        return petalnumbers;
     }
 
     private List<String> getInflorescence(int id) {
-        return  new ArrayList<>();
+        List<String> inflorescence;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select inflorescence.name from species " +
+                "join species_inflorescence on species.id = species_id " +
+                "join inflorescence on inflorescence.id = inflorescence_id " +
+                "where species.id = " + Integer.toString(id), null);
+        inflorescence = listFromCursor(cursor);
+        cursor.close();
+        db.close();
+        return inflorescence;
     }
 
     private List<String> getLeafArrangements(int id) {
-        return  new ArrayList<>();
+        List<String> leafarrangements;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select leafarrangement.name from species " +
+                "join species_leafarrangement on species.id = species_id " +
+                "join leafarrangement on leafarrangement.id = leafarrangement_id " +
+                "where species.id = " + Integer.toString(id), null);
+        leafarrangements = listFromCursor(cursor);
+        cursor.close();
+        db.close();
+        return leafarrangements;
     }
 
     private List<String> getLeafShapes(int id) {
-        return  new ArrayList<>();
+        List<String> leafshapes;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select leafshape.name from species " +
+                "join species_leafshape on species.id = species_id " +
+                "join leafshape on leafshape.id = leafshape_id " +
+                "where species.id = " + Integer.toString(id), null);
+        leafshapes = listFromCursor(cursor);
+        cursor.close();
+        db.close();
+        return leafshapes;
     }
 
     private List<String> getHabitats(int id) {
-        return  new ArrayList<>();
+        List<String> habitats;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select habitat.name from species " +
+                "join species_habitat on species.id = species_id " +
+                "join habitat on habitat.id = habitat_id " +
+                "where species.id = " + Integer.toString(id), null);
+        habitats = listFromCursor(cursor);
+        cursor.close();
+        db.close();
+        return habitats;
     }
 
     private List<String> getCFs(int id) {
-        return  new ArrayList<>();
+        List<String> cfs;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select cf.name from species " +
+                "join cf on species_id = species.id " +
+                "where species.id = " + Integer.toString(id), null);
+        cfs = listFromCursor(cursor);
+        cursor.close();
+        db.close();
+        return cfs;
     }
 
     public FieldGuideItem getFGItemWithID(int id) {
+        if (fgItemCache.containsKey(id)) {
+            return fgItemCache.get(id);
+        }
         String growthform, code, latin_name, common_name, family, description, flowershape,
                 leafshapefilter, photocredit;
-        List<String> synonyms = new ArrayList<>();
-        List<String> flowercolors = new ArrayList<>();
-        List<String> petalnumbers = new ArrayList<>();
-        List<String> inflorescence = new ArrayList<>();
-        List<String> leafarrangments = new ArrayList<>();
-        List<String> leafshapes = new ArrayList<>();
-        List<String> habitats = new ArrayList<>();
-        List<String> cfs = new ArrayList<>();
+        List<String> synonyms = getSynonyms(id);
+        List<String> flowercolors = getFlowerColors(id);
+        List<String> petalnumbers = getPetalNumbers(id);
+        List<String> inflorescence = getInflorescence(id);
+        List<String> leafarrangments = getLeafArrangements(id);
+        List<String> leafshapes = getLeafShapes(id);
+        List<String> habitats = getHabitats(id);
+        List<String> cfs = getCFs(id);
 
         growthform = code = latin_name = common_name = family = description = flowershape =
                 leafshapefilter = photocredit = "";
@@ -111,8 +238,11 @@ public class FieldGuideDBHandler extends SQLiteAssetHelper {
 
         cursor.close();
         db.close();
-        return new FieldGuideItem(id, growthform, code, latin_name, common_name, family, description,
-                flowershape, leafshapefilter, photocredit);
+        FieldGuideItem item =  new FieldGuideItem(id, growthform, code, latin_name, common_name, family, description,
+                flowershape, leafshapefilter, photocredit, synonyms, flowercolors, petalnumbers,
+                inflorescence, leafarrangments, leafshapes, habitats, cfs);
+        fgItemCache.put(id, item);
+        return item;
     }
 
 

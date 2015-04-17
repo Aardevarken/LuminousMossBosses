@@ -9,6 +9,7 @@ import com.luminousmossboss.luminous.FieldGuideDBHandler;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by MGarske on 4/12/2015.
@@ -17,35 +18,25 @@ public class FieldGuideItem extends ListItem implements Serializable {
     int id;
     HashMap<String,String> properties;
     String[] columns;
-    String growthform, code, latin_name, common_name, family, description, flowershape,
-            leafshapefilter, photocredit;
 
-
-    public FieldGuideItem (int id, Context context) {
+    public FieldGuideItem(int id, String title, String iconPath, String common_name) {
         this.id = id;
+        this.title = title;
+        this.icon = Uri.parse(iconPath);
         properties = new HashMap<>();
-        FieldGuideDBHandler db = new FieldGuideDBHandler(context);
-        SQLiteDatabase fieldGuideDB = db.getReadableDatabase();
-        Cursor dbCursor = fieldGuideDB.rawQuery("select * from species where id = " + Integer.toString(id), null);
-        this.columns = dbCursor.getColumnNames();
-        if (dbCursor.moveToFirst()) {
-            for (int i = 0; i < columns.length; i++ ) {
-                if (!columns[i].equals("id")) {
-                    properties.put(columns[i], dbCursor.getString(i));
-                }
-            }
-        }
-        this.title = properties.get("latin_name");
-        this.icon = Uri.parse("file:///android_asset/FORBS/" + properties.get("code") + ".jpg");
+        properties.put("common_name", common_name);
     }
 
     public FieldGuideItem(int id, String growthform, String code, String latin_name, String common_name,
                           String family, String description, String flowershape,
-                          String leafshapefilter, String photocredit) {
+                          String leafshapefilter, String photocredit, List<String> synonyms,
+                          List<String> flowercolors, List<String> petalnumbers,
+                          List<String> inflorescence, List<String> leafarrangments,
+                          List<String> leafshapes, List<String> habitats, List<String> cfs) {
         this.id = id;
-        String[] arr = {"growthform", "code", "latin_name", "common_name", "family", "description",
+        String[] order = {"growthform", "code", "latin_name", "common_name", "family", "description",
                     "flowershape", "leafshapefilter", "photocredit"};
-        columns = arr;
+        columns = order;
         properties = new HashMap<>();
         properties.put("growthform", growthform);
         properties.put("code", code);
@@ -65,6 +56,11 @@ public class FieldGuideItem extends ListItem implements Serializable {
     }
 
     public String[] getColumns() {
-        return properties.keySet().toArray(new String[properties.keySet().size()]);
+        return columns;
     }
+
+    public int getId() {
+        return id;
+    }
+
 }
