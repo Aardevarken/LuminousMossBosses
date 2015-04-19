@@ -15,47 +15,23 @@
 	NSString *assetID;
 	UIImage *identifiedImage;
 	BOOL isSilene;
-	float probability;
+	//float probability;
 }
 
 - (instancetype) initWithAssetID:(NSString *)newAssetID
 {
 	if (self) {
 		self.percentageComplete = [NSNumber numberWithFloat:-1.0];
-		self.pAssetID = newAssetID;
-		
-		progressBarPercentage = 0;
-		assetID = newAssetID;
-		identifiedImage = nil;
-		probability = NULL;
-		isSilene = NULL;
+		self.assetID = newAssetID;
+		self.positiveID = NULL;
+		self.probability = [NSNumber numberWithFloat:-1.0];
+		self.identifiedImage = NULL;
+		//assetID = newAssetID;
+		//.identifiedImage = nil;
+		//probability = NULL;
+		//isSilene = NULL;
 	}
 	return self;
-}
-
-- (float) getCurrentProgress
-{
-	return progressBarPercentage;
-}
-
-- (UIImage *) getIdentifiedImage
-{
-	return identifiedImage;
-}
-
-- (float) getIDProbability
-{
-	return probability;
-}
-
-- (void) updatePercentCompleated:(float)updatePercentage
-{
-	progressBarPercentage = updatePercentage;
-}
-
-- (BOOL) getIsSilene
-{
-	return isSilene;
 }
 
 - (void) runDetectionAlgorithm:(UIImage *)unknownImage
@@ -66,13 +42,6 @@
 	
 	// end of test code //
 	//////////////////////
-	
-	
-	// Some house cleaning before we begin. Before the thread is called to run the
-	// the ientification, all variables associated with the identification should be
-	// reinitialized.
-	identifiedImage = nil;		// might be bad practice to do this
-	isSilene = NULL;			// same as probability
 	
 	//////////////////////
 	// stage 0: Preping //
@@ -104,20 +73,21 @@
 	
 	// convert image to UIImage
 	UIImage* newImage = MatToUIImage(detectedImage);
-	identifiedImage = newImage;
+	[self setValue:newImage forKey:@"identifiedImage"];
 	
 	/////////////
 	// stage 2 //
 	Mat cvImageBGR;
 	cvtColor(cvImage, cvImageBGR, CV_BGR2RGB);
-	probability = flowerDetector.probability(cvImageBGR);
+	//probability = flowerDetector.probability(cvImageBGR);
+	[self setValue:[NSNumber numberWithFloat:flowerDetector.probability(cvImageBGR)] forKey:@"probability"];
 	
 	/////////////
 	// stage 3 //
 	//UIImageToMat(unknownImage, cvImage);
 	isSilene = flowerDetector.isThisSilene(cvImageBGR);
+	[self setValue:[NSNumber numberWithFloat:flowerDetector.isThisSilene(cvImageBGR)] forKey:@"positiveID"];
 	
-
 	/////////////
 	// stage 4 //
 	sleep(5);

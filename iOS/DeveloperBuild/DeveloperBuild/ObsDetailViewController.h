@@ -22,7 +22,6 @@
 
 @property (nonatomic, strong) NSDictionary *plantInfo;
 
-@property (nonatomic, strong) IBOutlet UIProgressView *progressBar;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) IBOutlet UIButton *idButton;
 
