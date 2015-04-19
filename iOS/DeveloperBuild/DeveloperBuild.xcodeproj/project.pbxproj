@@ -11,6 +11,7 @@
 		16008CCC1AB62C5200672891 /* detectionHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 165C45FD1AB54EE8006ECDDC /* detectionHelper.mm */; };
 		1617BB751AE3438100709D50 /* IdentifyingAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = 1617BB741AE3438100709D50 /* IdentifyingAssets.m */; };
 		1617BB771AE4636400709D50 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1617BB761AE4636400709D50 /* AVFoundation.framework */; };
+		1617BB7A1AE467CE00709D50 /* CaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1617BB791AE467CE00709D50 /* CaptureSessionManager.m */; };
 		161F47651A8ED7B300E67313 /* NewObs.m in Sources */ = {isa = PBXBuildFile; fileRef = 161F47641A8ED7B300E67313 /* NewObs.m */; };
 		1627A1271AB430D4009BD6EF /* ObsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1627A1261AB430D3009BD6EF /* ObsDetailViewController.m */; };
 		162FAD841ADDA83100F811CD /* MyObservationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 162FAD831ADDA83100F811CD /* MyObservationData.m */; };
@@ -83,6 +84,8 @@
 		1617BB731AE3438100709D50 /* IdentifyingAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentifyingAssets.h; sourceTree = "<group>"; };
 		1617BB741AE3438100709D50 /* IdentifyingAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentifyingAssets.m; sourceTree = "<group>"; };
 		1617BB761AE4636400709D50 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1617BB781AE467CE00709D50 /* CaptureSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSessionManager.h; sourceTree = "<group>"; };
+		1617BB791AE467CE00709D50 /* CaptureSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSessionManager.m; sourceTree = "<group>"; };
 		161F47631A8ED7B300E67313 /* NewObs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewObs.h; sourceTree = "<group>"; };
 		161F47641A8ED7B300E67313 /* NewObs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewObs.m; sourceTree = "<group>"; };
 		1627A1251AB430D3009BD6EF /* ObsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObsDetailViewController.h; sourceTree = "<group>"; };
@@ -118,7 +121,7 @@
 		16B052DB1A5B5327007837B4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		16B052DD1A5B5334007837B4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		16B2A6CD1A9D4D2200A73A86 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
-		16B2A6CE1A9D4D2200A73A86 /* ImageViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ImageViewController.m; sourceTree = "<group>"; };
+		16B2A6CE1A9D4D2200A73A86 /* ImageViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = ImageViewController.m; sourceTree = "<group>"; };
 		16C7458F1AB0EC0E0039AE3C /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		16CCBC331A773D71008B7E96 /* IMG_1976.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_1976.jpg; sourceTree = "<group>"; };
 		16CCBC341A773D71008B7E96 /* IMG_1997.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_1997.jpg; sourceTree = "<group>"; };
@@ -257,6 +260,8 @@
 				16A6D84D1A637DEA00CB4563 /* ObservationCell.m */,
 				16B052B11A5B4BDE007837B4 /* ViewController.h */,
 				16B052B21A5B4BDE007837B4 /* ViewController.m */,
+				1617BB781AE467CE00709D50 /* CaptureSessionManager.h */,
+				1617BB791AE467CE00709D50 /* CaptureSessionManager.m */,
 				16B2A6CD1A9D4D2200A73A86 /* ImageViewController.h */,
 				16B2A6CE1A9D4D2200A73A86 /* ImageViewController.m */,
 				16B052B71A5B4BDE007837B4 /* Images.xcassets */,
@@ -470,6 +475,7 @@
 				F0395FEA1A98365500EE1BF9 /* identified.cpp in Sources */,
 				1617BB751AE3438100709D50 /* IdentifyingAssets.m in Sources */,
 				F0395FE61A9835F700EE1BF9 /* detector.cpp in Sources */,
+				1617BB7A1AE467CE00709D50 /* CaptureSessionManager.m in Sources */,
 				16B052B31A5B4BDE007837B4 /* ViewController.m in Sources */,
 				16E2D49B1A64860900CA8845 /* ObsViewController.m in Sources */,
 				16A6D8481A636C6F00CB4563 /* ObsTableViewController.m in Sources */,

@@ -54,7 +54,9 @@
 	
 	// create obs list object
 	
-	
+	/* Begining of test code */
+	[self initCapture];
+	/* End of test code */
 }
 
 - (void)didReceiveMemoryWarning {
