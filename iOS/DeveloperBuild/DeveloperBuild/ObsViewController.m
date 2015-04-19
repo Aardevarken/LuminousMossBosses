@@ -365,7 +365,7 @@ NSMutableArray *_myObservations;
         NSDictionary* observationData = object;
         
         // Get position and time data
-        NSString* date = [NSString stringWithFormat:@"%@", [observationData objectForKey:@"date"]];
+        NSString* date = [NSString stringWithFormat:@"%@", [observationData objectForKey:@"datetime"]];
         float lat = [[observationData objectForKey:@"latitude"] floatValue];
         float lng = [[observationData objectForKey:@"longitude"] floatValue];
         
