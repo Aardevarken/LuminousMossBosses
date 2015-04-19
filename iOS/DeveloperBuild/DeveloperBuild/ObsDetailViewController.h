@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ObsDetailViewController : UIViewController
+@interface ObsDetailViewController : UIViewController{
+	@private
+	int startActivityIndicator;
+}
 
 @property (nonatomic, strong) IBOutlet UILabel *nameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *percentLabel;
@@ -18,10 +21,14 @@
 @property (strong, nonatomic) IBOutlet UILabel *longitudeLabel;
 
 @property (nonatomic, strong) NSDictionary *plantInfo;
-@property (nonatomic, strong) IBOutlet UIProgressView *progressBar;
 
+@property (nonatomic, strong) IBOutlet UIProgressView *progressBar;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) IBOutlet UIButton *idButton;
 
+
 - (IBAction)startIdentificationButton:(UIButton *)sender;
+
+
 
 @end

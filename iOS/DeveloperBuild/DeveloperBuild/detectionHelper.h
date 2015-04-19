@@ -14,6 +14,8 @@
 
 @interface detectionHelper : NSObject
 
+@property (nonatomic) NSNumber *percentageComplete;
+@property (nonatomic, strong) NSString *pAssetID;
 
 /**
  * Given an image, progress bar, and a percentage to fill runDetectionAlgorithm will run several tests and update the progress bar.
@@ -21,7 +23,7 @@
  * All updates to the progress bar are does by calling the main thread.
  * This code is concrete and will need to be refactored at some point.
  */
-- (void) runDetectionAlgorithm:(UIImage *) unknownImage progressBar:(UIProgressView*)progressBar maxPercentToFill:(float)percentMultiplier;
+- (void) runDetectionAlgorithm:(UIImage *) unknownImage;
 
 
 /**
