@@ -54,7 +54,13 @@ public class IdentifiyDialogFragment extends DialogFragment{
                 .setNeutralButton(R.string.dialog_neutral, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // Save but don't send to queue
+                        Observation observation = new Observation(observationId, getActivity());
+                        CharSequence fragTitle = observation.getTitle();
+                        Fragment fragment = null;
+                        Activity activity = getActivity();
+                        fragment = ObservationFragment.newInstance(observation);
+                        ((MainActivity) activity).setTitle(fragTitle);
+                        ((MainActivity) activity).displayView(fragment);
                     }
                 })
                 .setNegativeButton(R.string.dialog_decline, new DialogInterface.OnClickListener() {

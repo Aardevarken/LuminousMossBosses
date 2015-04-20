@@ -47,7 +47,7 @@ public class Observation extends ListItem implements Serializable {
         Cursor cursor = db.getObservationById(id);
         if(cursor.moveToFirst()) {
 
-           ;
+
 
             setIcon(Uri.fromFile(new File(cursor.getString(cursor.getColumnIndex(ObservationDBHandler.KEY_PHOTO_PATH)))));
             setDate(cursor.getString(cursor.getColumnIndex(ObservationDBHandler.KEY_TIME_TAKEN)));

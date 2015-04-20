@@ -6,6 +6,8 @@ package com.luminousmossboss.luminous;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.provider.Settings;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.luminousmossboss.luminous.model.Observation;
@@ -24,21 +26,27 @@ public class SendPostActivity extends AsyncTask<Object,Void,Integer>{
 
     private int observationId;
     private Context context;
+    private Button sendButton;
 
     private final String POST_URL = "http://luminousid.com/_post_observation";
     private final int STATUS_OK = 200;
 
 
-    public SendPostActivity(Context context, int id) {
+    public SendPostActivity(Context context, int id, Button sendButton) {
         this.context = context;
         observationId = id;
+        this.sendButton = sendButton;
+
 
 
     }
-
+    @Override
     protected void onPreExecute(){
+        sendButton.setEnabled(false);
+        sendButton.setVisibility(View.GONE);
 
     }
+
     @Override
     protected Integer doInBackground(Object... arg0) {
 
@@ -58,10 +66,12 @@ public class SendPostActivity extends AsyncTask<Object,Void,Integer>{
             entity.addPart("DeviceId", new StringBody(Settings.Secure.getString(context.getContentResolver(),
                     Settings.Secure.ANDROID_ID)));
             entity.addPart("DeviceType", new StringBody("AndroidPhone"));
+            entity.addPart(" LocationError ", new StringBody(String.valueOf(observation.getAccuracy())));
             httppost.setEntity(entity);
             HttpResponse response = httpclient.execute(httppost);
 
             int statusCode =response.getStatusLine().getStatusCode();
+
             return statusCode;
         } catch (Exception e) {return e.hashCode();}
 
@@ -80,9 +90,13 @@ public class SendPostActivity extends AsyncTask<Object,Void,Integer>{
             ObservationDBHandler db = new ObservationDBHandler(context);
             db.updateSyncedStatus(observationId);
 
+
         }
         else {
             Toast.makeText(context,"There was an issue connecting, please try again with better service",Toast.LENGTH_LONG).show();
+            sendButton.setEnabled(true);
+            sendButton.setVisibility(View.VISIBLE);
+
 
         }
 

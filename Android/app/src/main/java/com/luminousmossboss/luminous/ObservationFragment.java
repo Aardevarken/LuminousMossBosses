@@ -32,7 +32,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
     private final static String OBSERVATION_KEY = "observation_key";
 
 
-    private Button show_button;
+    private Button sendButton;
     private Observation observation;
 
     public ObservationFragment()  { }
@@ -85,7 +85,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         dataSet.setAdapter(adapter);
 
         // Handle Button Events
-        Button sendButton = (Button) rootView.findViewById(R.id.button_context);
+        sendButton = (Button) rootView.findViewById(R.id.button_context);
         sendButton.setOnClickListener(this);
         //Button removeButton = (Button) rootView.findViewById(R.id.button_remove);
         //removeButton.setOnClickListener(this);
@@ -129,7 +129,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button_context:
-                new SendPostActivity(getActivity(), observation.getId()).execute(observation);
+                new SendPostActivity(getActivity(), observation.getId(), sendButton).execute(observation);
                 break;
             case R.id.imageView:
                 IdActivity idActivity = new IdActivity(getActivity());
