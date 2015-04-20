@@ -3,6 +3,7 @@ package com.luminousmossboss.luminous;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -87,9 +88,16 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         // Handle Button Events
         sendButton = (Button) rootView.findViewById(R.id.button_context);
         sendButton.setOnClickListener(this);
-        //Button removeButton = (Button) rootView.findViewById(R.id.button_remove);
-        //removeButton.setOnClickListener(this);
         imageView.setOnClickListener(this);
+
+        //Check if Buttons should be visible
+        ObservationDBHandler db = new ObservationDBHandler(getActivity());
+        Cursor cursor = db.getObservationById(observation.getId());
+        cursor.moveToFirst();
+        if(cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_SYNCED_STATUS)) != 0)
+        {
+            sendButton.setVisibility(View.GONE);
+        }
 
         return rootView;
     }
@@ -132,7 +140,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
                 new SendPostActivity(getActivity(), observation.getId(), sendButton).execute(observation);
                 break;
             case R.id.imageView:
-                IdActivity idActivity = new IdActivity(getActivity());
+                IdActivity idActivity = new IdActivity(getActivity(), observation.getId());
                 idActivity.execute(observation.getIcon().getPath());
                 break;
         }

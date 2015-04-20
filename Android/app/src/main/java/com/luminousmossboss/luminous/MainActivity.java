@@ -373,6 +373,7 @@ public class MainActivity extends Activity {
             map.put(ObservationDBHandler.KEY_PHOTO_PATH, mCurrentPhotoPath);
             map.put(ObservationDBHandler.KEY_SYNCED_STATUS, String.valueOf(0));
             map.put(ObservationDBHandler.KEY_TIME_TAKEN, timeNow);
+            map.put(ObservationDBHandler.KEY_PROCESSED_STATUS,String.valueOf(0));
 
             db.addObservation(map);
             Cursor cursor = db.getObservationByFilePath(mCurrentPhotoPath);

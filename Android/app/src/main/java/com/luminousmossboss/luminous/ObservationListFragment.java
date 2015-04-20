@@ -89,6 +89,8 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
         mTabSynced = (RadioButton) rootView.findViewById(R.id.tab_synced);
         mTabSynced.setOnClickListener(this);
 
+
+
         // Set tab color
         SegmentedGroup tab_host = (SegmentedGroup) rootView.findViewById(R.id.tab_host);
         tab_host.setTintColor(getResources().getColor(R.color.fieldguide_button));
@@ -126,13 +128,13 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
         this.context = container.getContext();
         this.listItems = new ArrayList<ListItem>();
         ArrayList<ListItem> sileneList = new ArrayList<ListItem>();
-        sileneList.add(new Separator("Silene Aculis"));
+        sileneList.add(new Separator("Processed"));
         ArrayList<ListItem> unknownList = new ArrayList<ListItem>();
-        unknownList.add(new Separator("Unknown"));
+        unknownList.add(new Separator("Unprocessed"));
 
         //Cursor cursor = db.getAllObservation();
         Cursor cursor = db.getObservationBySyncStatus(status);
-        int is_silene;
+        int is_processed;
         int id;
         File file;
         if (cursor.moveToFirst())
@@ -144,11 +146,11 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
                 Double longitude = cursor.getDouble(cursor.getColumnIndex(ObservationDBHandler.KEY_LONGITUDE));
 
 */
-                is_silene = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_IS_SILENE));
+                is_processed = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_PROCESSED_STATUS));
                 id = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_ID));
                 file = new File(cursor.getString(cursor.getColumnIndex(ObservationDBHandler.KEY_PHOTO_PATH)));
                 if(file.exists()) {
-                    if (is_silene == 1)
+                    if (is_processed == 1)
                         sileneList.add(new Observation(id, getActivity()));
                     else
                         unknownList.add(new Observation(id, getActivity()));

@@ -16,7 +16,7 @@ import android.database.Cursor;
 public class ObservationDBHandler extends SQLiteOpenHelper {
 
 
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 7;
 
     // Database Name
     private static final String DATABASE_NAME = "Silenedb";
@@ -33,6 +33,7 @@ public class ObservationDBHandler extends SQLiteOpenHelper {
     public static final String KEY_TIME_TAKEN = "time_taken";
     public static final String KEY_GPS_ACCURACY = "gps_accuracy";
     public static final String KEY_SYNCED_STATUS = "has_been_synced";
+    public static final String KEY_PROCESSED_STATUS = "has_been_processed";
     public ObservationDBHandler(Context context) {
         super(context,DATABASE_NAME, null, DATABASE_VERSION);
         // TODO Auto-generated constructor stub
@@ -44,7 +45,7 @@ public class ObservationDBHandler extends SQLiteOpenHelper {
         String CREATE_OBSERVATION_TABLE = "CREATE TABLE " + TABLE_OBSERVATIONS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"  + KEY_PHOTO_PATH + " TEXT,"
                 + KEY_LATITUDE + " TEXT,"  + KEY_LONGITUDE + " TEXT,"+ KEY_IS_SILENE + " INTEGER," + KEY_TIME_TAKEN + " TEXT," + KEY_GPS_ACCURACY + " REAL," +
-                KEY_SYNCED_STATUS + " INTEGER" + ")";
+                KEY_SYNCED_STATUS + " INTEGER," + KEY_PROCESSED_STATUS + " INTEGER" + ")";
         db.execSQL(CREATE_OBSERVATION_TABLE);
 
     }
@@ -103,6 +104,15 @@ public class ObservationDBHandler extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
     }
+
+    public Cursor getObservationByProcessedStatus(int has_been_processed) {
+        String selectQuery = "SELECT * FROM " + TABLE_OBSERVATIONS +
+                " WHERE has_been_processed =" + has_been_processed;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        return cursor;
+    }
     public Cursor getObservationById(int id) {
         String selectQuery = "SELECT * FROM " + TABLE_OBSERVATIONS +
                 " WHERE id =" + id;
@@ -125,6 +135,14 @@ public class ObservationDBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_IS_SILENE, String.valueOf(status));
+        return db.update(TABLE_OBSERVATIONS, values, KEY_ID + " = ?",
+                new String[] { String.valueOf(id) });
+    }
+    public int updateProcessed(int id, boolean status)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_PROCESSED_STATUS, String.valueOf(1));
         return db.update(TABLE_OBSERVATIONS, values, KEY_ID + " = ?",
                 new String[] { String.valueOf(id) });
     }
