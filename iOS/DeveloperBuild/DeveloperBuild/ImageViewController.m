@@ -11,7 +11,7 @@
 #import "MyObservations.h"
 #import "UserDataDatabase.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-#import <AVFoundation/AVFoundation.h>
+#import <AVFoundation/AVFoundation.h>	// T1
 
 #define TESTING YES
 
@@ -54,9 +54,43 @@
 	
 	// create obs list object
 	
-	/* Begining of test code */
-	[self initCapture];
-	/* End of test code */
+	/*** START OF TUTORIAL 'T1' CODE ***/
+	[self setCaptureManager:[[CaptureSessionManager alloc] init]];
+	
+	[[self captureManager] addVideoInput];
+	
+	[[self captureManager] addVideoPreviewLayer];
+	CGRect layerRect = [[[self view] layer] bounds];
+	[[[self captureManager] previewLayer] setBounds:layerRect];
+	[[[self captureManager] previewLayer] setPosition:CGPointMake(CGRectGetMidX(layerRect), CGRectGetMidY(layerRect))];
+	[[[self view] layer] addSublayer:[[self captureManager] previewLayer]];
+	
+	// I do not think i need to following
+//	UIImageView *overlayImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed]]
+//	[overlayImageView setFrame:CGRectMake(30, 100, 260, 200)];
+//	[[self view] addSubview:overlayImageView];
+//	[overlayImageView release];
+	
+	UIButton *overlayButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	// Because i can use the storyboard i do nothink that i will be needing the following
+//	[overlayButton setImage:[UIImage imageNamed:@"scanbutton.png"] forState:UIControlStateNormal];
+//	[overlayButton setFrame:CGRectMake(130, 320, 60, 30)];
+//	[overlayButton addTarget:self action:@selector(scanButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+	[[self view] addSubview:overlayButton]; 	// But i do think i will be needing this
+	
+	// I do not think i will be needing the following
+//	UILabel *tempLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 50, 120, 30)];
+//	[self setScanningLabel:tempLabel];
+//	[tempLabel release];
+//	[scanningLabel setBackgroundColor:[UIColor clearColor]];
+//	[scanningLabel setFont:[UIFont fontWithName:@"Courier" size: 18.0]];
+//	[scanningLabel setTextColor:[UIColor redColor]];
+//	[scanningLabel setText:@"Scanning..."];
+//	[scanningLabel setHidden:YES];
+//	[[self view] addSubview:scanningLabel];
+	
+	[[captureManager captureSession] startRunning];
+	/*** END OF TUTORIAL 'T1' CODE ***/
 }
 
 - (void)didReceiveMemoryWarning {
@@ -186,7 +220,7 @@
 	}
 	
 	
-	success = [[UserDataDatabase getSharedInstance] saveObservation:img date:nullptr latitude:nullptr longitude:nullptr locationError:[NSNumber numberWithDouble:100.0] percentIDed:NULL];
+	success = [[UserDataDatabase getSharedInstance] saveObservation:img date:nil latitude:nil longitude:nil locationError:[NSNumber numberWithDouble:100.0] percentIDed:NULL];
 	
 	if (success == NO) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -202,46 +236,21 @@
 }
  */
 
-/* Test code here */
-- (void)initCapture
-{
-	AVCaptureDevice *inputDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-	AVCaptureDeviceInput *captureInput = [AVCaptureDeviceInput deviceInputWithDevice:inputDevice error:nil];
-	if (!captureInput) {
-		return;
-	}
-	AVCaptureVideoDataOutput *captureOutput = [[AVCaptureVideoDataOutput alloc] init];
-	/* captureOutput:didOutputSampleBuffer:fromConnection delegate method !*/
-	[captureOutput setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
-	NSString* key = (NSString*)kCVPixelBufferPixelFormatTypeKey;
-	NSNumber* value = [NSNumber numberWithUnsignedInt:kCVPixelFormatType_32BGRA];
-	NSDictionary* videoSettings = [NSDictionary dictionaryWithObject:value forKey:key];
-	[captureOutput setVideoSettings:videoSettings];
-	self.captureSession = [[AVCaptureSession alloc] init];
-	NSString* preset = 0;
-	if (!preset) {
-		preset = AVCaptureSessionPresetMedium;
-	}
-	self.captureSession.sessionPreset = preset;
-	if ([self.captureSession canAddInput:captureInput]) {
-		[self.captureSession addInput:captureInput];
-	}
-	if ([self.captureSession canAddOutput:captureOutput]) {
-		[self.captureSession addOutput:captureOutput];
-	}
-	
-	//handle prevLayer
-	if (!self.captureVideoPreviewLayer) {
-		self.captureVideoPreviewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
-	}
-	
-	//if you want to adjust the previewlayer frame, here!
-	self.captureVideoPreviewLayer.frame = self.view.bounds;
-	self.captureVideoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-	[self.view.layer addSublayer: self.captureVideoPreviewLayer];
-	[self.captureSession startRunning];
+/* tutorial code here */
+#pragma mark - Turorial code (methods)
+@synthesize captureManager;
+@synthesize scanningLabel;
+
+- (void) scanButtonPressed {
+	[[self scanningLabel] setHidden:NO];
+	[self performSelector:@selector(hideLabel:) withObject:[self scanningLabel] afterDelay:2];
 }
-/* End of test code */
+
+- (void)hideLabel:(UILabel *)label {
+	[label setHidden:YES];
+}
+
+/* end of tutorial code */
 @end
 
 

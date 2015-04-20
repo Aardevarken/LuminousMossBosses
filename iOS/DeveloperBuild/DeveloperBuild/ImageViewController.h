@@ -14,11 +14,12 @@
  * This comments will be removed after additional fuctionality is implemented, 
  tested, and commited. 
  * CaptureSessionManager.h &.m where added for these tutorials and will not be
- marked up. 
+ marked up.
 \******************************************************************************/
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import "CaptureSessionManager.h"	// T1
 
 @interface ImageViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>{
 	UIImageView * imageView;
@@ -42,7 +43,8 @@
 // This is the first of two parts. Some of this tutorial will be re-written.
 // Some or all of the above code may need to be removed.
 
-
+@property (retain) CaptureSessionManager *captureManager;
+@property (nonatomic, retain) UILabel *scanningLabel;
 
 /*** END OF TUTORIAL ONLY FILES ***/
 @end
