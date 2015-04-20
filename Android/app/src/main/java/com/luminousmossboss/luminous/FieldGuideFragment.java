@@ -45,7 +45,7 @@ public class FieldGuideFragment extends Fragment implements BackButtonInterface 
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_fieldguide, container, false);
-        ArrayList<ListItem> listItems = new ArrayList<ListItem>();
+        ArrayList<ListItem> listItems = new ArrayList<>();
         final Activity activity = getActivity();
         Bundle bundle = getArguments();
         setHasOptionsMenu(true);
@@ -53,21 +53,20 @@ public class FieldGuideFragment extends Fragment implements BackButtonInterface 
         ImageView imageView = (ImageView) rootView.findViewById(R.id.imageView);
         TextView title = (TextView) rootView.findViewById(R.id.title);
         ListView dataSet = (ListView) rootView.findViewById(R.id.listView);
-
-        this.fgitem = (FieldGuideItem) bundle.getSerializable(FGITEM_KEY);
+        FieldGuideDBHandler fgDBHelper = FieldGuideDBHandler.getInstance(container.getContext());
+        this.fgitem = fgDBHelper.getFGItemWithID(((FieldGuideItem) bundle.getSerializable(FGITEM_KEY)).getId());
         imageView.setImageURI(fgitem.getIcon());
-        Picasso.with(getActivity()).load(fgitem.getIcon()).resize(1365, 1024).centerCrop().into(imageView);
+        Picasso.with(getActivity()).load(fgitem.getIcon()).into(imageView);
 
 
         title.setText(fgitem.getTitle());
-//        listItems.add(new DataItem("Filename:", observation.getIcon().getLastPathSegment()));
-//        listItems.add(new DataItem("Date:", observation.getDate()));
         String[] columns = fgitem.getColumns();
-        for (int i= 1; i < columns.length; i++) {
+        for (int i= 0; i < columns.length; i++) {
             listItems.add(new DataItem(columns[i] + ":", fgitem.getProperty(columns[i])));
         }
 
         DataListAdapter adapter = new DataListAdapter(container.getContext(), listItems);
+
         dataSet.setAdapter(adapter);
 
 

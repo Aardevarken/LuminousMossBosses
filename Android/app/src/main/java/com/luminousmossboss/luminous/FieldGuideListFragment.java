@@ -16,8 +16,11 @@ import android.widget.ListView;
 import com.luminousmossboss.luminous.adapter.FGListAdapter;
 import com.luminousmossboss.luminous.model.FieldGuideItem;
 import com.luminousmossboss.luminous.model.ListItem;
+import com.luminousmossboss.luminous.model.Separator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -90,25 +93,19 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
         this.context = container.getContext();
         this.listItems = new ArrayList<ListItem>();
 
-        FieldGuideDBHandler fieldGuideDBH = new FieldGuideDBHandler(context);
+        FieldGuideDBHandler fieldGuideDBH = FieldGuideDBHandler.getInstance(context);
 
-        SQLiteDatabase fieldGuideDB = fieldGuideDBH.getReadableDatabase();
-
-        Cursor dbCursor = fieldGuideDB.rawQuery("select id from species order by binomial_name;", null);
-
-        if (dbCursor.moveToFirst()) {
-            do {
-                int id = dbCursor.getInt(0);
-                listItems.add(new FieldGuideItem(id, context));
-            } while (dbCursor.moveToNext());
+        List<Integer> ids = fieldGuideDBH.getIDs();
+        HashMap<Integer, String> latinNames = fieldGuideDBH.getLatinNames();
+        HashMap<Integer, String> commonNames = fieldGuideDBH.getCommonNames();
+        HashMap<Integer, String> iconPaths = fieldGuideDBH.getIconPaths();
+        for (int i = 0; i < ids.size(); i++) {
+//            listItems.add(fieldGuideDBH.getFGItemWithID(ids.get(i)));
+            int id = ids.get(i);
+            listItems.add(new FieldGuideItem(id, latinNames.get(id), iconPaths.get(id), commonNames.get(id)));
         }
 
-
-
-        dbCursor.close();
-
         listIcons.recycle();
-
 
         adapter = new FGListAdapter(context, listItems);
         mDrawerList.setAdapter(adapter);
