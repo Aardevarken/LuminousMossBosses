@@ -22,6 +22,8 @@
 @property (nonatomic) NSMutableArray *capturedImages;
 @property (nonatomic, strong) NSString *capedImg;
 
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;	// T2
 @end
 
 @implementation ImageViewController{
@@ -92,6 +94,9 @@
 //		[[self view] addSubview:scanningLabel];
 		
 		[[captureManager captureSession] startRunning];
+		[[self captureManager] addStillImageOutput];	// T2
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveImageToPhotoAlbum) name:kImageCapturedSuccessfully object:nil];	// T2
+
 		/*** END OF TUTORIAL 'T1' CODE ***/
 	}
 }
@@ -174,7 +179,7 @@
 	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
 	
-	
+	/* * /
 	if ((UIButton *) sender == choosePhotoBtn) {
 		picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
 	} else {
@@ -182,6 +187,8 @@
 	}
 	
 	[self presentViewController:picker animated:YES completion:NULL];
+	/* */
+	[[self captureManager] captureStillImage];
 }
 
 - (IBAction)addObservation:(UIButton *)sender {
@@ -241,16 +248,38 @@
 
 /* tutorial code here */
 #pragma mark - Turorial code (methods)
+// T1
 @synthesize captureManager;
 @synthesize scanningLabel;
 
 - (void) scanButtonPressed {
 	[[self scanningLabel] setHidden:NO];
-	[self performSelector:@selector(hideLabel:) withObject:[self scanningLabel] afterDelay:2];
+	//[self performSelector:@selector(hideLabel:) withObject:[self scanningLabel] afterDelay:2]; // removed in T2
+	[[self captureManager] captureStillImage];	// T2
 }
 
 - (void)hideLabel:(UILabel *)label {
 	[label setHidden:YES];
+}
+
+// T2
+- (void)saveImageToPhotoAlbum{
+	UIImageWriteToSavedPhotosAlbum([[self captureManager] stillImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
+	
+	if (error != NULL) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:@"Image could not be saved" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+		[alert show];
+		//[alert release];
+	}
+	else {
+		NSLog(@"Image save with no error: %@", error);
+//		[[self scanningLabel] setHidden:YES]; 		// I will not be needing this
+		self.imageView.image = image;
+		self.imageView.hidden = NO;
+	}
 }
 
 /* end of tutorial code */
