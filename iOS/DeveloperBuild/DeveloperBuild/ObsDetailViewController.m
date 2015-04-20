@@ -104,18 +104,17 @@ detectionHelper *detectionObject;
 	NSString *assetid = [NSString stringWithFormat:@"%@",[plantInfo objectForKey:@"imghexid"]];
 	NSString *newState = @"pending-id";
 	
-	if(FALSE){
-		// update row variables
-		BOOL success = [[UserDataDatabase getSharedInstance]
-						updateObservation:assetid andNewPercentIDed:NSnewprob andNewStatus:newState];
-		
-		// did it all work? if not show an error.
-		NSString *alertString = @"Data update failed";
-		if (success == NO) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-		}
+	// update row variables
+	BOOL success = [[UserDataDatabase getSharedInstance]
+					updateObservation:assetid andNewPercentIDed:NSnewprob andNewStatus:newState];
+	
+	// did it all work? if not show an error.
+	NSString *alertString = @"Data update failed";
+	if (success == NO) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
 	}
+	
 	
 	idButton.hidden = YES;
 }

@@ -17,18 +17,17 @@
 	// Nothing here ...
 }
 
-// T1
 @property (retain) AVCaptureVideoPreviewLayer *previewLayer;
 @property (retain) AVCaptureSession *captureSession;
-// T2
+
 @property (retain) AVCaptureStillImageOutput *stillImageOutput;
 @property (nonatomic, retain) UIImage *stillImage;
 
-// T1
+
 - (void)addVideoPreviewLayer;
 - (void)addVideoInput;
 
-// T2
+
 - (void)addStillImageOutput;	// WHY DID THIS HAVE A BUILD IN METHOD?
 - (void)captureStillImage;
 

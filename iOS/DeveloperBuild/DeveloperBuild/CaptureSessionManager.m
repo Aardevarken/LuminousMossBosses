@@ -99,11 +99,9 @@
 		}
 	}
 	
-	ALog(@"about to request a capture from: %@", [self stillImageOutput]);
 	/* Changes that had to be made
 	 * imageSampleBuffer --> imageDataSampleBuffer
 	 */
-
 	[[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:videoConnection
 														 completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
 															 CFDictionaryRef exifAttachments = CMGetAttachment(imageDataSampleBuffer, kCGImagePropertyExifDictionary, NULL);
@@ -119,8 +117,8 @@
 															 UIImage *image = [UIImage imageWithData:imageData]; // tutorial has a alloc here. but that proved to produce an error when added. same with [image release]
 															 [self setStillImage:image];
 															 //[image release];
-															 [[NSNotificationCenter defaultCenter] postNotificationName:kImageCapturedSuccessfully object:nil];
-															 [self stopFeed];
+															 //[[NSNotificationCenter defaultCenter] postNotificationName:kImageCapturedSuccessfully object:nil];
+															 [[self captureSession] stopRunning];
 														}
 	 ];
 }
