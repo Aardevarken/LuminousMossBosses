@@ -73,9 +73,9 @@
 	
 	UIButton *overlayButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	// Because i can use the storyboard i do nothink that i will be needing the following
-//	[overlayButton setImage:[UIImage imageNamed:@"scanbutton.png"] forState:UIControlStateNormal];
-//	[overlayButton setFrame:CGRectMake(130, 320, 60, 30)];
-//	[overlayButton addTarget:self action:@selector(scanButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+	[overlayButton setImage:[UIImage imageNamed:@"scanbutton.png"] forState:UIControlStateNormal];
+	[overlayButton setFrame:CGRectMake(130, 320, 60, 30)];
+	[overlayButton addTarget:self action:@selector(scanButtonPressed) forControlEvents:UIControlEventTouchUpInside];
 	[[self view] addSubview:overlayButton]; 	// But i do think i will be needing this
 	
 	// I do not think i will be needing the following

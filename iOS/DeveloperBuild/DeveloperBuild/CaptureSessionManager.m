@@ -34,14 +34,14 @@
 }
 
 - (void)addVideoPreviewLayer{
-	[self setPreviewLayer:[[[AVCaptureVideoPreviewLayer alloc] initWithSession:[self captureSession]] autorelease]];
+	[self setPreviewLayer:[[AVCaptureVideoPreviewLayer alloc] initWithSession:[self captureSession]]];
 }
 
 - (void)addVideoInput{
 	AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
 	if (videoDevice) {
-		NSError *error;
-		AVCaptureDeviceInput *videoIn = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:error];
+		NSError *error = nil;
+		AVCaptureDeviceInput *videoIn = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:&error];
 		if (!error) {
 			if ([[self captureSession] canAddInput:videoIn]) {
 				[[self captureSession] addInput:videoIn];
@@ -57,12 +57,11 @@
 }
 
 - (void)dealloc {
+	// This needs to be reviewed.
 	[[self captureSession] stopRunning];
 	
-	[previewLayer release], previewLayer = nil;
-	[captureSession release], captureSession = nil;
-	
-	[super dealloc];
+	previewLayer = nil;
+	captureSession = nil;
 }
 
 @end
