@@ -11,7 +11,7 @@
 #import <CoreMedia/CoreMedia.h>
 #import <UIKit/UIKit.h>
 
-#define kImageCapturedSuccessfully @"imageCaptureSuccessfully"	// T2
+#define kImageCapturedSuccessfully @"imageCaptureSuccessfully"
 
 @interface CaptureSessionManager : NSObject{
 	// Nothing here ...

@@ -10,6 +10,8 @@
 #import "ImageViewController.h"
 #import "MyObservations.h"
 #import "UserDataDatabase.h"
+#import "ObsViewController.h"
+
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AVFoundation/AVFoundation.h>
 
@@ -25,7 +27,8 @@
 @property (nonatomic, strong) NSString *capedImg;
 
 
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
+- (void)didFinishSavingImageWithError:(NSNotification *)note;
+
 @end
 
 @implementation ImageViewController{
@@ -69,8 +72,19 @@
 		[[[self view] layer] addSublayer:[[self captureManager] previewLayer]];
 
 		[[self captureManager] addStillImageOutput];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveImageToPhotoAlbum) name:kImageCapturedSuccessfully object:nil];	// T2
+		//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinish) name:kImageCapturedSuccessfully object:nil];	// T2
 		
+		/*
+		 [[NSNotificationCenter defaultCenter] addObserver:self
+												  selector:@selector(saveImageToPhotoAlbum)
+													  name:kImageCapturedSuccessfully
+													object:nil];
+
+		*/
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(didFinishSavingImageWithError:)
+													 name:kImageCapturedSuccessfully
+												   object:nil];
 		[self hideAddObservationBtn];
 		[self hideRetakePhotoBtn];
 		[self prepTakePhotoBtn];
@@ -150,31 +164,6 @@
 //	}
 }
 
-
-#pragma mark - Actions
-- (IBAction)retakePhotoBtn:(id)sender {
-	ALog(@"Hit retake photo button");
-	[self hideAddObservationBtn];
-	[self hideRetakePhotoBtn];
-	[self prepTakePhotoBtn];
-}
-
-- (IBAction)takePhoto:(id)sender{
-	ALog(@"hit take photo button");
-	[self hideTakePhotoBtn];
-	[self prepRetakePhotoBtn];
-	[self prepAddObservationBtn];
-	
-	[[self captureManager] captureStillImage];
-}
-
-- (IBAction)addObservation:(UIButton *)sender {
-	ALog(@"Hit add observation button");
-	[self saveImageToPhotoAlbum];
-
-	[self addAnOb];
-}
-
 - (void) addAnOb {
 	// use this to find the location of the database on your mechine disk.
 	if(TESTING){
@@ -198,12 +187,57 @@
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 	}
-	/*** END OF CODE REVIEW ***/
+	
+	[self displayMyObservationsVC];
+}
 
+- (void) displayMyObservationsVC {
+//	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Base.lprog/Main.storyboard" bundle:nil];
+//	MyObservations *viewController = (MyObservations *)[storyboard instantiateViewControllerWithIdentifier:@"MyObservationsTabBarController"];
+//	[self presentViewController:viewController animated:YES completion:nil];
+	
+	// try #2
+//	NSString * storyboardName = @"Main";
+//	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+//	UITabBarController * tbc = [storyboard instantiateViewControllerWithIdentifier:@"ThisController12345"];
+//	
+//	//[self navigationController]
+//	[self presentViewController:tbc animated:YES completion:nil];
+	
+	// try #3
+	ObsViewController *myViewController = [[ObsViewController alloc] initWithNibName:nil bundle:nil];
+	NSString * storyboardName = @"Main";
+	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+	UITabBarController * tbc = [storyboard instantiateViewControllerWithIdentifier:@"ThisController12345"];
+	UINavigationController *navigationController =[[UINavigationController alloc] initWithRootViewController:myViewController];
+	
+	[[self navigationController] popViewControllerAnimated:NO];
+	
+	[[self navigationController] pushViewController:tbc animated:NO];
+	
+	//now present this navigation controller modally
+	//[self presentViewController:navigationController
+//					   animated:YES
+//					 completion:^{
+//						 
+//					 }];
+	
+	// try #4
+	//Present controller
+	/*
+	[self presentViewController:tbc
+					   animated:YES
+					 completion:nil];
+	//Add to navigation Controller
+	[self navigationController].viewControllers = [[self navigationController].viewControllers arrayByAddingObject:tbc];
+	 */
 }
 
 - (void)saveImageToPhotoAlbum{
-	UIImage *newImage = [[self captureManager] stillImage].CGImage;
+	//  UIImageWriteToSavedPhotosAlbum([[self captureManager] stillImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+
+	//UIImage *newImage = [[self captureManager] stillImage].CGImage;
+	
 	ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
 	// i am not saving the images with the correct orientation.
 	[library writeImageToSavedPhotosAlbum:([[self captureManager] stillImage].CGImage)
@@ -211,35 +245,90 @@
 						  completionBlock:^(NSURL *assetURL, NSError *error) {
 							  selectedAsset = [NSString stringWithFormat:@"%@", assetURL];
 							  ALog(@"\n\nselected asset: %@\n\n", selectedAsset);
+							  ALog(@"error: %@", error);
+							  NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
+													 error ?: [NSNull null], @"error",
+													 nil];	// end of dictionary
 							  
-							  imageView.image = [[self captureManager] stillImage];
-							  imageView.hidden = NO;
+							  //[[NSNotificationCenter defaultCenter] postNotificationName:kImageCapturedSuccessfully object:error];
+							  ALog(@"params: %@", params.description);
 							  
-							  [self hideTakePhotoBtn];
-							  [self prepRetakePhotoBtn];
-							  [self prepAddObservationBtn];
-							  [self addAnOb];
+							  [[NSNotificationCenter defaultCenter] postNotificationName:kImageCapturedSuccessfully
+																				  object:nil
+																				userInfo:params];
+							   
+//							  imageView.image = [[self captureManager] stillImage];
+//							  imageView.hidden = NO;
+//							  
+//							  [self hideTakePhotoBtn];
+//							  [self prepRetakePhotoBtn];
+//							  [self prepAddObservationBtn];
+//							  [self addAnOb];
+							  
 						  }];
 	
-//	ALog(@"selected asset: %@", selectedAsset);
+	/*
+	ALAssetRepresentation *r = [asset defaultRepresentation];
+	+                 UIImageOrientation orientation = (UIImageOrientation) (int) r.orientation;
+	+                 UIImage* image = [UIImage imageWithCGImage:r.fullResolutionImage scale:r.scale orientation:orientation];
+	+                 // Unrotate image
+	+                 UIImage* normalizedImage;
+	+                 if (image.imageOrientation == UIImageOrientationUp) {
+		+                     normalizedImage = image;
+		+                 } else {
+			+                     UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
+			+                     [image drawInRect:(CGRect){0, 0, image.size}];
+			+                     normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
+			+                     UIGraphicsEndImageContext();
+			+                 }
 	
+	*/
+//	ALog(@"selected asset: %@", selectedAsset);
 }
 
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
+- (void)didFinishSavingImageWithError:(NSNotification *)note{
 
-	
-	if (error != NULL) {
+	if ([note.userInfo objectForKey:@"error"] == NULL) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:@"Image could not be saved" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
 		[alert show];
 	}
 	else {
-		imageView.image = image;
+		imageView.image = [[self captureManager] stillImage];
 		imageView.hidden = NO;
-		
+
 		[self hideTakePhotoBtn];
 		[self prepRetakePhotoBtn];
 		[self prepAddObservationBtn];
+		[self addAnOb];
 	}
+}
+
+
+
+#pragma mark - Actions
+- (IBAction)retakePhotoBtn:(id)sender {
+	ALog(@"Hit retake photo button");
+	[self hideAddObservationBtn];
+	[self hideRetakePhotoBtn];
+	[self prepTakePhotoBtn];
+}
+
+- (IBAction)takePhoto:(id)sender{
+	ALog(@"hit take photo button");
+	[self hideTakePhotoBtn];
+	[self prepRetakePhotoBtn];
+	[self prepAddObservationBtn];
+	
+	[[self captureManager] captureStillImage];
+}
+
+- (IBAction)addObservation:(UIButton *)sender {
+	ALog(@"Hit add observation button");
+	
+	self.addObsBtn.enabled = NO;
+	[self saveImageToPhotoAlbum];
+	//[self addAnOb];
+	
 }
 
 #pragma mark - Prep buttons

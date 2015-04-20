@@ -540,7 +540,6 @@
                                         </state>
                                         <connections>
                                             <action selector="addObservation:" destination="FEo-qL-flj" eventType="touchUpInside" id="hcg-6Y-zmW"/>
-                                            <segue destination="TvY-dZ-Mzy" kind="show" id="2Vd-fw-HMn"/>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Rf-uj-uvT">
@@ -872,7 +871,8 @@
                                         <exclude reference="j4F-6U-mEO"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="47" width="400" height="630"/>
                                     <mask key="constraints">
                                         <exclude reference="6cp-Pn-uAs"/>
                                         <include reference="awU-vT-vA3"/>
@@ -1426,7 +1426,7 @@
         <!--MyObservations-->
         <scene sceneID="0mZ-Pg-CgH">
             <objects>
-                <tabBarController title="MyObservations" id="TvY-dZ-Mzy" customClass="MyObsTabBarController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="ThisController12345" title="MyObservations" id="TvY-dZ-Mzy" customClass="MyObsTabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="0GP-Qo-gX9">
                         <barButtonItem key="leftBarButtonItem" title="HOME" id="Ila-yh-nOe">
                             <connections>
@@ -1482,8 +1482,7 @@
         <image name="ic_settings copy.png" width="75" height="75"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="s9o-7d-XRk"/>
-        <segue reference="2Vd-fw-HMn"/>
-        <segue reference="A5Q-uz-ERG"/>
+        <segue reference="mth-UZ-qS1"/>
+        <segue reference="qX3-aw-dSK"/>
     </inferredMetricsTieBreakers>
 </document>
