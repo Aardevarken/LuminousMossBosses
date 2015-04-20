@@ -15,66 +15,33 @@
 	NSString *assetID;
 	UIImage *identifiedImage;
 	BOOL isSilene;
-	float probability;
+	//float probability;
 }
 
-- (id) initWithAssetID:(NSString *)newAssetID
+- (instancetype) initWithAssetID:(NSString *)newAssetID
 {
-	progressBarPercentage = 0.0;
-	assetID = newAssetID;
-	identifiedImage = nil;
-	probability = NULL;
-	isSilene = NULL;
+	if (self) {
+		self.percentageComplete = [NSNumber numberWithFloat:-1.0];
+		self.assetID = newAssetID;
+		self.positiveID = NULL;
+		self.probability = [NSNumber numberWithFloat:-1.0];
+		self.identifiedImage = NULL;
+		//assetID = newAssetID;
+		//.identifiedImage = nil;
+		//probability = NULL;
+		//isSilene = NULL;
+	}
 	return self;
 }
 
-- (float) getCurrentProgress
+- (void) runDetectionAlgorithm:(UIImage *)unknownImage
 {
-	return progressBarPercentage;
-}
-
-- (UIImage *) getIdentifiedImage
-{
-	return identifiedImage;
-}
-
-- (float) getIDProbability
-{
-	return probability;
-}
-
-- (void) updatePercentCompleated:(float)updatePercentage
-{
-	progressBarPercentage = updatePercentage;
-}
-
-- (BOOL) getIsSilene
-{
-	return isSilene;
-}
-
-- (void) runDetectionAlgorithm:(UIImage *)unknownImage progressBar:(UIProgressView*)progressBar maxPercentToFill:(float)percentMultiplier
-{
-	// Some house cleaning before we begin. Before the thread is called to run the
-	// the ientification, all variables associated with the identification should be
-	// reinitialized.
-	progressBarPercentage = 0.0;// make sure this is back at 0 before we start iding
-	identifiedImage = nil;		// might be bad practice to do this
-	probability = NULL;			// probability could be -1 instead of NULL.
-	isSilene = NULL;			// same as probability
+	///////////////
+	// test code //
+	[self setValue:[NSNumber numberWithFloat:0] forKey:@"percentageComplete"];
 	
-	// Local variables
-	BOOL animate = YES;	// decides if the should the progress bar be animated.
-	
-	// set progress to +0.1*percentMultiplyer to indicate that this thread has started
-	[self updatePercentCompleated: 0.1*percentMultiplier];
-	
-	/*** CODE REVIEW THE FOLLOWING ***/
-	// update progress bar
-	dispatch_sync(dispatch_get_main_queue(), ^{
-		[progressBar setProgress:[self getCurrentProgress] animated:animate];
-	});
-	/*** END OF CODE REVIEW ***/
+	// end of test code //
+	//////////////////////
 	
 	//////////////////////
 	// stage 0: Preping //
@@ -96,12 +63,6 @@
 	NSString *vocabXMLPath = [[NSBundle mainBundle] pathForResource:@"vocabulary" ofType:@"xml"];
 	NSString *sileneXMLPath = [[NSBundle mainBundle] pathForResource:@"silene" ofType:@"xml"];
 	
-	// update progress bar
-	[self updatePercentCompleated:0.2*percentMultiplier];
-	dispatch_sync(dispatch_get_main_queue(), ^{
-		[progressBar setProgress:[self getCurrentProgress] animated:animate];
-	});
-
 	/////////////
 	// stage 1 //
 	// run detection
@@ -112,45 +73,25 @@
 	
 	// convert image to UIImage
 	UIImage* newImage = MatToUIImage(detectedImage);
-	identifiedImage = newImage;
-	
-	// update progress bar
-	[self updatePercentCompleated:0.4*percentMultiplier];
-	dispatch_sync(dispatch_get_main_queue(), ^{
-		[progressBar setProgress:[self getCurrentProgress] animated:animate];
-	});
+	[self setValue:newImage forKey:@"identifiedImage"];
 	
 	/////////////
 	// stage 2 //
 	Mat cvImageBGR;
 	cvtColor(cvImage, cvImageBGR, CV_BGR2RGB);
-	probability = flowerDetector.probability(cvImageBGR);
-	
-	// update progress bar //
-	[self updatePercentCompleated:0.6*percentMultiplier];
-	dispatch_sync(dispatch_get_main_queue(), ^{
-		[progressBar setProgress:[self getCurrentProgress] animated:animate];
-	});
+	//probability = flowerDetector.probability(cvImageBGR);
+	[self setValue:[NSNumber numberWithFloat:flowerDetector.probability(cvImageBGR)] forKey:@"probability"];
 	
 	/////////////
 	// stage 3 //
 	//UIImageToMat(unknownImage, cvImage);
 	isSilene = flowerDetector.isThisSilene(cvImageBGR);
-	
-	// update progress bar
-	[self updatePercentCompleated:0.8*percentMultiplier];
-	dispatch_sync(dispatch_get_main_queue(), ^{
-		[progressBar setProgress:[self getCurrentProgress] animated:animate];
-	});
+	[self setValue:[NSNumber numberWithFloat:flowerDetector.isThisSilene(cvImageBGR)] forKey:@"positiveID"];
 	
 	/////////////
 	// stage 4 //
-	// set progress bar to 100%
-	[self updatePercentCompleated:1.0*percentMultiplier];
-	dispatch_sync(dispatch_get_main_queue(), ^{
-		[progressBar setProgress:[self getCurrentProgress] animated:animate];
-		progressBar.hidden = YES;
-	});
+	sleep(5);
+	[self setValue:[NSNumber numberWithFloat:1] forKey:@"percentageComplete"];
 }
 
 @end

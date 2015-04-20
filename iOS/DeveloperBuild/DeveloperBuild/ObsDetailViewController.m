@@ -9,10 +9,12 @@
 #import "ObsDetailViewController.h"
 #import "detectionHelper.h"
 #import "UserDataDatabase.h"
+#import "IdentifyingAssets.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface ObsDetailViewController ()
+detectionHelper *detectionObject;
 
+@interface ObsDetailViewController ()
 @end
 
 @implementation ObsDetailViewController
@@ -21,7 +23,6 @@
 @synthesize dateLabel;
 @synthesize obsImage;
 @synthesize plantInfo;
-@synthesize progressBar;
 @synthesize idButton;
 @synthesize longitudeLabel;
 @synthesize latitudeLabel;
@@ -50,85 +51,99 @@
 		}
 			failureBlock: nil];
 	}
-	
-	
-	// hide the progress bar when the page is loaded.
-	progressBar.hidden = YES;
-	[progressBar setProgress:0.0 animated:NO];
-	
 	// if this came from the identified tab
-	if (![[plantInfo objectForKey:@"status"] isEqual:@"pending-noid"]){
-		[idButton setEnabled:NO];
-		idButton.hidden = YES;
+	if ([[plantInfo objectForKey:@"status"] isEqual:@"pending-noid"]){
+		if ((detectionObject = [[IdentifyingAssets getSharedInstance].unknownAssets objectForKey:[plantInfo objectForKey:@"imghexid"]]) == nil) {
+
+			detectionObject = [[detectionHelper alloc] initWithAssetID:[plantInfo objectForKey:@"imghexid"]];
+			
+			[[IdentifyingAssets getSharedInstance].unknownAssets setValue:detectionObject forKey:[plantInfo objectForKey:@"imghexid"]];
+		}
+		else if ([detectionObject.percentageComplete isEqualToNumber:[NSNumber numberWithInt:0]]){
+			[self.idButton setEnabled:NO];
+			[self.activityIndicator startAnimating];
+		}
 	}
 	else {
-		[progressBar setProgress:0.0 animated:NO];
+		[idButton setEnabled:NO];
 	}
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+	// add an observer to the identification helper object assosiated with the asset id
+	[[[IdentifyingAssets getSharedInstance].unknownAssets objectForKey:[plantInfo objectForKey:@"imghexid"]] addObserver:self forKeyPath:@"percentageComplete" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+	// remove the observer assosiated with the asset id.
+	[[[IdentifyingAssets getSharedInstance].unknownAssets objectForKey:[plantInfo objectForKey:@"imghexid"]] removeObserver:self forKeyPath:@"percentageComplete"];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
--(void) updateProgBar:(UIProgressView*)progbar amount:(float)amount{
-	[progbar setProgress:amount animated:YES];
+- (void)updateObservationData{
+	// set everthing we just calculated
+	obsImage.image = [detectionObject identifiedImage];
+	percentLabel.text = [NSString stringWithFormat:@"%.0f%%",[[detectionObject probability] floatValue]*100];
+	
+	if ([detectionObject positiveID]) {
+		percentLabel.textColor = [UIColor colorWithRed:0 green:255.f blue:0 alpha:1];
+	} else {
+		percentLabel.textColor = [UIColor colorWithRed:255.f green:0 blue:0 alpha:1];
+	}
+	
+	// update the table row
+	// prep variables
+	NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+	[nf setMaximumFractionDigits:2];
+	float newprob = floorf([[detectionObject probability] floatValue]*100 + 0.5);
+	NSNumber *NSnewprob = [NSNumber  numberWithFloat:newprob];
+	NSString *assetid = [NSString stringWithFormat:@"%@",[plantInfo objectForKey:@"imghexid"]];
+	NSString *newState = @"pending-id";
+	
+	// update row variables
+	BOOL success = [[UserDataDatabase getSharedInstance]
+					updateObservation:assetid andNewPercentIDed:NSnewprob andNewStatus:newState];
+	
+	// did it all work? if not show an error.
+	NSString *alertString = @"Data update failed";
+	if (success == NO) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+	}
+	
+	
+	idButton.hidden = YES;
 }
 
 - (IBAction)startIdentificationButton:(UIButton *)sender {
 	//Start an activity indicator here
-
-	progressBar.hidden = NO;
+	[self.activityIndicator startAnimating];
+	//disable id button
+	[idButton setEnabled:NO];
 	
+	// run the detection algorithm.
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
-		detectionHelper *detectionObject = [[detectionHelper alloc] initWithAssetID:[plantInfo objectForKey:@"imghexid"]];
-		[detectionObject runDetectionAlgorithm:obsImage.image progressBar:progressBar maxPercentToFill:1.0];
-		
-		dispatch_sync(dispatch_get_main_queue(), ^{
-			if ([detectionObject getIsSilene]) {
-				percentLabel.text = @"100%";
-			}
-			else{
-				percentLabel.text = @"0%";
-			}
-			
-			// set everthing we just calculated
-			obsImage.image = [detectionObject getIdentifiedImage];
-			percentLabel.text = [NSString stringWithFormat:@"%.0f%%",[detectionObject getIDProbability]*100];
-			if ([detectionObject getIsSilene]) {
-				percentLabel.textColor = [UIColor colorWithRed:0 green:255.f blue:0 alpha:1];
-			} else {
-				percentLabel.textColor = [UIColor colorWithRed:255.f green:0 blue:0 alpha:1];
-			}
-			
-			// update the table row
-			// prep variables
-			NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
-			[nf setMaximumFractionDigits:2];
-			float newprob = floorf([detectionObject getIDProbability]*100 + 0.5);
-			NSNumber *NSnewprob = [NSNumber  numberWithFloat:newprob];
-			NSString *assetid = [NSString stringWithFormat:@"%@",[plantInfo objectForKey:@"imghexid"]];
-			NSString *newState = @"pending-id";
-			
-			// update row variables
-			BOOL success = [[UserDataDatabase getSharedInstance]
-							updateObservation:assetid andNewPercentIDed:NSnewprob andNewStatus:newState];
-			
-			// did it all work? if not show an error.
-			NSString *alertString = @"Data update failed";
-			if (success == NO) {
-				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-				[alert show];
-			}
-			// hide the progress bar and the button so the text can be seen
-			progressBar.hidden = YES;
-			idButton.hidden = YES;
-		});
+		[detectionObject runDetectionAlgorithm:obsImage.image];
 	});
 }
 
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+	
+	if ([keyPath isEqualToString:@"percentageComplete"]) {
+		
+		if ([[change valueForKey:@"new"] isEqualToNumber:[NSNumber numberWithInt:1]]) {
+			dispatch_sync(dispatch_get_main_queue(), ^{
+				[self updateObservationData];	// update the on screen data
+				[[self activityIndicator] stopAnimating];	// stop the activity indicator
+				[[self idButton] setHidden:YES];	// hid the id button.
+			});
+		}
+	}
+}
 
 #pragma mark - Navigation
 

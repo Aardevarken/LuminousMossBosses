@@ -11,9 +11,11 @@
 #import "MyObservations.h"
 #import "UserDataDatabase.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-
+#import <AVFoundation/AVFoundation.h>
 
 #define TESTING YES
+// ALog always displays output regardless of the DEBUG setting
+#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
 
 @interface ImageViewController ()
@@ -22,6 +24,8 @@
 @property (nonatomic) NSMutableArray *capturedImages;
 @property (nonatomic, strong) NSString *capedImg;
 
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo;
 @end
 
 @implementation ImageViewController{
@@ -29,8 +33,10 @@
 	NSDictionary *pictureInfo;
 }
 
-@synthesize imageView, choosePhotoBtn, takePhotoBtn;
+@synthesize imageView, takePhotoBtn;
 @synthesize addObsBtn;
+@synthesize captureManager;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,6 +45,7 @@
 	// check to make sure the device has a camera
 	if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
 		// display no camera icon
+		imageView.hidden = NO;
 		imageView.image = [UIImage imageNamed:@"nocamera.png"];
 		
 		// display alert box
@@ -49,13 +56,28 @@
 													otherButtonTitles:nil];
 		[myAlertView show];
 	}
-	selectedAsset = nil;
-	pictureInfo = nil;
-	
-	// create obs list object
-	
-	
+	else {
+		
+		[self setCaptureManager:[[CaptureSessionManager alloc] init]];
+		
+		[[self captureManager] addVideoInput];
+		
+		[[self captureManager] addVideoPreviewLayer];
+		CGRect layerRect = [[[self view] layer] bounds];
+		[[[self captureManager] previewLayer] setBounds:layerRect];
+		[[[self captureManager] previewLayer] setPosition:CGPointMake(CGRectGetMidX(layerRect), CGRectGetMidY(layerRect))];
+		[[[self view] layer] addSublayer:[[self captureManager] previewLayer]];
+
+		[[self captureManager] addStillImageOutput];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveImageToPhotoAlbum) name:kImageCapturedSuccessfully object:nil];	// T2
+		
+		[self hideAddObservationBtn];
+		[self hideRetakePhotoBtn];
+		[self prepTakePhotoBtn];
+	}
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -63,32 +85,30 @@
 }
 
 - (void) saveObsToPhotos{
-	// save image to photos
-	__block BOOL didItWork = NO;
-	
-	if(selectedAsset == nil){
-		ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-		[library writeImageToSavedPhotosAlbum:((UIImage *)[pictureInfo objectForKey:UIImagePickerControllerOriginalImage]).CGImage//(imageView.image).CGImage
-									 metadata:[pictureInfo objectForKey:UIImagePickerControllerMediaMetadata]
-							  completionBlock:^(NSURL *assetURL, NSError *error) {
-								  
-								  selectedAsset = [NSString stringWithFormat:@"%@", assetURL];
-								  /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"assetURL: %@", assetURL]
-								   message:nil
-								   delegate:nil
-								   cancelButtonTitle:@"OK"
-								   otherButtonTitles:nil];
-								   */
-								  NSLog(@"selected asset: %@", selectedAsset);
-								  didItWork = YES;
-								  //[alert show];
-							  }];
-		NSLog(@"func selectedAsset: %@", selectedAsset);
-		
-	}
-	
-	selectedAsset = [pictureInfo objectForKey:@"UIImagePickerControllerReferenceURL"];
-	
+	ALog(@"This method is marked for removal and its code has been commented out");
+//	// save image to photos
+//	__block BOOL didItWork = NO;
+//	
+//	if(selectedAsset == nil){
+//		ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//		[library writeImageToSavedPhotosAlbum:((UIImage *)[pictureInfo objectForKey:UIImagePickerControllerOriginalImage]).CGImage//(imageView.image).CGImage
+//									 metadata:[pictureInfo objectForKey:UIImagePickerControllerMediaMetadata]
+//							  completionBlock:^(NSURL *assetURL, NSError *error) {
+//								  
+//								  selectedAsset = [NSString stringWithFormat:@"%@", assetURL];
+//								  /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"assetURL: %@", assetURL]
+//								   message:nil
+//								   delegate:nil
+//								   cancelButtonTitle:@"OK"
+//								   otherButtonTitles:nil];
+//								   */
+//								  NSLog(@"selected asset: %@", selectedAsset);
+//								  didItWork = YES;
+//								  //[alert show];
+//							  }];
+//		NSLog(@"func selectedAsset: %@", selectedAsset);
+//	}
+//	selectedAsset = [pictureInfo objectForKey:@"UIImagePickerControllerReferenceURL"];
 }
 
 /*
@@ -97,56 +117,65 @@
  */
 // This method is called when an image has been chosen from the library or taken from the camera.
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-	[picker dismissViewControllerAnimated:YES completion:NULL];
-	//imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-	
-	// display the image
-	UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-	NSString *urlPath = [[info objectForKey:@"UIImagePickerControllerReferenceURL"] absoluteString];
-	self.capedImg = urlPath;
-	imageView.image = image;
-	selectedAsset = urlPath;
-	pictureInfo = info;
-	
-	
-	if(selectedAsset == nil){
-		ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-		[library writeImageToSavedPhotosAlbum:((UIImage *)[pictureInfo objectForKey:UIImagePickerControllerOriginalImage]).CGImage
-									 metadata:[pictureInfo objectForKey:UIImagePickerControllerMediaMetadata]
-							  completionBlock:^(NSURL *assetURL, NSError *error) {
-									selectedAsset = [NSString stringWithFormat:@"%@", assetURL];
-							  }];
-	}
-
-	// for testing
-	if(TESTING){
-	static int imgnum = 1;
-		NSString *breakSymbol = @"========================";
-		NSLog(@"%@ %i %@",breakSymbol, imgnum++, breakSymbol);
-		NSLog(@"imageView.image: %@", imageView.image);
-		NSLog(@"object: %@", [info objectForKey:@"UIImagePickerControllerOriginalImage"]);
-		NSLog(@"%@===%@",breakSymbol, breakSymbol);
-	}
+	ALog(@"This method is marked for removal and its code has been commented out");
+//	[picker dismissViewControllerAnimated:YES completion:NULL];
+//	//imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+//	
+//	// display the image
+//	UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+//	NSString *urlPath = [[info objectForKey:@"UIImagePickerControllerReferenceURL"] absoluteString];
+//	self.capedImg = urlPath;
+//	imageView.image = image;
+//	selectedAsset = urlPath;
+//	pictureInfo = info;
+//	
+//	
+//	if(selectedAsset == nil){
+//		ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//		[library writeImageToSavedPhotosAlbum:((UIImage *)[pictureInfo objectForKey:UIImagePickerControllerOriginalImage]).CGImage
+//									 metadata:[pictureInfo objectForKey:UIImagePickerControllerMediaMetadata]
+//							  completionBlock:^(NSURL *assetURL, NSError *error) {
+//									selectedAsset = [NSString stringWithFormat:@"%@", assetURL];
+//							  }];
+//	}
+//
+//	// for testing
+//	if(TESTING){
+//	static int imgnum = 1;
+//		NSString *breakSymbol = @"========================";
+//		NSLog(@"%@ %i %@",breakSymbol, imgnum++, breakSymbol);
+//		NSLog(@"imageView.image: %@", imageView.image);
+//		NSLog(@"object: %@", [info objectForKey:@"UIImagePickerControllerOriginalImage"]);
+//		NSLog(@"%@===%@",breakSymbol, breakSymbol);
+//	}
 }
 
 
 #pragma mark - Actions
-- (IBAction)getPhoto:(id)sender{
-	UIImagePickerController * picker = [[UIImagePickerController alloc] init];
-	picker.delegate = self;
+- (IBAction)retakePhotoBtn:(id)sender {
+	ALog(@"Hit retake photo button");
+	[self hideAddObservationBtn];
+	[self hideRetakePhotoBtn];
+	[self prepTakePhotoBtn];
+}
+
+- (IBAction)takePhoto:(id)sender{
+	ALog(@"hit take photo button");
+	[self hideTakePhotoBtn];
+	[self prepRetakePhotoBtn];
+	[self prepAddObservationBtn];
 	
-	
-	if ((UIButton *) sender == choosePhotoBtn) {
-		picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-	} else {
-		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-	}
-	
-	[self presentViewController:picker animated:YES completion:NULL];
+	[[self captureManager] captureStillImage];
 }
 
 - (IBAction)addObservation:(UIButton *)sender {
-	
+	ALog(@"Hit add observation button");
+	[self saveImageToPhotoAlbum];
+
+	[self addAnOb];
+}
+
+- (void) addAnOb {
 	// use this to find the location of the database on your mechine disk.
 	if(TESTING){
 		NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject]);
@@ -157,52 +186,106 @@
 	
 	// get image asset
 	NSString *img = [NSString stringWithFormat:@"%@", selectedAsset];//self.capedImg];
-	
-	
-	/*** NEEDS CODE REVIEW ***/
-	// get current date and time
-	 /* **************************************************************** *\
-	 |* for unicode info about the date format reference:				 *|
-	 |* http://unicode.org/reports/tr35/tr35-6.html#Date_Format_Patterns *|
-	 \* **************************************************************** */
-	NSDate *today = [NSDate date];
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss zzz"];
-	[NSTimeZone resetSystemTimeZone];
-	
-	
-	[dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
-	
-	NSString *currentTime = [dateFormatter stringFromDate:today];
-	
-	//NSLog(@"%@", currentTime);
-	//[dateFormatter release];
-	
+
 	if (selectedAsset == nil){//self.capedImg == [NSString stringWithFormat:@"%@",[UIImage imageNamed:@"nocamera.png"]]) {
 		NSLog(@"You cannot submit that");
 		return;
 	}
 	
-	
-	success = [[UserDataDatabase getSharedInstance] saveObservation:img date:nullptr latitude:nullptr longitude:nullptr locationError:[NSNumber numberWithDouble:100.0] percentIDed:NULL];
+	success = [[UserDataDatabase getSharedInstance] saveObservation:img date:nil latitude:nil longitude:nil locationError:[NSNumber numberWithDouble:100.0] percentIDed:NULL];
 	
 	if (success == NO) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 	}
 	/*** END OF CODE REVIEW ***/
+
 }
+
+- (void)saveImageToPhotoAlbum{
+	UIImage *newImage = [[self captureManager] stillImage].CGImage;
+	ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+	// i am not saving the images with the correct orientation.
+	[library writeImageToSavedPhotosAlbum:([[self captureManager] stillImage].CGImage)
+								 metadata: pictureInfo
+						  completionBlock:^(NSURL *assetURL, NSError *error) {
+							  selectedAsset = [NSString stringWithFormat:@"%@", assetURL];
+							  ALog(@"\n\nselected asset: %@\n\n", selectedAsset);
+							  
+							  imageView.image = [[self captureManager] stillImage];
+							  imageView.hidden = NO;
+							  
+							  [self hideTakePhotoBtn];
+							  [self prepRetakePhotoBtn];
+							  [self prepAddObservationBtn];
+							  [self addAnOb];
+						  }];
+	
+//	ALog(@"selected asset: %@", selectedAsset);
+	
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
+
+	
+	if (error != NULL) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error!" message:@"Image could not be saved" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+		[alert show];
+	}
+	else {
+		imageView.image = image;
+		imageView.hidden = NO;
+		
+		[self hideTakePhotoBtn];
+		[self prepRetakePhotoBtn];
+		[self prepAddObservationBtn];
+	}
+}
+
+#pragma mark - Prep buttons
+
+- (void) prepTakePhotoBtn{
+	self.takePhotoBtn.hidden = NO;
+	self.takePhotoBtn.enabled = YES;
+	
+	imageView.hidden = YES;
+	selectedAsset = nil;
+	pictureInfo = nil;
+	[[captureManager captureSession] startRunning];
+}
+- (void) prepRetakePhotoBtn {
+	self.retakePhotoBtn.hidden = NO;
+	self.retakePhotoBtn.enabled = YES;
+}
+- (void) prepAddObservationBtn {
+	self.addObsBtn.hidden = NO;
+	self.addObsBtn.enabled = YES;
+}
+
+#pragma mark - Hide buttons
+- (void) hideTakePhotoBtn {
+	self.takePhotoBtn.hidden = YES;
+	self.takePhotoBtn.enabled = NO;
+	//[[captureManager captureSession] stopRunning];
+}
+- (void) hideRetakePhotoBtn {
+	self.retakePhotoBtn.hidden = YES;
+	self.retakePhotoBtn.enabled = NO;
+}
+- (void) hideAddObservationBtn {
+	self.addObsBtn.hidden = YES;
+	self.addObsBtn.enabled = NO;
+}
+
 
 /*
-#pragma mark - Navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-
-}
+ #pragma mark - Navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+ 
+ }
  */
+
 @end
-
-
-
 
 
 
