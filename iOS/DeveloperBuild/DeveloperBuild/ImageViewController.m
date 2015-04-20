@@ -53,6 +53,7 @@
 		[myAlertView show];
 	}
 	else {
+		imageView.hidden = YES;
 		selectedAsset = nil;
 		pictureInfo = nil;
 		
@@ -75,12 +76,12 @@
 //		[[self view] addSubview:overlayImageView];
 //		[overlayImageView release];
 		
-		UIButton *overlayButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//		UIButton *overlayButton = [UIButton buttonWithType:UIButtonTypeCustom];
 		// Because i can use the storyboard i do nothink that i will be needing the following
-		[overlayButton setImage:[UIImage imageNamed:@"scanbutton.png"] forState:UIControlStateNormal];
-		[overlayButton setFrame:CGRectMake(130, 320, 60, 30)];
-		[overlayButton addTarget:self action:@selector(scanButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-		[[self view] addSubview:overlayButton]; 	// But i do think i will be needing this
+//		[overlayButton setImage:[UIImage imageNamed:@"scanbutton.png"] forState:UIControlStateNormal];
+//		[overlayButton setFrame:CGRectMake(130, 320, 60, 30)];
+//		[overlayButton addTarget:self action:@selector(scanButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+//		[[self view] addSubview:overlayButton]; 	// But i do think i will be needing this
 		
 		// I do not think i will be needing the following
 //		UILabel *tempLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 50, 120, 30)];
@@ -96,10 +97,11 @@
 		[[captureManager captureSession] startRunning];
 		[[self captureManager] addStillImageOutput];	// T2
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveImageToPhotoAlbum) name:kImageCapturedSuccessfully object:nil];	// T2
-
+		
 		/*** END OF TUTORIAL 'T1' CODE ***/
 	}
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -128,11 +130,8 @@
 								  //[alert show];
 							  }];
 		NSLog(@"func selectedAsset: %@", selectedAsset);
-		
 	}
-	
 	selectedAsset = [pictureInfo objectForKey:@"UIImagePickerControllerReferenceURL"];
-	
 }
 
 /*
@@ -275,10 +274,17 @@
 		//[alert release];
 	}
 	else {
-		NSLog(@"Image save with no error: %@", error);
 //		[[self scanningLabel] setHidden:YES]; 		// I will not be needing this
-		self.imageView.image = image;
-		self.imageView.hidden = NO;
+		//[self setValue:image forKey:@"imageView"];
+		imageView.image = image;
+		
+		
+		//[self setValue:[NSNumber numberWithBool:NO] forKey:@"imageView.hidden"];
+		imageView.hidden = NO;
+		//imageView.alpha = 0.9;
+		//self.takePhotoBtn.// = @"Retake image";
+		[takePhotoBtn setTitle:@"Retake" forState:UIControlStateNormal];
+		
 	}
 }
 

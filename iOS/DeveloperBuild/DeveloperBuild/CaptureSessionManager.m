@@ -107,19 +107,35 @@
 	[[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:videoConnection
 														 completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
 															 CFDictionaryRef exifAttachments = CMGetAttachment(imageDataSampleBuffer, kCGImagePropertyExifDictionary, NULL);
+															 
 															 if (exifAttachments) {
-																 ALog(@"attachements: %@", exifAttachments);
+																 //ALog(@"attachements: %@", exifAttachments);
 															 }
 															 else {
-																 ALog(@"no attachments");
+																 //ALog(@"no attachments");
 															 }
+															  
 															 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
 															 UIImage *image = [UIImage imageWithData:imageData]; // tutorial has a alloc here. but that proved to produce an error when added. same with [image release]
 															 [self setStillImage:image];
 															 //[image release];
 															 [[NSNotificationCenter defaultCenter] postNotificationName:kImageCapturedSuccessfully object:nil];
+															 [self stopFeed];
 														}
 	 ];
+}
+
+- (void)stopFeed {
+	// This needs to be reviewed.
+	[[self captureSession] stopRunning];
+	
+	// T1
+	previewLayer = nil;
+	captureSession = nil;
+	
+	// T2
+	stillImageOutput = nil;
+	stillImage = nil;
 }
 
 - (void)dealloc {
