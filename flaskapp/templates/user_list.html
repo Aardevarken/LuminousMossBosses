@@ -5,11 +5,11 @@
         <div class="col-lg-6">
             {% macro render_filter_link(link, arg, value, display, role='', active='') -%}
             <li role='{{role}}' {% if request.args.get(arg) == value %} class='active' {% endif %}>
-            <a href="{{ link }}?{{arg}}={{value}}">{{ display }}</a>
+            <a href="{{ link }}{% if value is not none %}?{{arg}}={{value}}{% endif %}">{{ display }}</a>
             </li>
             {%- endmacro %}
         <ul class="nav nav-tabs nav-justified" role="group" aria-label="options">
-            {{ render_filter_link('/user_list', 'utype', '', 'All', 'presentation')}}
+            {{ render_filter_link('/user_list', 'utype', none, 'All', 'presentation')}}
             {{ render_filter_link('/user_list', 'utype', 'admin', 'Admin', 'presentation')}}
             {{ render_filter_link('/user_list', 'utype', 'subadmin', 'Subadmin', 'presentation')}}
             {{ render_filter_link('/user_list', 'utype', 'developer', 'Developers', 'presentation')}}
@@ -33,12 +33,16 @@
                 <td>{{ user.FirstName }} {{ user.LastName}}</td>
                 <td>{{ user.Email }}</td>
                 <td>
-                    <select class="form-control" id="id_{{ user.UserId }}" onchange="updateSelection({{ user.UserId }},'isBlackListed')">
-                        <option value=0 {% if user.Type == 'admin' %}selected{% endif %}>admin</option>
-                        <option value=1 {% if user.Type == 'subadmin' %}selected{% endif %}>subadmin</option>
-                        <option value=1 {% if user.Type == 'developer' %}selected{% endif %}>developer</option>
-                        <option value=1 {% if user.Type == 'normal' %}selected{% endif %}>normal</option>
+                    {% if current_user.Type == 'admin' %}
+                    <select class="form-control" id="id_{{ user.UserId }}" onchange="updateSelection('{{ user.UserId }}','UserType')">
+                        <option value=admin {% if user.Type == 'admin' %}selected{% endif %}>admin</option>
+                        <option value=subadmin {% if user.Type == 'subadmin' %}selected{% endif %}>subadmin</option>
+                        <option value=developer {% if user.Type == 'developer' %}selected{% endif %}>developer</option>
+                        <option value=normal {% if user.Type == 'normal' %}selected{% endif %}>normal</option>
                     </select>
+                    {% else %}
+                    <select class="form-control" disabled><option>{{ user.Type }}</option></select>
+                    {% endif %}
                 </td>
                 </tr>
             {% endfor %}
@@ -48,21 +52,21 @@
             <span class="input-group-btn" aria-label="page">
                 <!--<ul class="list-inline banner-social-buttons">-->
             
-            <a href="/device_list?page=0{{ urlargs.isblacklisted }}" class="btn btn-default btn-sm">
+            <a href="/device_list?page=0{{ urlargs.utype }}" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-step-backward"> </span>
             </a>
             {% set pre = urlargs.page -1 %}
             <a {% if urlargs.page == 0 %} disabled {% endif %}
-            href="/device_list?page={{ pre }}{{ urlargs.isblacklisted }}" class="btn btn-default btn-sm">
+            href="/user_list?page={{ pre }}{{ urlargs.utype }}" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-triangle-left"> </span>
             </a>
             <p class="btn btn-default btn-sm" disabled >page {{ urlargs.page }} </p>
             {% set next = urlargs.page +1 %}
             <a {% if urlargs.page == urlargs.maxpage %} disabled {% endif %} 
-            href="/device_list?page={{ next }}{{ urlargs.isblacklisted }}" class="btn btn-default btn-sm">
+            href="/user_list?page={{ next }}{{ urlargs.utype }}" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-triangle-right"> </span>
             </a>
-            <a href="/device_list?page={{ urlargs.maxpage }}{{ urlargs.isblacklisted }}" class="btn btn-default btn-sm">
+            <a href="/user_list?page={{ urlargs.maxpage }}{{ urlargs.utype }}" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-step-forward"> </span>
             </a>
             </span>

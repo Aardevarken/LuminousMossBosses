@@ -16,7 +16,7 @@ Array.prototype.remove = function(from, to) {
 function updateSelection(id, type) {
     $.post('/_update_'+type, {
         sentValue: $('#id_'+id+' :selected').val(),
-        sentId: id
+        sentId: id.replace(/[^\d\.]+/,'')
     },function(data){flash = data.flash},'json');
 }
 

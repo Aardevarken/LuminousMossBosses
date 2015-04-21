@@ -33,7 +33,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">
+                <a class="navbar-brand page-scroll" href="/">
                     <span class="light secondary-text"><i class="fa fa-leaf"></i> Luminous ID</span>
                 </a>
             </div>
@@ -62,28 +62,33 @@
     </nav>
 
     <div class="container content-section text-center">
+         {% if error %}<label class="control-label" for="inputError"><strong>Error:</strong> {{ error }}</label>{% endif %}
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-6 col-md-6 col-lg-5 jumbotron jumbotron-color">
                 <!--<div class="jumbotron">-->
     <h1>Login</h1>
-    {% if error %}<label class="control-label" for="inputError1"><strong>Error:</strong> {{ error }}</label>{% endif %}
+   
     <form class="form-horizontal" action="{{ url_for('login') }}" method=post>
         <div class="form-group form-group-lg">
-            <label class="col-sm-2 control-label" for="formGroupInputLarge">Username:</label>
-            <div class="col-sm-10">
+            <label class="col-sm-3 control-label" for="formGroupInputLarge">Username: </label>
+            <div class="col-sm-9">
                 <input class="form-control" type="text" id="formGroupInputLarge" placeholder="username" name=username>
             </div>
         </div>
         <div class="form-group form-group-lg">
-            <label class="col-sm-2 control-label" for="formGroupInputLarge">Passowrd:</label>
-            <div class="col-sm-10">
+            <label class="col-sm-3 control-label" for="formGroupInputLarge">Passowrd: </label>
+            <div class="col-sm-9">
                 <input class="form-control" type="password" id="formGroupInputLarge" placeholder="password" name=password>
             </div>
         </div>
-        <input class="btn btn-default" type=submit value=Login>
+        <div class="form-group form-group-lg">
+            <div class="col-sm-3">
+                <input class="btn btn-default" type=submit value=Login>
+            </div>
+        </div>
     </form>
        </div>
-    <div class="col-md-6">
+    <div class="col-sm-6 col-md-6 col-lg-6 col-lg-offset-1 jumbotron jumbotron-color">
         <h1>SignUp</h1>
         <form class="form-horizontal" action="{{ url_for('signup') }}" method=post>
             <div class="form-group form-group-lg">
@@ -98,6 +103,12 @@
                     <input class="form-control" type="password" id="signup_password" placeholder="password" name=spassword>
                 </div>
             </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-2 control-label" for="formGroupInputLarge" id="password_status">[Strength]</label>
+                <label class="col-sm-10 control-label" for="formGroupInputLarge">
+                    *1 digit, 1 upper case, 1 lower case, 6 in length
+                </label>
+            </div>
             <div class="form-group form-group-lg">
                 <label class="col-sm-2 control-label" for="formGroupInputLarge">Confirm Passowrd:</label>
                 <div class="col-sm-10">
@@ -105,13 +116,13 @@
                 </div>
             </div>
             <div class="form-group form-group-lg">
-                <label class="col-sm-2 control-label" for="formGroupInputLarge">First Name:</label>
+                <label class="col-sm-2 control-label" for="formGroupInputLarge">First:</label>
                 <div class="col-sm-10">
                     <input class="form-control" type="text" id="formGroupInputLarge" placeholder="first name" name=sfirst>
                 </div>
             </div>
             <div class="form-group form-group-lg">
-                <label class="col-sm-2 control-label" for="formGroupInputLarge">Last Name:</label>
+                <label class="col-sm-2 control-label" for="formGroupInputLarge">Last:</label>
                 <div class="col-sm-10">
                     <input class="form-control" type="text" id="formGroupInputLarge" placeholder="last name" name=slast>
                 </div>
@@ -122,7 +133,11 @@
                     <input class="form-control" type="text" id="formGroupInputLarge" placeholder="email@luminousid.com" name=semail>
                 </div>
             </div>
-            <input class="btn btn-default" type=sumit id="signup_submit" disabled value=Signup>
+            <div class="form-group form-group-lg">
+                <div class="col-sm-2">
+                <input class="btn btn-default" type=submit id="signup_submit" disabled value=Signup>
+            </div>
+            </div>
         </form>
     </div>
    </div>

@@ -21,8 +21,8 @@
         <div class="col-lg-12">
         <table class="table-striped table">
             <thead><tr>
-                    <b><td class="col-md-1">ID</td><td class="col-md-2">Icon</td><td class="col-md-3">User ID</td>
-                        <td class="col-md-4">File Name</td><td class="col-md-1">Date</td><td class="col-md-2">Verified</td></b>
+                    <b><td class="col-sm-1 col-md-1">ID</td><td class="col-sm-2 col-md-2">Icon</td><td class="col-sm-3 col-md-3">User ID</td>
+                        <td class="col-sm-2 col-md-4">File Name</td><td class="col-sm-2 col-md-1">Date</td><td class="col-sm-3 col-md-2">Verified</td></b>
             </tr></thead>
             <tbody>
             {% for observation in observations %}
@@ -37,7 +37,7 @@
                 <td><a href="/observation_view?imageid={{ observation.ObsID }}">{{ observation.FileName }}</a></td>
                 <td>{{ observation.Date }}</td>
                 <td>
-                    <select class="form-control" id="id_{{ observation.ObsID }}" onchange="updateSelection({{ observation.ObsID }}, 'isSilene')">
+                    <select class="form-control" id="id_{{ observation.ObsID }}" onchange="updateSelection('{{ observation.ObsID }}', 'isSilene')">
                         <option value=1 {% if observation.IsSilene == 1 %}selected{% endif %}>Silene</option>
                         <option value=0 {% if observation.IsSilene == 0 %}selected{% endif %}>Not Silene</option>
                         <option value=-1 {% if observation.IsSilene is none() %}selected{% endif %}>N/A</option>

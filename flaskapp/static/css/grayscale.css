@@ -3,11 +3,14 @@
  * Code licensed under the Apache License v2.0.
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
+@import url(http://fonts.googleapis.com/css?family=Lobster);
+@import url(http://fonts.googleapis.com/css?family=Oxygen);
+@import url(http://fonts.googleapis.com/css?family=Montserrat);
 
 body {
     width: 100%;
     height: 100%;
-    font-family: Lora,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: Oxygen,"Helvetica Neue",Helvetica,Arial,sans-serif;
     color: #d5c6a4;
     background-color: #0a1001;
 }
@@ -33,12 +36,17 @@ h6 {
 }
 
 .secondary-text {
+    font-family: Oxygen, sans-serif;
     color: #dfddc3 !important;
 }
 
-.jumbotron {
+.jumbotron-picture {
     background: rgb(0,0,0);
     background: rgba(20,20,20,0.5);
+}
+
+.jumbotron-color {
+    background: rgba(20,60,30,0.3);
 }
 
 p {
@@ -164,7 +172,16 @@ a:focus {
 }
 
 .intro .intro-body .brand-heading {
-    font-size: 40px;
+    text-transform: none;
+    font-weight: 90;
+    font-family:'Lobster', cursive;
+    font-size: 100px;
+}
+
+.secondary-brand {
+    text-transform: none;
+    font-family:'Lobster', cursive;
+    color: #dfddc3 !important;
 }
 
 .intro .intro-body .intro-text {

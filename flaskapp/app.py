@@ -1,8 +1,10 @@
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash, jsonify 
+from flask.ext.login import LoginManager, login_required, login_user, logout_user 
+from flask_user import current_user
 from werkzeug.utils import secure_filename
 import json, sha, os, datetime, importlib
 from sqlalchemy import and_
-from dbhandler.database import db_session, db_update
+from dbhandler.database import db_session
 from dbhandler.models import Observation, DetectionObject, Device, User 
 from util.filename import *
 from util.miscellaneous import * 
@@ -19,18 +21,36 @@ ALLOWED_EXTENSIONS = set(['jpg', 'jpeg'])
 ALLOWED_DEVICES = set(['iOS','AndroidPhone', 'AndroidDevice'])
 MAX_LIST_ITEMS = 15
 
+# initiate login manager
+login_manager = LoginManager()
+
 # initiate application
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.from_envvar('FLASK_APP_SETTINGS', silent=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+login_manager.init_app(app)
 
+def has_permissions():
+    return current_user.Type in ['admin', 'subadmin', 'developer']
+
+def has_admin_permissions():
+    return current_user.Type in ['admin']
+
+@login_manager.unauthorized_handler
+def unauthorized():
+    return redirect(url_for('login'))
 #def connect_db():
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db_session.remove()
 
+@login_manager.user_loader
+def load_user(userid):
+    return User.query.get(userid)
+
 @app.route('/')
+@app.route('/index')
 def home_page():
     return render_template('index.html', title = 'Home')
 
@@ -38,142 +58,229 @@ def home_page():
 def login():
     error = None
     if request.method == 'POST':
-        if request.form['username'] != app.config['USERNAME']:
+        username = request.form['username'].lower()
+        user = db_session().query(User).filter(User.Username == username).first()
+        if user == None:
             error = 'Invalid username'
-        elif sha.new(request.form['password']).hexdigest() != app.config['PASSWORD']:
+        elif not user.check_password(request.form['password']):
             error = 'Invalid password'
         else:
-            session['logged_in'] = True
+            #session['logged_in'] = True
+            login_user(user)
             return redirect(url_for('observation_list'))
     return render_template('login.html', error=error)
 
-@app.route('/signup', methods=['POST'])
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
     error = None
-    username = raw_input(request.form['susername']).lower()
-    password = request.form['spassword']
-    confirm_password = request.form['sconfirm_password']
-    first = request.form['sfirst']
-    last = request.form['slast']
-    email = request.form['semail']
-    if not checkValuesExist(username, password, first, last, email):
-        error = 'Empty Required Field'
-    elif password != confirm_password:
-        error = 'Invalid password'
-    else:
-        user = User(username, password, first, last, email) 
-        db_session().add(user)
-        db_session().commit()
+    if request.method == 'POST':
+        username = request.form['susername'].lower()
+        password = request.form['spassword']
+        confirm_password = request.form['sconfirm_password']
+        first = request.form['sfirst']
+        last = request.form['slast']
+        email = request.form['semail'].lower()
+        # Need to add in check for bad passwords, unsafe first, last, username, and email
+        print username
+        if not checkEmptyStrings(username, password, first, last, email):
+            error = 'Empty Fields'
+        elif password != confirm_password:
+            error = "Passwords Don't match"
+        elif getSQLNoneValue(db_session().query(User.Username)\
+                .filter(User.Username == username).first()) != None:
+            error = 'User Already Exists'
+        else:
+            user = User(username, password, first, last, email) 
+            db_session().add(user)
+            db_session().commit()
     return render_template('login.html', error=error)
 
     
 @app.route('/logout')
+@login_required
 def logout():
-    session.pop('logged_in', None)
+    logout_user()
+    #session.pop('logged_in', None)
     return redirect(url_for('login'))
 
-def generate_filtered_list(ufilter, query, model, attribute):
+def generate_filtered_list(ufilter, items, model, attribute):
     url_filter = request.args.get(ufilter);
     page = request.args.get('page')
     page = 0 if page is None else int(page)
 
-    maxpage = int(query.count()/MAX_LIST_ITEMS)
-
-    items = query
     if (url_filter == "null"):
         items = items.filter(getattr(model, attribute)==None)
     elif (url_filter is not None):
         items = items.filter(getattr(model, attribute)==url_filter)
+
+    maxpage = int(items.count()/MAX_LIST_ITEMS)
     items = items.offset(page*MAX_LIST_ITEMS).limit(MAX_LIST_ITEMS).all()
 
     url_filter = "" if url_filter is None else "&"+ufilter+"="+url_filter
     return (items, {'page':page,'maxpage':maxpage,ufilter:url_filter})
 
 @app.route('/observation_list')
+@login_required
 def observation_list():
-    if not session.get('logged_in'):
-        return redirect(url_for('login'))
-
-    query = db_session().query(Observation.ObsID, Observation.Date, Observation.IsSilene, Observation.FileName, Device.DeviceId, Device.DeviceType).outerjoin(Device, Observation.Device_id==Device.id)
-    
-    result = generate_filtered_list('verified', query, Observation, 'IsSilene')
-    return render_template('observation_list.html', observations=result[0], urlargs=result[1])
+    if has_permissions():
+        query = db_session().query(Observation.ObsID, Observation.Date, Observation.IsSilene, Observation.FileName, Device.DeviceId, Device.DeviceType).outerjoin(Device, Observation.Device_id==Device.id)
+        
+        result = generate_filtered_list('verified', query, Observation, 'IsSilene')
+        return render_template('observation_list.html', observations=result[0], urlargs=result[1])
+    else:
+        return "hi" #abort(404)
 
 @app.route('/device_list')
+@login_required
 def device_list():
-    if not session.get('logged_in'):
-        return redirect(url_for('login'))
-    
-    query = db_session().query(Device.id, Device.DeviceId, Device.DeviceType, Device.IsBlackListed, User.Username).outerjoin(User, Device.UserId == User.UserId)
-    
-    result = generate_filtered_list('bl', query, Device, 'IsBlackListed')
-    return render_template('device_list.html', devices=result[0], urlargs=result[1])
+    if has_permissions():
+        query = db_session().query(Device.id, Device.DeviceId, Device.DeviceType, Device.IsBlackListed, User.Username).outerjoin(User, Device.UserId == User.UserId)
+        
+        result = generate_filtered_list('bl', query, Device, 'IsBlackListed')
+        return render_template('device_list.html', devices=result[0], urlargs=result[1])
+    else:
+        abort(404)
 
 @app.route('/user_list')
+@login_required
 def user_list():
-    if not session.get('logged_in'):
-        return redirect(url_for('login'))
-
-    query = db_session().query(User)
-    result = generate_filtered_list('utyp', query, User, 'Type')
-    return render_template('user_list.html', users=result[0], urlargs=result[1])
+    #if not session.get('logged_in'):
+    #    return redirect(url_for('login'))
+    if has_permissions():
+        query = db_session().query(User)
+        result = generate_filtered_list('utype', query, User, 'Type')
+        return render_template('user_list.html', users=result[0], urlargs=result[1])
+    else:
+        abort(404)
 
 @app.route('/observation_view')
+@login_required
 def observation_view():
-    if not session.get('logged_in'):
-        return redirect(url_for('login'))
-    page = request.args.get('imageid', 0, type=int)
-    observation = db_session().query(Observation.ObsID, Observation.Date, Observation.Longitude, Observation.Latitude, Observation.IsSilene, Observation.FileName)
-    obsId = db_session().query(Observation.ObsID)
+    if has_permissions():
+        page = request.args.get('imageid', 0, type=int)
+        observation = db_session().query(Observation.ObsID, Observation.Date, Observation.Longitude, Observation.Latitude, Observation.IsSilene, Observation.FileName, Observation.UseForTraining, Observation.LocationError)
+        obsId = db_session().query(Observation.ObsID)
 
-    page = page if page is not None else 1
+        page = page if page is not None else 1
 
-    prepage = getSQLNoneValue(obsId.order_by(Observation.ObsID.desc()).filter(Observation.ObsID < page).first())
-    nextpage = getSQLNoneValue(obsId.order_by(Observation.ObsID.asc()).filter(Observation.ObsID > page).first())
+        prepage = getSQLNoneValue(obsId.order_by(Observation.ObsID.desc()).filter(Observation.ObsID < page).first())
+        nextpage = getSQLNoneValue(obsId.order_by(Observation.ObsID.asc()).filter(Observation.ObsID > page).first())
 
-    observation = observation.filter(Observation.ObsID == page).first()
-    urlargs = {'page':page,'prepage':prepage,'nextpage':nextpage}
-    return render_template('image_viewer.html', observation=observation, urlargs=urlargs)
+        observation = observation.filter(Observation.ObsID == page).first()
+        urlargs = {'page':page,'prepage':prepage,'nextpage':nextpage}
+        return render_template('image_viewer.html', observation=observation, urlargs=urlargs)
+    else:
+        abort(404)
 
+@app.route('/detection_view')
+@login_required
+def detection_view():
+    if has_permissions():
+        page = request.args.get('detectionid', 0, type=int)
+
+        page = page if page is not None else 1
+
+        detId = db_session().query(DetectionObject.ObjectID)
+        prepage = getSQLNoneValue(detId.order_by(DetectionObject.ObjectID.desc()).filter(DetectionObject.ObjectID < page).first())
+        nextpage = getSQLNoneValue(detId.order_by(DetectionObject.ObjectID.asc()).filter(DetectionObject.ObjectID > page).first())
+
+        detection = db_session().query(DetectionObject.IsPosDetect, DetectionObject.IsUserDetected, Observation.ObsID, Observation.FileName).outerjoin(Observation, Observation.ObsID == DetectionObject.ParentObsID).filter(DetectionObject.ObjectID == page).first()
+
+        urlargs = {'page':page,'prepage':prepage,'nextpage':nextpage}
+        return render_template('rotation.html', detection=detection, urlargs=urlargs)
+    else:
+        abort(404)
 @app.route('/_get_observation_data')
+@login_required
 def get_observation_data():
-    if not session.get('logged_in'):
-        return redirect(url_for('login'))
     page = request.args.get('imageid', 0, type=int)
     observation = db_session().query(Observation.FileName).filter(Observation.ObsID == page).first()
-    observation_object = db_session().query(DetectionObject.XCord, DetectionObject.YCord, DetectionObject.Radius, DetectionObject.IsUserDetected).filter(DetectionObject.ParentObsID == page).all()
+    observation_object = db_session().query(DetectionObject.ObjectID, DetectionObject.XCord, DetectionObject.YCord, DetectionObject.Radius, DetectionObject.IsUserDetected, DetectionObject.IsPosDetect).filter(DetectionObject.ParentObsID == page).all()
     circles = []
     for obj in observation_object:
-        circles.append({'XCord':obj.XCord,'YCord':obj.YCord,'Radius':obj.Radius,'IsUserDetected':obj.IsUserDetected})
+        print obj
+        circles.append({'XCord':obj.XCord,'YCord':obj.YCord,'Radius':obj.Radius,'IsUserDetected':obj.IsUserDetected,\
+                'IsPosDetect':obj.IsPosDetect, 'ObjectID':obj.ObjectID})
     return jsonify(FileName=observation.FileName, circles=circles) 
 
 def update_isValue(module, attribute):
     data = {'error':None, 'results':None}
-    try:
-        value = request.form.get('sentValue', type=int)
-        value = bool(value) if value != -1 else None
-        value_id = request.form.get('sentId', type=int)
-        setattr(db_session().query(module).get(value_id), attribute, value)
-        data['results'] = "Updated values"
-    except Exception,e:
-        data['error'] = str(e)
-        data['results'] = "Failed to update values"
-    db_session().commit()
+    if has_permissions():
+        try:
+            value = request.form.get('sentValue', type=int)
+            value = bool(value) if value != -1 else None
+            value_id = request.form.get('sentId', type=int)
+            setattr(db_session().query(module).get(value_id), attribute, value)
+            data['results'] = "Updated values"
+        except Exception,e:
+            data['error'] = str(e)
+            data['results'] = "Failed to update values"
+        db_session().commit()
     return data
 
 @app.route('/_update_isSilene', methods=["POST"])
+@login_required
 def update_isSilene():
-    if not session.get('logged_in'):
-        return "I can't let you do that Dave" 
-    
     return jsonify(data=update_isValue(Observation, 'IsSilene'))
 
+@app.route('/_update_useForTraining', methods=["POST"])
+@login_required
+def update_useForTraining():
+    return jsonify(data=update_isValue(Observation, 'UseForTraining'))
+
 @app.route('/_update_isBlackListed', methods=["POST"])
+@login_required
 def update_isBlackListed():
-    if not session.get('logged_in'):
-        return "I can't let you do that Dave" 
-    
     return jsonify(data=update_isValue(Device, 'IsBlackListed'))
+
+@app.route('/_update_UserType', methods=["POST"])
+@login_required
+def update_UserType():
+    data = {'error':None, 'results':None}
+    if has_admin_permissions():
+        try:
+            value = request.form.get('sentValue')
+            value_id = request.form.get('sentId', type=int)
+            db_session().query(User).get(value_id).Type = value
+            data['results'] = "Updated value"
+            db_session().commit()
+        except Exception, e:
+            data['error'] = str(e)
+            data['results'] = "Failed to update values"
+    return jsonify(data=data)
+
+@app.route('/_update_detectionObjects', methods=["POST"])
+@login_required
+def update_detectionObjects():
+    data = {'error':None, 'results':None}
+    if has_permissions():
+        detectionObjects = json.loads(request.form.get('sentValue'))
+        observationId = request.form.get('sentId')
+        for obj in detectionObjects:
+            if obj['id'] == None and not obj['removed']:
+                obj_db = DetectionObject(obj['x'], obj['y'], obj['r'], not obj['falsePositive'], 1, observationId)
+                db_session().add(obj_db)
+            elif obj['id'] != None:
+                obj_db = db_session().query(DetectionObject).get(obj['id'])
+                if not obj['removed']:
+                    obj_db.IsPosDetect = not obj['falsePositive']
+                elif obj['removed'] and bool(obj_db.IsUserDetected):
+                    db_session().delete(obj_db)
+        db_session().commit()
+    return jsonify(data=data)
+
+@app.route('/_change_password', methods=["POST"])
+@login_required
+def change_password():
+    error = None
+    if not current_user.check_password(request.form['password']):
+        error = 'Invalid password'
+    elif request.form['new_password'] != request.form['confirm_password']:
+        error = 'Passwords Do Not Match'
+    else:
+        current_user.change_password(request.form['new_password'])
+    return jsonify(error=error)
+
 
 @app.route('/_post_observation', methods=["POST"])
 def post_observation():
@@ -188,15 +295,16 @@ def post_observation():
         Longitude = float(Obs['Longitude'])
         DeviceId = str(Obs['DeviceId'])
         DeviceType = str(Obs['DeviceType'])
+        LocationError = float(Obs['LocationError'])
 
-        if not checkValuesExist(Latitude, Longitude, DeviceId, DeviceType):
+        if not checkValuesExist(Latitude, Longitude, DeviceId, DeviceType, LocationError):
             raise ValueError('Values cannot be null')
 
         if DeviceType not in ALLOWED_DEVICES:
             raise ValueError('Device not allowed')
 
         # Check if phone is in the database
-        device = db_session.query(Device.id).filter(and_( \
+        device = db_session.query(Device.id, Device.IsBlackListed).filter(and_( \
             Device.DeviceId == DeviceId, \
             Device.DeviceType == DeviceType)).first()
 
@@ -204,7 +312,9 @@ def post_observation():
             device = Device(DeviceId, DeviceType)
             db_session().add(device)
             db_session().commit()
-
+        
+        if device.IsBlackListed:
+            raise ValueError('Device not allowed')
         # Get File
         newFile = request.files['picture']
         if newFile and allowed_file(newFile.filename):
@@ -218,7 +328,7 @@ def post_observation():
         os.system("convert -thumbnail 150 " + os.path.join(app.config['UPLOAD_FOLDER'], filename) \
                 + " " + os.path.join(THUMBNAIL_FOLDER, filename))
 
-        observation = Observation(Time, Date, Latitude, Longitude, filename, UPLOAD_FOLDER, device.id) 
+        observation = Observation(Time, Date, Latitude, Longitude, LocationError, filename, UPLOAD_FOLDER, device.id) 
         db_session().add(observation)
         db_session().commit()
         results = "sent"

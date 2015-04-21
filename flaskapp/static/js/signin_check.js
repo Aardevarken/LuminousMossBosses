@@ -4,12 +4,21 @@
  * Prevent errors to be returned to them
  */
 
-passwd = password("signup_password",1,2,1,2,1,2,1,2,8,12);
+passwd = new passwordStrength("signup_password",1,2,1,2,1,2,0,2,6,10);
 
-$("#signup_password, #signup_confirm_password").change(function(){checkSamePassword()});
-$("#signup_password").keyup(function() {
-    passwd.update()
+$("#signup_password, #signup_confirm_password").change(function(){
+    if (checkSamePassword() && passwd.getStrength() != "weak")
+        enableSubmit()
+    else
+        disableSubmit()
 });
+$("#signup_password").keyup(function() {
+    passwd.update();
+    console.log(passwd.id.value)
+    console.log(passwd.getStrength())
+    document.getElementById("password_status").innerHTML = passwd.getStrength()
+});
+
 function checkSamePassword() {
     password = document.getElementById("signup_password");
     confirm = document.getElementById("signup_confirm_password");
@@ -17,12 +26,12 @@ function checkSamePassword() {
         enableSubmit();
         password.style.backgroundColor = "white";
         confirm.style.backgroundColor = "white";
+        return true
     }
-    else {
-        disableSubmit();
-        password.style.backgroundColor = "#faa";
-        confirm.style.backgroundColor = "#faa";
-    }
+    disableSubmit();
+    password.style.backgroundColor = "#faa";
+    confirm.style.backgroundColor = "#faa";
+    return false
 }
 
 /*
@@ -30,8 +39,7 @@ function checkSamePassword() {
  * Min is the minimum required for a password
  * Max is how to suffice strong password
  */
-function password(id, upper_min, upper_max, lower_min, lower_max, digit_min, digit_max, special_min,
-                 ,special_max, length_min, length_max) {
+function passwordStrength(id, upper_min, upper_max, lower_min, lower_max, digit_min, digit_max, special_min, special_max, length_min, length_max) {
     // Count
     this.lower_count = 0;
     this.upper_count = 0;
@@ -49,30 +57,29 @@ function password(id, upper_min, upper_max, lower_min, lower_max, digit_min, dig
     this.special_max = special_max;
     this.length_max = length_max;
     // HTML 
-    this.text = document.getElementById(id).value;
-    this.bgcolor = document.getElementById.style.backgroundColor;
+    this.id = document.getElementById(id);
     // Methods
     this.updateStrength = function(index) {
-        value = text.charCodeAt(index);
+        value = this.id.value.charCodeAt(index);
         if (value >= 65 && value <= 90)
-            upper_count++
+            this.upper_count++
         else if (value >= 97 && value <= 122)
-            lower_count++
+            this.lower_count++
         else if (value >= 48 && value <= 57)
-            digit_count++
+            this.digit_count++
         else
-            special_count++
+            this.special_count++
     }
 
     this.getStrength = function() {
-       if (this.upper_count < this.upper_min && this.lower_count < this.lower_min 
-            && this.digit_count < this.digit_min && this.special_count < this.special_min 
-            && this.text.length < this.length_min) {
+       if (this.upper_count < this.upper_min || this.lower_count < this.lower_min 
+            || this.digit_count < this.digit_min || this.special_count < this.special_min 
+            || this.id.value.length < this.length_min) {
             return "weak"
         }
         else if (this.upper_count >= this.upper_max && this.lower_count >= this.lower_max 
             && this.digit_count >= digit_max && this.special_count >= this.special_max 
-            && this.text.length >= this.length_max) {
+            && this.id.value.length >= this.length_max) {
             return "strong"
         }
         return "good"
@@ -80,7 +87,7 @@ function password(id, upper_min, upper_max, lower_min, lower_max, digit_min, dig
 
     this.update = function() {
         total = this.upper_count + this.lower_count + this.digit_count + this.special_count;
-        len = this.text.length
+        len = this.id.value.length
         if (total < len-2 || total >= len-1) {
             this.reset()
             for(var i = 0; i < len; i++)

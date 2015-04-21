@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!--<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <title>Detection Objects</title>-->
+    {% extends "admin_layout.html" %}
+    {% block body %}
+
+    <!--	<link href="css/bootstrap.min.css" rel="stylesheet"> -->
+	<style>
+		canvas {
+			background-color: gray;
+		    border-style: inset;
+		    border-width: 5px;
+		    border-color: green;
+
+		}
+	</style>
+
+		<div class="row">
+			<div class="col-md-3 col-sm-4">
+				<hr>
+				<h4> Peddles </h4>
+				<table class="table table-striped" id=orientation_sheet>
+				</table>
+				<button class="btn btn-default" onclick="addOrientation()">Add Orientation</button>
+				<br/>
+				<br/>
+				<input type="range" min="0" max="360" value="0" step="1" id="rot_value" onmousemove="setRotation()">
+				<br/>
+				<hr>
+                <ul class="list-inline banner-social-buttons">
+                    {% if urlargs.prepage is not none %}
+                    <li>
+                    <a href="/detection_view?detectionid={{ urlargs.prepage }}" class="btn btn-default">Previous</a>
+                </li>
+                {% endif %}
+                {% if urlargs.nextpage is not none %}
+                <li>
+                <a href="/detection_view?detectionid={{ urlargs.nextpage }}" class="btn btn-default">Next</a>
+                </li>
+                {% endif %}
+                </ul>
+                <button class="btn btn-default" onclick="addOrientation()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+			</div>
+			<div class="col-md-6 col-sm-8" id="canvas_div">
+				<canvas id="image_viewer" width="910" height="700">Site requires HTML5</canvas>
+			</div>
+		</div>
+		<div class="row col-md-12">
+        {% macro select_options(value, test1, test2, label) -%}
+        <option value={{value}} {% if test1 == test2 %}selected{% endif %}>{{label}}</option>
+        {%- endmacro %}
+        {% macro bool(value) -%}
+        {% if value != 0 %}True{% else %}False{% endif %}
+        {%- endmacro %}
+			<table class="table table-striped">
+				<tr>
+                    <td><b>Source Observation:</b></td><td>
+                        <a href="observation_view?imageid={{detection.ObsID}}">{{ detection.FileName }}</a>
+                    </td>
+				</tr>
+                <tr><td><b>User Detected:</b></td><td>
+                        {{ bool(detection.IsUserDetected) }}
+                </td></tr>
+                <tr><td><b>Positive Detection:</b></td><td>
+                    <select class="form-control" id="id_vas_{{ detection.ObjectID }}" onchange="updateSelection('vas_{{ detection.ObjectID }}', '')">
+                        {{ select_options(1,detection.IsPosDetect, True, "Positive Detection") }}
+                        {{ select_options(0,detection.IsPosDetect, False, "False Positivie Detection") }}
+                        {{ select_options(-1,detection.IsPosDetect, none, "N/A") }}
+                    </select>
+                    </td>
+				</tr>
+			</table>
+		</div>
+	</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!-- HTML5 image viewer -->
+    <script src="{{ url_for('static', filename='js/utils.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/rotation.js')}}"></script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    {% endblock %}

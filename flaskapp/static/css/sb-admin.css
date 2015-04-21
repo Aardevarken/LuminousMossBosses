@@ -8,7 +8,7 @@
 
 body {
     margin-top: 100px;
-    background-color: #222;
+    background-color: #fff;
 }
 
 @media(min-width:768px) {
@@ -118,6 +118,7 @@ ul.alert-dropdown {
         top: 51px;
         left: 225px;
         width: 225px;
+        height: 100vh;
         margin-left: -225px;
         border: none;
         border-radius: 0;

@@ -54,15 +54,17 @@ hammer.on("panleft panright panup pandown", function(ev) {
 /**
  * Identification object
  */
-function initIdentified(cv, fp, x, y, r) {
+function initIdentified(i, cv, pos, x, y, r) {
 	var identified = {
 		openCV : cv, 
-		falsePosivitive : fp, 
+		falsePositive : (pos==null)?false:!pos, 
 		select : false, 
+        id : i,
 		x : x, 
 		y : y, 
 		r : r,
-		setAll : function(cv, fp, x, y, r) {this.openCV = cv; this.falsePosivitive = fp; this.select = false; this.x = x; this.y = y; this.r = r;}
+        removed : false,
+		setAll : function(cv, pos, x, y, r) {this.openCV = cv; this.falsePositive = !pos; this.select = false; this.x = x; this.y = y; this.r = r;}
 	};
 	return identified;
 }
@@ -79,14 +81,30 @@ $(function () {
     },get_image);
 });
 
+window.onresize = function(event) {
+    canvas.width = document.getElementById('canvas_div').offsetWidth;
+    canvas.height = canvas.width*3/4 
+    //scale = Math.min(canvas.width/image.width, canvas.height/image.height);
+    //x = -image.width/2+canvas.width/2
+    //y = (-image.height+canvas.height)/2 
+	display();
+}
+
 function get_image(data) {
     data.circles.forEach(function(id) {
-        identified.push(initIdentified(id.IsUserDetected,false,id.XCord,id.YCord,id.Radius));
+        identified.push(initIdentified(id.ObjectID, !id.IsUserDetected, id.IsPosDetect,id.XCord,id.YCord,id.Radius));
     });
 
     image.src = "/static/pics/"+data.FileName;
 }
 
+function save_circles() {
+    imageid = getUrlVars()['imageid']
+    $.post('/_update_detectionObjects', {
+        sentValue: JSON.stringify(identified),
+        sentId: imageid,
+    },function(data){flash = data.flash},'json');
+}
 /**
  * Initialization main code
   */
@@ -121,17 +139,19 @@ function display() {
 
 		/** draw all entries */
 		for (var i = 0; i < identified.length; i++) {
-			ctx.beginPath();
-			ctx.arc(identified[i].x,identified[i].y,identified[i].r,0,2*Math.PI);
-			ctx.lineWidth = 10;
-			if (identified[i].falsePosivitive)
-				ctx.strokeStyle = 'yellow';
-			else
-     			ctx.strokeStyle = 'red';
-			if (identified[i].select)
-				ctx.strokeStyle = 'white';
-			
-			ctx.stroke();
+            if (!identified[i].removed) {
+                ctx.beginPath();
+                ctx.arc(identified[i].x,identified[i].y,identified[i].r,0,2*Math.PI);
+                ctx.lineWidth = 10/scale;
+                if (identified[i].falsePositive)
+                    ctx.strokeStyle = 'yellow';
+                else
+                    ctx.strokeStyle = 'red';
+                if (identified[i].select)
+                    ctx.strokeStyle = 'white';
+                
+                ctx.stroke();
+            }
 		}
 		/** visual effect for creating new entry */
 		if (mousebutton.addEntry) {
@@ -286,7 +306,7 @@ mouseup = function(e) {
 	mousebutton.dragged = false;
 	/** add entry */
 	if (mousebutton.addEntry) {
-		identified.push(initIdentified(newEntry.openCV,newEntry.falsePosivitive,newEntry.x,newEntry.y,newEntry.r));
+		identified.push(initIdentified(null,newEntry.openCV,newEntry.falsePositive,newEntry.x,newEntry.y,newEntry.r));
 		addEntry();
 		display();
 	}
@@ -295,7 +315,10 @@ mouseup = function(e) {
 		mousePos = getCursorPosition(canvas,e);
 		for (var i = 0; i < identified.length; i++) {
 			if (mouseCollision(identified[i], mousePos) && !identified[i].openCV){
-				identified.remove(i--);
+                if (identified[i].id == null)
+				    identified.remove(i--);
+                else
+                    identified[i].removed = true;
 			}
 		}
 		removeEntry();
@@ -306,7 +329,7 @@ mouseup = function(e) {
 		mousePos = getCursorPosition(canvas,e);
 		for (var i = 0; i < identified.length; i++) {
 			if (mouseCollision(identified[i], mousePos)){
-				identified[i].falsePosivitive = true;
+				identified[i].falsePositive = true;
 			}
 		}
 		markFalse();
@@ -317,7 +340,7 @@ mouseup = function(e) {
 		mousePos = getCursorPosition(canvas,e);
 		for (var i = 0; i < identified.length; i++) {
 			if (mouseCollision(identified[i], mousePos)){
-				identified[i].falsePosivitive = false;
+				identified[i].falsePositive = false;
 			}
 		}
 		markTrue();
@@ -392,7 +415,10 @@ function removeEntry() {
 	else {
 		for (var i = 0; i < identified.length; i++) {
 			if (identified[i].select && !identified[i].openCV) 
-				identified.remove(i--);
+                if (identified[i].id == null)
+                    identified.remove(i--);
+                else
+                    identified[i].removed = true
 			if (identified[i].select && identified[i].openCV)
 				identified[i].select = false;
 		}
@@ -418,7 +444,7 @@ function markFalse() {
 		for(var i = 0; i < identified.length; i++) {
 			if (identified[i].select) {
 				identified[i].select = false;
-				identified[i].falsePosivitive = true;
+				identified[i].falsePositive = true;
 			}
 		}
 		selectAmount = 0;
@@ -443,7 +469,7 @@ function markTrue() {
 		for(var i = 0; i < identified.length; i++) {
 			if (identified[i].select) {
 				identified[i].select = false;
-				identified[i].falsePosivitive = false;
+				identified[i].falsePositive = false;
 			}
 		}
 		selectAmount = 0;

@@ -4,6 +4,23 @@ from datetime import date, time, datetime
 from dbhandler.database import Base
 from werkzeug.security import generate_password_hash, check_password_hash
 
+class RotationObject(Base):
+    __tablename__ = 'rotation_objects'
+    id = Column(Integer, primary_key=True)
+    ParentDetectionObjectID = Column(Integer, ForeignKey('detection_objects.ObjectID'))
+    RotationAngle = Column(Integer, unique=True)
+    FileName = Column(String(256), unique=True)
+    Location = Column(String(256), unique=True)
+
+    def __init__(self, ParentDetectionObjectID=None, RotationAngle=None, FileName=None, Location=None):
+        self.ParentDetectionObjectID = ParentDetectionObjectID
+        self.RotationAngle = RotationAngle
+        self.FileName = FileName
+        self.Location = Location
+
+    def __repr__(self):
+        return '<RotationObject %r, %r, %r>' % (self.RotationObject, self.Location, self.FileName)
+
 class DetectionObject(Base):
     __tablename__ = 'detection_objects'
     ObjectID = Column(Integer, primary_key=True)
@@ -38,6 +55,7 @@ class Observation(Base):
     Date = Column(Date, unique=True)
     Latitude = Column(Float, unique=True)
     Longitude = Column(Float, unique=True)
+    LocationError = Column(Float, unique=True)
     Device_id = Column(Integer, unique=ForeignKey('devices.id'))
     IsSilene = Column(Boolean, unique=True)
     UseForTraining = Column(Boolean, unique=True)
@@ -45,7 +63,7 @@ class Observation(Base):
     Location = Column(String(256), unique=True)
 
     def __init__(self, Time=None, Date=None, Latitude=None,
-        Longitude=None, FileName=None, Location=None, Device_id=None, IsSilene=None, UseForTraining=None):
+        Longitude=None, LocationError=None, FileName=None, Location=None, Device_id=None, IsSilene=None, UseForTraining=None):
         #self.ObsID = ObsID
         self.Time = Time
         self.Date = Date
@@ -91,12 +109,21 @@ class User(Base):
 
     def __init__(self, Username, Password, FirstName=None, LastName=None, Email=None, Type='normal'):
         self.Username = Username
-        set_password(Password)
+        self.set_password(Password)
         
         self.FirstName = FirstName
         self.LastName = LastName
         self.Email = Email
         self.Type = Type
+
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymous(self):
+        return False
 
     def set_password(self, password):
         self.Password = generate_password_hash(password)
@@ -104,8 +131,13 @@ class User(Base):
     def check_password(self, password):
         return check_password_hash(self.Password, password)
 
+    def get_id(self):
+        try:
+            return unicode(self.UserId)
+        except NameError:
+            return str(self.UserId)
     def __repr__(self):
-        return '<User %r %r %r %r %r>' % (self.UserID, self.Username, self.FirstName, self.LastName, self.Type)
+        return '<User %r %r %r %r %r>' % (self.UserId, self.Username, self.FirstName, self.LastName, self.Type)
 
 class TestResult(Base):
     __tablename__ = 'testresults'

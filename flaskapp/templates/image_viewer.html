@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<head>
+
+{% extends "admin_layout.html" %}
+{% block body %}
+<!--<head>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 	
     <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
-	<title>Image Viewer</title>
+
+    <title>Image Viewer</title>--!>
 
 	<style>
 		canvas {
@@ -23,10 +27,6 @@
         }
 	</style>
 
-</head>
-<body>
-	<div class="container">
-		<div class="row">
 			<div class="col-md-2" id="tools_div">
 				<hr>
 				<h4> Navigation </h4>
@@ -58,21 +58,36 @@
                         <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Reset View
                     </button>
                 </div>
+                <ul class="list-inline banner-social-buttons">
+                    {% if urlargs.prepage is not none %}
+                    <li>
+                    <a href="/observation_view?imageid={{ urlargs.prepage }}{{ urlargs.verified }}" class="btn btn-default">Previous Page</a>
+                </li>
+                {% endif %}
+                {% if urlargs.nextpage is not none %}
+                <li>
+                <a href="/observation_view?imageid={{ urlargs.nextpage }}{{ urlargs.verified }}" class="btn btn-default">Next Page</a>
+                </li>
+                {% endif %}
+                </ul>
                 </center>
 				<hr>
 				<h4> Image Processing </h4>
                 <center>
-				<button id="add" onclick="addEntry()" class="btn btn-default " aria-label="Left Align">
+				<button id="add" onclick="addEntry()" class="btn btn-default btn-block" aria-label="Left Align">
 					Add
 				</button>
-				<button id="remove" onclick="removeEntry()" class="btn btn-default " aria-label="Left Align">
+				<button id="remove" onclick="removeEntry()" class="btn btn-default btn-block" aria-label="Left Align">
 					Remove
 				</button>
-				<button id="mtrue" onclick="markTrue()" class="btn btn-default" aria-label="Left Align">
+				<button id="mtrue" onclick="markTrue()" class="btn btn-default btn-block" aria-label="Left Align">
 					Mark True
 				</button>
-				<button id="mfalse" onclick="markFalse()" class="btn btn-default" aria-label="Left Align">
+				<button id="mfalse" onclick="markFalse()" class="btn btn-default btn-block" aria-label="Left Align">
 					Mark False
+				</button>
+				<button onclick="save_circles()" class="btn btn-default btn-block" aria-label="Left Align">
+				    Save
 				</button>
                 </center>
 				<hr>
@@ -91,25 +106,14 @@
 				<hr>
                 </div>
 			</div>
-			<div class="col-md-9 image_div canvas_holder" id="canvas_div">
-                <canvas id="image_viewer" style="width: 100%;">Site requires HTML5</canvas>
+			<div class="col-md-8 image_div canvas_holder" id="canvas_div">
+                <canvas id="image_viewer">Site requires HTML5</canvas>
                 
             </div>
             </div>
-        <div class="row" style="text-align: center">
-            <ul class="list-inline banner-social-buttons">
-                {% if urlargs.prepage is not none %}
-                <li>
-                <a href="/observation_view?imageid={{ urlargs.prepage }}{{ urlargs.verified }}" class="btn btn-default btn-sm">Previous Page</a>
-            </li>
-            {% endif %}
-            {% if urlargs.nextpage is not none %}
-            <li>
-            <a href="/observation_view?imageid={{ urlargs.nextpage }}{{ urlargs.verified }}" class="btn btn-default btn-sm">Next Page</a>
-            </li>
-            {% endif %}
-            </ul>
-        </div>
+        {% macro select_options(value, test1, test2, label) -%}
+        <option value={{value}} {% if test1 == test2 %}selected{% endif %}>{{label}}</option>
+        {%- endmacro %}
 		<div class="row">
 			<table class="table table-striped">
 				<tr>
@@ -125,22 +129,33 @@
 					<td><b>Longitude:</b></td><td>{{ observation.Longitude }}</td>
 				</tr>
                 <tr>
+                    <td><b>Accuracy:</b></td><td>{{ observation.LocationError }}</td>
+                </tr>
+                <tr>
                     <td><b>Verified As Silene:</b></td><td>
-                    <select class="form-control" id="id_{{ observation.ObsID }}" onchange="updateSelection({{ observation.ObsID }})">
-                        <option value=1 {% if observation.IsSilene == 1 %}selected{% endif %}>Silene</option>
-                        <option value=0 {% if observation.IsSilene == 0 %}selected{% endif %}>Not Silene</option>
-                        <option value=-1 {% if observation.IsSilene is none() %}selected{% endif %}>N/A</option>
+                    <select class="form-control" id="id_vas_{{ observation.ObsID }}" onchange="updateSelection('vas_{{ observation.ObsID }}', 'isSilene')">
+                        {{ select_options(1,observation.IsSilene, True, "Silene") }}
+                        {{ select_options(0,observation.IsSilene, False, "Not Silene") }}
+                        {{ select_options(-1,observation.IsSilene, none, "N/A") }}
                     </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Use For Training:</b></td>
+                    <td>
+                        <select class="form-control" id="id_uft_{{ observation.ObsID}}" onchange="updateSelection('uft_{{ observation.ObsID }}','useForTraining')">
+                            {{ select_options(1,observation.UseForTraining, True, "Yes") }}
+                            {{ select_options(0,observation.UseForTraining, False, "No") }}
+                            {{ select_options(-1,observation.UseForTraining, none, "N/A") }}
+                        </select>
                     </td>
                 </tr>
 			</table>
 		</div>
-	</div>
      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
     <script src="{{ url_for('static', filename='js/utils.js')}}"></script>
     <!-- HTML5 image viewer -->
 	<script src="{{ url_for('static', filename='js/image-viewer.js')}}"></script>
-</body>
+    {% endblock %}

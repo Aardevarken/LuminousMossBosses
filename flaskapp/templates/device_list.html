@@ -3,16 +3,15 @@
 <script src="{{ url_for('static', filename='js/utils.js')}}"></script>
     <div class="row">
         <div class="col-lg-6">
+            {% macro render_filter_link(link, arg, value, display, role='', active='') -%}
+            <li role='{{role}}' {% if request.args.get(arg) == value %} class='active'{% endif %}>
+            <a href="{{ link }}{% if value is not none %}?{{arg}}={{value}}{% endif %}">{{ display }}</a>
+            </li>
+            {%- endmacro %}
         <ul class="nav nav-tabs nav-justified" role="group" aria-label="options">
-            <li role="presentation" {% if urlargs.isblacklisted == "" %}class="active"{% endif %}> 
-            <a href="/device_list">All</a>
-            </li>
-            <li role="presentation" {% if urlargs.isblacklisted == "&bl=0" %}class="active"{% endif %}>
-            <a href="/device_list?bl=0">Not Blacklisted</a>
-            </li>
-            <li role="presentation" {% if urlargs.isblacklisted == "&bl=1"  %}class="active"{% endif %}>
-            <a href="/device_list?bl=1" >Blacklisted</a>
-            </li>
+            {{ render_filter_link('/device_list', 'bl', none, 'All', 'presentation')}}
+            {{ render_filter_link('/device_list', 'bl', '0', 'Not Blacklisted', 'presentation')}}
+            {{ render_filter_link('/device_list', 'bl', '1', 'Blacklisted', 'presentation')}}
         </ul>
         </div>
         <div class="col-lg-12">
@@ -32,7 +31,7 @@
                 <td>{{ device.DeviceId }}</td>
                 <td>{{ device.Username }}</td>
                 <td>
-                    <select class="form-control" id="id_{{ device.id }}" onchange="updateSelection({{ device.id }},'isBlackListed')">
+                    <select class="form-control" id="id_{{ device.id }}" onchange="updateSelection('{{ device.id }}','isBlackListed')">
                         <option value=0 {% if device.IsBlackListed == 0 %}selected{% endif %}>No</option>
                         <option value=1 {% if device.IsBlackListed == 1 %}selected{% endif %}>Yes</option>
                     </select>
@@ -44,22 +43,21 @@
         <div class="input-group input-group-sm">
             <span class="input-group-btn" aria-label="page">
                 <!--<ul class="list-inline banner-social-buttons">-->
-            
-            <a href="/device_list?page=0{{ urlargs.isblacklisted }}" class="btn btn-default btn-sm">
+            <a href="/device_list?page=0{{ urlargs.bl }}" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-step-backward"> </span>
             </a>
             {% set pre = urlargs.page -1 %}
             <a {% if urlargs.page == 0 %} disabled {% endif %}
-            href="/device_list?page={{ pre }}{{ urlargs.isblacklisted }}" class="btn btn-default btn-sm">
+            href="/device_list?page={{ pre }}{{ urlargs.bl }}" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-triangle-left"> </span>
             </a>
             <p class="btn btn-default btn-sm" disabled >page {{ urlargs.page }} </p>
             {% set next = urlargs.page +1 %}
             <a {% if urlargs.page == urlargs.maxpage %} disabled {% endif %} 
-            href="/device_list?page={{ next }}{{ urlargs.isblacklisted }}" class="btn btn-default btn-sm">
+            href="/device_list?page={{ next }}{{ urlargs.bl }}" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-triangle-right"> </span>
             </a>
-            <a href="/device_list?page={{ urlargs.maxpage }}{{ urlargs.isblacklisted }}" class="btn btn-default btn-sm">
+            <a href="/device_list?page={{ urlargs.maxpage }}{{ urlargs.bl }}" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-step-forward"> </span>
             </a>
             </span>
