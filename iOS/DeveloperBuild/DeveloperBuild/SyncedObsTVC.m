@@ -92,7 +92,8 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
 		// Delete the row from the Database
-		[[UserDataDatabase getSharedInstance] deleteObservationByID:[syncedObservations objectAtIndex:indexPath.row]];
+		NSDictionary *obToRemove = [[NSDictionary alloc] initWithDictionary:[syncedObservations objectAtIndex:indexPath.row]];
+		[[UserDataDatabase getSharedInstance] deleteObservationByID:[obToRemove objectForKey:@"imghexid"]];
 
 		// Delete the row from the data source
 		[syncedObservations removeObjectAtIndex:indexPath.row];
