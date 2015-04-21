@@ -22,6 +22,9 @@
 
 #define getDataURL @"http://flowerid.cheetahjokes.com/cgi-bin/observations.py"
 #define MAX_NUMB_DISPLAYED 5
+// ALog always displays output regardless of the DEBUG setting
+#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define TESTING YES
 
 @implementation ObsViewController{
 	NSArray *plants;
@@ -36,7 +39,6 @@ NSMutableArray *_myObservations;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	
 	
 	//NSLog(@"In ObsViewController (ObsViewController.m)");
 	_myObservations = [NSMutableArray arrayWithCapacity:20];
@@ -65,18 +67,17 @@ NSMutableArray *_myObservations;
 	
 	self.myObservations = _myObservations;
 	
-	// please work
-	/** /
-	pendingObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-noid" like:NO orderBy:NULL];
-	idedObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:NULL];
-	
-	//NSLog(@"po:%lu \t io:%lu", (unsigned long)[pendingObservations count], (unsigned long)[idedObservations count]);
-	
-	selectedSection = -1;
-	selectedRow = -1;
-	//NSLog(@"\n");
-	/**/
-	// keep this work
+//	// please work
+//	
+//	pendingObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-noid" like:NO orderBy:NULL];
+//	idedObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:NULL];
+//	
+//	//NSLog(@"po:%lu \t io:%lu", (unsigned long)[pendingObservations count], (unsigned long)[idedObservations count]);
+//	
+//	selectedSection = -1;
+//	selectedRow = -1;
+//	//NSLog(@"\n");
+//	// keep this work
 	
 	[self retrieveData];
 }
@@ -177,7 +178,6 @@ NSMutableArray *_myObservations;
 	}
 }
 
-#warning here
 - (NSDictionary *)getInfoForSection:(long)section andRow:(long)row{
 	
 	NSArray *data;
@@ -339,7 +339,7 @@ NSMutableArray *_myObservations;
 	}
 	*/
 	
-	NSLog(@"%@", [json objectAtIndex:0]);
+	ALog(@"%@", [json objectAtIndex:0]);
 	
 	UIImage * newImage = [json objectAtIndex:0];
 	
@@ -398,43 +398,83 @@ NSMutableArray *_myObservations;
 }
 
 - (IBAction)syncAllBtn:(UIButton *)sender {
-	for(id object in idedObservations){
-		[[UserDataDatabase getSharedInstance] updateObservation:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced"];
-        NSDictionary* observationData = object;
-        
-        // Get position and time data
-        NSString* date = [NSString stringWithFormat:@"%@", [observationData objectForKey:@"datetime"]];
-        float lat = [[observationData objectForKey:@"latitude"] floatValue];
-        float lng = [[observationData objectForKey:@"longitude"] floatValue];
-        
-        // Get image url
-        NSURL *url = [NSURL URLWithString:[observationData objectForKey:@"imghexid"]];
-        if ([url  isEqual: @"(null)"]) {
-            NSLog(@"img path is null");
-        }
-        
-        // Fetch image at url
-        ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
-        [lib assetForURL: url
-             resultBlock: ^(ALAsset *asset) {
-                 ALAssetRepresentation *r = [asset defaultRepresentation];
-                 UIImageOrientation orientation = (UIImageOrientation) (int) r.orientation;
-                 UIImage* image = [UIImage imageWithCGImage:r.fullResolutionImage scale:r.scale orientation:orientation];
-                 // Unrotate image
-                 UIImage* normalizedImage;
-                 if (image.imageOrientation == UIImageOrientationUp) {
-                     normalizedImage = image;
-                 } else {
-                     UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
-                     [image drawInRect:(CGRect){0, 0, image.size}];
-                     normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
-                     UIGraphicsEndImageContext();
-                 }
-                 // Send to server.
-                 [ServerAPI uploadObservation:date time:date lat:lat lng:lng image:normalizedImage];
-             }
-            failureBlock: nil];
-	}
+	unsigned long originalCount = idedObservations.count;
+	[[self syncBtn] setTitle:[NSString stringWithFormat:@"Syncing... (%d/%lu)", 1, originalCount] forState:UIControlStateNormal];
+
+	[[self syncBtn] setEnabled:NO];
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+		
+		for(id object in idedObservations){
+		
+			sleep(0.2);
+			//[[UserDataDatabase getSharedInstance] updateObservation:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced"];
+			
+			NSDictionary* observationData = object;
+			
+			// Get position and time data
+			NSString* date = [NSString stringWithFormat:@"%@", [observationData objectForKey:@"datetime"]];
+			float lat = [[observationData objectForKey:@"latitude"] floatValue];
+			float lng = [[observationData objectForKey:@"longitude"] floatValue];
+			
+			// Get image url
+			NSURL *url = [NSURL URLWithString:[observationData objectForKey:@"imghexid"]];
+			if ([url  isEqual: @"(null)"]) {
+				NSLog(@"img path is null");
+			}
+			
+			// Fetch image at url
+			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+				ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
+				[lib assetForURL: url
+					 resultBlock: ^(ALAsset *asset) {
+						 ALAssetRepresentation *r = [asset defaultRepresentation];
+						 UIImageOrientation orientation = (UIImageOrientation) (int) r.orientation;
+						 UIImage* image = [UIImage imageWithCGImage:r.fullResolutionImage scale:r.scale orientation:orientation];
+						 // Unrotate image
+						 UIImage* normalizedImage;
+						 if (image.imageOrientation == UIImageOrientationUp) {
+							 normalizedImage = image;
+						 } else {
+							 UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
+							 [image drawInRect:(CGRect){0, 0, image.size}];
+							 normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
+							 UIGraphicsEndImageContext();
+						 }
+						 
+						 //sleep(1.5);
+						 [ServerAPI uploadObservation:date time:date lat:lat lng:lng image:normalizedImage];
+						 
+						
+						 // if (idedObservations.count >= 0) {
+						 dispatch_async(dispatch_get_main_queue(), ^{
+							 NSInteger rowIndex = [idedObservations indexOfObjectIdenticalTo:object];
+							 [idedObservations removeObjectIdenticalTo:object];
+							 [[self syncBtn] setTitle:[NSString stringWithFormat:@"Syncing... (%ld/%lu)", originalCount - idedObservations.count + 1, originalCount] forState:UIControlStateNormal];
+							 //ALog(@"rowIndex: %ld", (long)rowIndex);
+							 [self removeRow:rowIndex inSection:1];
+							 //sleep(1.5);
+							 if (idedObservations.count == 0) {
+								 [[self syncBtn] setEnabled:YES];
+								 [[self syncBtn] setTitle:[NSString stringWithFormat:@"Sync All"] forState:UIControlStateNormal];
+								 [idedObservations removeAllObjects];
+							 }
+						 });
+						 //}
+				
+					 }
+					failureBlock: nil];
+			});
+		}
+	});
+}
+
+-(void) removeRow:(NSInteger)row inSection:(NSInteger)section{
+	NSIndexPath *myIndex = [NSIndexPath indexPathForRow:row inSection:section];
+	
+	//ALog(@"\n%@", myIndex);
+	//ALog(@"\n%@\n\n", [self.tableView description]);
+	
+	[self.tableView deleteRowsAtIndexPaths:@[myIndex] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 

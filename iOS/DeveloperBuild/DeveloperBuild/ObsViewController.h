@@ -19,10 +19,12 @@
 @property (nonatomic, strong) NSMutableArray * observationsArray;
 @property (nonatomic, strong) NSMutableArray * imageArray;
 @property (nonatomic, strong) NSMutableArray * json;
+@property (strong, nonatomic) IBOutlet UIButton *syncBtn;
 
 // might not need
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 - (IBAction)syncAllBtn:(UIButton *)sender;
+
 
 @end

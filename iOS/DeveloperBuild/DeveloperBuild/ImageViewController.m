@@ -15,7 +15,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AVFoundation/AVFoundation.h>
 
-#define TESTING YES
+#define TESTING NO
 // ALog always displays output regardless of the DEBUG setting
 #define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
@@ -72,15 +72,7 @@
 		[[[self view] layer] addSublayer:[[self captureManager] previewLayer]];
 
 		[[self captureManager] addStillImageOutput];
-		//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinish) name:kImageCapturedSuccessfully object:nil];	// T2
-		
-		/*
-		 [[NSNotificationCenter defaultCenter] addObserver:self
-												  selector:@selector(saveImageToPhotoAlbum)
-													  name:kImageCapturedSuccessfully
-													object:nil];
 
-		*/
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												 selector:@selector(didFinishSavingImageWithError:)
 													 name:kImageCapturedSuccessfully
@@ -167,7 +159,7 @@
 - (void) addAnOb {
 	// use this to find the location of the database on your mechine disk.
 	if(TESTING){
-		NSLog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject]);
+		ALog(@"%@",[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory  inDomains:NSUserDomainMask] lastObject]);
 	}
 	
 	BOOL success = NO;
@@ -191,6 +183,7 @@
 	[self displayMyObservationsVC];
 }
 
+
 - (void) displayMyObservationsVC {
 //	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Base.lprog/Main.storyboard" bundle:nil];
 //	MyObservations *viewController = (MyObservations *)[storyboard instantiateViewControllerWithIdentifier:@"MyObservationsTabBarController"];
@@ -211,9 +204,9 @@
 	UITabBarController * tbc = [storyboard instantiateViewControllerWithIdentifier:@"ThisController12345"];
 	UINavigationController *navigationController =[[UINavigationController alloc] initWithRootViewController:myViewController];
 	
-	[[self navigationController] popViewControllerAnimated:NO];
+	//[[self navigationController] :NO];
 	
-	[[self navigationController] pushViewController:tbc animated:NO];
+	[[self navigationController] pushViewController:tbc animated:YES];
 	
 	//now present this navigation controller modally
 	//[self presentViewController:navigationController
@@ -234,57 +227,19 @@
 }
 
 - (void)saveImageToPhotoAlbum{
-	//  UIImageWriteToSavedPhotosAlbum([[self captureManager] stillImage], self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-
-	//UIImage *newImage = [[self captureManager] stillImage].CGImage;
-	
 	ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
 	// i am not saving the images with the correct orientation.
 	[library writeImageToSavedPhotosAlbum:([[self captureManager] stillImage].CGImage)
-//								 metadata: pictureInfo
 							  orientation: (ALAssetOrientation) [[self captureManager] stillImage].imageOrientation
 						  completionBlock:^(NSURL *assetURL, NSError *error) {
 							  selectedAsset = [NSString stringWithFormat:@"%@", assetURL];
-							  //ALog(@"\n\nselected asset: %@\n\n", selectedAsset);
-							  //ALog(@"error: %@", error);
 							  NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
 													 error ?: [NSNull null], @"error",
 													 nil];	// end of dictionary
-							  
-							  //[[NSNotificationCenter defaultCenter] postNotificationName:kImageCapturedSuccessfully object:error];
-							  //ALog(@"params: %@", params.description);
-							  
 							  [[NSNotificationCenter defaultCenter] postNotificationName:kImageCapturedSuccessfully
 																				  object:nil
 																				userInfo:params];
-							   
-//							  imageView.image = [[self captureManager] stillImage];
-//							  imageView.hidden = NO;
-//							  
-//							  [self hideTakePhotoBtn];
-//							  [self prepRetakePhotoBtn];
-//							  [self prepAddObservationBtn];
-//							  [self addAnOb];
-							  
 						  }];
-	
-	/*
-	ALAssetRepresentation *r = [asset defaultRepresentation];
-	+                 UIImageOrientation orientation = (UIImageOrientation) (int) r.orientation;
-	+                 UIImage* image = [UIImage imageWithCGImage:r.fullResolutionImage scale:r.scale orientation:orientation];
-	+                 // Unrotate image
-	+                 UIImage* normalizedImage;
-	+                 if (image.imageOrientation == UIImageOrientationUp) {
-		+                     normalizedImage = image;
-		+                 } else {
-			+                     UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
-			+                     [image drawInRect:(CGRect){0, 0, image.size}];
-			+                     normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
-			+                     UIGraphicsEndImageContext();
-			+                 }
-	
-	*/
-//	ALog(@"selected asset: %@", selectedAsset);
 }
 
 - (void)didFinishSavingImageWithError:(NSNotification *)note{
