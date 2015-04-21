@@ -9,6 +9,7 @@
 #import "detectionHelper.h"
 #import "detector.h"
 #import "opencv2/highgui/ios.h"
+#import "UserDataDatabase.h"
 
 // ALog always displays output regardless of the DEBUG setting
 #define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
@@ -18,7 +19,7 @@
 	NSString *assetID;
 	UIImage *identifiedImage;
 	BOOL isSilene;
-	//float probability;
+	float probability;
 }
 
 - (instancetype) initWithAssetID:(NSString *)newAssetID
@@ -26,10 +27,10 @@
 	if (self) {
 		self.percentageComplete = [NSNumber numberWithFloat:-1.0];
 		self.assetID = newAssetID;
+        assetID = newAssetID; // Frightningly, both these lines are necessary.
 		self.positiveID = NULL;
 		self.probability = [NSNumber numberWithFloat:-1.0];
 		self.identifiedImage = NULL;
-		//assetID = newAssetID;
 		//.identifiedImage = nil;
 		//probability = NULL;
 		//isSilene = NULL;
@@ -82,7 +83,7 @@
 	// stage 2 //
 	Mat cvImageBGR;
 	cvtColor(cvImage, cvImageBGR, CV_BGR2RGB);
-	//probability = flowerDetector.probability(cvImageBGR);
+	probability = flowerDetector.probability(cvImageBGR);
 	[self setValue:[NSNumber numberWithFloat:flowerDetector.probability(cvImageBGR)] forKey:@"probability"];
 	
 	/////////////
@@ -106,8 +107,26 @@
 		sleep(1);
 		printf("%d...",sleepFor - zzz);
 	}
-	
-	[self setValue:[NSNumber numberWithFloat:1] forKey:@"percentageComplete"];
+    
+    // update the table row
+    // prep variables
+    NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
+    [nf setMaximumFractionDigits:2];
+    float newprob = floorf(probability*100 + 0.5);
+    NSNumber *NSnewprob = [NSNumber  numberWithFloat:newprob];
+    NSString *newState = @"pending-id";
+    
+    // update row variables
+    BOOL success = [[UserDataDatabase getSharedInstance]
+                    updateObservation:assetID andNewPercentIDed:NSnewprob andNewStatus:newState];
+    
+    // Did it all work? Inform the UI
+    if (success) {
+        [self setValue:[NSNumber numberWithFloat:1] forKey:@"percentageComplete"];
+    } else {
+        ALog("Database update failed after identification.");
+        [self setValue:[NSNumber numberWithFloat:-1] forKey:@"percentageComplete"];
+    }
 
 	printf("Done \n\n");
 

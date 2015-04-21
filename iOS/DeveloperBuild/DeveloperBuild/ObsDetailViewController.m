@@ -96,27 +96,6 @@ detectionHelper *detectionObject;
 		percentLabel.textColor = [UIColor colorWithRed:255.f green:0 blue:0 alpha:1];
 	}
 	
-	// update the table row
-	// prep variables
-	NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
-	[nf setMaximumFractionDigits:2];
-	float newprob = floorf([[detectionObject probability] floatValue]*100 + 0.5);
-	NSNumber *NSnewprob = [NSNumber  numberWithFloat:newprob];
-	NSString *assetid = [NSString stringWithFormat:@"%@",[plantInfo objectForKey:@"imghexid"]];
-	NSString *newState = @"pending-id";
-	
-	// update row variables
-	BOOL success = [[UserDataDatabase getSharedInstance]
-					updateObservation:assetid andNewPercentIDed:NSnewprob andNewStatus:newState];
-	
-	// did it all work? if not show an error.
-	NSString *alertString = @"Data update failed";
-	if (success == NO) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-	}
-	
-	
 	idButton.hidden = YES;
 }
 
@@ -140,9 +119,17 @@ detectionHelper *detectionObject;
 			dispatch_sync(dispatch_get_main_queue(), ^{
 				[self updateObservationData];	// update the on screen data
 				[[self activityIndicator] stopAnimating];	// stop the activity indicator
-				[[self idButton] setHidden:YES];	// hid the id button.
+				[[self idButton] setHidden:YES];	// hide the id button.
 			});
 		}
+        
+        // Changing back to -1 indicates an error with updating the database after identification.
+        // Want to reset back to before identification was started.
+        if ([[change valueForKey:@"new"] isEqualToNumber:[NSNumber numberWithInt:-1]]) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [[self activityIndicator] stopAnimating];
+            });
+        }
 	}
 }
 
