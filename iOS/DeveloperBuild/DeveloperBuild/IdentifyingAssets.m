@@ -26,5 +26,14 @@
 	return self;
 }
 
++(detectionHelper*) getByimghexid:(NSString*) imghexid {
+    NSMutableDictionary* assets = [IdentifyingAssets getSharedInstance].unknownAssets;
+    detectionHelper* detectionObject = [assets objectForKey:imghexid];
+    if (detectionObject == nil) {
+        detectionObject = [[detectionHelper alloc] initWithAssetID:imghexid];
+        [assets setValue:detectionObject forKey:imghexid];
+    }
+    return detectionObject;
+}
 
 @end

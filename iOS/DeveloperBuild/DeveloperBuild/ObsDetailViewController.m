@@ -53,13 +53,9 @@ detectionHelper *detectionObject;
 	}
 	// if this came from the identified tab
 	if ([[plantInfo objectForKey:@"status"] isEqual:@"pending-noid"]){
-		if ((detectionObject = [[IdentifyingAssets getSharedInstance].unknownAssets objectForKey:[plantInfo objectForKey:@"imghexid"]]) == nil) {
-
-			detectionObject = [[detectionHelper alloc] initWithAssetID:[plantInfo objectForKey:@"imghexid"]];
-			
-			[[IdentifyingAssets getSharedInstance].unknownAssets setValue:detectionObject forKey:[plantInfo objectForKey:@"imghexid"]];
-		}
-		else if ([detectionObject.percentageComplete isEqualToNumber:[NSNumber numberWithInt:0]]){
+        NSString* imghexid = [plantInfo objectForKey:@"imghexid"];
+        detectionObject = [IdentifyingAssets getByimghexid:imghexid];
+		if ([detectionObject.percentageComplete isEqualToNumber:[NSNumber numberWithInt:0]]){
 			[self.idButton setEnabled:NO];
 			[self.activityIndicator startAnimating];
 		}
@@ -72,12 +68,12 @@ detectionHelper *detectionObject;
 
 - (void)viewWillAppear:(BOOL)animated{
 	// add an observer to the identification helper object assosiated with the asset id
-	[[[IdentifyingAssets getSharedInstance].unknownAssets objectForKey:[plantInfo objectForKey:@"imghexid"]] addObserver:self forKeyPath:@"percentageComplete" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+	[[IdentifyingAssets getByimghexid:[plantInfo objectForKey:@"imghexid"]] addObserver:self forKeyPath:@"percentageComplete" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
 	// remove the observer assosiated with the asset id.
-	[[[IdentifyingAssets getSharedInstance].unknownAssets objectForKey:[plantInfo objectForKey:@"imghexid"]] removeObserver:self forKeyPath:@"percentageComplete"];
+	[[IdentifyingAssets getByimghexid:[plantInfo objectForKey:@"imghexid"]] removeObserver:self forKeyPath:@"percentageComplete"];
 }
 
 - (void)didReceiveMemoryWarning {

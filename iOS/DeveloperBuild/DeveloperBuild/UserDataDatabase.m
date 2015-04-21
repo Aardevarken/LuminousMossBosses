@@ -240,7 +240,7 @@ static NSDictionary* typeMap = nil;
 	NSString* orderBystmt;
 	NSString* statusStmt;
 	if (orderBy != nil){
-		orderBystmt = [NSString stringWithFormat:@" order by %@", orderBy];
+		orderBystmt = [NSString stringWithFormat:@" ORDER BY %@", orderBy];
 	}
 	//else if(![orderBy length]) {orderBystmt = [NSString stringWithFormat:@"order by %@", orderBy];}
 	else{

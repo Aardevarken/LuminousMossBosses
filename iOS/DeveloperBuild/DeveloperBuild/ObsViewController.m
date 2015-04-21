@@ -15,6 +15,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "ObsDetailViewController.h"
 #import "ServerAPI.h"
+#import "IdentifyingAssets.h"
 
 @interface ObsViewController ()
 
@@ -83,20 +84,47 @@ NSMutableArray *_myObservations;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-	/**/
-	pendingObservations = [[UserDataDatabase getSharedInstance] findObservationsByStatus:@"pending-noid" like:NO orderBy:NULL];
-	//idedObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:NULL];
-	idedObservations = [NSMutableArray array];
-	
-	for(id object in [[UserDataDatabase getSharedInstance] findObservationsByStatus:@"pending-id" like:NO orderBy:NULL]){
-		[idedObservations addObject:object];
-	}
-	//NSLog(@"po:%lu \t io:%lu", (unsigned long)[pendingObservations count], (unsigned long)[idedObservations count]);
-	
-	selectedSection = -1;
-	selectedRow = -1;
-	[self.tableView reloadData];
-	/**/
+    [self updateTables];
+    for(id object in pendingObservations){
+        [[IdentifyingAssets getByimghexid:[object objectForKey:@"imghexid"]] addObserver:self forKeyPath:@"percentageComplete" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    }
+    for(id object in idedObservations){
+        [[IdentifyingAssets getByimghexid:[object objectForKey:@"imghexid"]] addObserver:self forKeyPath:@"percentageComplete" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    for(id object in pendingObservations){
+        detectionHelper* detectionObject = [IdentifyingAssets getByimghexid:[object objectForKey:@"imghexid"]];
+        [detectionObject removeObserver:self forKeyPath:@"percentageComplete"];
+    }
+    for(id object in idedObservations){
+        detectionHelper* detectionObject = [IdentifyingAssets getByimghexid:[object objectForKey:@"imghexid"]];
+        [detectionObject removeObserver:self forKeyPath:@"percentageComplete"];
+    }
+}
+
+- (void)updateTables {
+    UserDataDatabase* database = [UserDataDatabase getSharedInstance];
+    NSString* dateOrder = @"datetime DESC";
+    NSArray* pendingResults = [database findObservationsByStatus:@"pending-noid" like:NO orderBy:dateOrder];
+    NSArray* idedResults = [database findObservationsByStatus:@"pending-id" like:NO orderBy:dateOrder];
+    
+    pendingObservations = [[NSMutableArray alloc] initWithArray: pendingResults];
+    idedObservations = [[NSMutableArray alloc] initWithArray: idedResults];
+    
+    selectedSection = -1;
+    selectedRow = -1;
+    [self.tableView reloadData];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    
+    if ([keyPath isEqualToString:@"percentageComplete"]) {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self updateTables];
+        });
+    }
 }
 
 
@@ -181,6 +209,10 @@ NSMutableArray *_myObservations;
 		
 		[[UserDataDatabase getSharedInstance] deleteObservationByID:[obsToRemove objectForKey:@"imghexid"]];
 		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        // Unsubsribe from deleted object, not really necessary.
+        detectionHelper* detectionObject = [IdentifyingAssets getByimghexid:[obsToRemove objectForKey:@"imghexid"]];
+        [detectionObject removeObserver:self forKeyPath:@"percentageComplete"];
 	}
 	else {
 		NSLog(@"Unhandled editing sytle! %ld", editingStyle);

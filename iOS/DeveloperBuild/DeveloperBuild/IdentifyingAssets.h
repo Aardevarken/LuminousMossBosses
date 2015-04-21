@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 CU Boulder. All rights reserved.
 //
 
+#import "detectionHelper.h"
 #import <Foundation/Foundation.h>
 
 @interface IdentifyingAssets : NSObject
@@ -13,5 +14,6 @@
 @property (nonatomic, strong) NSMutableDictionary *unknownAssets;
 
 +(IdentifyingAssets *) getSharedInstance;
++(detectionHelper*) getByimghexid:(NSString*) imghexid;
 
 @end

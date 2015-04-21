@@ -25,7 +25,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-		syncedObservations = [NSMutableArray arrayWithArray:[[UserDataDatabase getSharedInstance] findObservationsByStatus:@"synced" like:NO orderBy:NULL]];
+		syncedObservations = [NSMutableArray arrayWithArray:[[UserDataDatabase getSharedInstance] findObservationsByStatus:@"synced" like:NO orderBy:@"datetime DESC"]];
 	
 }
 
