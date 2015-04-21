@@ -34,7 +34,7 @@ NSMutableArray *_observations;
 	}
 	
 	// Clean up the database
-	//[[UserDataDatabase getSharedInstance] removeDeletedAssets];
+	[[UserDataDatabase getSharedInstance] removeDeletedAssets];
 
 	return YES;
 }

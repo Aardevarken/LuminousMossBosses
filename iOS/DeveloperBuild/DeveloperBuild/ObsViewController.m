@@ -25,7 +25,7 @@
 
 @implementation ObsViewController{
 	NSArray *plants;
-	NSArray *pendingObservations;
+	NSMutableArray *pendingObservations;
 	NSMutableArray *idedObservations;
 }
 
@@ -153,13 +153,51 @@ NSMutableArray *_myObservations;
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
-		[idedObservations removeObjectAtIndex:indexPath.row];
+		NSDictionary *obsToRemove = [[NSDictionary alloc] initWithDictionary:[self getInfoForSection:indexPath.section andRow:indexPath.row]];
+		
+		switch (indexPath.section) {
+			case 0:
+				[pendingObservations removeObjectAtIndex:indexPath.row];
+				break;
+				
+			case 1:
+				[idedObservations removeObjectAtIndex:indexPath.row];
+				break;
+				
+			default:
+				break;
+		}
+		
+		
+		[[UserDataDatabase getSharedInstance] deleteObservationByID:[obsToRemove objectForKey:@"imghexid"]];
 		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
 	else {
 		NSLog(@"Unhandled editing sytle! %ld", editingStyle);
 	}
 }
+
+#warning here
+- (NSDictionary *)getInfoForSection:(long)section andRow:(long)row{
+	
+	NSArray *data;
+	
+	switch (section) {
+		case 0:
+			data = pendingObservations;
+			break;
+		
+		case 1:
+			data = idedObservations;
+			break;
+		default:
+			return NULL;
+			break;
+	}
+	
+	return [data objectAtIndex:row];
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

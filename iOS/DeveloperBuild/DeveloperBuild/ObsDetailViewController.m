@@ -65,6 +65,7 @@ detectionHelper *detectionObject;
 		}
 	}
 	else {
+		[idButton setHidden:YES];
 		[idButton setEnabled:NO];
 	}
 }

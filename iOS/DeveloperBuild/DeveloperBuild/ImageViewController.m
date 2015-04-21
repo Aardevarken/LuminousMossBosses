@@ -241,17 +241,18 @@
 	ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
 	// i am not saving the images with the correct orientation.
 	[library writeImageToSavedPhotosAlbum:([[self captureManager] stillImage].CGImage)
-								 metadata: pictureInfo
+//								 metadata: pictureInfo
+							  orientation: (ALAssetOrientation) [[self captureManager] stillImage].imageOrientation
 						  completionBlock:^(NSURL *assetURL, NSError *error) {
 							  selectedAsset = [NSString stringWithFormat:@"%@", assetURL];
-							  ALog(@"\n\nselected asset: %@\n\n", selectedAsset);
-							  ALog(@"error: %@", error);
+							  //ALog(@"\n\nselected asset: %@\n\n", selectedAsset);
+							  //ALog(@"error: %@", error);
 							  NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
 													 error ?: [NSNull null], @"error",
 													 nil];	// end of dictionary
 							  
 							  //[[NSNotificationCenter defaultCenter] postNotificationName:kImageCapturedSuccessfully object:error];
-							  ALog(@"params: %@", params.description);
+							  //ALog(@"params: %@", params.description);
 							  
 							  [[NSNotificationCenter defaultCenter] postNotificationName:kImageCapturedSuccessfully
 																				  object:nil
@@ -307,14 +308,14 @@
 
 #pragma mark - Actions
 - (IBAction)retakePhotoBtn:(id)sender {
-	ALog(@"Hit retake photo button");
+	//ALog(@"Hit retake photo button");
 	[self hideAddObservationBtn];
 	[self hideRetakePhotoBtn];
 	[self prepTakePhotoBtn];
 }
 
 - (IBAction)takePhoto:(id)sender{
-	ALog(@"hit take photo button");
+	//ALog(@"hit take photo button");
 	[self hideTakePhotoBtn];
 	[self prepRetakePhotoBtn];
 	[self prepAddObservationBtn];
@@ -323,7 +324,7 @@
 }
 
 - (IBAction)addObservation:(UIButton *)sender {
-	ALog(@"Hit add observation button");
+	//ALog(@"Hit add observation button");
 	
 	self.addObsBtn.enabled = NO;
 	[self saveImageToPhotoAlbum];

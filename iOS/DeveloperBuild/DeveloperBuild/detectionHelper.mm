@@ -10,6 +10,9 @@
 #import "detector.h"
 #import "opencv2/highgui/ios.h"
 
+// ALog always displays output regardless of the DEBUG setting
+#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+
 @implementation detectionHelper{
 	float progressBarPercentage;
 	NSString *assetID;
@@ -90,8 +93,24 @@
 	
 	/////////////
 	// stage 4 //
-	sleep(5);
+	
+	
+	[self lastCallIn:3];
+}
+
+- (void)lastCallIn:(int)sleepFor{
+	
+	//ALog(@"Resuming in %d...", sleepFor);
+	printf("\n%s [Line %d] Resuming in ", __PRETTY_FUNCTION__, __LINE__);
+	for (int zzz = 0; zzz < sleepFor; ++zzz){
+		sleep(1);
+		printf("%d...",sleepFor - zzz);
+	}
+	
 	[self setValue:[NSNumber numberWithFloat:1] forKey:@"percentageComplete"];
+
+	printf("Done \n\n");
+
 }
 
 @end

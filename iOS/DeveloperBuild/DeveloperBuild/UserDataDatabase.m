@@ -15,6 +15,9 @@
 #define databaseName "userdata.db"
 #define TESTING NO
 
+// ALog always displays output regardless of the DEBUG setting
+#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+
 static UserDataDatabase* sharedInstance = nil;
 static NSString* databasePath = nil;
 static NSDictionary* typeMap = nil;
@@ -139,7 +142,7 @@ static NSDictionary* typeMap = nil;
 	if(latitude == nil && longitude == nil && date == nil){
 		latitude = [NSNumber numberWithDouble:bestEffortAtLocation.coordinate.latitude];
 		longitude = [NSNumber numberWithDouble:bestEffortAtLocation.coordinate.longitude];
-		date = bestEffortAtLocation.timestamp;
+		date = [NSString stringWithFormat:@"%@",bestEffortAtLocation.timestamp];
 	} else {
 
 	}
@@ -269,10 +272,12 @@ static NSDictionary* typeMap = nil;
 		
 		[lib assetForURL:url
 			 resultBlock:^(ALAsset *asset) {
-				 NSLog(@"Asset: %@ exists", asset);
+				 if (asset == NULL) {
+					 [self deleteObservationByID:[object objectForKey:@"imghexid"]];
+				 }
 			 }
 			failureBlock:^(NSError *error) {
-				[self deleteObservationByID:[object objectForKey:@"imghexid"]];
+				ALog(@"SHOULD NOT HIT");
 		}];
 	}
 }
@@ -342,16 +347,20 @@ static NSDictionary* typeMap = nil;
 		return;
 	}
 	
-	// ???
 	// Test the age of the location mesurement to determine if the mesurement is cached, in most cases you will not want to rely on chached mesurements
-	// ???
 	NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
 	if (locationAge > 5.0) {
 		return;
 	}
 	
+	if ([newLocation.timestamp timeIntervalSinceDate:bestEffortAtLocation.timestamp] > 5) {
+		bestEffortAtLocation = nil;
+	}
+	
+
 	// test the mesurement to see if it is more accurate than the previous mesurement
-	if (bestEffortAtLocation == nil || bestEffortAtLocation.horizontalAccuracy > newLocation.horizontalAccuracy) {
+
+	if (bestEffortAtLocation == nil || bestEffortAtLocation.horizontalAccuracy >= newLocation.horizontalAccuracy) {
 		// store the new mesurement
 		bestEffortAtLocation = newLocation;
 		
@@ -383,9 +392,7 @@ static NSDictionary* typeMap = nil;
 				NSLog(@"Heading \t%@", self.locationManager.heading);
 				NSLog(@"Heading Filter \t%f (float)", self.locationManager.headingFilter);
 				NSLog(@"Heading Orientation \t%d (32-bit int)", self.locationManager.headingOrientation);
-
-				
-				NSLog(@"\n");
+				NSLog(@"\n");				
 			}
 			[self stopUpdatingLocationWithMessage:NSLocalizedString(@"Aquired Location", @"Acuired Location")];
 		}
