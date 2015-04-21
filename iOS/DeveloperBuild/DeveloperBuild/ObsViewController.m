@@ -125,22 +125,32 @@ NSMutableArray *_myObservations;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+	// uncommenting this section will cause a crash when deleting all of the
+	// observations that are being displayed.
+//	unsigned long count = 0;
+//	if (pendingObservations.count > 0) {
+//		++count;
+//	}
+//	if (idedObservations.count > 0) {
+//		++count;
+//	}
+//	
+//	if (count == 0) {
+//		return 0;
+//	}
 	return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	NSInteger count = -1;
-	NSArray *data;// = pendingObservations;
 	
 	// All variable declaration must be pulled out of the switch statment
 	switch (section) {
 		case 0:
-			data = pendingObservations;//[[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-noid" like:NO orderBy:nil];
 			count = [pendingObservations count];
 			break;
 		case 1:
-			data = idedObservations;//[[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:nil];
 			count = [idedObservations count];
 			break;
 		default:
@@ -148,7 +158,6 @@ NSMutableArray *_myObservations;
 			break;
 	}
 	
-	//NSLog(@"section: %ld \t count: %ld", (long)section, (long)count);
 	return count;
 }
 
@@ -370,13 +379,8 @@ NSMutableArray *_myObservations;
 	// Pass the selected object to the new view controller.
 	if ([segue.identifier isEqualToString:@"MyObsSegue"]) {
 		NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-		//NSLog(@"indexpath: %@", indexPath);
-		//NSLog(@"indexpath.section: %ld", (long)indexPath.section);
-		//NSLog(@"indexpath.row: %ld", (long)indexPath.row);
 
 		ObsDetailViewController *destViewController = segue.destinationViewController;
-		//NSLog(@"%@", [pendingObservations objectAtIndex:indexPath.row]);
-		
 		
 		NSDictionary *selectedPendingObservation;
 		switch (indexPath.section) {
@@ -392,8 +396,7 @@ NSMutableArray *_myObservations;
     break;
 		}
 		
-		destViewController.plantInfo = selectedPendingObservation;//[pendingObservations objectAtIndex:indexPath.row];
-		//NSLog(@"Leaving prepareForSegue MyObsSegue");
+		destViewController.plantInfo = selectedPendingObservation;
 	}
 }
 
@@ -405,9 +408,6 @@ NSMutableArray *_myObservations;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
 		
 		for(id object in idedObservations){
-		
-			sleep(0.2);
-			//[[UserDataDatabase getSharedInstance] updateObservation:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced"];
 			
 			NSDictionary* observationData = object;
 			
@@ -441,26 +441,27 @@ NSMutableArray *_myObservations;
 							 UIGraphicsEndImageContext();
 						 }
 						 
-						 //sleep(1.5);
+						 // upload to server
 						 [ServerAPI uploadObservation:date time:date lat:lat lng:lng image:normalizedImage];
 						 
-						
-						 // if (idedObservations.count >= 0) {
+						 // change status of observation in the database
+						 [[UserDataDatabase getSharedInstance] updateObservation:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced"];
+						 
+						 // update and remove synced rows.
 						 dispatch_async(dispatch_get_main_queue(), ^{
 							 NSInteger rowIndex = [idedObservations indexOfObjectIdenticalTo:object];
+							 
 							 [idedObservations removeObjectIdenticalTo:object];
+							 
 							 [[self syncBtn] setTitle:[NSString stringWithFormat:@"Syncing... (%ld/%lu)", originalCount - idedObservations.count + 1, originalCount] forState:UIControlStateNormal];
-							 //ALog(@"rowIndex: %ld", (long)rowIndex);
 							 [self removeRow:rowIndex inSection:1];
-							 //sleep(1.5);
+							 
 							 if (idedObservations.count == 0) {
 								 [[self syncBtn] setEnabled:YES];
 								 [[self syncBtn] setTitle:[NSString stringWithFormat:@"Sync All"] forState:UIControlStateNormal];
 								 [idedObservations removeAllObjects];
 							 }
 						 });
-						 //}
-				
 					 }
 					failureBlock: nil];
 			});
@@ -470,10 +471,6 @@ NSMutableArray *_myObservations;
 
 -(void) removeRow:(NSInteger)row inSection:(NSInteger)section{
 	NSIndexPath *myIndex = [NSIndexPath indexPathForRow:row inSection:section];
-	
-	//ALog(@"\n%@", myIndex);
-	//ALog(@"\n%@\n\n", [self.tableView description]);
-	
 	[self.tableView deleteRowsAtIndexPaths:@[myIndex] withRowAnimation:UITableViewRowAnimationFade];
 }
 

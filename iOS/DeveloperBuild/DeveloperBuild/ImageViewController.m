@@ -73,16 +73,22 @@
 
 		[[self captureManager] addStillImageOutput];
 
-		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(didFinishSavingImageWithError:)
-													 name:kImageCapturedSuccessfully
-												   object:nil];
 		[self hideAddObservationBtn];
 		[self hideRetakePhotoBtn];
 		[self prepTakePhotoBtn];
 	}
 }
 
+- (void) viewWillAppear:(BOOL)animated{
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(didFinishSavingImageWithError:)
+												 name:kImageCapturedSuccessfully
+											   object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 
 - (void)didReceiveMemoryWarning {
@@ -168,6 +174,7 @@
 	// get image asset
 	NSString *img = [NSString stringWithFormat:@"%@", selectedAsset];//self.capedImg];
 
+	ALog(@"SelectedAsset: %@", selectedAsset);
 	if (selectedAsset == nil){//self.capedImg == [NSString stringWithFormat:@"%@",[UIImage imageNamed:@"nocamera.png"]]) {
 		NSLog(@"You cannot submit that");
 		return;
@@ -202,7 +209,7 @@
 	NSString * storyboardName = @"Main";
 	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
 	UITabBarController * tbc = [storyboard instantiateViewControllerWithIdentifier:@"ThisController12345"];
-	UINavigationController *navigationController =[[UINavigationController alloc] initWithRootViewController:myViewController];
+//	UINavigationController *navigationController =[[UINavigationController alloc] initWithRootViewController:myViewController];
 	
 	//[[self navigationController] :NO];
 	
@@ -283,8 +290,6 @@
 	
 	self.addObsBtn.enabled = NO;
 	[self saveImageToPhotoAlbum];
-	//[self addAnOb];
-	
 }
 
 #pragma mark - Prep buttons
