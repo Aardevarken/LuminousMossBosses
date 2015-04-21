@@ -86,6 +86,8 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         dataSet.setAdapter(adapter);
 
         // Handle Button Events
+        Button idButton = (Button) rootView.findViewById(R.id.button_id);
+        idButton.setOnClickListener(this);
         sendButton = (Button) rootView.findViewById(R.id.button_context);
         sendButton.setOnClickListener(this);
         imageView.setOnClickListener(this);
@@ -94,9 +96,13 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         ObservationDBHandler db = new ObservationDBHandler(getActivity());
         Cursor cursor = db.getObservationById(observation.getId());
         cursor.moveToFirst();
-        if(cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_SYNCED_STATUS)) != 0)
+        if(cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_SYNCED_STATUS)) != 0 ||
+                cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_PROCESSED_STATUS)) == 0 )
         {
             sendButton.setVisibility(View.GONE);
+            sendButton.setEnabled(false);
+            idButton.setVisibility(View.VISIBLE);
+            idButton.setEnabled(true);
         }
 
         return rootView;
@@ -139,7 +145,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
             case R.id.button_context:
                 new SendPostActivity(getActivity(), observation.getId(), sendButton).execute(observation);
                 break;
-            case R.id.imageView:
+            case R.id.button_id:
                 IdActivity idActivity = new IdActivity(getActivity(), observation.getId());
                 idActivity.execute(observation.getIcon().getPath());
                 break;
