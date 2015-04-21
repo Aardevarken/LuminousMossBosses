@@ -31,7 +31,11 @@ import dialog.DialogListener;
 public class ObservationFragment extends Fragment implements OnClickListener, BackButtonInterface, DialogListener {
 
     private final static String OBSERVATION_KEY = "observation_key";
+    //flags for what the Button should do
+    private final int IDENTIFY_CONTEXT = 0;
+    private final int SEND_CONTEXT = 1;
 
+    private int buttonContext;
 
     private Button sendButton;
     private Observation observation;
@@ -90,19 +94,26 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         idButton.setOnClickListener(this);
         sendButton = (Button) rootView.findViewById(R.id.button_context);
         sendButton.setOnClickListener(this);
-        imageView.setOnClickListener(this);
+        //imageView.setOnClickListener(this);
 
         //Check if Buttons should be visible
         ObservationDBHandler db = new ObservationDBHandler(getActivity());
         Cursor cursor = db.getObservationById(observation.getId());
         cursor.moveToFirst();
-        if(cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_SYNCED_STATUS)) != 0 ||
-                cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_PROCESSED_STATUS)) == 0 )
+        if(cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_PROCESSED_STATUS)) == 0 )
         {
-            sendButton.setVisibility(View.GONE);
+            sendButton.setText("Identify");
+            sendButton.setCompoundDrawables(null,null,null,null);
+            buttonContext = IDENTIFY_CONTEXT;
+        }
+        if(cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_SYNCED_STATUS)) == 0 ) {
+            buttonContext = SEND_CONTEXT;
+
+        }
+        if (cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_SYNCED_STATUS)) != 0 )
+        {
             sendButton.setEnabled(false);
-            idButton.setVisibility(View.VISIBLE);
-            idButton.setEnabled(true);
+            sendButton.setVisibility(View.GONE);
         }
 
         return rootView;
@@ -143,12 +154,19 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button_context:
-                new SendPostActivity(getActivity(), observation.getId(), sendButton).execute(observation);
-                break;
-            case R.id.button_id:
-                IdActivity idActivity = new IdActivity(getActivity(), observation.getId());
-                idActivity.execute(observation.getIcon().getPath());
-                break;
+                if(buttonContext == IDENTIFY_CONTEXT)
+                {
+                    IdActivity idActivity = new IdActivity(getActivity(), observation.getId());
+                    idActivity.execute(observation.getIcon().getPath());
+                    break;
+                }
+                else
+                {
+                    new SendPostActivity(getActivity(), observation.getId(), sendButton).execute(observation);
+                    break;
+                }
+
+
         }
     }
 }

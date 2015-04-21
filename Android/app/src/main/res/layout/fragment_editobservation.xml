@@ -60,7 +60,7 @@
         android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/button_context" />
-
+    
     <Button
         style="@style/RadioButton"
         android:layout_width="match_parent"
