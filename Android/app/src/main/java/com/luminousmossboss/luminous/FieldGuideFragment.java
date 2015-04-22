@@ -55,7 +55,6 @@ public class FieldGuideFragment extends Fragment implements BackButtonInterface 
         ListView dataSet = (ListView) rootView.findViewById(R.id.listView);
         FieldGuideDBHandler fgDBHelper = FieldGuideDBHandler.getInstance(container.getContext());
         this.fgitem = fgDBHelper.getFGItemWithID(((FieldGuideItem) bundle.getSerializable(FGITEM_KEY)).getId());
-        imageView.setImageURI(fgitem.getIcon());
         Picasso.with(getActivity()).load(fgitem.getIcon()).into(imageView);
 
 
