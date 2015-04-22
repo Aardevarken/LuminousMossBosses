@@ -1,6 +1,5 @@
 package com.luminousmossboss.luminous;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.database.Cursor;
@@ -70,11 +69,11 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         TextView title = (TextView) rootView.findViewById(R.id.title);
         ListView dataSet = (ListView) rootView.findViewById(R.id.listView);
 
-        final Activity activity = getActivity();
+//        final Activity activity = getActivity();
         Bundle bundle = getArguments();
         this.observation = (Observation) bundle.getSerializable(OBSERVATION_KEY);
-        imageView.setImageURI(observation.getIcon());
-        Picasso.with(getActivity()).load(observation.getIcon()).resize(1365, 1024).centerCrop().into(imageView);
+//        imageView.setImageURI(observation.getIcon());
+        Picasso.with(getActivity()).load(observation.getIcon()).fit().centerInside().into(imageView);
 
 
         title.setText(observation.getTitle());
@@ -106,7 +105,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
             sendButton.setCompoundDrawables(null,null,null,null);
             buttonContext = IDENTIFY_CONTEXT;
         }
-        if(cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_SYNCED_STATUS)) == 0 ) {
+        else if(cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_SYNCED_STATUS)) == 0 ) {
             buttonContext = SEND_CONTEXT;
 
         }
