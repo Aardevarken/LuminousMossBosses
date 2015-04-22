@@ -54,10 +54,11 @@
 		7968EC9B1AB91974000644E4 /* ServerAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7968EC9A1AB91974000644E4 /* ServerAPI.m */; };
 		7968EC9D1AB92F87000644E4 /* ServerAPITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7968EC9C1AB92F87000644E4 /* ServerAPITest.m */; };
 		E6ED3AE21ADB7C5200099064 /* ic_notepad_copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3ADF1ADB7C5200099064 /* ic_notepad_copy.png */; };
-		E6ED3AE31ADB7DBC00099064 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D848131A7768250043BEDD /* opencv2.framework */; };
 		E6ED3AE71ADB837800099064 /* ic_addobservation copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3AE41ADB837800099064 /* ic_addobservation copy.png */; };
 		E6ED3AE81ADB837800099064 /* ic_fieldguide copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3AE51ADB837800099064 /* ic_fieldguide copy.png */; };
 		E6ED3AE91ADB837800099064 /* ic_settings copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3AE61ADB837800099064 /* ic_settings copy.png */; };
+		E6FDFD351AE7170A00E88C6B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D848131A7768250043BEDD /* opencv2.framework */; };
+		E6FDFD381AE718B500E88C6B /* Lobster_1.4.otf in Resources */ = {isa = PBXBuildFile; fileRef = E6FDFD371AE718B500E88C6B /* Lobster_1.4.otf */; };
 		F0395FE61A9835F700EE1BF9 /* detector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE51A9835F700EE1BF9 /* detector.cpp */; };
 		F0395FEA1A98365500EE1BF9 /* identified.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE91A98365500EE1BF9 /* identified.cpp */; };
 		F0D4ED171AA59917008CBAD4 /* silene.xml in Resources */ = {isa = PBXBuildFile; fileRef = F0D4ED161AA59917008CBAD4 /* silene.xml */; };
@@ -153,6 +154,7 @@
 		E6ED3AE41ADB837800099064 /* ic_addobservation copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_addobservation copy.png"; sourceTree = "<group>"; };
 		E6ED3AE51ADB837800099064 /* ic_fieldguide copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_fieldguide copy.png"; sourceTree = "<group>"; };
 		E6ED3AE61ADB837800099064 /* ic_settings copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_settings copy.png"; sourceTree = "<group>"; };
+		E6FDFD371AE718B500E88C6B /* Lobster_1.4.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Lobster_1.4.otf; sourceTree = "<group>"; };
 		F0395FE51A9835F700EE1BF9 /* detector.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = detector.cpp; path = ../../AlgTester/detector.cpp; sourceTree = "<group>"; };
 		F0395FE71A98360900EE1BF9 /* detector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = detector.h; path = ../../AlgTester/detector.h; sourceTree = "<group>"; };
 		F0395FE91A98365500EE1BF9 /* identified.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = identified.cpp; path = ../../AlgTester/identified.cpp; sourceTree = "<group>"; };
@@ -169,11 +171,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6FDFD351AE7170A00E88C6B /* opencv2.framework in Frameworks */,
 				16BE1B4F1AE47F8000C57C46 /* CoreVideo.framework in Frameworks */,
 				16BE1B4D1AE47F7500C57C46 /* CoreMedia.framework in Frameworks */,
 				16BE1B4B1AE47F6B00C57C46 /* ImageIO.framework in Frameworks */,
 				1617BB771AE4636400709D50 /* AVFoundation.framework in Frameworks */,
-				E6ED3AE31ADB7DBC00099064 /* opencv2.framework in Frameworks */,
 				16008CCA1AB62A7800672891 /* libc++.dylib in Frameworks */,
 				16C745901AB0EC0E0039AE3C /* AssetsLibrary.framework in Frameworks */,
 				16F8F55C1AA80828007FEEBE /* libsqlite3.dylib in Frameworks */,
@@ -284,6 +286,7 @@
 		16B052AA1A5B4BDE007837B4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E6FDFD361AE718A600E88C6B /* Fonts */,
 				16B052AB1A5B4BDE007837B4 /* Info.plist */,
 				16B052AC1A5B4BDE007837B4 /* main.m */,
 			);
@@ -349,6 +352,14 @@
 				16CCBC3F1A773E00008B7E96 /* flower30.xml */,
 			);
 			name = "XML Files";
+			sourceTree = "<group>";
+		};
+		E6FDFD361AE718A600E88C6B /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E6FDFD371AE718B500E88C6B /* Lobster_1.4.otf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		F0D4ED1A1AA5996A008CBAD4 /* Algorithms */ = {
@@ -462,6 +473,7 @@
 				16B052BB1A5B4BDE007837B4 /* LaunchScreen.xib in Resources */,
 				165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */,
 				16CCBC411A773E00008B7E96 /* flower30.xml in Resources */,
+				E6FDFD381AE718B500E88C6B /* Lobster_1.4.otf in Resources */,
 				16CCBC381A773D71008B7E96 /* IMG_1976.jpg in Resources */,
 				E6ED3AE71ADB837800099064 /* ic_addobservation copy.png in Resources */,
 				16B052B81A5B4BDE007837B4 /* Images.xcassets in Resources */,
