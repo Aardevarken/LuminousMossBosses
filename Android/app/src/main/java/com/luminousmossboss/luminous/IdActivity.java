@@ -1,6 +1,5 @@
 package com.luminousmossboss.luminous;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -44,6 +43,7 @@ public class IdActivity extends AsyncTask <String, Void, Boolean>{
             db.updateIsSilene(mobservation.getId(),false);
 
         }
+        db.close();
         message.show();
 
     }
