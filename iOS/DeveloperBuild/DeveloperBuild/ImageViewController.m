@@ -34,6 +34,7 @@
 @implementation ImageViewController{
 	NSString *selectedAsset;
 	NSDictionary *pictureInfo;
+	CLLocation* bestLocationForImage;
 }
 
 @synthesize imageView, takePhotoBtn;
@@ -174,13 +175,19 @@
 	// get image asset
 	NSString *img = [NSString stringWithFormat:@"%@", selectedAsset];//self.capedImg];
 
-	ALog(@"SelectedAsset: %@", selectedAsset);
+	//ALog(@"SelectedAsset: %@", selectedAsset);
 	if (selectedAsset == nil){//self.capedImg == [NSString stringWithFormat:@"%@",[UIImage imageNamed:@"nocamera.png"]]) {
 		NSLog(@"You cannot submit that");
 		return;
 	}
 	
-	success = [[UserDataDatabase getSharedInstance] saveObservation:img date:nil latitude:nil longitude:nil locationError:[NSNumber numberWithDouble:100.0] percentIDed:NULL];
+	success = [[UserDataDatabase getSharedInstance]
+			   saveObservation:img
+			   date: [NSString stringWithFormat:@"%@",bestLocationForImage.timestamp]
+			   latitude: [NSNumber numberWithDouble:bestLocationForImage.coordinate.latitude]
+			   longitude: [NSNumber numberWithDouble:bestLocationForImage.coordinate.longitude]
+			   locationError:[NSNumber numberWithDouble:100.0]
+			   percentIDed:NULL];
 	
 	if (success == NO) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -191,7 +198,7 @@
 }
 
 
-- (void) displayMyObservationsVC {
+- (void)displayMyObservationsVC {
 //	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Base.lprog/Main.storyboard" bundle:nil];
 //	MyObservations *viewController = (MyObservations *)[storyboard instantiateViewControllerWithIdentifier:@"MyObservationsTabBarController"];
 //	[self presentViewController:viewController animated:YES completion:nil];
@@ -277,12 +284,13 @@
 }
 
 - (IBAction)takePhoto:(id)sender{
-	//ALog(@"hit take photo button");
+	bestLocationForImage = [[UserDataDatabase getSharedInstance] getBestKnownLocation];
+	
 	[self hideTakePhotoBtn];
-	[self prepRetakePhotoBtn];
-	[self prepAddObservationBtn];
 	
 	[[self captureManager] captureStillImage];
+	[self prepRetakePhotoBtn];
+	[self prepAddObservationBtn];
 }
 
 - (IBAction)addObservation:(UIButton *)sender {
@@ -308,14 +316,14 @@
 	self.retakePhotoBtn.enabled = YES;
 }
 - (void) prepAddObservationBtn {
-	self.addObsBtn.hidden = NO;
-	self.addObsBtn.enabled = YES;
+	[[self addObsBtn] setHidden:NO];
+	[[self addObsBtn] setEnabled:YES];
 }
 
 #pragma mark - Hide buttons
 - (void) hideTakePhotoBtn {
-	self.takePhotoBtn.hidden = YES;
-	self.takePhotoBtn.enabled = NO;
+	[[self takePhotoBtn] setHidden:YES];
+	[[self takePhotoBtn] setEnabled:NO];
 	//[[captureManager captureSession] stopRunning];
 }
 - (void) hideRetakePhotoBtn {
@@ -327,6 +335,12 @@
 	self.addObsBtn.enabled = NO;
 }
 
+- (void) printButtonState:(UIButton*) btn{
+	ALog(@"Text:    %@", btn.titleLabel.text);
+	ALog(@"Hidden:  %@", btn.hidden ? @"YES" : @"NO");
+	ALog(@"Enabled: %@", btn.enabled ? @"YES" : @"NO");
+	printf("\n");
+}
 
 /*
  #pragma mark - Navigation

@@ -52,4 +52,6 @@
 
 -(void) pauseLocationTracking;
 
+- (CLLocation *) getBestKnownLocation;
+
 @end

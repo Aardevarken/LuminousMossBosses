@@ -442,6 +442,11 @@ static NSDictionary* typeMap = nil;
 	[self.locationManager stopUpdatingLocation];
 	self.locationManager.delegate = nil;
 }
+
+- (CLLocation *) getBestKnownLocation{
+	return bestEffortAtLocation;
+}
+
 @end
 
 
