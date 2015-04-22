@@ -63,6 +63,7 @@ detectionHelper *detectionObject;
 	else {
 		[idButton setHidden:YES];
 		[idButton setEnabled:NO];
+		[[self identifyView] setHidden:YES];
 	}
 }
 
@@ -116,6 +117,7 @@ detectionHelper *detectionObject;
 				[self updateObservationData];	// update the on screen data
 				[[self activityIndicator] stopAnimating];	// stop the activity indicator
 				[[self idButton] setHidden:YES];	// hide the id button.
+				[[self identifyView] setHidden:YES];
 			});
 		}
         

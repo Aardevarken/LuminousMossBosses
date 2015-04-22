@@ -24,6 +24,7 @@
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) IBOutlet UIButton *idButton;
+@property (strong, nonatomic) IBOutlet UIView *identifyView;
 
 
 - (IBAction)startIdentificationButton:(UIButton *)sender;

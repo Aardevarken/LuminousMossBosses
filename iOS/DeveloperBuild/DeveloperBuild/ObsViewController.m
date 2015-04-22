@@ -455,7 +455,7 @@ NSMutableArray *_myObservations;
 			}
 			
 			// Fetch image at url
-			dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+			//dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 				ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
 				[lib assetForURL: url
 					 resultBlock: ^(ALAsset *asset) {
@@ -473,11 +473,14 @@ NSMutableArray *_myObservations;
 							 UIGraphicsEndImageContext();
 						 }
 						 
+						 
 						 // upload to server
-						 [ServerAPI uploadObservation:date time:date lat:lat lng:lng image:normalizedImage];
+						 sleep(2.5);
+						 //[ServerAPI uploadObservation:date time:date lat:lat lng:lng image:normalizedImage];
 						 
 						 // change status of observation in the database
-						 [[UserDataDatabase getSharedInstance] updateObservation:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced"];
+						 sleep(0.8);
+						 //[[UserDataDatabase getSharedInstance] updateObservation:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced"];
 						 
 						 // update and remove synced rows.
 						 dispatch_async(dispatch_get_main_queue(), ^{
@@ -496,7 +499,7 @@ NSMutableArray *_myObservations;
 						 });
 					 }
 					failureBlock: nil];
-			});
+			//});
 		}
 	});
 }

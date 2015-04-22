@@ -15,25 +15,27 @@
 #define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
 @implementation detectionHelper{
-	float progressBarPercentage;
-	NSString *assetID;
-	UIImage *identifiedImage;
-	BOOL isSilene;
-	float probability;
+	//UIImage *identifiedImage;
+	//	float probability;
 }
+
+@synthesize percentageComplete;
+@synthesize assetID;
+@synthesize positiveID;
+@synthesize identifiedImage;
+@synthesize probability;
 
 - (instancetype) initWithAssetID:(NSString *)newAssetID
 {
 	if (self) {
 		self.percentageComplete = [NSNumber numberWithFloat:-1.0];
 		self.assetID = newAssetID;
-        assetID = newAssetID; // Frightningly, both these lines are necessary.
+		//assetID = newAssetID; // Frightningly, both these lines are necessary.
 		self.positiveID = NULL;
 		self.probability = [NSNumber numberWithFloat:-1.0];
 		self.identifiedImage = NULL;
 		//.identifiedImage = nil;
 		//probability = NULL;
-		//isSilene = NULL;
 	}
 	return self;
 }
@@ -83,13 +85,11 @@
 	// stage 2 //
 	Mat cvImageBGR;
 	cvtColor(cvImage, cvImageBGR, CV_BGR2RGB);
-	probability = flowerDetector.probability(cvImageBGR);
 	[self setValue:[NSNumber numberWithFloat:flowerDetector.probability(cvImageBGR)] forKey:@"probability"];
 	
 	/////////////
 	// stage 3 //
 	//UIImageToMat(unknownImage, cvImage);
-	isSilene = flowerDetector.isThisSilene(cvImageBGR);
 	[self setValue:[NSNumber numberWithFloat:flowerDetector.isThisSilene(cvImageBGR)] forKey:@"positiveID"];
 	
 	/////////////
@@ -101,24 +101,30 @@
 
 - (void)lastCallIn:(int)sleepFor{
 	
-	//ALog(@"Resuming in %d...", sleepFor);
+	/****
+	ALog(@"Resuming in %d...", sleepFor);
 	printf("\n%s [Line %d] Resuming in ", __PRETTY_FUNCTION__, __LINE__);
 	for (int zzz = 0; zzz < sleepFor; ++zzz){
 		sleep(1);
 		printf("%d...",sleepFor - zzz);
 	}
-    
+	
+	printf("Done \n\n");
+	****/
+	
     // update the table row
     // prep variables
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
     [nf setMaximumFractionDigits:2];
-    float newprob = floorf(probability*100 + 0.5);
+    float newprob = floorf([[self probability] floatValue]*100);
     NSNumber *NSnewprob = [NSNumber  numberWithFloat:newprob];
-    NSString *newState = @"pending-id";
+	
+	NSString *newState = @"pending-id";
+	// NSString *oldState = @"pending-noid";
     
     // update row variables
-    BOOL success = [[UserDataDatabase getSharedInstance]
-                    updateObservation:assetID andNewPercentIDed:NSnewprob andNewStatus:newState];
+	BOOL success = [[UserDataDatabase getSharedInstance]
+                    updateObservation:[self assetID] andNewPercentIDed:NSnewprob andNewStatus:newState];
     
     // Did it all work? Inform the UI
     if (success) {
@@ -127,8 +133,6 @@
         ALog("Database update failed after identification.");
         [self setValue:[NSNumber numberWithFloat:-1] forKey:@"percentageComplete"];
     }
-
-	printf("Done \n\n");
 
 }
 
