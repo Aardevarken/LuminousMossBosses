@@ -66,7 +66,7 @@ public class SendPostActivity extends AsyncTask<Object,Void,Integer>{
             entity.addPart("DeviceId", new StringBody(Settings.Secure.getString(context.getContentResolver(),
                     Settings.Secure.ANDROID_ID)));
             entity.addPart("DeviceType", new StringBody("AndroidPhone"));
-            entity.addPart(" LocationError ", new StringBody(String.valueOf(observation.getAccuracy())));
+            entity.addPart("LocationError", new StringBody(String.valueOf(observation.getAccuracy())));
             httppost.setEntity(entity);
             HttpResponse response = httpclient.execute(httppost);
 
