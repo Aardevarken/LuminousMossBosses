@@ -160,7 +160,7 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
                 }
 
             }while(cursor.moveToNext());
-
+        db.close();
         if (unknownList.size() > 1)
             listItems.addAll(unknownList);
         if (sileneList.size() > 1)

@@ -114,6 +114,8 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
             sendButton.setEnabled(false);
             sendButton.setVisibility(View.GONE);
         }
+        cursor.close();
+        db.close();
 
         return rootView;
     }

@@ -64,6 +64,8 @@ public class Observation extends ListItem implements Serializable {
             else
                 setTitle("Unknown");
         }
+        cursor.close();
+        db.close();
     }
     public void updateIsSilene(boolean status, Context context)
     {
