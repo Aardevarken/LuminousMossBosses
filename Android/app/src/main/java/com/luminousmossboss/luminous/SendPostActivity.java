@@ -52,7 +52,7 @@ public class SendPostActivity extends AsyncTask<Object,Void,Integer>{
 
         Observation observation= (Observation) arg0[0];
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://luminousid.com/_post_observation");
+        HttpPost httppost = new HttpPost(POST_URL);
         File image = new File(observation.getIcon().getPath());
 
 
