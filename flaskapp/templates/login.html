@@ -19,6 +19,11 @@
     <!-- Custom Fonts -->
     <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/luminous_icons.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/luminous_icons-codes.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/luminous_icons-embedded.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/luminous_icons-ie7.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/luminous_icons-ie7-codes.css')}}" rel="stylesheet">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -34,7 +39,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand page-scroll" href="/">
-                    <span class="light secondary-text"><i class="fa fa-leaf"></i> Luminous ID</span>
+                    <span class="light secondary-brand"><i class="icon-luminousid"></i> Luminous ID</span>
                 </a>
             </div>
 
@@ -64,7 +69,7 @@
     <div class="container content-section text-center">
          {% if error %}<label class="control-label" for="inputError"><strong>Error:</strong> {{ error }}</label>{% endif %}
         <div class="row">
-            <div class="col-sm-6 col-md-6 col-lg-5 jumbotron jumbotron-color">
+            <div class="col-sm-12 col-md-6 col-lg-5">
                 <!--<div class="jumbotron">-->
     <h1>Login</h1>
    
@@ -88,7 +93,7 @@
         </div>
     </form>
        </div>
-    <div class="col-sm-6 col-md-6 col-lg-6 col-lg-offset-1 jumbotron jumbotron-color">
+    <div class="col-sm-12 col-md-6 col-lg-6 col-lg-offset-1">
         <h1>SignUp</h1>
         <form class="form-horizontal" action="{{ url_for('signup') }}" method=post>
             <div class="form-group form-group-lg">

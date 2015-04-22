@@ -59,17 +59,18 @@ canvas.onmousewheel 	= 	function(){ mousescroll(event) };
 /**
  * Initialization main code
  */
-/*$(function () {
+$(function () {
     console.log("started");
     canvas.width = document.getElementById('canvas_div').offsetWidth;
-    canvas.height = canvas.width*3/4 
-    $.getJSON('/_get_observation_data', {
-        imageid: image_id
+    canvas.height = canvas.width; 
+    $.getJSON('/_get_detection_data', {
+        detectionid: image_id
     },get_image);
-});*/
+});
+
 image.onload = function() {
 	ctx = canvas.getContext('2d');
-	//resetView();
+	resetView();
 }
 
 window.onresize = function(event) {
@@ -78,10 +79,11 @@ window.onresize = function(event) {
 
 function get_image(data) {
     data.lines.forEach(function(obj) {
-       setExistingRotation(obj.RotationAngle);
+       setExistingRotation(obj.rot);
        addOrientation();
     });
-    image.src = data.location + data.FileName
+    console.log(data.Location) 
+    image.src = "/static/cropped/"+ data.FileName
 }
 
 /**

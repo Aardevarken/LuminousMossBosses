@@ -7,6 +7,13 @@
 @import url(http://fonts.googleapis.com/css?family=Oxygen);
 @import url(http://fonts.googleapis.com/css?family=Montserrat);
 
+.luminous-icon
+{
+    font-family: "luminous_icons";
+    font-style: normal;
+    font-weight: normal;
+}
+
 body {
     width: 100%;
     height: 100%;

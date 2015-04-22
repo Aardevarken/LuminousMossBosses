@@ -6,9 +6,15 @@
 
 /* Global Styles */
 
+@import url(http://fonts.googleapis.com/css?family=Lobster);
+
 body {
     margin-top: 100px;
     background-color: #fff;
+}
+
+.navbar-brand {
+    font-family:'Lobster', cursive;
 }
 
 @media(min-width:768px) {

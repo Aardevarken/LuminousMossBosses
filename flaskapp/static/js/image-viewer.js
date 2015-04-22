@@ -84,6 +84,7 @@ $(function () {
 window.onresize = function(event) {
     canvas.width = document.getElementById('canvas_div').offsetWidth;
     canvas.height = canvas.width*3/4 
+    resetView();
     //scale = Math.min(canvas.width/image.width, canvas.height/image.height);
     //x = -image.width/2+canvas.width/2
     //y = (-image.height+canvas.height)/2 

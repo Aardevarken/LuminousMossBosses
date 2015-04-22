@@ -16,6 +16,11 @@
     <!-- Custom Fonts -->
     <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
 
+    <link href="{{ url_for('static', filename='css/luminous_icons.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/luminous_icons-codes.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/luminous_icons-embedded.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/luminous_icons-ie7.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/luminous_icons-ie7-codes.css')}}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -35,7 +40,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">Luminous</a>
+                <a class="navbar-brand" href="/"><i class="icon-luminousid"></i>Luminous ID</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -162,7 +167,7 @@
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-puzzle-piece"></i> Training <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
-                            {{ render_sitem('detections_view', 'Detections', iconcls='fa fa-fw fa-circle-o', active=active_page) }}
+                            {{ render_sitem('detection_list', 'Detections', iconcls='fa fa-fw fa-circle-o', active=active_page) }}
 
                     {{ render_sitem('xml', 'XML Generator', iconcls='fa fa-fw fa-code', active=active_page) }}
                     {{ render_sitem('statistics', 'Statistics', iconcls='fa fa-fw fa-bar-chart-o', active=active_page) }}

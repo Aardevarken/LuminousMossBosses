@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 import json, sha, os, datetime, importlib
 from sqlalchemy import and_
 from dbhandler.database import db_session
-from dbhandler.models import Observation, DetectionObject, Device, User 
+from dbhandler.models import Observation, DetectionObject, Device, User, RotationObject 
 from util.filename import *
 from util.miscellaneous import * 
 
@@ -15,6 +15,7 @@ SECRET_KEY = '90b70bfa992696d63140ca63fcb035cf'
 USERNAME = 'admin'
 PASSWORD = '19b95897c63fcc7b81d90396ce28bf94dedc67e9'
 
+CROPPED_FOLDER = '/work/pics/cropped'
 UPLOAD_FOLDER ='/work/pics/pending/all' 
 THUMBNAIL_FOLDER = '/work/pics/thumbnails'
 ALLOWED_EXTENSIONS = set(['jpg', 'jpeg'])
@@ -67,7 +68,10 @@ def login():
         else:
             #session['logged_in'] = True
             login_user(user)
-            return redirect(url_for('observation_list'))
+            if (has_permissions()): 
+                return redirect(url_for('observation_list'))
+            else:
+                return redirect(url_for('me'))
     return render_template('login.html', error=error)
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -95,7 +99,11 @@ def signup():
             db_session().commit()
     return render_template('login.html', error=error)
 
-    
+@app.route('/me')
+@login_required
+def me():
+        return render_template('normal_user.html')
+
 @app.route('/logout')
 @login_required
 def logout():
@@ -128,8 +136,42 @@ def observation_list():
         result = generate_filtered_list('verified', query, Observation, 'IsSilene')
         return render_template('observation_list.html', observations=result[0], urlargs=result[1])
     else:
-        return "hi" #abort(404)
+        abort(404)
 
+@app.route('/detection_list')
+@login_required
+def detection_list():
+    if has_permissions():
+        imageid = request.args.get('imageid');
+        query = db_session().query(DetectionObject.ObjectID, DetectionObject.Location, DetectionObject.FileName, DetectionObject.IsUserDetected, DetectionObject.ParentObsID)
+        if imageid is not None:
+            query = query.filter(DetectionObject.ParentObsID == imageid)
+        result = generate_filtered_list('verified', query, DetectionObject, 'IsUserDetected')
+        return render_template('detection_list.html', detections=result[0], urlargs=result[1])
+    else:
+        abort(404)
+'''
+@app.route('/gen_detection_list')
+@login_required
+def gen_detection_list():
+    detections = db_session().query(DetectionObject.ObjectID, DetectionObject.ParentObsID, DetectionObject.Location, DetectionObject.FileName, DetectionObject.XCord, DetectionObject.YCord, DetectionObject.Radius)
+    for detection in detections:
+        x = str(detection.XCord - detection.Radius)
+        y = str(detection.YCord - detection.Radius)
+        radius = str(detection.Radius*2)
+        original_filename = str(db_session().query(Observation.ObsID, Observation.FileName).filter(Observation.ObsID == detection.ParentObsID).first().FileName)
+        filename = createUniqueFileName(original_filename, str(detection.ObjectID))
+        os.system("convert " + os.path.join(app.config['UPLOAD_FOLDER'], original_filename)+ \
+            " -crop " + radius + "x" + radius + "+" + x + "+" + y \
+            + " " + os.path.join(CROPPED_FOLDER, filename))
+        save = DetectionObject.query.get(detection.ObjectID)
+        save.FileName = filename
+        save.Location = CROPPED_FOLDER
+        print save.FileName
+        print save.Location
+        db_session.commit()
+    return redirect(url_for('detection_list'))
+'''
 @app.route('/device_list')
 @login_required
 def device_list():
@@ -190,6 +232,7 @@ def detection_view():
         return render_template('rotation.html', detection=detection, urlargs=urlargs)
     else:
         abort(404)
+
 @app.route('/_get_observation_data')
 @login_required
 def get_observation_data():
@@ -198,10 +241,23 @@ def get_observation_data():
     observation_object = db_session().query(DetectionObject.ObjectID, DetectionObject.XCord, DetectionObject.YCord, DetectionObject.Radius, DetectionObject.IsUserDetected, DetectionObject.IsPosDetect).filter(DetectionObject.ParentObsID == page).all()
     circles = []
     for obj in observation_object:
-        print obj
         circles.append({'XCord':obj.XCord,'YCord':obj.YCord,'Radius':obj.Radius,'IsUserDetected':obj.IsUserDetected,\
                 'IsPosDetect':obj.IsPosDetect, 'ObjectID':obj.ObjectID})
     return jsonify(FileName=observation.FileName, circles=circles) 
+
+@app.route('/_get_detection_data')
+@login_required
+def get_detection_data():
+    page = request.args.get('detectionid', 0, type=int)
+    print page
+    detection = db_session().query(DetectionObject.FileName, DetectionObject.Location).filter(DetectionObject.ObjectID == page).first()
+    rotations = db_session().query(RotationObject.RotationAngle, RotationObject.id).filter(RotationObject.id == page).all()
+    lines = []
+    print detection
+    for rotation in rotations:
+        print rotation
+        line.append({'rot':rotation.RotationAngle,'id':rotation.id})
+    return jsonify(FileName=detection.FileName, Location=detection.Location, lines=lines) 
 
 def update_isValue(module, attribute):
     data = {'error':None, 'results':None}
@@ -241,7 +297,8 @@ def update_UserType():
         try:
             value = request.form.get('sentValue')
             value_id = request.form.get('sentId', type=int)
-            db_session().query(User).get(value_id).Type = value
+            user = db_session().query(User).get(value_id)
+            user.Type = value
             data['results'] = "Updated value"
             db_session().commit()
         except Exception, e:
@@ -312,8 +369,8 @@ def post_observation():
             device = Device(DeviceId, DeviceType)
             db_session().add(device)
             db_session().commit()
-        
-        if device.IsBlackListed:
+       
+        if bool(device.IsBlackListed):
             raise ValueError('Device not allowed')
         # Get File
         newFile = request.files['picture']
@@ -335,6 +392,7 @@ def post_observation():
         errors = None
 
     except Exception,e:
+        #print e
         results = "failed"
         errors = e.message + " " + repr(e)
 
