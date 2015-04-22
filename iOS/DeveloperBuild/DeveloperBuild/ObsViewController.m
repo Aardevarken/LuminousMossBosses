@@ -475,12 +475,12 @@ NSMutableArray *_myObservations;
 						 
 						 
 						 // upload to server
-						 sleep(2.5);
-						 //[ServerAPI uploadObservation:date time:date lat:lat lng:lng image:normalizedImage];
+						 //sleep(2.5);
+						 [ServerAPI uploadObservation:date time:date lat:lat lng:lng image:normalizedImage];
 						 
 						 // change status of observation in the database
-						 sleep(0.8);
-						 //[[UserDataDatabase getSharedInstance] updateObservation:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced"];
+						 //sleep(0.8);
+						 [[UserDataDatabase getSharedInstance] updateObservation:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced"];
 						 
 						 // update and remove synced rows.
 						 dispatch_async(dispatch_get_main_queue(), ^{

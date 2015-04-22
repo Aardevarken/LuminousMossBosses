@@ -26,16 +26,20 @@ detectionHelper *detectionObject;
 @synthesize idButton;
 @synthesize longitudeLabel;
 @synthesize latitudeLabel;
+@synthesize locationLabel;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	nameLabel.text = [NSString stringWithFormat:@"Name: %@", [plantInfo objectForKey:@"imghexid"]];
+	nameLabel.text = [NSString stringWithFormat:@"%@", [plantInfo objectForKey:@"imghexid"]];
 	percentLabel.text = [NSString stringWithFormat:@"%@%% ", [plantInfo objectForKey:@"percentIDed"]];
-	dateLabel.text = [NSString stringWithFormat:@"Date: %@", [plantInfo objectForKey:@"datetime"]];
-	latitudeLabel.text = [NSString stringWithFormat:@"%@", [plantInfo objectForKey:@"latitude"]];
-	longitudeLabel.text = [NSString stringWithFormat:@"%@", [plantInfo objectForKey:@"longitude"]];
-
+	dateLabel.text = [NSString stringWithFormat:@"%@", [plantInfo objectForKey:@"datetime"]];
+	
+	locationLabel.text = [
+						  NSString stringWithFormat:@"%.4f° N, %.4f° W   ±%ld m",
+						  [[plantInfo objectForKey:@"latitude"] floatValue],
+						  [[plantInfo objectForKey:@"longitude"] floatValue],
+						  [[plantInfo objectForKey:@"locationerror"] integerValue]];
 	
 	
 	NSURL *url = [NSURL URLWithString:[plantInfo objectForKey:@"imghexid"]];
@@ -51,13 +55,18 @@ detectionHelper *detectionObject;
 		}
 			failureBlock: nil];
 	}
+	
 	// if this came from the identified tab
 	if ([[plantInfo objectForKey:@"status"] isEqual:@"pending-noid"]){
         NSString* imghexid = [plantInfo objectForKey:@"imghexid"];
+		[[self idButton] setHidden:NO];
         detectionObject = [IdentifyingAssets getByimghexid:imghexid];
 		if ([detectionObject.percentageComplete isEqualToNumber:[NSNumber numberWithInt:0]]){
 			[self.idButton setEnabled:NO];
 			[self.activityIndicator startAnimating];
+		}
+		else {
+			[[self idButton] setEnabled:YES];
 		}
 	}
 	else {

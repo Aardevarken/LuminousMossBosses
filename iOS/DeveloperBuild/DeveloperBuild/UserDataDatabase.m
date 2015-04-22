@@ -138,7 +138,7 @@ static NSDictionary* typeMap = nil;
 
 -(BOOL) saveObservation:(NSString*) imghexid date:(NSString*)date latitude:(NSNumber*)latitude longitude:(NSNumber*)longitude locationError:(NSNumber*) locationError percentIDed:(NSNumber*)percentIDed {
 	
-	#warning Change latitude and longitude to floats/doubles to reduce the amount of conversion for NSNumber?
+	//#warning Change latitude and longitude to floats/doubles to reduce the amount of conversion for NSNumber?
 	if(latitude == nil && longitude == nil && date == nil){
 		latitude = [NSNumber numberWithDouble:bestEffortAtLocation.coordinate.latitude];
 		longitude = [NSNumber numberWithDouble:bestEffortAtLocation.coordinate.longitude];
@@ -334,10 +334,10 @@ static NSDictionary* typeMap = nil;
 			NSLog(@"Update(%u) \t%@", updateCount, newLocation.description);
 		}
 		else if (locations.count > 1){
-			#warning Need to check time stamp when multible GPS coordinates.
+			//#warning Need to check time stamp when multible GPS coordinates.
 		}
 		else {
-			#warning THIS SHOULD NEVER HIT!
+			//#warning THIS SHOULD NEVER HIT!
 		}
 		++updateCount;
 	}

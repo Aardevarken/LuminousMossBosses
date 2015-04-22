@@ -25,7 +25,7 @@
 		16A6D8511A6386C600CB4563 /* ObsTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16A6D8501A6386C600CB4563 /* ObsTableView.m */; };
 		16B052AD1A5B4BDE007837B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B052AC1A5B4BDE007837B4 /* main.m */; };
 		16B052B01A5B4BDE007837B4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B052AF1A5B4BDE007837B4 /* AppDelegate.m */; };
-		16B052B31A5B4BDE007837B4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B052B21A5B4BDE007837B4 /* ViewController.m */; };
+		16B052B31A5B4BDE007837B4 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B052B21A5B4BDE007837B4 /* MainViewController.m */; };
 		16B052B61A5B4BDE007837B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16B052B41A5B4BDE007837B4 /* Main.storyboard */; };
 		16B052B81A5B4BDE007837B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16B052B71A5B4BDE007837B4 /* Images.xcassets */; };
 		16B052BB1A5B4BDE007837B4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16B052B91A5B4BDE007837B4 /* LaunchScreen.xib */; };
@@ -93,7 +93,7 @@
 		161F47631A8ED7B300E67313 /* NewObs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewObs.h; sourceTree = "<group>"; };
 		161F47641A8ED7B300E67313 /* NewObs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewObs.m; sourceTree = "<group>"; };
 		1627A1251AB430D3009BD6EF /* ObsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObsDetailViewController.h; sourceTree = "<group>"; };
-		1627A1261AB430D3009BD6EF /* ObsDetailViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ObsDetailViewController.m; sourceTree = "<group>"; };
+		1627A1261AB430D3009BD6EF /* ObsDetailViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = ObsDetailViewController.m; sourceTree = "<group>"; };
 		162FAD821ADDA83100F811CD /* MyObservationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyObservationData.h; sourceTree = "<group>"; };
 		162FAD831ADDA83100F811CD /* MyObservationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyObservationData.m; sourceTree = "<group>"; };
 		1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = homeBtnIcon.png; path = DeveloperBuild/homeBtnIcon.png; sourceTree = "<group>"; };
@@ -113,8 +113,8 @@
 		16B052AC1A5B4BDE007837B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		16B052AE1A5B4BDE007837B4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		16B052AF1A5B4BDE007837B4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		16B052B11A5B4BDE007837B4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		16B052B21A5B4BDE007837B4 /* ViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = ViewController.m; sourceTree = "<group>"; };
+		16B052B11A5B4BDE007837B4 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		16B052B21A5B4BDE007837B4 /* MainViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		16B052B51A5B4BDE007837B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		16B052B71A5B4BDE007837B4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		16B052BA1A5B4BDE007837B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -269,8 +269,8 @@
 				1642DE521ADCA085002FB11C /* MyObsTabBarController.m */,
 				160D23F21A635C3F00F7B916 /* ObservationCell.h */,
 				16A6D84D1A637DEA00CB4563 /* ObservationCell.m */,
-				16B052B11A5B4BDE007837B4 /* ViewController.h */,
-				16B052B21A5B4BDE007837B4 /* ViewController.m */,
+				16B052B11A5B4BDE007837B4 /* MainViewController.h */,
+				16B052B21A5B4BDE007837B4 /* MainViewController.m */,
 				1617BB781AE467CE00709D50 /* CaptureSessionManager.h */,
 				1617BB791AE467CE00709D50 /* CaptureSessionManager.m */,
 				16B2A6CD1A9D4D2200A73A86 /* ImageViewController.h */,
@@ -500,7 +500,7 @@
 				1617BB751AE3438100709D50 /* IdentifyingAssets.m in Sources */,
 				F0395FE61A9835F700EE1BF9 /* detector.cpp in Sources */,
 				1617BB7A1AE467CE00709D50 /* CaptureSessionManager.m in Sources */,
-				16B052B31A5B4BDE007837B4 /* ViewController.m in Sources */,
+				16B052B31A5B4BDE007837B4 /* MainViewController.m in Sources */,
 				16E2D49B1A64860900CA8845 /* ObsViewController.m in Sources */,
 				16A6D8481A636C6F00CB4563 /* ObsTableViewController.m in Sources */,
 				1627A1271AB430D4009BD6EF /* ObsDetailViewController.m in Sources */,

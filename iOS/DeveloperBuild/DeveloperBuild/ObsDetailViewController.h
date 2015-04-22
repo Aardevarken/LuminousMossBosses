@@ -19,6 +19,7 @@
 @property (nonatomic, strong) IBOutlet UIImageView *obsImage;
 @property (strong, nonatomic) IBOutlet UILabel *latitudeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *longitudeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *locationLabel;
 
 @property (nonatomic, strong) NSDictionary *plantInfo;
 
