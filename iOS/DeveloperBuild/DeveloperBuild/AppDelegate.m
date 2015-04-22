@@ -18,7 +18,7 @@
 NSMutableArray *_observations;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
+	
 	if (![CLLocationManager locationServicesEnabled]) {
 		// location services is disabled, alert user
 		UIAlertView *servicesDisabledAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"DisabledTitle", @"DisabledTitle")
