@@ -109,7 +109,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
             buttonContext = SEND_CONTEXT;
 
         }
-        if (cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_SYNCED_STATUS)) != 0 )
+        if (cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_SYNCED_STATUS)) != 0 || observation.isBeingProcessed())
         {
             sendButton.setEnabled(false);
             sendButton.setVisibility(View.GONE);

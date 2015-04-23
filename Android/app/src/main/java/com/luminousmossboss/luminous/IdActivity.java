@@ -18,7 +18,12 @@ public class IdActivity extends AsyncTask <String, Void, Boolean>{
     {
         mContext = context;
         db = new ObservationDBHandler(mContext);
-        mobservation = new Observation(observationId, context);
+        mobservation = ObservationFactory.getObservation(observationId, context);
+    }
+    @Override
+    protected void onPreExecute()
+    {
+        mobservation.setBeingProcessed(true);
     }
 
     @Override
@@ -31,6 +36,7 @@ public class IdActivity extends AsyncTask <String, Void, Boolean>{
     {
         db.updateProcessed(mobservation.getId(), true);
         Toast message;
+        mobservation.setBeingProcessed(false);
         if (detectionResult)
         {
             message = Toast.makeText(mContext, "Your image was identified as Silene!!!", Toast.LENGTH_LONG);

@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import com.luminousmossboss.luminous.IdActivity;
 import com.luminousmossboss.luminous.MainActivity;
+import com.luminousmossboss.luminous.ObservationFactory;
 import com.luminousmossboss.luminous.ObservationFragment;
 import com.luminousmossboss.luminous.R;
 import com.luminousmossboss.luminous.model.Observation;
@@ -36,7 +37,7 @@ public class IdentifiyDialogFragment extends DialogFragment{
                 .setPositiveButton(R.string.dialog_confirm, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog,int id) {
-                        Observation observation = new Observation(observationId, getActivity());
+                        Observation observation = ObservationFactory.getObservation(observationId, getActivity());
                         IdActivity idActivity = new IdActivity(getActivity(),observationId);
                         idActivity.execute(observation.getIcon().getPath());
 

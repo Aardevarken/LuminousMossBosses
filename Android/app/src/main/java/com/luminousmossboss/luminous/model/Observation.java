@@ -22,8 +22,10 @@ public class Observation extends ListItem implements Serializable {
     private double latitude;
     private boolean hasBeenProcceced;
     private boolean is_silene;
+    private boolean isBeingProcessed;
     private int id;
     private float accuracy;
+
 
 
 
@@ -67,6 +69,23 @@ public class Observation extends ListItem implements Serializable {
         cursor.close();
         db.close();
     }
+
+    public boolean isBeingProcessed() {
+        return isBeingProcessed;
+    }
+
+    public void setBeingProcessed(boolean isBeingProcessed) {
+        this.isBeingProcessed = isBeingProcessed;
+    }
+
+    public boolean isHasBeenProcceced() {
+        return hasBeenProcceced;
+    }
+
+    public void setHasBeenProcceced(boolean hasBeenProcceced) {
+        this.hasBeenProcceced = hasBeenProcceced;
+    }
+
     public void updateIsSilene(boolean status, Context context)
     {
         ObservationDBHandler db = new ObservationDBHandler(context);

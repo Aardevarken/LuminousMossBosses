@@ -151,9 +151,9 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
                 file = new File(cursor.getString(cursor.getColumnIndex(ObservationDBHandler.KEY_PHOTO_PATH)));
                 if(file.exists()) {
                     if (is_processed == 1)
-                        sileneList.add(new Observation(id, getActivity()));
+                        sileneList.add(ObservationFactory.getObservation(id, getActivity()));
                     else
-                        unknownList.add(new Observation(id, getActivity()));
+                        unknownList.add(ObservationFactory.getObservation(id, getActivity()));
                 }
                 else{
                     db.deleteObservation(cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_ID)));
