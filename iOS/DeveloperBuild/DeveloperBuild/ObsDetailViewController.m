@@ -69,7 +69,7 @@ detectionHelper *detectionObject;
 		if ([detectionObject.percentageComplete isEqualToNumber:[NSNumber numberWithInt:0]]){
 //			[self.startRunningBtn setEnabled:NO];
 //			[self.activityIndicator startAnimating];
-			[self hideTapToStartBtnText];
+//			[self hideTapToStartBtnText];
 
 		}
 		
@@ -112,6 +112,7 @@ detectionHelper *detectionObject;
 	// set the title of the tap to... button to represent the current state
 	[[self tapToStartBtn] setTitle:[self getTitleOfBtnForState]
 						  forState:UIControlStateNormal];
+	[[self tapToStartBtn] setTitle:@"Observation has been identified" forState:UIControlStateDisabled];
 	
 	// Show and enable the tap to... button
 	[[self tapToStartBtn] setHidden:NO];
@@ -129,8 +130,8 @@ detectionHelper *detectionObject;
  and disable the necessary items.
  */
 - (void)hideTapToStartBtnText{
-	[[self tapToStartBtn] setEnabled:NO];
-	[[self tapToStartBtn] setHidden:YES];
+//	[[self tapToStartBtn] setEnabled:NO];
+//	[[self tapToStartBtn] setHidden:YES];
 	
 	[[self startRunning] setHidden:NO];
 	
@@ -138,77 +139,6 @@ detectionHelper *detectionObject;
 	[[self activityIndicator] startAnimating];
 }
 
-/**
- * Hide all the buttons, and activity indicators that vary from state to state.
- */
-- (void)hideEverything{
-	// hide the tap to... btn
-	/*
-	[[self tapToStartBtn] setHidden:YES];
-	[[self tapToStartBtn] setEnabled:NO];
-	// hide and disable the running btn
-	[[self startRunning] setHidden:YES];
-	[[self startRunning] setEnabled:NO];
-	// hide and stop the activity indicator
-	[[self activityIndicator] setHidden:YES];
-	[[self activityIndicator] stopAnimating];
-	// remove the button super view
-//	[[self buttonSuperView] setTransform:CGAffineTransformMakeScale(0, 0)];
-//	[[self buttonSuperView] setTransform:CGAffineTransformIdentity];
-//	[[self buttonSuperView] setHidden:YES];
-	*/
-	[[self buttonSuperView] setTransform:CGAffineTransformScale(CGAffineTransformIdentity, 0, 0)];
-	
-	
-//	CGRect tempFrame=view.frame;
-//	tempFrame.size.width=200;//change acco. how much you want to expand
-//	tempFrame.size.height=200;
-//	[UIView beginAnimations:@"" context:nil];
-//	[UIView setAnimationDuration:0.2];
-//	view.frame=tempFrame;
-//	[UIView commitAnimations];
-//	
-	
-	
-	CGRect basketTopFrame = self.buttonSuperView.frame;// self.basketTop.frame;
-	basketTopFrame.origin.y = -basketTopFrame.size.height;
- 
-	CGRect basketBottomFrame = self.basketBottom.frame;
-	basketBottomFrame.origin.y = self.buttonSuperView.bounds.size.height//self.view.bounds.size.height;
- 
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:0.5];
-	[UIView setAnimationDelay:1.0];
-	[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
- 
-	self.basketTop.frame = basketTopFrame;
-	self.basketBottom.frame = basketBottomFrame;
- 
-	[UIView commitAnimations];
-//	
-//	CGRect noHeight = [[self buttonSuperView] frame];
-//	ALog(@"view rec: %fx%f", noHeight.size.width, noHeight.size.height);
-//	//	noHeight.size.height = 0.001;
-//	noHeight.origin.x += 50;
-//	
-//	
-//	[UIView animateWithDuration:6 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//		//[[self buttonSuperView] setTransform: CGAffineTransformScale(CGAffineTransformIdentity, 0, 0)];
-//		buttonSuperView.frame = noHeight;
-//		//[[self buttonSuperView] setFrame:noHeight];
-//	} completion:^(BOOL finished) {
-//		//[self.view needsUpdateConstraints];
-//	}];
-	
-	/*
-	[UIView animateWithDuration: 6 delay:0 options: UIViewAnimationCurveEaseInOut animations:^{
-		
-		[[self buttonSuperView] setTransform: CGAffineTransformScale(CGAffineTransformIdentity, 0.001, 0.001)];
-		[self.view needsUpdateConstraints];
-
-	} completion: nil];
-	 */
-}
 
 /**
  * Given a state stored in plantInfo, getTitleOfBtnForState will return a string to be used as the
@@ -222,7 +152,8 @@ detectionHelper *detectionObject;
 		tapTo = @"Identify";
 	}
 	else if([state isEqual:@"pending-id"]){
-		tapTo = @"Sync";
+		//tapTo = @"Sync";
+		return [NSString stringWithFormat:@"Observation has been identified"];
 	}
 	else {
 #warning needs to throw an erro if this is hit
@@ -244,6 +175,7 @@ detectionHelper *detectionObject;
 	}
 	
 	startRunning.hidden = YES;
+	[[self tapToStartBtn] setHidden:NO];
 }
 
 - (IBAction)startButton:(UIButton *)sender {
@@ -252,6 +184,8 @@ detectionHelper *detectionObject;
 	[tapToStartBtn setHidden:YES];
 	
 	// show running btn, but keep it disabled.
+#warning @"Running..." will be displayed before the title change. 
+	[startRunning setTitle:[NSString stringWithFormat:@"Identifying ..."] forState:UIControlStateNormal];
 	[startRunning setEnabled:NO];
 	[startRunning setHidden:NO];
 	
@@ -260,9 +194,6 @@ detectionHelper *detectionObject;
 	
 	if ([[[self plantInfo] objectForKey:@"status"] isEqualToString:@"pending-noid"]) {
 		[self startIdentification];
-	}
-	else if ([[[self plantInfo] objectForKey:@"status"] isEqualToString:@"pending-id"]){
-		[self startSyncing];
 	}
 	else {
 #warning Need to make sure this case is never hit.
@@ -280,23 +211,6 @@ detectionHelper *detectionObject;
 	});
 }
 
-/**
- * Start syncing
- */
-- (void)startSyncing{
-	// upload the observation to the server
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-		unsigned int sleepFor = 0;
-		ALog(@"This sync functionality has not been implemented. Sleeping for %d seconds...", sleepFor);
-		sleep(sleepFor);
-		
-		// update the main view to hide everything
-		dispatch_sync(dispatch_get_main_queue(), ^{
-			[self hideEverything];
-		});
-	});
-}
-
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
 	
 	if ([keyPath isEqualToString:@"percentageComplete"]) {
@@ -306,7 +220,11 @@ detectionHelper *detectionObject;
 				[self updateObservationData];	// update the on screen data
 				[[self activityIndicator] stopAnimating];	// stop the activity indicator
 				[[self startRunning] setHidden:YES];	// hide the id button.
-				[[self identifyView] setHidden:YES];
+//				[[self identifyView] setHidden:YES];
+				
+				[[self tapToStartBtn] setHidden:NO];
+//				[self setTapToStartBtnText];
+				
 			});
 		}
         
@@ -315,7 +233,7 @@ detectionHelper *detectionObject;
         if ([[change valueForKey:@"new"] isEqualToNumber:[NSNumber numberWithInt:-1]]) {
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [[self activityIndicator] stopAnimating];
-            });
+		  });
         }
 	}
 }

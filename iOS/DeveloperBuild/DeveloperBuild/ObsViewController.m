@@ -243,19 +243,23 @@ NSMutableArray *_myObservations;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	
-	ObservationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ObservationCell_ID" forIndexPath:indexPath];
+//	ObservationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ObservationCell_ID" forIndexPath:indexPath];
 	///? what does this do ?///
-	if (cell == nil) {
-		// do something
-	}
+//	if (cell == nil) {
+//		// do something
+//	}
 	
 //	NewObs *myObservation = [self.observationsArray objectAtIndex:indexPath.row];
+	
+	ObservationCell *cell;
 	NSArray *data;
 	if (indexPath.section == 0) {
 		data = pendingObservations;
+		cell = [tableView dequeueReusableCellWithIdentifier:@"ObservationCell_ID" forIndexPath:indexPath];
 	}
 	else if (indexPath.section == 1){
 		data = idedObservations;
+		cell = [tableView dequeueReusableCellWithIdentifier:@"ObservationCell_ID_2" forIndexPath:indexPath];
 	}
 	else {
 		return cell;
@@ -434,6 +438,10 @@ NSMutableArray *_myObservations;
 
 - (IBAction)syncAllBtn:(UIButton *)sender {
 	unsigned long originalCount = idedObservations.count;
+	if (originalCount == 0) {
+		return;
+	}
+	
 	[[self syncBtn] setTitle:[NSString stringWithFormat:@"Syncing... (%d/%lu)", 1, originalCount] forState:UIControlStateNormal];
 
 	[[self syncBtn] setEnabled:NO];
