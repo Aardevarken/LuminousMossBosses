@@ -60,6 +60,9 @@ detectionHelper *detectionObject;
 			failureBlock: nil];
 	}
 	
+	
+	[[self tapToStartBtn] setTitle:@"Observation has been identified" forState:UIControlStateDisabled];
+
 	// if this came from the identified tab
 	if ([[plantInfo objectForKey:@"status"] isEqual:@"pending-noid"]){
         NSString* imghexid = [plantInfo objectForKey:@"imghexid"];
@@ -67,9 +70,9 @@ detectionHelper *detectionObject;
         detectionObject = [IdentifyingAssets getByimghexid:imghexid];
 		
 		if ([detectionObject.percentageComplete isEqualToNumber:[NSNumber numberWithInt:0]]){
-//			[self.startRunningBtn setEnabled:NO];
-//			[self.activityIndicator startAnimating];
-//			[self hideTapToStartBtnText];
+			[self.startRunning setEnabled:NO];
+			[self.activityIndicator startAnimating];
+			[self hideTapToStartBtnText];
 
 		}
 		
@@ -112,7 +115,6 @@ detectionHelper *detectionObject;
 	// set the title of the tap to... button to represent the current state
 	[[self tapToStartBtn] setTitle:[self getTitleOfBtnForState]
 						  forState:UIControlStateNormal];
-	[[self tapToStartBtn] setTitle:@"Observation has been identified" forState:UIControlStateDisabled];
 	
 	// Show and enable the tap to... button
 	[[self tapToStartBtn] setHidden:NO];
