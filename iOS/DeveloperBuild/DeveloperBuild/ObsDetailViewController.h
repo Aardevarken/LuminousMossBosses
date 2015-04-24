@@ -24,11 +24,14 @@
 @property (nonatomic, strong) NSDictionary *plantInfo;
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, strong) IBOutlet UIButton *idButton;
+@property (nonatomic, strong) IBOutlet UIButton *startRunning;
 @property (strong, nonatomic) IBOutlet UIView *identifyView;
 
+@property (strong, nonatomic) IBOutlet UIButton *tapToStartBtn;
 
-- (IBAction)startIdentificationButton:(UIButton *)sender;
+@property (strong, nonatomic) IBOutlet UIView *buttonSuperView;
+
+- (IBAction)startButton:(UIButton *)sender;
 
 
 

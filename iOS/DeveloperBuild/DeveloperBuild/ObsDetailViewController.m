@@ -12,6 +12,8 @@
 #import "IdentifyingAssets.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
+#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+
 detectionHelper *detectionObject;
 
 @interface ObsDetailViewController ()
@@ -23,10 +25,12 @@ detectionHelper *detectionObject;
 @synthesize dateLabel;
 @synthesize obsImage;
 @synthesize plantInfo;
-@synthesize idButton;
+@synthesize startRunning;
 @synthesize longitudeLabel;
 @synthesize latitudeLabel;
 @synthesize locationLabel;
+@synthesize tapToStartBtn;
+@synthesize buttonSuperView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -59,20 +63,27 @@ detectionHelper *detectionObject;
 	// if this came from the identified tab
 	if ([[plantInfo objectForKey:@"status"] isEqual:@"pending-noid"]){
         NSString* imghexid = [plantInfo objectForKey:@"imghexid"];
-		[[self idButton] setHidden:NO];
+//		[[self startRunningBtn] setHidden:NO];
         detectionObject = [IdentifyingAssets getByimghexid:imghexid];
+		
 		if ([detectionObject.percentageComplete isEqualToNumber:[NSNumber numberWithInt:0]]){
-			[self.idButton setEnabled:NO];
-			[self.activityIndicator startAnimating];
+//			[self.startRunningBtn setEnabled:NO];
+//			[self.activityIndicator startAnimating];
+			[self hideTapToStartBtnText];
+
 		}
+		
 		else {
-			[[self idButton] setEnabled:YES];
+//			[[self startRunningBtn] setEnabled:YES];
+			[self setTapToStartBtnText];
 		}
 	}
 	else {
-		[idButton setHidden:YES];
-		[idButton setEnabled:NO];
-		[[self identifyView] setHidden:YES];
+		
+		[self setTapToStartBtnText];
+//		[startRunningBtn setHidden:YES];
+//		[startRunningBtn setEnabled:NO];
+//		[[self identifyView] setHidden:YES];
 	}
 }
 
@@ -91,6 +102,136 @@ detectionHelper *detectionObject;
     // Dispose of any resources that can be recreated.
 }
 
+/**
+ * When the view loads call this function to prep the buttons and activity
+ indicator.
+ * Call this function when ever the state changes to have a new title for the 
+ new state
+ */
+- (void)setTapToStartBtnText{
+	// set the title of the tap to... button to represent the current state
+	[[self tapToStartBtn] setTitle:[self getTitleOfBtnForState]
+						  forState:UIControlStateNormal];
+	
+	// Show and enable the tap to... button
+	[[self tapToStartBtn] setHidden:NO];
+	[[self tapToStartBtn] setEnabled:YES];
+	// hide and disable the running btn
+	[[self startRunning] setHidden:YES];
+	[[self startRunning] setEnabled:NO];
+	// hide and stop the activity indicator
+	[[self activityIndicator] setHidden:YES];
+	[[self activityIndicator] stopAnimating];
+}
+
+/**
+ * When the tapToStartBtn is pressed call this function to hide, show, start, 
+ and disable the necessary items.
+ */
+- (void)hideTapToStartBtnText{
+	[[self tapToStartBtn] setEnabled:NO];
+	[[self tapToStartBtn] setHidden:YES];
+	
+	[[self startRunning] setHidden:NO];
+	
+	[[self activityIndicator] setHidden:NO];
+	[[self activityIndicator] startAnimating];
+}
+
+/**
+ * Hide all the buttons, and activity indicators that vary from state to state.
+ */
+- (void)hideEverything{
+	// hide the tap to... btn
+	/*
+	[[self tapToStartBtn] setHidden:YES];
+	[[self tapToStartBtn] setEnabled:NO];
+	// hide and disable the running btn
+	[[self startRunning] setHidden:YES];
+	[[self startRunning] setEnabled:NO];
+	// hide and stop the activity indicator
+	[[self activityIndicator] setHidden:YES];
+	[[self activityIndicator] stopAnimating];
+	// remove the button super view
+//	[[self buttonSuperView] setTransform:CGAffineTransformMakeScale(0, 0)];
+//	[[self buttonSuperView] setTransform:CGAffineTransformIdentity];
+//	[[self buttonSuperView] setHidden:YES];
+	*/
+	[[self buttonSuperView] setTransform:CGAffineTransformScale(CGAffineTransformIdentity, 0, 0)];
+	
+	
+//	CGRect tempFrame=view.frame;
+//	tempFrame.size.width=200;//change acco. how much you want to expand
+//	tempFrame.size.height=200;
+//	[UIView beginAnimations:@"" context:nil];
+//	[UIView setAnimationDuration:0.2];
+//	view.frame=tempFrame;
+//	[UIView commitAnimations];
+//	
+	
+	
+	CGRect basketTopFrame = self.buttonSuperView.frame;// self.basketTop.frame;
+	basketTopFrame.origin.y = -basketTopFrame.size.height;
+ 
+	CGRect basketBottomFrame = self.basketBottom.frame;
+	basketBottomFrame.origin.y = self.buttonSuperView.bounds.size.height//self.view.bounds.size.height;
+ 
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:0.5];
+	[UIView setAnimationDelay:1.0];
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+ 
+	self.basketTop.frame = basketTopFrame;
+	self.basketBottom.frame = basketBottomFrame;
+ 
+	[UIView commitAnimations];
+//	
+//	CGRect noHeight = [[self buttonSuperView] frame];
+//	ALog(@"view rec: %fx%f", noHeight.size.width, noHeight.size.height);
+//	//	noHeight.size.height = 0.001;
+//	noHeight.origin.x += 50;
+//	
+//	
+//	[UIView animateWithDuration:6 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//		//[[self buttonSuperView] setTransform: CGAffineTransformScale(CGAffineTransformIdentity, 0, 0)];
+//		buttonSuperView.frame = noHeight;
+//		//[[self buttonSuperView] setFrame:noHeight];
+//	} completion:^(BOOL finished) {
+//		//[self.view needsUpdateConstraints];
+//	}];
+	
+	/*
+	[UIView animateWithDuration: 6 delay:0 options: UIViewAnimationCurveEaseInOut animations:^{
+		
+		[[self buttonSuperView] setTransform: CGAffineTransformScale(CGAffineTransformIdentity, 0.001, 0.001)];
+		[self.view needsUpdateConstraints];
+
+	} completion: nil];
+	 */
+}
+
+/**
+ * Given a state stored in plantInfo, getTitleOfBtnForState will return a string to be used as the
+ * title of the tapToStartBtn.
+ */
+- (NSString*)getTitleOfBtnForState{
+	NSString *state = [[self plantInfo] objectForKey:@"status"];
+	NSString *tapTo = [NSString alloc];
+	
+	if ([state isEqual:@"pending-noid"]) {
+		tapTo = @"Identify";
+	}
+	else if([state isEqual:@"pending-id"]){
+		tapTo = @"Sync";
+	}
+	else {
+#warning needs to throw an erro if this is hit
+		tapTo = @"...";
+	}
+	
+	return [NSString stringWithFormat:@"Tap to %@", tapTo];
+}
+
 - (void)updateObservationData{
 	// set everthing we just calculated
 	obsImage.image = [detectionObject identifiedImage];
@@ -102,18 +243,57 @@ detectionHelper *detectionObject;
 		percentLabel.textColor = [UIColor colorWithRed:255.f green:0 blue:0 alpha:1];
 	}
 	
-	idButton.hidden = YES;
+	startRunning.hidden = YES;
 }
 
-- (IBAction)startIdentificationButton:(UIButton *)sender {
+- (IBAction)startButton:(UIButton *)sender {
+	// Hide the tapToStartBtn
+	[tapToStartBtn setEnabled:NO];
+	[tapToStartBtn setHidden:YES];
+	
+	// show running btn, but keep it disabled.
+	[startRunning setEnabled:NO];
+	[startRunning setHidden:NO];
+	
 	//Start an activity indicator here
 	[self.activityIndicator startAnimating];
-	//disable id button
-	[idButton setEnabled:NO];
 	
+	if ([[[self plantInfo] objectForKey:@"status"] isEqualToString:@"pending-noid"]) {
+		[self startIdentification];
+	}
+	else if ([[[self plantInfo] objectForKey:@"status"] isEqualToString:@"pending-id"]){
+		[self startSyncing];
+	}
+	else {
+#warning Need to make sure this case is never hit.
+		ALog(@"THIS SHOULD NEVER HIT");
+	}
+}
+
+/** 
+ * Run the identification
+ */
+- (void)startIdentification{
 	// run the detection algorithm.
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		[detectionObject runDetectionAlgorithm:obsImage.image];
+	});
+}
+
+/**
+ * Start syncing
+ */
+- (void)startSyncing{
+	// upload the observation to the server
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+		unsigned int sleepFor = 0;
+		ALog(@"This sync functionality has not been implemented. Sleeping for %d seconds...", sleepFor);
+		sleep(sleepFor);
+		
+		// update the main view to hide everything
+		dispatch_sync(dispatch_get_main_queue(), ^{
+			[self hideEverything];
+		});
 	});
 }
 
@@ -125,7 +305,7 @@ detectionHelper *detectionObject;
 			dispatch_sync(dispatch_get_main_queue(), ^{
 				[self updateObservationData];	// update the on screen data
 				[[self activityIndicator] stopAnimating];	// stop the activity indicator
-				[[self idButton] setHidden:YES];	// hide the id button.
+				[[self startRunning] setHidden:YES];	// hide the id button.
 				[[self identifyView] setHidden:YES];
 			});
 		}
@@ -139,6 +319,8 @@ detectionHelper *detectionObject;
         }
 	}
 }
+
+
 
 #pragma mark - Navigation
 
