@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.luminousmossboss.luminous.MainActivity;
 import com.luminousmossboss.luminous.ObservationDBHandler;
+import com.luminousmossboss.luminous.ObservationFactory;
 import com.luminousmossboss.luminous.R;
 
 /**
@@ -40,6 +41,7 @@ public class DeleteDialogFragment extends DialogFragment{
                     public void onClick(DialogInterface dialog, int id) {
                         ObservationDBHandler db = new ObservationDBHandler(getActivity());
                         db.deleteObservation(observationId);
+                        ObservationFactory.removeObservation(observationId);
                         FragmentManager manager = getActivity().getFragmentManager();
                         manager.popBackStack();
                         manager.popBackStack();

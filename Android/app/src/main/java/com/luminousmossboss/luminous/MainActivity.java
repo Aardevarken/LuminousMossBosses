@@ -57,7 +57,7 @@ public class MainActivity extends Activity {
     private ObservationDBHandler db;
 
     //For keeping track of the Photo:
-    String mCurrentPhotoPath;
+   private static String mCurrentPhotoPath;
     // nav drawer title
     private CharSequence mDrawerTitle;
 
@@ -330,7 +330,7 @@ public class MainActivity extends Activity {
             case REQUEST_TAKE_PHOTO: {
                 if (resultCode == RESULT_OK) {
                   //  boolean detectionResult = Util.detectImage(mCurrentPhotoPath,this);
-                    handlePhoto(data,false);
+                    handlePhoto(data);
 
                    /* Toast message;
                     if (detectionResult)
@@ -351,7 +351,7 @@ public class MainActivity extends Activity {
 
 
 
-    private void handlePhoto(Intent intent, Boolean is_silene)
+    private void handlePhoto(Intent intent)
     {
 
         Location loc = mGPS.getLocation();
@@ -370,7 +370,7 @@ public class MainActivity extends Activity {
             String timeNow = sdf.format(new Date());
             HashMap<String, String> map = new HashMap<String, String>();
             map.put(ObservationDBHandler.KEY_GPS_ACCURACY, String.valueOf(loc.getAccuracy()));
-            map.put(ObservationDBHandler.KEY_IS_SILENE, String.valueOf(is_silene?1:0));
+            map.put(ObservationDBHandler.KEY_IS_SILENE, String.valueOf(0));
             map.put(ObservationDBHandler.KEY_LATITUDE, String.valueOf(loc.getLatitude()));
             map.put(ObservationDBHandler.KEY_LONGITUDE, String.valueOf(loc.getLongitude()));
             map.put(ObservationDBHandler.KEY_PHOTO_PATH, mCurrentPhotoPath);
