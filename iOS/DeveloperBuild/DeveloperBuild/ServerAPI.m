@@ -12,7 +12,7 @@
 
 @implementation ServerAPI
 
-+ (BOOL) uploadObservation:(NSString*) date time:(NSString*) time lat:(float) lat lng:(float) lng image:(UIImage*) image {
++ (BOOL) uploadObservation:(NSString*) date time:(NSString*) time lat:(float) lat lng:(float) lng locationerror:(float) locationerror image:(UIImage*) image {
     // Get a unique identifier.
     NSString* UDID;
     if ([[UIDevice currentDevice]respondsToSelector:@selector(identifierForVendor)]) {
@@ -39,7 +39,8 @@
                                  @"Latitude"        : [NSString stringWithFormat:@"%f", lat],
                                  @"Longitude"       : [NSString stringWithFormat:@"%f", lng],
                                  @"DeviceId"        : UDID,
-                                 @"DeviceType"      : @"iOS"};
+                                 @"DeviceType"      : @"iOS",
+                                 @"LocationError"   : [NSString stringWithFormat:@"%f", locationerror]};
  
     NSMutableData* postData = [NSMutableData data];
     

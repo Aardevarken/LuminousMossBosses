@@ -181,14 +181,18 @@
 		return;
 	}
 	
-	printf(@"recorded error: %f", bestLocationForImage.horizontalAccuracy);
+	float highestError = bestLocationForImage.horizontalAccuracy;
 	
+	if (highestError < bestLocationForImage.verticalAccuracy) {
+		highestError = bestLocationForImage.verticalAccuracy;
+	}
+
 	success = [[UserDataDatabase getSharedInstance]
 			   saveObservation:img
 			   date: [NSString stringWithFormat:@"%@",bestLocationForImage.timestamp]
 			   latitude: [NSNumber numberWithDouble:bestLocationForImage.coordinate.latitude]
 			   longitude: [NSNumber numberWithDouble:bestLocationForImage.coordinate.longitude]
-			   locationError:[NSNumber numberWithDouble:100.0]
+			   locationError:[NSNumber numberWithFloat:highestError]
 			   percentIDed:NULL];
 	
 	if (success == NO) {

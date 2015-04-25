@@ -35,7 +35,7 @@
     UIImage* downloadedImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
     
     
-    XCTAssertTrue([ServerAPI uploadObservation:@"2015-3-8" time:@"11:04" lat:2.203 lng:3.32 image:downloadedImage]);
+    XCTAssertTrue([ServerAPI uploadObservation:@"2015-3-8" time:@"11:04" lat:2.203 lng:3.32 locationerror:10.4 image:downloadedImage]);
 }
 
 - (void)testPerformanceExample {
