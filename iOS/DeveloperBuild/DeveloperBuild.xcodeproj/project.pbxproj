@@ -53,11 +53,11 @@
 		16F8F55C1AA80828007FEEBE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F8F55B1AA80828007FEEBE /* libsqlite3.dylib */; };
 		7968EC9B1AB91974000644E4 /* ServerAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7968EC9A1AB91974000644E4 /* ServerAPI.m */; };
 		7968EC9D1AB92F87000644E4 /* ServerAPITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7968EC9C1AB92F87000644E4 /* ServerAPITest.m */; };
+		E6BAA8E51AEB4496007A8F34 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D848131A7768250043BEDD /* opencv2.framework */; };
 		E6ED3AE21ADB7C5200099064 /* ic_notepad_copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3ADF1ADB7C5200099064 /* ic_notepad_copy.png */; };
 		E6ED3AE71ADB837800099064 /* ic_addobservation copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3AE41ADB837800099064 /* ic_addobservation copy.png */; };
 		E6ED3AE81ADB837800099064 /* ic_fieldguide copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3AE51ADB837800099064 /* ic_fieldguide copy.png */; };
 		E6ED3AE91ADB837800099064 /* ic_settings copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3AE61ADB837800099064 /* ic_settings copy.png */; };
-		E6FDFD351AE7170A00E88C6B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D848131A7768250043BEDD /* opencv2.framework */; };
 		E6FDFD381AE718B500E88C6B /* Lobster_1.4.otf in Resources */ = {isa = PBXBuildFile; fileRef = E6FDFD371AE718B500E88C6B /* Lobster_1.4.otf */; };
 		F0395FE61A9835F700EE1BF9 /* detector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE51A9835F700EE1BF9 /* detector.cpp */; };
 		F0395FEA1A98365500EE1BF9 /* identified.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE91A98365500EE1BF9 /* identified.cpp */; };
@@ -171,7 +171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6FDFD351AE7170A00E88C6B /* opencv2.framework in Frameworks */,
+				E6BAA8E51AEB4496007A8F34 /* opencv2.framework in Frameworks */,
 				16BE1B4F1AE47F8000C57C46 /* CoreVideo.framework in Frameworks */,
 				16BE1B4D1AE47F7500C57C46 /* CoreMedia.framework in Frameworks */,
 				16BE1B4B1AE47F6B00C57C46 /* ImageIO.framework in Frameworks */,

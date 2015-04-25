@@ -10,6 +10,8 @@
 	<string>DeveloperBuild</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>5546ED9D52371092F58FD39F35E7E4B85EDE4D7F</key>
+		<string>github.com:BillytheMagicToilet/final_project.git</string>
 		<key>646CEECC8BC6D4A1CAB150F58CC2B1194CA059F3</key>
 		<string>https://github.com/Aardevarken/LuminousMossBosses.git</string>
 	</dict>
@@ -17,6 +19,8 @@
 	<string>iOS/DeveloperBuild/DeveloperBuild.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>5546ED9D52371092F58FD39F35E7E4B85EDE4D7F</key>
+		<string>../../../../..</string>
 		<key>646CEECC8BC6D4A1CAB150F58CC2B1194CA059F3</key>
 		<string>../../../..</string>
 	</dict>
@@ -28,6 +32,14 @@
 	<string>646CEECC8BC6D4A1CAB150F58CC2B1194CA059F3</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5546ED9D52371092F58FD39F35E7E4B85EDE4D7F</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
