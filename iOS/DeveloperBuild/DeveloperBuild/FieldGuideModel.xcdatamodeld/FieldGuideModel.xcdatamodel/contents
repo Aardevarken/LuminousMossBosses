@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D131" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Flowershape" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picture_filename" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="species" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Species" inverseName="flowershape" inverseEntity="Species" syncable="YES"/>
+    </entity>
+    <entity name="Growthform" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="species" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Species" inverseName="growthform" inverseEntity="Species" syncable="YES"/>
+    </entity>
+    <entity name="Leafshapefilter" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picture_filename" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="species" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Species" inverseName="leafshapefilter" inverseEntity="Species" syncable="YES"/>
+    </entity>
+    <entity name="Species" syncable="YES">
+        <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="common_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="family" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="flower_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="flowershape_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="growthform_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="latin_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="leafshapefilter_id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="photocredit" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="flowershape" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Flowershape" inverseName="species" inverseEntity="Flowershape" syncable="YES"/>
+        <relationship name="growthform" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Growthform" inverseName="species" inverseEntity="Growthform" syncable="YES"/>
+        <relationship name="leafshapefilter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Leafshapefilter" inverseName="species" inverseEntity="Leafshapefilter" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Growthform" positionX="-2421" positionY="-153" width="128" height="88"/>
+        <element name="Flowershape" positionX="-2511" positionY="-288" width="128" height="103"/>
+        <element name="Leafshapefilter" positionX="-2369" positionY="-27" width="128" height="103"/>
+        <element name="Species" positionX="-2736" positionY="-225" width="128" height="238"/>
+    </elements>
+</model>
