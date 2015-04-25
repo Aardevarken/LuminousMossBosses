@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>BA0EBEC2-6EF6-49BE-80F7-FFE532CC3386</string>
 	<key>IDESourceControlProjectName</key>
-	<string>DeveloperBuild</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>646CEECC8BC6D4A1CAB150F58CC2B1194CA059F3</key>
 		<string>https://github.com/Aardevarken/LuminousMossBosses.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>iOS/DeveloperBuild/DeveloperBuild.xcodeproj</string>
+	<string>iOS/DeveloperBuild/Luminous ID.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>646CEECC8BC6D4A1CAB150F58CC2B1194CA059F3</key>

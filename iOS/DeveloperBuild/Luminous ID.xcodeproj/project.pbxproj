@@ -29,7 +29,6 @@
 		16B052B61A5B4BDE007837B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16B052B41A5B4BDE007837B4 /* Main.storyboard */; };
 		16B052B81A5B4BDE007837B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16B052B71A5B4BDE007837B4 /* Images.xcassets */; };
 		16B052BB1A5B4BDE007837B4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16B052B91A5B4BDE007837B4 /* LaunchScreen.xib */; };
-		16B052C71A5B4BDF007837B4 /* DeveloperBuildTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B052C61A5B4BDF007837B4 /* DeveloperBuildTests.m */; };
 		16B052D71A5B51AF007837B4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16B052D41A5B50C2007837B4 /* Foundation.framework */; };
 		16B052DC1A5B5327007837B4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16B052DB1A5B5327007837B4 /* UIKit.framework */; };
 		16B052DE1A5B5334007837B4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16B052DD1A5B5334007837B4 /* CoreGraphics.framework */; };
@@ -52,7 +51,8 @@
 		16F8F55A1AA7F522007FEEBE /* UserDataDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F8F5591AA7F522007FEEBE /* UserDataDatabase.m */; };
 		16F8F55C1AA80828007FEEBE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F8F55B1AA80828007FEEBE /* libsqlite3.dylib */; };
 		7968EC9B1AB91974000644E4 /* ServerAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7968EC9A1AB91974000644E4 /* ServerAPI.m */; };
-		7968EC9D1AB92F87000644E4 /* ServerAPITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7968EC9C1AB92F87000644E4 /* ServerAPITest.m */; };
+		7D0559781AEB7A72000479FC /* Luminous_ID_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0559771AEB7A72000479FC /* Luminous_ID_Tests.m */; };
+		7D05597F1AEB7AE4000479FC /* ServerAPITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D05597E1AEB7AE3000479FC /* ServerAPITest.m */; };
 		E6ED3AE21ADB7C5200099064 /* ic_notepad_copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3ADF1ADB7C5200099064 /* ic_notepad_copy.png */; };
 		E6ED3AE71ADB837800099064 /* ic_addobservation copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3AE41ADB837800099064 /* ic_addobservation copy.png */; };
 		E6ED3AE81ADB837800099064 /* ic_fieldguide copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3AE51ADB837800099064 /* ic_fieldguide copy.png */; };
@@ -75,6 +75,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 16B052A61A5B4BDE007837B4;
 			remoteInfo = DeveloperBuild;
+		};
+		7D0559791AEB7A72000479FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 16B0529F1A5B4BDE007837B4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 16B052A61A5B4BDE007837B4;
+			remoteInfo = "Luminous ID";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -108,7 +115,7 @@
 		16A6D84D1A637DEA00CB4563 /* ObservationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObservationCell.m; sourceTree = "<group>"; };
 		16A6D84F1A6386C600CB4563 /* ObsTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObsTableView.h; sourceTree = "<group>"; };
 		16A6D8501A6386C600CB4563 /* ObsTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObsTableView.m; sourceTree = "<group>"; };
-		16B052A71A5B4BDE007837B4 /* DeveloperBuild.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeveloperBuild.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		16B052A71A5B4BDE007837B4 /* Luminous ID.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Luminous ID.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B052AB1A5B4BDE007837B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		16B052AC1A5B4BDE007837B4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		16B052AE1A5B4BDE007837B4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -118,9 +125,7 @@
 		16B052B51A5B4BDE007837B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		16B052B71A5B4BDE007837B4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		16B052BA1A5B4BDE007837B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		16B052C01A5B4BDE007837B4 /* DeveloperBuildTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeveloperBuildTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		16B052C51A5B4BDF007837B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		16B052C61A5B4BDF007837B4 /* DeveloperBuildTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeveloperBuildTests.m; sourceTree = "<group>"; };
+		16B052C01A5B4BDE007837B4 /* Luminous IDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Luminous IDTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		16B052D41A5B50C2007837B4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		16B052DB1A5B5327007837B4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		16B052DD1A5B5334007837B4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -149,7 +154,10 @@
 		16F8F55B1AA80828007FEEBE /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		7968EC991AB91974000644E4 /* ServerAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerAPI.h; sourceTree = "<group>"; };
 		7968EC9A1AB91974000644E4 /* ServerAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerAPI.m; sourceTree = "<group>"; };
-		7968EC9C1AB92F87000644E4 /* ServerAPITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerAPITest.m; path = ../DeveloperBuild/ServerAPITest.m; sourceTree = "<group>"; };
+		7D0559731AEB7A72000479FC /* Luminous ID Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Luminous ID Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D0559761AEB7A72000479FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D0559771AEB7A72000479FC /* Luminous_ID_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Luminous_ID_Tests.m; sourceTree = "<group>"; };
+		7D05597E1AEB7AE3000479FC /* ServerAPITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerAPITest.m; sourceTree = "<group>"; };
 		E6ED3ADF1ADB7C5200099064 /* ic_notepad_copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_notepad_copy.png; sourceTree = "<group>"; };
 		E6ED3AE41ADB837800099064 /* ic_addobservation copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_addobservation copy.png"; sourceTree = "<group>"; };
 		E6ED3AE51ADB837800099064 /* ic_fieldguide copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_fieldguide copy.png"; sourceTree = "<group>"; };
@@ -193,6 +201,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7D0559701AEB7A72000479FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -214,7 +229,7 @@
 			children = (
 				F0D4ED1A1AA5996A008CBAD4 /* Algorithms */,
 				16B052A91A5B4BDE007837B4 /* DeveloperBuild */,
-				16B052C31A5B4BDF007837B4 /* DeveloperBuildTests */,
+				7D0559741AEB7A72000479FC /* Luminous ID Tests */,
 				16B052A81A5B4BDE007837B4 /* Products */,
 				16CCBC3D1A773D87008B7E96 /* Flower Images */,
 				16CCBC421A773E06008B7E96 /* XML Files */,
@@ -226,8 +241,9 @@
 		16B052A81A5B4BDE007837B4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				16B052A71A5B4BDE007837B4 /* DeveloperBuild.app */,
-				16B052C01A5B4BDE007837B4 /* DeveloperBuildTests.xctest */,
+				16B052A71A5B4BDE007837B4 /* Luminous ID.app */,
+				16B052C01A5B4BDE007837B4 /* Luminous IDTests.xctest */,
+				7D0559731AEB7A72000479FC /* Luminous ID Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -293,24 +309,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		16B052C31A5B4BDF007837B4 /* DeveloperBuildTests */ = {
-			isa = PBXGroup;
-			children = (
-				7968EC9C1AB92F87000644E4 /* ServerAPITest.m */,
-				16B052C61A5B4BDF007837B4 /* DeveloperBuildTests.m */,
-				16B052C41A5B4BDF007837B4 /* Supporting Files */,
-			);
-			path = DeveloperBuildTests;
-			sourceTree = "<group>";
-		};
-		16B052C41A5B4BDF007837B4 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				16B052C51A5B4BDF007837B4 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		16B052DF1A5B53D4007837B4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -354,6 +352,24 @@
 			name = "XML Files";
 			sourceTree = "<group>";
 		};
+		7D0559741AEB7A72000479FC /* Luminous ID Tests */ = {
+			isa = PBXGroup;
+			children = (
+				7D05597E1AEB7AE3000479FC /* ServerAPITest.m */,
+				7D0559771AEB7A72000479FC /* Luminous_ID_Tests.m */,
+				7D0559751AEB7A72000479FC /* Supporting Files */,
+			);
+			path = "Luminous ID Tests";
+			sourceTree = "<group>";
+		};
+		7D0559751AEB7A72000479FC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7D0559761AEB7A72000479FC /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		E6FDFD361AE718A600E88C6B /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -378,9 +394,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		16B052A61A5B4BDE007837B4 /* DeveloperBuild */ = {
+		16B052A61A5B4BDE007837B4 /* Luminous ID */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 16B052CA1A5B4BDF007837B4 /* Build configuration list for PBXNativeTarget "DeveloperBuild" */;
+			buildConfigurationList = 16B052CA1A5B4BDF007837B4 /* Build configuration list for PBXNativeTarget "Luminous ID" */;
 			buildPhases = (
 				16B052A31A5B4BDE007837B4 /* Sources */,
 				16B052A41A5B4BDE007837B4 /* Frameworks */,
@@ -390,14 +406,14 @@
 			);
 			dependencies = (
 			);
-			name = DeveloperBuild;
+			name = "Luminous ID";
 			productName = DeveloperBuild;
-			productReference = 16B052A71A5B4BDE007837B4 /* DeveloperBuild.app */;
+			productReference = 16B052A71A5B4BDE007837B4 /* Luminous ID.app */;
 			productType = "com.apple.product-type.application";
 		};
-		16B052BF1A5B4BDE007837B4 /* DeveloperBuildTests */ = {
+		16B052BF1A5B4BDE007837B4 /* Luminous IDTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 16B052CD1A5B4BDF007837B4 /* Build configuration list for PBXNativeTarget "DeveloperBuildTests" */;
+			buildConfigurationList = 16B052CD1A5B4BDF007837B4 /* Build configuration list for PBXNativeTarget "Luminous IDTests" */;
 			buildPhases = (
 				16B052BC1A5B4BDE007837B4 /* Sources */,
 				16B052BD1A5B4BDE007837B4 /* Frameworks */,
@@ -408,9 +424,27 @@
 			dependencies = (
 				16B052C21A5B4BDE007837B4 /* PBXTargetDependency */,
 			);
-			name = DeveloperBuildTests;
+			name = "Luminous IDTests";
 			productName = DeveloperBuildTests;
-			productReference = 16B052C01A5B4BDE007837B4 /* DeveloperBuildTests.xctest */;
+			productReference = 16B052C01A5B4BDE007837B4 /* Luminous IDTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		7D0559721AEB7A72000479FC /* Luminous ID Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7D05597B1AEB7A72000479FC /* Build configuration list for PBXNativeTarget "Luminous ID Tests" */;
+			buildPhases = (
+				7D05596F1AEB7A72000479FC /* Sources */,
+				7D0559701AEB7A72000479FC /* Frameworks */,
+				7D0559711AEB7A72000479FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7D05597A1AEB7A72000479FC /* PBXTargetDependency */,
+			);
+			name = "Luminous ID Tests";
+			productName = "Luminous ID Tests";
+			productReference = 7D0559731AEB7A72000479FC /* Luminous ID Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -424,15 +458,19 @@
 				TargetAttributes = {
 					16B052A61A5B4BDE007837B4 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = XZG8RJMGFK;
+						DevelopmentTeam = SH2399R5U2;
 					};
 					16B052BF1A5B4BDE007837B4 = {
 						CreatedOnToolsVersion = 6.1;
 						TestTargetID = 16B052A61A5B4BDE007837B4;
 					};
+					7D0559721AEB7A72000479FC = {
+						CreatedOnToolsVersion = 6.3;
+						TestTargetID = 16B052A61A5B4BDE007837B4;
+					};
 				};
 			};
-			buildConfigurationList = 16B052A21A5B4BDE007837B4 /* Build configuration list for PBXProject "DeveloperBuild" */;
+			buildConfigurationList = 16B052A21A5B4BDE007837B4 /* Build configuration list for PBXProject "Luminous ID" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -445,8 +483,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				16B052A61A5B4BDE007837B4 /* DeveloperBuild */,
-				16B052BF1A5B4BDE007837B4 /* DeveloperBuildTests */,
+				16B052A61A5B4BDE007837B4 /* Luminous ID */,
+				16B052BF1A5B4BDE007837B4 /* Luminous IDTests */,
+				7D0559721AEB7A72000479FC /* Luminous ID Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -481,6 +520,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		16B052BE1A5B4BDE007837B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7D0559711AEB7A72000479FC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -525,8 +571,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				16B052C71A5B4BDF007837B4 /* DeveloperBuildTests.m in Sources */,
-				7968EC9D1AB92F87000644E4 /* ServerAPITest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7D05596F1AEB7A72000479FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D0559781AEB7A72000479FC /* Luminous_ID_Tests.m in Sources */,
+				7D05597F1AEB7AE4000479FC /* ServerAPITest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,8 +588,13 @@
 /* Begin PBXTargetDependency section */
 		16B052C21A5B4BDE007837B4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 16B052A61A5B4BDE007837B4 /* DeveloperBuild */;
+			target = 16B052A61A5B4BDE007837B4 /* Luminous ID */;
 			targetProxy = 16B052C11A5B4BDE007837B4 /* PBXContainerItemProxy */;
+		};
+		7D05597A1AEB7A72000479FC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 16B052A61A5B4BDE007837B4 /* Luminous ID */;
+			targetProxy = 7D0559791AEB7A72000479FC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -654,7 +712,7 @@
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "FORIPHONE=1";
 				INFOPLIST_FILE = DeveloperBuild/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Luminous ID";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -677,7 +735,7 @@
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "FORIPHONE=1";
 				INFOPLIST_FILE = DeveloperBuild/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Luminous ID";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -696,7 +754,7 @@
 				);
 				INFOPLIST_FILE = DeveloperBuildTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Luminous IDTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DeveloperBuild.app/DeveloperBuild";
 			};
 			name = Debug;
@@ -711,15 +769,56 @@
 				);
 				INFOPLIST_FILE = DeveloperBuildTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Luminous IDTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DeveloperBuild.app/DeveloperBuild";
+			};
+			name = Release;
+		};
+		7D05597C1AEB7A72000479FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Luminous ID Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Luminous ID.app/Luminous ID";
+			};
+			name = Debug;
+		};
+		7D05597D1AEB7A72000479FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Luminous ID Tests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Luminous ID.app/Luminous ID";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		16B052A21A5B4BDE007837B4 /* Build configuration list for PBXProject "DeveloperBuild" */ = {
+		16B052A21A5B4BDE007837B4 /* Build configuration list for PBXProject "Luminous ID" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				16B052C81A5B4BDF007837B4 /* Debug */,
@@ -728,7 +827,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		16B052CA1A5B4BDF007837B4 /* Build configuration list for PBXNativeTarget "DeveloperBuild" */ = {
+		16B052CA1A5B4BDF007837B4 /* Build configuration list for PBXNativeTarget "Luminous ID" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				16B052CB1A5B4BDF007837B4 /* Debug */,
@@ -737,7 +836,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		16B052CD1A5B4BDF007837B4 /* Build configuration list for PBXNativeTarget "DeveloperBuildTests" */ = {
+		16B052CD1A5B4BDF007837B4 /* Build configuration list for PBXNativeTarget "Luminous IDTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				16B052CE1A5B4BDF007837B4 /* Debug */,
@@ -745,6 +844,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		7D05597B1AEB7A72000479FC /* Build configuration list for PBXNativeTarget "Luminous ID Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D05597C1AEB7A72000479FC /* Debug */,
+				7D05597D1AEB7A72000479FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
