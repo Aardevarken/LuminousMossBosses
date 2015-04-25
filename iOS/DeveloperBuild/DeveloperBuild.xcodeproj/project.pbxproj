@@ -21,6 +21,9 @@
 		163623B81AEB7C4C00A50CA3 /* FieldGuideParser.pyc in Resources */ = {isa = PBXBuildFile; fileRef = 163623B21AEB7C4C00A50CA3 /* FieldGuideParser.pyc */; };
 		163623B91AEB7C4C00A50CA3 /* Forbs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 163623B31AEB7C4C00A50CA3 /* Forbs.csv */; };
 		163623BA1AEB7C4C00A50CA3 /* GlossaryTerms.csv in Resources */ = {isa = PBXBuildFile; fileRef = 163623B41AEB7C4C00A50CA3 /* GlossaryTerms.csv */; };
+		163623BE1AEC2D6300A50CA3 /* FieldGuideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623BD1AEC2D6300A50CA3 /* FieldGuideManager.m */; };
+		163623C11AEC373C00A50CA3 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623C01AEC373C00A50CA3 /* DBManager.m */; };
+		163623C71AEC563D00A50CA3 /* FieldGuidCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623C61AEC563D00A50CA3 /* FieldGuidCell.m */; };
 		1642DE501ADC9A84002FB11C /* homeBtnIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */; };
 		1642DE531ADCA085002FB11C /* MyObsTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1642DE521ADCA085002FB11C /* MyObsTabBarController.m */; };
 		165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 165B6A201AA3F5C4004FE7CB /* nocamera.png */; };
@@ -109,6 +112,12 @@
 		163623B21AEB7C4C00A50CA3 /* FieldGuideParser.pyc */ = {isa = PBXFileReference; lastKnownFileType = file; path = FieldGuideParser.pyc; sourceTree = "<group>"; };
 		163623B31AEB7C4C00A50CA3 /* Forbs.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Forbs.csv; sourceTree = "<group>"; };
 		163623B41AEB7C4C00A50CA3 /* GlossaryTerms.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GlossaryTerms.csv; sourceTree = "<group>"; };
+		163623BC1AEC2D6300A50CA3 /* FieldGuideManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldGuideManager.h; sourceTree = "<group>"; };
+		163623BD1AEC2D6300A50CA3 /* FieldGuideManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldGuideManager.m; sourceTree = "<group>"; };
+		163623BF1AEC373C00A50CA3 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		163623C01AEC373C00A50CA3 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
+		163623C51AEC563D00A50CA3 /* FieldGuidCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FieldGuidCell.h; path = ../FieldGuidCell.h; sourceTree = "<group>"; };
+		163623C61AEC563D00A50CA3 /* FieldGuidCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FieldGuidCell.m; path = ../FieldGuidCell.m; sourceTree = "<group>"; };
 		1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = homeBtnIcon.png; path = DeveloperBuild/homeBtnIcon.png; sourceTree = "<group>"; };
 		1642DE511ADCA085002FB11C /* MyObsTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyObsTabBarController.h; sourceTree = "<group>"; };
 		1642DE521ADCA085002FB11C /* MyObsTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyObsTabBarController.m; sourceTree = "<group>"; };
@@ -286,6 +295,10 @@
 				165C45FD1AB54EE8006ECDDC /* detectionHelper.mm */,
 				16F8F5581AA7F522007FEEBE /* UserDataDatabase.h */,
 				16F8F5591AA7F522007FEEBE /* UserDataDatabase.m */,
+				163623BC1AEC2D6300A50CA3 /* FieldGuideManager.h */,
+				163623BD1AEC2D6300A50CA3 /* FieldGuideManager.m */,
+				163623BF1AEC373C00A50CA3 /* DBManager.h */,
+				163623C01AEC373C00A50CA3 /* DBManager.m */,
 				162FAD821ADDA83100F811CD /* MyObservationData.h */,
 				162FAD831ADDA83100F811CD /* MyObservationData.m */,
 				16F8F5551AA7EA40007FEEBE /* UserData.h */,
@@ -306,6 +319,8 @@
 				16B052AF1A5B4BDE007837B4 /* AppDelegate.m */,
 				1642DE511ADCA085002FB11C /* MyObsTabBarController.h */,
 				1642DE521ADCA085002FB11C /* MyObsTabBarController.m */,
+				163623C51AEC563D00A50CA3 /* FieldGuidCell.h */,
+				163623C61AEC563D00A50CA3 /* FieldGuidCell.m */,
 				160D23F21A635C3F00F7B916 /* ObservationCell.h */,
 				16A6D84D1A637DEA00CB4563 /* ObservationCell.m */,
 				1617BB781AE467CE00709D50 /* CaptureSessionManager.h */,
@@ -558,8 +573,11 @@
 				16008CCC1AB62C5200672891 /* detectionHelper.mm in Sources */,
 				16A6D84E1A637DEA00CB4563 /* ObservationCell.m in Sources */,
 				16F8F5571AA7EA40007FEEBE /* UserData.m in Sources */,
+				163623C71AEC563D00A50CA3 /* FieldGuidCell.m in Sources */,
 				16A6D84C1A63765C00CB4563 /* Observation.m in Sources */,
 				16F8F55A1AA7F522007FEEBE /* UserDataDatabase.m in Sources */,
+				163623BE1AEC2D6300A50CA3 /* FieldGuideManager.m in Sources */,
+				163623C11AEC373C00A50CA3 /* DBManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

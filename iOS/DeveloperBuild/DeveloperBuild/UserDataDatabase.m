@@ -41,34 +41,7 @@ static NSDictionary* typeMap = nil;
 	return sharedInstance;
 }
 
--(BOOL) createDB {
-    // Create missing tables.
-    NSString* createTables = @"CREATE TABLE IF NOT EXISTS observations ("
-        @"imghexid text not null primary key,"
-        @"datetime text not null,"
-        @"latitude double not null,"
-        @"longitude double not null,"
-        @"locationerror double,"
-        @"status text not null default 'pending-noid',"
-        @"percentIDed double"
-    @");";
-    typeMap = @{
-        @"imghexid" : @"string", // These strings decide if NSString or NSNumber should be used later.
-        @"datetime" : @"string",
-        @"latitude" : @"double",
-        @"longitude" : @"double",
-        @"locationerror" : @"double",
-        @"status" : @"string",
-        @"percentIDed" : @"double"
-    };
-    
-    // Uncomment this line the first time you run code with a new database schema.
-	//[self runBoolQuery:@"DROP TABLE IF EXISTS observations;"];
-    
-    return [self runBoolQuery:createTables];
-}
-
-
+#pragma mark - sqlite helper methods
 /**
  * Returns an open database if successful or nil if not.
  */
@@ -136,6 +109,86 @@ static NSDictionary* typeMap = nil;
 }
 
 
+/**
+ * Runs a query that returns a table, table will be given back as an NSArray of NSDictionaries, with keys being the string
+ * column names of the query. Returns nil on error, reserving an empty array for successful queries with no results.
+ */
+-(NSArray*) runTableQuery:(NSString*) query {
+	// Open DB
+	sqlite3* database = [self openDB];
+	if (database == nil) {
+		return nil;
+	}
+	
+	// Build Statement
+	sqlite3_stmt *statement = nil;
+	sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
+	
+	// Convert result table into an array of dictionaries.
+	NSMutableArray* results = [[NSMutableArray alloc] init];
+	int queryStatus;
+	for(queryStatus = sqlite3_step(statement); queryStatus == SQLITE_ROW; queryStatus = sqlite3_step(statement)) {
+		NSMutableDictionary* dictionary = [[NSMutableDictionary alloc] init];
+		
+		// Iterate through columns and insert name->value pairs based on typing of the column.
+		int count = sqlite3_column_count(statement);
+		for (int i=0; i < count; i++) {
+			NSString* name = [NSString stringWithUTF8String:sqlite3_column_name(statement, i)];
+			NSObject* value = nil;
+			NSString* typeName = [typeMap valueForKey:name];
+			if ([typeName isEqual: @"string"]) {
+				value = [[NSString alloc] initWithUTF8String:(const char*) sqlite3_column_text(statement, i)];
+			} else if ([typeName isEqual:@"double"]) {
+				value = [NSNumber numberWithDouble:sqlite3_column_double(statement, i)];
+			}
+			[dictionary setObject:value forKey:name];
+		}
+		// Add to results array.
+		[results addObject:(NSDictionary*) dictionary];
+	}
+	
+	// Get status and close DB.
+	sqlite3_finalize(statement);
+	
+	// Return results if all is good.
+	if (queryStatus == SQLITE_DONE) {
+		[self closeDB: database];
+		return results;
+	} else {
+		NSLog(@"Table Query Failed: %s", sqlite3_errmsg(database));
+		[self closeDB: database];
+		return nil;
+	}
+}
+
+#pragma mark - observation data management
+-(BOOL) createDB {
+	// Create missing tables.
+	NSString* createTables = @"CREATE TABLE IF NOT EXISTS observations ("
+	@"imghexid text not null primary key,"
+	@"datetime text not null,"
+	@"latitude double not null,"
+	@"longitude double not null,"
+	@"locationerror double,"
+	@"status text not null default 'pending-noid',"
+	@"percentIDed double"
+	@");";
+	typeMap = @{
+				@"imghexid" : @"string", // These strings decide if NSString or NSNumber should be used later.
+				@"datetime" : @"string",
+				@"latitude" : @"double",
+				@"longitude" : @"double",
+				@"locationerror" : @"double",
+				@"status" : @"string",
+				@"percentIDed" : @"double"
+    };
+	
+	// Uncomment this line the first time you run code with a new database schema.
+	//[self runBoolQuery:@"DROP TABLE IF EXISTS observations;"];
+	
+	return [self runBoolQuery:createTables];
+}
+
 -(BOOL) saveObservation:(NSString*) imghexid date:(NSString*)date latitude:(NSNumber*)latitude longitude:(NSNumber*)longitude locationError:(NSNumber*) locationError percentIDed:(NSNumber*)percentIDed {
 	
 	//#warning Change latitude and longitude to floats/doubles to reduce the amount of conversion for NSNumber?
@@ -176,60 +229,6 @@ static NSDictionary* typeMap = nil;
 		return nil;
 	}
 }
-
-
-/**
- * Runs a query that returns a table, table will be given back as an NSArray of NSDictionaries, with keys being the string
- * column names of the query. Returns nil on error, reserving an empty array for successful queries with no results.
- */
--(NSArray*) runTableQuery:(NSString*) query {
-    // Open DB
-    sqlite3* database = [self openDB];
-    if (database == nil) {
-        return nil;
-    }
-    
-    // Build Statement
-    sqlite3_stmt *statement = nil;
-    sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, NULL);
-    
-    // Convert result table into an array of dictionaries.
-    NSMutableArray* results = [[NSMutableArray alloc] init];
-    int queryStatus;
-    for(queryStatus = sqlite3_step(statement); queryStatus == SQLITE_ROW; queryStatus = sqlite3_step(statement)) {
-        NSMutableDictionary* dictionary = [[NSMutableDictionary alloc] init];
-        
-        // Iterate through columns and insert name->value pairs based on typing of the column.
-        int count = sqlite3_column_count(statement);
-        for (int i=0; i < count; i++) {
-            NSString* name = [NSString stringWithUTF8String:sqlite3_column_name(statement, i)];
-            NSObject* value = nil;
-            NSString* typeName = [typeMap valueForKey:name];
-            if ([typeName isEqual: @"string"]) {
-                value = [[NSString alloc] initWithUTF8String:(const char*) sqlite3_column_text(statement, i)];
-            } else if ([typeName isEqual:@"double"]) {
-                value = [NSNumber numberWithDouble:sqlite3_column_double(statement, i)];
-            }
-            [dictionary setObject:value forKey:name];
-        }
-        // Add to results array.
-        [results addObject:(NSDictionary*) dictionary];
-    }
-    
-    // Get status and close DB.
-    sqlite3_finalize(statement);
-    
-    // Return results if all is good.
-    if (queryStatus == SQLITE_DONE) {
-        [self closeDB: database];
-        return results;
-    } else {
-        NSLog(@"Table Query Failed: %s", sqlite3_errmsg(database));
-        [self closeDB: database];
-        return nil;
-    }
-}
-
 
 /**
  * This function will take in a sqlite statement and return the results in an array of ditionaries, or nil on error.
@@ -296,6 +295,12 @@ static NSDictionary* typeMap = nil;
 	return YES;
 }
 
+#pragma mark - GPS Methods
+/******************************************************************************\
+|*	The following methods are used my the UserDataDatabase to collect GPS data
+|*
+|*
+\******************************************************************************/
 -(void) startLocationTracking
 {
 	// Create the manager object
@@ -427,7 +432,6 @@ static NSDictionary* typeMap = nil;
 			
 		}
 	}
-	
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
