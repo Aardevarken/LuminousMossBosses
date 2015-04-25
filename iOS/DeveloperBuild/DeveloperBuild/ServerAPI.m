@@ -20,7 +20,8 @@
         UDID = [UIDevice currentDevice].identifierForVendor.UUIDString;
     }else{
         // Use UDID, IOS<5
-        UDID = [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+        //UDID = [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+        UDID = @"oldphone-noid";
     }
     
     // Start creating request.

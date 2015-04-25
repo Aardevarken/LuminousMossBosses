@@ -53,11 +53,14 @@
 		7968EC9B1AB91974000644E4 /* ServerAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7968EC9A1AB91974000644E4 /* ServerAPI.m */; };
 		7D0559781AEB7A72000479FC /* Luminous_ID_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0559771AEB7A72000479FC /* Luminous_ID_Tests.m */; };
 		7D05597F1AEB7AE4000479FC /* ServerAPITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D05597E1AEB7AE3000479FC /* ServerAPITest.m */; };
+		E6BAA8E51AEB4496007A8F34 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D848131A7768250043BEDD /* opencv2.framework */; };
+		E6BAA8E71AEB4897007A8F34 /* Luminous-ID.png in Resources */ = {isa = PBXBuildFile; fileRef = E6BAA8E61AEB4897007A8F34 /* Luminous-ID.png */; };
+		E6BAA8E91AEB4B0E007A8F34 /* CompSciRev.png in Resources */ = {isa = PBXBuildFile; fileRef = E6BAA8E81AEB4B0E007A8F34 /* CompSciRev.png */; };
+		E6BAA8EB1AEB4CAE007A8F34 /* app_icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = E6BAA8EA1AEB4CAE007A8F34 /* app_icon2.png */; };
 		E6ED3AE21ADB7C5200099064 /* ic_notepad_copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3ADF1ADB7C5200099064 /* ic_notepad_copy.png */; };
 		E6ED3AE71ADB837800099064 /* ic_addobservation copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3AE41ADB837800099064 /* ic_addobservation copy.png */; };
 		E6ED3AE81ADB837800099064 /* ic_fieldguide copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3AE51ADB837800099064 /* ic_fieldguide copy.png */; };
 		E6ED3AE91ADB837800099064 /* ic_settings copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3AE61ADB837800099064 /* ic_settings copy.png */; };
-		E6FDFD351AE7170A00E88C6B /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D848131A7768250043BEDD /* opencv2.framework */; };
 		E6FDFD381AE718B500E88C6B /* Lobster_1.4.otf in Resources */ = {isa = PBXBuildFile; fileRef = E6FDFD371AE718B500E88C6B /* Lobster_1.4.otf */; };
 		F0395FE61A9835F700EE1BF9 /* detector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE51A9835F700EE1BF9 /* detector.cpp */; };
 		F0395FEA1A98365500EE1BF9 /* identified.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE91A98365500EE1BF9 /* identified.cpp */; };
@@ -158,6 +161,9 @@
 		7D0559761AEB7A72000479FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D0559771AEB7A72000479FC /* Luminous_ID_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Luminous_ID_Tests.m; sourceTree = "<group>"; };
 		7D05597E1AEB7AE3000479FC /* ServerAPITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerAPITest.m; sourceTree = "<group>"; };
+		E6BAA8E61AEB4897007A8F34 /* Luminous-ID.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Luminous-ID.png"; sourceTree = "<group>"; };
+		E6BAA8E81AEB4B0E007A8F34 /* CompSciRev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CompSciRev.png; sourceTree = "<group>"; };
+		E6BAA8EA1AEB4CAE007A8F34 /* app_icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_icon2.png; sourceTree = "<group>"; };
 		E6ED3ADF1ADB7C5200099064 /* ic_notepad_copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_notepad_copy.png; sourceTree = "<group>"; };
 		E6ED3AE41ADB837800099064 /* ic_addobservation copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_addobservation copy.png"; sourceTree = "<group>"; };
 		E6ED3AE51ADB837800099064 /* ic_fieldguide copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_fieldguide copy.png"; sourceTree = "<group>"; };
@@ -179,7 +185,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6FDFD351AE7170A00E88C6B /* opencv2.framework in Frameworks */,
+				E6BAA8E51AEB4496007A8F34 /* opencv2.framework in Frameworks */,
 				16BE1B4F1AE47F8000C57C46 /* CoreVideo.framework in Frameworks */,
 				16BE1B4D1AE47F7500C57C46 /* CoreMedia.framework in Frameworks */,
 				16BE1B4B1AE47F6B00C57C46 /* ImageIO.framework in Frameworks */,
@@ -214,6 +220,9 @@
 		165B6A1F1AA3F585004FE7CB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E6BAA8EA1AEB4CAE007A8F34 /* app_icon2.png */,
+				E6BAA8E81AEB4B0E007A8F34 /* CompSciRev.png */,
+				E6BAA8E61AEB4897007A8F34 /* Luminous-ID.png */,
 				1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */,
 				E6ED3AE41ADB837800099064 /* ic_addobservation copy.png */,
 				E6ED3AE51ADB837800099064 /* ic_fieldguide copy.png */,
@@ -499,6 +508,7 @@
 				F0D4ED1E1AA59AA8008CBAD4 /* img_helper.h in Resources */,
 				F0D4ED1C1AA59A93008CBAD4 /* img_helper.cpp in Resources */,
 				F0D4ED191AA59926008CBAD4 /* vocabulary.xml in Resources */,
+				E6BAA8E71AEB4897007A8F34 /* Luminous-ID.png in Resources */,
 				F0D4ED171AA59917008CBAD4 /* silene.xml in Resources */,
 				16CCBC3C1A773D71008B7E96 /* minuartia1.jpg in Resources */,
 				E6ED3AE81ADB837800099064 /* ic_fieldguide copy.png in Resources */,
@@ -506,12 +516,14 @@
 				1642DE501ADC9A84002FB11C /* homeBtnIcon.png in Resources */,
 				16CCBC401A773E00008B7E96 /* flower25.xml in Resources */,
 				16B052B61A5B4BDE007837B4 /* Main.storyboard in Resources */,
+				E6BAA8E91AEB4B0E007A8F34 /* CompSciRev.png in Resources */,
 				16CCBC3B1A773D71008B7E96 /* IMG_2278.JPG in Resources */,
 				16CCBC391A773D71008B7E96 /* IMG_1997.jpg in Resources */,
 				E6ED3AE21ADB7C5200099064 /* ic_notepad_copy.png in Resources */,
 				16B052BB1A5B4BDE007837B4 /* LaunchScreen.xib in Resources */,
 				165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */,
 				16CCBC411A773E00008B7E96 /* flower30.xml in Resources */,
+				E6BAA8EB1AEB4CAE007A8F34 /* app_icon2.png in Resources */,
 				E6FDFD381AE718B500E88C6B /* Lobster_1.4.otf in Resources */,
 				16CCBC381A773D71008B7E96 /* IMG_1976.jpg in Resources */,
 				E6ED3AE71ADB837800099064 /* ic_addobservation copy.png in Resources */,
