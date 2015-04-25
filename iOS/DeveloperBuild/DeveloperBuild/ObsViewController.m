@@ -489,7 +489,7 @@ NSMutableArray *_myObservations;
 						 
 						 // change status of observation in the database
 						 //sleep(0.8);
-						 [[UserDataDatabase getSharedInstance] updateObservation:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced"];
+                         [[UserDataDatabase getSharedInstance] updateObservation:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced" isSilene:nil];
 						 
 						 // update and remove synced rows.
 						 dispatch_async(dispatch_get_main_queue(), ^{

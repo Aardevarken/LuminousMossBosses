@@ -50,16 +50,18 @@ static NSDictionary* typeMap = nil;
         @"longitude double not null,"
         @"locationerror double,"
         @"status text not null default 'pending-noid',"
-        @"percentIDed double"
+        @"percentIDed double,"
+        @"isSilene text not null default 'idk'"
     @");";
     typeMap = @{
-        @"imghexid" : @"string", // These strings decide if NSString or NSNumber should be used later.
+        @"imghexid" : @"string", // These strings decide if NSString or NSNumber or NSBoolean should be used later.
         @"datetime" : @"string",
         @"latitude" : @"double",
         @"longitude" : @"double",
         @"locationerror" : @"double",
         @"status" : @"string",
-        @"percentIDed" : @"double"
+        @"percentIDed" : @"double",
+        @"isSilene" : @"string"
     };
     
     // Uncomment this line the first time you run code with a new database schema.
@@ -151,10 +153,13 @@ static NSDictionary* typeMap = nil;
     return [self runBoolQuery:insertSQL];
 }
 
--(BOOL) updateObservation:(NSString *)imghexid andNewPercentIDed:(NSNumber *)percentIDed andNewStatus:(NSString *)status
+-(BOOL) updateObservation:(NSString *)imghexid andNewPercentIDed:(NSNumber *)percentIDed andNewStatus:(NSString *)status isSilene:(NSString*) isSilene
 {
-
-    NSString *query = [NSString stringWithFormat:@"UPDATE observations SET status='%@', percentIDed='%@' WHERE imghexid='%@';", status, percentIDed, imghexid];
+    NSString* isSileneString = @"";
+    if (isSilene != nil) {
+        isSileneString = [NSString stringWithFormat:@", isSilene='%@'", isSilene];
+    }
+    NSString *query = [NSString stringWithFormat:@"UPDATE observations SET status='%@', percentIDed='%@'%@ WHERE imghexid='%@';", status, percentIDed, isSileneString, imghexid];
     return [self runBoolQuery:query];
 }
 

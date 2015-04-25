@@ -96,10 +96,10 @@
 	// stage 4 //
 	
 	
-	[self lastCallIn:0];
+    [self lastCallIn:0];
 }
 
-- (void)lastCallIn:(int)sleepFor{
+- (void)lastCallIn:(int)sleepFor {
 	
 	/****
 	ALog(@"Resuming in %d...", sleepFor);
@@ -123,8 +123,14 @@
 	// NSString *oldState = @"pending-noid";
     
     // update row variables
+    NSString* isSileneString;
+    if (self.positiveID) {
+        isSileneString = @"yes";
+    } else {
+        isSileneString = @"no";
+    }
 	BOOL success = [[UserDataDatabase getSharedInstance]
-                    updateObservation:[self assetID] andNewPercentIDed:NSnewprob andNewStatus:newState];
+                    updateObservation:[self assetID] andNewPercentIDed:NSnewprob andNewStatus:newState isSilene: isSileneString];
     
     // Did it all work? Inform the UI
     if (success) {
