@@ -15,6 +15,12 @@
 		161F47651A8ED7B300E67313 /* NewObs.m in Sources */ = {isa = PBXBuildFile; fileRef = 161F47641A8ED7B300E67313 /* NewObs.m */; };
 		1627A1271AB430D4009BD6EF /* ObsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1627A1261AB430D3009BD6EF /* ObsDetailViewController.m */; };
 		162FAD841ADDA83100F811CD /* MyObservationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 162FAD831ADDA83100F811CD /* MyObservationData.m */; };
+		163623B51AEB7C4C00A50CA3 /* field_guide_schema.py in Resources */ = {isa = PBXBuildFile; fileRef = 163623AF1AEB7C4C00A50CA3 /* field_guide_schema.py */; };
+		163623B61AEB7C4C00A50CA3 /* FieldGuide.db in Resources */ = {isa = PBXBuildFile; fileRef = 163623B01AEB7C4C00A50CA3 /* FieldGuide.db */; };
+		163623B71AEB7C4C00A50CA3 /* FieldGuideParser.py in Resources */ = {isa = PBXBuildFile; fileRef = 163623B11AEB7C4C00A50CA3 /* FieldGuideParser.py */; };
+		163623B81AEB7C4C00A50CA3 /* FieldGuideParser.pyc in Resources */ = {isa = PBXBuildFile; fileRef = 163623B21AEB7C4C00A50CA3 /* FieldGuideParser.pyc */; };
+		163623B91AEB7C4C00A50CA3 /* Forbs.csv in Resources */ = {isa = PBXBuildFile; fileRef = 163623B31AEB7C4C00A50CA3 /* Forbs.csv */; };
+		163623BA1AEB7C4C00A50CA3 /* GlossaryTerms.csv in Resources */ = {isa = PBXBuildFile; fileRef = 163623B41AEB7C4C00A50CA3 /* GlossaryTerms.csv */; };
 		1642DE501ADC9A84002FB11C /* homeBtnIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */; };
 		1642DE531ADCA085002FB11C /* MyObsTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1642DE521ADCA085002FB11C /* MyObsTabBarController.m */; };
 		165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 165B6A201AA3F5C4004FE7CB /* nocamera.png */; };
@@ -97,6 +103,12 @@
 		162FAD821ADDA83100F811CD /* MyObservationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyObservationData.h; sourceTree = "<group>"; };
 		162FAD831ADDA83100F811CD /* MyObservationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyObservationData.m; sourceTree = "<group>"; };
 		163623931AEB2B4300A50CA3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		163623AF1AEB7C4C00A50CA3 /* field_guide_schema.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = field_guide_schema.py; sourceTree = "<group>"; };
+		163623B01AEB7C4C00A50CA3 /* FieldGuide.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = FieldGuide.db; sourceTree = "<group>"; };
+		163623B11AEB7C4C00A50CA3 /* FieldGuideParser.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = FieldGuideParser.py; sourceTree = "<group>"; };
+		163623B21AEB7C4C00A50CA3 /* FieldGuideParser.pyc */ = {isa = PBXFileReference; lastKnownFileType = file; path = FieldGuideParser.pyc; sourceTree = "<group>"; };
+		163623B31AEB7C4C00A50CA3 /* Forbs.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Forbs.csv; sourceTree = "<group>"; };
+		163623B41AEB7C4C00A50CA3 /* GlossaryTerms.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GlossaryTerms.csv; sourceTree = "<group>"; };
 		1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = homeBtnIcon.png; path = DeveloperBuild/homeBtnIcon.png; sourceTree = "<group>"; };
 		1642DE511ADCA085002FB11C /* MyObsTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyObsTabBarController.h; sourceTree = "<group>"; };
 		1642DE521ADCA085002FB11C /* MyObsTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyObsTabBarController.m; sourceTree = "<group>"; };
@@ -216,6 +228,19 @@
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
+		163623BB1AEB7C6200A50CA3 /* Field Guide */ = {
+			isa = PBXGroup;
+			children = (
+				163623AF1AEB7C4C00A50CA3 /* field_guide_schema.py */,
+				163623B01AEB7C4C00A50CA3 /* FieldGuide.db */,
+				163623B11AEB7C4C00A50CA3 /* FieldGuideParser.py */,
+				163623B21AEB7C4C00A50CA3 /* FieldGuideParser.pyc */,
+				163623B31AEB7C4C00A50CA3 /* Forbs.csv */,
+				163623B41AEB7C4C00A50CA3 /* GlossaryTerms.csv */,
+			);
+			name = "Field Guide";
+			sourceTree = "<group>";
+		};
 		165B6A1F1AA3F585004FE7CB /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +257,7 @@
 		16B0529E1A5B4BDE007837B4 = {
 			isa = PBXGroup;
 			children = (
+				163623BB1AEB7C6200A50CA3 /* Field Guide */,
 				F0D4ED1A1AA5996A008CBAD4 /* Algorithms */,
 				16B052A91A5B4BDE007837B4 /* DeveloperBuild */,
 				16B052C31A5B4BDF007837B4 /* DeveloperBuildTests */,
@@ -467,8 +493,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6ED3AE91ADB837800099064 /* ic_settings copy.png in Resources */,
+				163623B91AEB7C4C00A50CA3 /* Forbs.csv in Resources */,
+				163623B71AEB7C4C00A50CA3 /* FieldGuideParser.py in Resources */,
 				F0D4ED1E1AA59AA8008CBAD4 /* img_helper.h in Resources */,
 				F0D4ED1C1AA59A93008CBAD4 /* img_helper.cpp in Resources */,
+				163623B51AEB7C4C00A50CA3 /* field_guide_schema.py in Resources */,
 				F0D4ED191AA59926008CBAD4 /* vocabulary.xml in Resources */,
 				F0D4ED171AA59917008CBAD4 /* silene.xml in Resources */,
 				16CCBC3C1A773D71008B7E96 /* minuartia1.jpg in Resources */,
@@ -478,7 +507,10 @@
 				16CCBC401A773E00008B7E96 /* flower25.xml in Resources */,
 				16B052B61A5B4BDE007837B4 /* Main.storyboard in Resources */,
 				16CCBC3B1A773D71008B7E96 /* IMG_2278.JPG in Resources */,
+				163623B61AEB7C4C00A50CA3 /* FieldGuide.db in Resources */,
 				16CCBC391A773D71008B7E96 /* IMG_1997.jpg in Resources */,
+				163623BA1AEB7C4C00A50CA3 /* GlossaryTerms.csv in Resources */,
+				163623B81AEB7C4C00A50CA3 /* FieldGuideParser.pyc in Resources */,
 				E6ED3AE21ADB7C5200099064 /* ic_notepad_copy.png in Resources */,
 				16B052BB1A5B4BDE007837B4 /* LaunchScreen.xib in Resources */,
 				165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */,
