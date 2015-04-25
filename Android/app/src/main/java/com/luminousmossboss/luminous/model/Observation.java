@@ -86,15 +86,12 @@ public class Observation extends ListItem implements Serializable {
         this.hasBeenProcceced = hasBeenProcceced;
     }
 
-    public void updateIsSilene(boolean status, Context context)
+    public void updateIsSilene(Context context)
     {
         ObservationDBHandler db = new ObservationDBHandler(context);
-        db.updateIsSilene(id, status);
-        if(status)
-        {
-            setTitle("Silene Aculis");
-        }
-        else setTitle("Unknown");
+        db.updateIsSilene(id);
+        setTitle("Silene Aculis");
+
     }
     public float getAccuracy() {
         return accuracy;

@@ -266,6 +266,9 @@ public class MainActivity extends Activity {
         int stackSize = getFragmentManager().getBackStackEntryCount();
         if (fragment.allowedBackPressed() && stackSize > 1) {
             super.onBackPressed();
+        } else if (stackSize <= 1) {
+            finish();
+            System.exit(0);
         }
     }
 

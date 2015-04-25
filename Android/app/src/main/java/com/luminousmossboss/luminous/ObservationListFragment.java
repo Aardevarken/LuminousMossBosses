@@ -43,6 +43,10 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
     private ArrayList<Observation> selectedObservations;
     private ObservationDBHandler db;
 
+    private final int PENDING = 0;
+    private final int SYNCED = 1;
+    private int syncedTab;
+
     private RadioButton mTabPending;
     private RadioButton mTabSynced;
 
@@ -60,12 +64,24 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if(savedInstanceState != null)
+        {
+            syncedTab = savedInstanceState.getInt("Tab");
+        }
+        else if (syncedTab == SYNCED)
+        {
+
+        }
+        else
+        {
+            syncedTab = PENDING;
+        }
 
         rootView = inflater.inflate(R.layout.fragment_observationlist, container, false);
         this.container = container;
         final Activity activity = getActivity();
         this.db = new ObservationDBHandler(activity);
-        initList(rootView, container, 0);
+        initList(rootView, container, syncedTab);
 
 
 
@@ -107,10 +123,12 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
         switch (v.getId())
         {
             case R.id.tab_pending:
-                initList(rootView, container, 0);
+                syncedTab = PENDING;
+                initList(rootView, container, PENDING);
                 break;
             case R.id.tab_synced:
-                initList(rootView, container, 1);
+                syncedTab = SYNCED;
+                initList(rootView, container, SYNCED);
                 break;
         }
     }
@@ -168,5 +186,14 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
 
         adapter = new ObservationListAdapter(context, listItems);
         mDrawerList.setAdapter(adapter);
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("Tab",syncedTab);
+
+
+
+
     }
 }

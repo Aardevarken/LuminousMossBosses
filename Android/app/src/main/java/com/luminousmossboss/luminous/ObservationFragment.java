@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.luminousmossboss.luminous.adapter.DataListAdapter;
@@ -89,10 +90,10 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         dataSet.setAdapter(adapter);
 
         // Handle Button Events
-        Button idButton = (Button) rootView.findViewById(R.id.button_id);
-        idButton.setOnClickListener(this);
+
         sendButton = (Button) rootView.findViewById(R.id.button_context);
         sendButton.setOnClickListener(this);
+        ProgressBar progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         //imageView.setOnClickListener(this);
 
         //Check if Buttons should be visible
@@ -113,6 +114,14 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         {
             sendButton.setEnabled(false);
             sendButton.setVisibility(View.GONE);
+        }
+        if ( observation.isBeingProcessed())
+        {
+            progressBar.setVisibility(View.VISIBLE);
+
+            sendButton.setEnabled(false);
+            sendButton.setVisibility(View.GONE);
+
         }
         cursor.close();
         db.close();

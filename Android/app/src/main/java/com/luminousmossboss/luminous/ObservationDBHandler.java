@@ -130,11 +130,11 @@ public class ObservationDBHandler extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public int updateIsSilene(int id, boolean status)
+    public int updateIsSilene(int id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_IS_SILENE, String.valueOf(status));
+        values.put(KEY_IS_SILENE, String.valueOf(1));
         return db.update(TABLE_OBSERVATIONS, values, KEY_ID + " = ?",
                 new String[] { String.valueOf(id) });
     }

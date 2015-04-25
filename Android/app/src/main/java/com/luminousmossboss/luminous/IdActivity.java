@@ -1,5 +1,7 @@
 package com.luminousmossboss.luminous;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -14,11 +16,13 @@ public class IdActivity extends AsyncTask <String, Void, Boolean>{
     private Observation mobservation;
     private ObservationDBHandler db;
 
+
     public IdActivity(Context context, int observationId)
     {
         mContext = context;
         db = new ObservationDBHandler(mContext);
         mobservation = ObservationFactory.getObservation(observationId, context);
+
     }
     @Override
     protected void onPreExecute()
@@ -39,18 +43,20 @@ public class IdActivity extends AsyncTask <String, Void, Boolean>{
         mobservation.setBeingProcessed(false);
         if (detectionResult)
         {
-            message = Toast.makeText(mContext, "Your image was identified as Silene!!!", Toast.LENGTH_LONG);
-            db.updateIsSilene(mobservation.getId(),true);
+            message = Toast.makeText(mContext, "This is Silene acaulis!!!", Toast.LENGTH_LONG);
+            mobservation.updateIsSilene(mContext);
 
         }
         else
         {
-            message = Toast.makeText(mContext, "Your image was not a silene. Are you sure it isn't a cow or a pink firetruck?", Toast.LENGTH_LONG);
-            db.updateIsSilene(mobservation.getId(),false);
+            message = Toast.makeText(mContext, "Your image was not a Silene acaulis ", Toast.LENGTH_LONG);
+
 
         }
         db.close();
         message.show();
+
+
 
     }
 }
