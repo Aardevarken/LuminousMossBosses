@@ -84,6 +84,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
 
         listItems.add(new DataItem("Latitude:", observation.getLatitudeFormated()));
         listItems.add(new DataItem("Longitude:", observation.getLongitudeFormated()));
+        listItems.add(new DataItem("Location Accuracy:", Float.toString(observation.getAccuracy())));
 
         DataListAdapter adapter = new DataListAdapter(container.getContext(), listItems);
         dataSet.setAdapter(adapter);
