@@ -57,6 +57,11 @@
 		E6BAA8E71AEB4897007A8F34 /* Luminous-ID.png in Resources */ = {isa = PBXBuildFile; fileRef = E6BAA8E61AEB4897007A8F34 /* Luminous-ID.png */; };
 		E6BAA8E91AEB4B0E007A8F34 /* CompSciRev.png in Resources */ = {isa = PBXBuildFile; fileRef = E6BAA8E81AEB4B0E007A8F34 /* CompSciRev.png */; };
 		E6BAA8EB1AEB4CAE007A8F34 /* app_icon2.png in Resources */ = {isa = PBXBuildFile; fileRef = E6BAA8EA1AEB4CAE007A8F34 /* app_icon2.png */; };
+		E6BAA8F11AEB866F007A8F34 /* icon_180.png in Resources */ = {isa = PBXBuildFile; fileRef = E6BAA8EC1AEB866F007A8F34 /* icon_180.png */; };
+		E6BAA8F21AEB866F007A8F34 /* icon _120.png in Resources */ = {isa = PBXBuildFile; fileRef = E6BAA8ED1AEB866F007A8F34 /* icon _120.png */; };
+		E6BAA8F31AEB866F007A8F34 /* icon_87.png in Resources */ = {isa = PBXBuildFile; fileRef = E6BAA8EE1AEB866F007A8F34 /* icon_87.png */; };
+		E6BAA8F41AEB866F007A8F34 /* icon_80.png in Resources */ = {isa = PBXBuildFile; fileRef = E6BAA8EF1AEB866F007A8F34 /* icon_80.png */; };
+		E6BAA8F51AEB866F007A8F34 /* icon_58.png in Resources */ = {isa = PBXBuildFile; fileRef = E6BAA8F01AEB866F007A8F34 /* icon_58.png */; };
 		E6ED3AE21ADB7C5200099064 /* ic_notepad_copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3ADF1ADB7C5200099064 /* ic_notepad_copy.png */; };
 		E6ED3AE71ADB837800099064 /* ic_addobservation copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3AE41ADB837800099064 /* ic_addobservation copy.png */; };
 		E6ED3AE81ADB837800099064 /* ic_fieldguide copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6ED3AE51ADB837800099064 /* ic_fieldguide copy.png */; };
@@ -156,6 +161,11 @@
 		E6BAA8E61AEB4897007A8F34 /* Luminous-ID.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Luminous-ID.png"; sourceTree = "<group>"; };
 		E6BAA8E81AEB4B0E007A8F34 /* CompSciRev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CompSciRev.png; sourceTree = "<group>"; };
 		E6BAA8EA1AEB4CAE007A8F34 /* app_icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_icon2.png; sourceTree = "<group>"; };
+		E6BAA8EC1AEB866F007A8F34 /* icon_180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_180.png; sourceTree = "<group>"; };
+		E6BAA8ED1AEB866F007A8F34 /* icon _120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon _120.png"; sourceTree = "<group>"; };
+		E6BAA8EE1AEB866F007A8F34 /* icon_87.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_87.png; sourceTree = "<group>"; };
+		E6BAA8EF1AEB866F007A8F34 /* icon_80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_80.png; sourceTree = "<group>"; };
+		E6BAA8F01AEB866F007A8F34 /* icon_58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_58.png; sourceTree = "<group>"; };
 		E6ED3ADF1ADB7C5200099064 /* ic_notepad_copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_notepad_copy.png; sourceTree = "<group>"; };
 		E6ED3AE41ADB837800099064 /* ic_addobservation copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_addobservation copy.png"; sourceTree = "<group>"; };
 		E6ED3AE51ADB837800099064 /* ic_fieldguide copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_fieldguide copy.png"; sourceTree = "<group>"; };
@@ -205,6 +215,11 @@
 		165B6A1F1AA3F585004FE7CB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E6BAA8EC1AEB866F007A8F34 /* icon_180.png */,
+				E6BAA8ED1AEB866F007A8F34 /* icon _120.png */,
+				E6BAA8EE1AEB866F007A8F34 /* icon_87.png */,
+				E6BAA8EF1AEB866F007A8F34 /* icon_80.png */,
+				E6BAA8F01AEB866F007A8F34 /* icon_58.png */,
 				E6BAA8EA1AEB4CAE007A8F34 /* app_icon2.png */,
 				E6BAA8E81AEB4B0E007A8F34 /* CompSciRev.png */,
 				E6BAA8E61AEB4897007A8F34 /* Luminous-ID.png */,
@@ -469,9 +484,13 @@
 				F0D4ED1E1AA59AA8008CBAD4 /* img_helper.h in Resources */,
 				F0D4ED1C1AA59A93008CBAD4 /* img_helper.cpp in Resources */,
 				F0D4ED191AA59926008CBAD4 /* vocabulary.xml in Resources */,
+				E6BAA8F31AEB866F007A8F34 /* icon_87.png in Resources */,
 				E6BAA8E71AEB4897007A8F34 /* Luminous-ID.png in Resources */,
+				E6BAA8F41AEB866F007A8F34 /* icon_80.png in Resources */,
+				E6BAA8F21AEB866F007A8F34 /* icon _120.png in Resources */,
 				F0D4ED171AA59917008CBAD4 /* silene.xml in Resources */,
 				16CCBC3C1A773D71008B7E96 /* minuartia1.jpg in Resources */,
+				E6BAA8F51AEB866F007A8F34 /* icon_58.png in Resources */,
 				E6ED3AE81ADB837800099064 /* ic_fieldguide copy.png in Resources */,
 				16CCBC3A1A773D71008B7E96 /* IMG_2003.jpg in Resources */,
 				1642DE501ADC9A84002FB11C /* homeBtnIcon.png in Resources */,
@@ -481,6 +500,7 @@
 				16CCBC3B1A773D71008B7E96 /* IMG_2278.JPG in Resources */,
 				16CCBC391A773D71008B7E96 /* IMG_1997.jpg in Resources */,
 				E6ED3AE21ADB7C5200099064 /* ic_notepad_copy.png in Resources */,
+				E6BAA8F11AEB866F007A8F34 /* icon_180.png in Resources */,
 				16B052BB1A5B4BDE007837B4 /* LaunchScreen.xib in Resources */,
 				165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */,
 				16CCBC411A773E00008B7E96 /* flower30.xml in Resources */,
