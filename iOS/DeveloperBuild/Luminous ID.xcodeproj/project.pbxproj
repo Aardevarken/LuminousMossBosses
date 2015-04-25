@@ -66,8 +66,6 @@
 		F0395FEA1A98365500EE1BF9 /* identified.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0395FE91A98365500EE1BF9 /* identified.cpp */; };
 		F0D4ED171AA59917008CBAD4 /* silene.xml in Resources */ = {isa = PBXBuildFile; fileRef = F0D4ED161AA59917008CBAD4 /* silene.xml */; };
 		F0D4ED191AA59926008CBAD4 /* vocabulary.xml in Resources */ = {isa = PBXBuildFile; fileRef = F0D4ED181AA59926008CBAD4 /* vocabulary.xml */; };
-		F0D4ED1C1AA59A93008CBAD4 /* img_helper.cpp in Resources */ = {isa = PBXBuildFile; fileRef = F0D4ED1B1AA59A93008CBAD4 /* img_helper.cpp */; };
-		F0D4ED1E1AA59AA8008CBAD4 /* img_helper.h in Resources */ = {isa = PBXBuildFile; fileRef = F0D4ED1D1AA59AA8008CBAD4 /* img_helper.h */; };
 		F0D4ED201AA59BAD008CBAD4 /* img_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F0D4ED1B1AA59A93008CBAD4 /* img_helper.cpp */; };
 /* End PBXBuildFile section */
 
@@ -864,6 +862,7 @@
 				7D05597D1AEB7A72000479FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
