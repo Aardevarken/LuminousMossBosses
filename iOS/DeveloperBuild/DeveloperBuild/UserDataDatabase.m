@@ -359,7 +359,7 @@ static NSDictionary* typeMap = nil;
 	
 
 	// test the mesurement to see if it is more accurate than the previous mesurement
-
+	ALog(@"(lat:%f \t long:%f) error: %f", bestEffortAtLocation.coordinate.latitude, bestEffortAtLocation.coordinate.longitude, bestEffortAtLocation.horizontalAccuracy);
 	if (bestEffortAtLocation == nil || bestEffortAtLocation.horizontalAccuracy >= newLocation.horizontalAccuracy) {
 		// store the new mesurement
 		bestEffortAtLocation = newLocation;

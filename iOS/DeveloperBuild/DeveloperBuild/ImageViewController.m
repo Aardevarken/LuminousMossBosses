@@ -181,6 +181,8 @@
 		return;
 	}
 	
+	printf(@"recorded error: %f", bestLocationForImage.horizontalAccuracy);
+	
 	success = [[UserDataDatabase getSharedInstance]
 			   saveObservation:img
 			   date: [NSString stringWithFormat:@"%@",bestLocationForImage.timestamp]

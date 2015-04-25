@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D131" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Flowershape" syncable="YES">
+    <entity name="Flowershape" representedClassName="Flowershape" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="picture_filename" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="species" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Species" inverseName="flowershape" inverseEntity="Species" syncable="YES"/>
     </entity>
-    <entity name="Growthform" syncable="YES">
+    <entity name="Growthform" representedClassName="Growthform" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="species" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Species" inverseName="growthform" inverseEntity="Species" syncable="YES"/>
     </entity>
-    <entity name="Leafshapefilter" syncable="YES">
+    <entity name="Leafshapefilter" representedClassName="Leafshapefilter" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="picture_filename" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="species" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Species" inverseName="leafshapefilter" inverseEntity="Species" syncable="YES"/>
     </entity>
-    <entity name="Species" syncable="YES">
+    <entity name="Species" representedClassName="Species" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="common_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="family" optional="YES" attributeType="String" syncable="YES"/>
@@ -35,7 +35,7 @@
     <elements>
         <element name="Growthform" positionX="-2421" positionY="-153" width="128" height="88"/>
         <element name="Flowershape" positionX="-2511" positionY="-288" width="128" height="103"/>
-        <element name="Leafshapefilter" positionX="-2369" positionY="-27" width="128" height="103"/>
+        <element name="Leafshapefilter" positionX="-2421" positionY="-36" width="128" height="103"/>
         <element name="Species" positionX="-2736" positionY="-225" width="128" height="238"/>
     </elements>
 </model>
