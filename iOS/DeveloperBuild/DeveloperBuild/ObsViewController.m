@@ -455,6 +455,7 @@ NSMutableArray *_myObservations;
 			NSString* date = [NSString stringWithFormat:@"%@", [observationData objectForKey:@"datetime"]];
 			float lat = [[observationData objectForKey:@"latitude"] floatValue];
 			float lng = [[observationData objectForKey:@"longitude"] floatValue];
+            float locationerror = [[observationData objectForKey:@"locationerror"] floatValue];
 			
 			// Get image url
 			NSURL *url = [NSURL URLWithString:[observationData objectForKey:@"imghexid"]];
@@ -484,7 +485,7 @@ NSMutableArray *_myObservations;
 						 
 						 // upload to server
 						 //sleep(2.5);
-						 [ServerAPI uploadObservation:date time:date lat:lat lng:lng image:normalizedImage];
+                         [ServerAPI uploadObservation:date time:date lat:lat lng:lng locationerror:locationerror image:normalizedImage];
 						 
 						 // change status of observation in the database
 						 //sleep(0.8);
