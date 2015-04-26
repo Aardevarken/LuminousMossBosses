@@ -25,6 +25,7 @@
 		163623C11AEC373C00A50CA3 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623C01AEC373C00A50CA3 /* DBManager.m */; };
 		163623C71AEC563D00A50CA3 /* FieldGuidCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623C61AEC563D00A50CA3 /* FieldGuidCell.m */; };
 		163623CD1AEC59A500A50CA3 /* FieldGuideTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623CC1AEC59A500A50CA3 /* FieldGuideTableViewController.m */; };
+		163623CF1AEC6C5400A50CA3 /* FORBS in Resources */ = {isa = PBXBuildFile; fileRef = 163623CE1AEC6C5400A50CA3 /* FORBS */; };
 		1642DE501ADC9A84002FB11C /* homeBtnIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */; };
 		1642DE531ADCA085002FB11C /* MyObsTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1642DE521ADCA085002FB11C /* MyObsTabBarController.m */; };
 		165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 165B6A201AA3F5C4004FE7CB /* nocamera.png */; };
@@ -121,6 +122,7 @@
 		163623C61AEC563D00A50CA3 /* FieldGuidCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FieldGuidCell.m; path = ../FieldGuidCell.m; sourceTree = "<group>"; };
 		163623CB1AEC59A500A50CA3 /* FieldGuideTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FieldGuideTableViewController.h; path = ../FieldGuideTableViewController.h; sourceTree = "<group>"; };
 		163623CC1AEC59A500A50CA3 /* FieldGuideTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FieldGuideTableViewController.m; path = ../FieldGuideTableViewController.m; sourceTree = "<group>"; };
+		163623CE1AEC6C5400A50CA3 /* FORBS */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FORBS; sourceTree = "<group>"; };
 		1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = homeBtnIcon.png; path = DeveloperBuild/homeBtnIcon.png; sourceTree = "<group>"; };
 		1642DE511ADCA085002FB11C /* MyObsTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyObsTabBarController.h; sourceTree = "<group>"; };
 		1642DE521ADCA085002FB11C /* MyObsTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyObsTabBarController.m; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 		16B0529E1A5B4BDE007837B4 = {
 			isa = PBXGroup;
 			children = (
+				163623CE1AEC6C5400A50CA3 /* FORBS */,
 				163623BB1AEB7C6200A50CA3 /* Field Guide */,
 				F0D4ED1A1AA5996A008CBAD4 /* Algorithms */,
 				16B052A91A5B4BDE007837B4 /* DeveloperBuild */,
@@ -513,6 +516,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6ED3AE91ADB837800099064 /* ic_settings copy.png in Resources */,
+				163623CF1AEC6C5400A50CA3 /* FORBS in Resources */,
 				163623B91AEB7C4C00A50CA3 /* Forbs.csv in Resources */,
 				163623B71AEB7C4C00A50CA3 /* FieldGuideParser.py in Resources */,
 				F0D4ED1E1AA59AA8008CBAD4 /* img_helper.h in Resources */,
