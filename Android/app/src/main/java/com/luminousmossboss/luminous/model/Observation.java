@@ -6,6 +6,7 @@ import android.location.Location;
 import android.net.Uri;
 
 import com.luminousmossboss.luminous.ObservationDBHandler;
+import com.luminousmossboss.luminous.R;
 
 import java.io.File;
 import java.io.Serializable;
@@ -62,9 +63,9 @@ public class Observation extends ListItem implements Serializable {
             is_silene = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_IS_SILENE)) > 0;
 
             if (is_silene)
-                setTitle("Silene Aculis");
+                setTitle(context.getString(R.string.silene_acaulis));
             else
-                setTitle("Unknown");
+                setTitle(context.getString(R.string.unknown_species));
         }
         cursor.close();
         db.close();
@@ -90,7 +91,7 @@ public class Observation extends ListItem implements Serializable {
     {
         ObservationDBHandler db = new ObservationDBHandler(context);
         db.updateIsSilene(id);
-        setTitle("Silene Aculis");
+        setTitle(context.getString(R.string.silene_acaulis));
 
     }
     public float getAccuracy() {

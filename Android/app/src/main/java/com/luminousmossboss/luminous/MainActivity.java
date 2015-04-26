@@ -357,11 +357,11 @@ public class MainActivity extends Activity {
         Location loc = mGPS.getLocation();
         if( loc == null || (loc.getLatitude() == 0 && loc.getLongitude() == 0))
         {
-            Toast.makeText(this, "No Location available yet. PLease take another photo when location available", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.location_unavailable, Toast.LENGTH_LONG).show();
         }
         else if(mCurrentPhotoPath == null)
         {
-            Toast.makeText(this, "Failed to create photo file. Please try again", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.failed_photo_file_create, Toast.LENGTH_LONG).show();
         }
         else
         {

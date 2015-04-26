@@ -71,8 +71,8 @@ The name rose comes from French, itself from Latin rosa, which was perhaps borro
     <string name="fieldGuide_Location">Locations</string>
     <string name="fieldGuide_observation">Add Observation</string>
     <string name="silene_acaulis">Silene acaulis</string>
-    <string name="identified_as_silene">Your image was identified as Silene acaulis</string>
-    <string name="identified_as_unknown">Your image was not identified as Silene acaulis</string>
+    <string name="id_silene_acaulis">Your image was identified as Silene acaulis</string>
+    <string name="id_unknown">Your image was not identified as Silene acaulis</string>
     <string name="post_obs_success">Your observation was sent! Thanks for contributing to science</string>
     <string name="post_obs_failure">There was an issue connecting. Please try again with better data service or while connected to WiFi</string>
     <string name="unknown_species">Unknown</string>

@@ -43,13 +43,13 @@ public class IdActivity extends AsyncTask <String, Void, Boolean>{
         mobservation.setBeingProcessed(false);
         if (detectionResult)
         {
-            message = Toast.makeText(mContext, "This is Silene acaulis!!!", Toast.LENGTH_LONG);
+            message = Toast.makeText(mContext, R.string.id_silene_acaulis, Toast.LENGTH_LONG);
             mobservation.updateIsSilene(mContext);
 
         }
         else
         {
-            message = Toast.makeText(mContext, "Your image was not a Silene acaulis ", Toast.LENGTH_LONG);
+            message = Toast.makeText(mContext, R.string.id_unknown, Toast.LENGTH_LONG);
 
 
         }
