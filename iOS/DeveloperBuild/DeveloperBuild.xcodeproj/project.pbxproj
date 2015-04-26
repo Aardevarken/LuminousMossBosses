@@ -24,6 +24,7 @@
 		163623BE1AEC2D6300A50CA3 /* FieldGuideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623BD1AEC2D6300A50CA3 /* FieldGuideManager.m */; };
 		163623C11AEC373C00A50CA3 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623C01AEC373C00A50CA3 /* DBManager.m */; };
 		163623C71AEC563D00A50CA3 /* FieldGuidCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623C61AEC563D00A50CA3 /* FieldGuidCell.m */; };
+		163623CD1AEC59A500A50CA3 /* FieldGuideTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623CC1AEC59A500A50CA3 /* FieldGuideTableViewController.m */; };
 		1642DE501ADC9A84002FB11C /* homeBtnIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */; };
 		1642DE531ADCA085002FB11C /* MyObsTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1642DE521ADCA085002FB11C /* MyObsTabBarController.m */; };
 		165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 165B6A201AA3F5C4004FE7CB /* nocamera.png */; };
@@ -118,6 +119,8 @@
 		163623C01AEC373C00A50CA3 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		163623C51AEC563D00A50CA3 /* FieldGuidCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FieldGuidCell.h; path = ../FieldGuidCell.h; sourceTree = "<group>"; };
 		163623C61AEC563D00A50CA3 /* FieldGuidCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FieldGuidCell.m; path = ../FieldGuidCell.m; sourceTree = "<group>"; };
+		163623CB1AEC59A500A50CA3 /* FieldGuideTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FieldGuideTableViewController.h; path = ../FieldGuideTableViewController.h; sourceTree = "<group>"; };
+		163623CC1AEC59A500A50CA3 /* FieldGuideTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FieldGuideTableViewController.m; path = ../FieldGuideTableViewController.m; sourceTree = "<group>"; };
 		1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = homeBtnIcon.png; path = DeveloperBuild/homeBtnIcon.png; sourceTree = "<group>"; };
 		1642DE511ADCA085002FB11C /* MyObsTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyObsTabBarController.h; sourceTree = "<group>"; };
 		1642DE521ADCA085002FB11C /* MyObsTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyObsTabBarController.m; sourceTree = "<group>"; };
@@ -223,6 +226,8 @@
 			children = (
 				160D23ED1A63397B00F7B916 /* ObsTableViewController.h */,
 				160D23EB1A63396000F7B916 /* ObsTableViewController.m */,
+				163623CB1AEC59A500A50CA3 /* FieldGuideTableViewController.h */,
+				163623CC1AEC59A500A50CA3 /* FieldGuideTableViewController.m */,
 				1627A1251AB430D3009BD6EF /* ObsDetailViewController.h */,
 				1627A1261AB430D3009BD6EF /* ObsDetailViewController.m */,
 				16E2D4991A64860900CA8845 /* ObsViewController.h */,
@@ -562,6 +567,7 @@
 				16A6D8481A636C6F00CB4563 /* ObsTableViewController.m in Sources */,
 				1627A1271AB430D4009BD6EF /* ObsDetailViewController.m in Sources */,
 				161F47651A8ED7B300E67313 /* NewObs.m in Sources */,
+				163623CD1AEC59A500A50CA3 /* FieldGuideTableViewController.m in Sources */,
 				165B6A271AA66418004FE7CB /* MyObservations.m in Sources */,
 				16B052B01A5B4BDE007837B4 /* AppDelegate.m in Sources */,
 				16A6D8511A6386C600CB4563 /* ObsTableView.m in Sources */,

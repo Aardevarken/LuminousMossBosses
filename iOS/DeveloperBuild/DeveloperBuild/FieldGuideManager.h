@@ -18,6 +18,6 @@
  *
  */
 + (FieldGuideManager*)getSharedInstance;
-
+- (NSArray*)getAllData;
 
 @end

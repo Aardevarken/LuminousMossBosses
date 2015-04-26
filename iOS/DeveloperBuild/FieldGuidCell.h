@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface FieldGuidCell : UITableViewCell
+
 @property (strong, nonatomic) IBOutlet UILabel *commonNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *latinNameLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *plantImage;

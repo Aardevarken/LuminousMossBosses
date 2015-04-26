@@ -210,7 +210,7 @@
         <!--List of Plants-->
         <scene sceneID="98H-hs-FcN">
             <objects>
-                <tableViewController title="List of Plants" id="UHb-zH-YtC" sceneMemberID="viewController">
+                <tableViewController title="List of Plants" id="UHb-zH-YtC" customClass="FieldGuideTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="92" sectionHeaderHeight="22" sectionFooterHeight="22" id="vB9-4p-oYj">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -364,6 +364,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="fieldGuideTableView" destination="vB9-4p-oYj" id="PIx-7D-TYy"/>
                         <outlet property="searchDisplayController" destination="MEU-ZG-9gX" id="qEV-Cl-ipI"/>
                     </connections>
                 </tableViewController>
@@ -2555,7 +2556,8 @@
                                         <exclude reference="jtj-8H-zRG"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="16" y="566" width="368" height="169"/>
                                     <mask key="subviews">
                                         <include reference="xqd-rX-jw8"/>
                                         <include reference="h4E-lm-hy7"/>

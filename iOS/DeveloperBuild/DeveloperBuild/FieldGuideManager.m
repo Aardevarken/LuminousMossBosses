@@ -74,8 +74,36 @@ NSString *filter = nil;//[NSString stringWithFormat:@"SELECT latin_name, common_
 		dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
 		docsDir = dirPaths[0];
 		
+		/*** TEST CODE ***/
+		
+		NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"FieldGuide" ofType:@"db"];
+		NSString *path2 = [[NSBundle mainBundle] pathForResource:@"detector" ofType:@"h"];
+		ALog(@"sp: %@", sourcePath);
+		ALog(@"p2: %@", path2);
+		
 		// build the path to the database file
 		databasePath = [[NSString alloc] initWithString:[docsDir stringByAppendingPathComponent:databaseName]];
+		
+		
+		NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
+		NSString *targetPath = [libraryPath stringByAppendingPathComponent:databaseName];
+		
+		if (![[NSFileManager defaultManager] fileExistsAtPath:targetPath]) {
+			// database doesn't exist in your library path... copy it from the bundle
+			//NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"FieldGuide" ofType:@"db"];
+			NSError *error = nil;
+			
+			if (![[NSFileManager defaultManager] copyItemAtPath:sourcePath toPath:targetPath error:&error]) {
+				ALog(@"Error: %@", error);
+			}
+		}
+		
+		
+		
+		ALog(@"\n\ndb path: %@\n\ntargetPath: %@", databasePath, targetPath);
+		databasePath = targetPath;
+		/*** END OF TEST CODE ***/
+		
 	});
 	
 	// Open the database handler.
@@ -154,11 +182,11 @@ NSString *filter = nil;//[NSString stringWithFormat:@"SELECT latin_name, common_
 			NSObject *value = nil;
 			NSString *typeName = [typeMap valueForKey:name];
 			
-			if ([typeName isEqual:@"string"]) {
+			//if ([typeName isEqual:@"string"]) {
 				value = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, i)];
-			} else if ([typeName isEqual:@"double"]){
-				value = [NSNumber numberWithDouble:sqlite3_column_double(statement, i)];
-			}
+			//} else if ([typeName isEqual:@"double"]){
+			//	value = [NSNumber numberWithDouble:sqlite3_column_double(statement, i)];
+			//}
 			
 			[dictionary setObject:value forKey:name];
 		}
@@ -197,8 +225,8 @@ NSString *filter = nil;//[NSString stringWithFormat:@"SELECT latin_name, common_
  AND filter_N.name = <FilterByThis_N>
  ORDER BY species.id;
  */
-NSMutableArray *results = nil;
-NSArray *filterResults = nil;
+//NSMutableArray *results = nil;
+//NSArray *filterResults = nil;
 //NSString *filter = [NSString stringWithFormat:@"SELECT species.latin_name, species.common_name"];// FROM species ORDER BY species.latin_name"];
 
 - (NSArray*)getDataFilteredBy:(NSString*)filter{

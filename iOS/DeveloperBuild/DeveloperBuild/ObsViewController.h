@@ -26,5 +26,4 @@
 
 - (IBAction)syncAllBtn:(UIButton *)sender;
 
-
 @end
