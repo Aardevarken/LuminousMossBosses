@@ -1,66 +1,66 @@
 growth form,code,latin name,common name,family,synonyms,description,flower color,flower shape ,petal number ,inflorescence ,leaf arrangement ,leaf shape ,leaf shape FILTER,habitat ,c.f.,photo credit
-forb,OREALP,Oreoxis alpina ,alpine parsley,Apiaceae,Cymopterus alpinus,.,yellow,radial,5,umbellate,basal,pinnatifid,dissected,snowbed,.,Jane Smith
-forb,ACHMIL,Achillea millefolium ,Garrett common yarrow,Asteraceae,"Achillea fusca, Achillea lanulosa ssp. alpicola, Achillea lanulosa var. alpicola, Achillea millefolium var. fusca, Achillea alpicola, Achillea subalpine",.,white,composite,.,corymbiform ,alternate,"linear, pinnatisect",dissected,"dry meadow, moist meadow",.,Jane Smith
-forb,ANTMED,Antennaria media ,Rocky Mountain pussytoes,Asteraceae,Antennaria alpina,.,white,composite,.,cyme,"basal, alternate","oblanceolate, spatulate",oblong,"dry meadow, moist meadow",.,Jane Smith
-forb,ANTROS,Antennaria rosea ,rosy pussytoes,Asteraceae,Antennaria microphylla,.,"white, pink",composite,.,corymbiform ,"basal, alternate","oblanceolate, spatulate",oblong,,.,Jane Smith
-forb,ARTARC,Artemisia arctica ,arctic sagewort,Asteraceae,"Artemisia arctica ssp. saxicola, A. norvegica",.,yellow,composite,.,"spicate, racemose, paniculate","basal, alternate",pinnatifid,dissected,snowbed,.,Jane Smith
-forb,ARTCAM,Artemisia campestris ,boreal sagewort,Asteraceae,"Artemisia borealis, Artemisia campestris var. purshii, Oligosporus groenlandicus",.,"orange, yellow",composite,.,"spicate, paniculate","basal, alternate",pinnatifid,dissected,dry meadow,.,Jane Smith
-forb,ARTPAT,Artemisia pattersonii ,Patterson’s sagewort,Asteraceae,,.,"white, yellow",composite,.,"racemose, spicate","basal, alternate",pinnatifid,dissected,"fellfield, dry meadow",.,Jane Smith
-forb,ARTSCO,Artemisia scopulorum ,Rocky Mountain sagewort,Asteraceae,,.,yellow,composite,.,spicate,"basal, alternate",pinnatifid,dissected,"dry meadow, moist meadow",.,Jane Smith
-forb,ERIMEL,Erigeron melanocephalus,blackhead fleabane,Asteraceae,,.,"pink, purple, white",composite,.,head,basal,"oblanceolate, spatulate",oblong,snowbed,.,Jane Smith
-forb,ERIPER,Erigeron peregrinus ,subalpine fleabane,Asteraceae,,.,purple,composite,.,head,"basal, alternate",lanceolate,oblong,"snowbed, subalpine",.,Jane Smith
-forb,ERIPIN,Erigeron pinnatisectus,featherleaf fleabane,Asteraceae,,.,purple,composite,.,head,basal,pinnatifid,dissected,dry meadow,.,Jane Smith
-forb,ERISIM,Erigeron simplex,onestem fleabane,Asteraceae,,.,"pink, purple, white",composite,.,head,basal,spatulate,oblong,"dry meadow, moist meadow",.,Jane Smith
-forb,PACCRO,Packera crocata,saffron ragwort,Asteraceae,"Senecio crocatus, Senecio crocatus var. wolfii",.,"yellow, orange",composite,.,corymbiform,"basal, alternate","ovate, oblanceolate",oblong,"moist meadow, subalpine",.,Jane Smith
-forb,PACCAN,Packera cana,woolly groundsel,Asteraceae,"Senecio harbourii, Senecio purshianus, Senecio canus, Senecio hallii var. discoidea, Senecio howellii, Senecio convallium, Senecio hallii",.,yellow,composite,.,corymbiform,"basal, alternate","ovate, elliptic, lanceolate",oblong,dry meadow,.,Jane Smith
-forb,SENFRE,Senecio fremontii,Fremont’s groundsel,Asteraceae,"Senecio blitoides, Senecio carthamoides, Senecio fremontii ssp. blitoides",.,yellow,composite,.,head,alternate,"obovate, spatulate",oblong,snowbed,.,Jane Smith
-forb,SOLMUL,Solidago multiradiata,Rocky Mountain goldenrod,Asteraceae,,.,yellow,composite,.,cyme,"basal, alternate","oblanceolate, spatulate",oblong,dry meadow,.,Jane Smith
-forb,TETACA,Tetraneuris acaulis var. caespitosa,caespitose four-nerve daisy ,Asteraceae,"Hymenoxys acaulis, Tetraneuris simplex, Actinea acaulis ",.,yellow,composite,.,solitary,basal,"spatulate, linear, oblanceolate",oblong,dry meadow,.,Jane Smith
-forb,TETGRA,Tetraneuris grandiflora,alpine sunflower,Asteraceae,"Actinea grandiflora, Rydbergia grandiflora, Hymenoxys grandiflora",.,yellow,composite,.,solitary,alternate,pinnatifid,dissected,dry meadow,.,Jane Smith
-forb,TONPYG,Tonestus pygmaeus,pygmy goldenweed,Asteraceae,Haplopappus pygmaeus,.,yellow,composite,.,head,"basal, alternate","linear, spatulate, oblong",oblong,dry meadow,.,Jane Smith
-forb,ERINAN,Eritrichium nanum ,alpine forget-me-not,Boraginaceae,"Eritrichium aretioides, Eritrichium elongatum var. aretioides",.,"blue, white",radial,5,cyme,rosette,deltoid,other,dry meadow,.,Jane Smith
-forb,MERLAN,Mertensia lanceolata ,greenleaf chiming bells,Boraginaceae,,.,blue,campanulate,5,cyme,alternate,"lanceolate, oblong, elliptic",oblong,"dry meadow, moist meadow",.,Jane Smith
-forb,ERYCAP,Erysimum capitatum ,Pursh’s wallflower,Brassicaceae,"Erysimum nivale, Erysimum asperum, Erysimum argillosum, Erysimum asperrimum, Erysimum desertorum",.,"orange, yellow",cruciform,4,racemose,"basal, alternate",linear,oblong,"fellfield, dry meadow",.,Jane Smith
-forb,NOCFEN,Noccaea fendleri ,alpine pennycress,Brassicaceae,"Thlaspi montanum var. montanum,  Thlaspi fendleri, Thlaspi glaucum, Thlaspi alpestre, Thlaspi austral, Thlaspi cochleariforme, Thlaspi hesperium, Noccaea coloradensis, Noccaea montana var. Montana",.,"pink, white",cruciform,4,racemose,"rosette, alternate","lanceolate, ovate",oblong,"fellfield, dry meadow",.,Jane Smith
-forb,CAMROT,Campanula rotundifolia,mountain harebell,Campanulaceae,,.,blue,campanulate,5,solitary,alternate,"orbicular, ovate,  linear, lanceolate ",oblong,dry meadow,.,Jane Smith
-forb,CAMUNI,Campanula uniflora,alpine harebell,Campanulaceae,,.,blue,campanulate,5,solitary,alternate,"elliptic, oblanceolate",oblong,dry meadow,.,Jane Smith
-forb,AREFEN,Arenaria fendleri ,Fendler’s sandwort,Caryophyllaceae,"Arenaria fendleri, Eremogone fendleri ",.,white,radial,5,"cyme, solitary",basal,linear,oblong,"fellfield, dry meadow",.,Jane Smith
-forb,CERARV,Cerastium arvense ,field chickweed,Caryophyllaceae,Cerastium strictum,.,white,radial,5,"cyme, solitary",opposite,"linear, lanceolate",oblong,"dry meadow, snowbed",.,Jane Smith
-forb,MINOBT,Minuartia obtusiloba,alpine sandwort,Caryophyllaceae,"Alsinopsis obtusiloba, Arenaria sajanensis, Lidia obtusiloba, Minuartia sajanensis, Arenaria obtusiloba",.,white,radial,5,"cyme, solitary",opposite,"subulate, linear",oblong,"fellfield, dry meadow, moist meadow",.,Jane Smith
-forb,SILACA,Silene acaulis,moss campion,Caryophyllaceae,,.,pink,salverform,5,solitary,opposite,"lanceolate, linear",oblong,"fellfield, dry meadow",.,Jane Smith
-forb,STELON,Stellaria longipes ,longstalk starwort,Caryophyllaceae,,.,white,stellate,5,"cyme, solitary",opposite,"lanceolate, linear",oblong,"moist meadow, wet meadow",.,Jane Smith
-forb,STEUMB,Stellaria umbellata,umbrella starwort,Caryophyllaceae,,.,green,stellate,5,"cyme, umbellate",opposite,"lanceolate, linear",oblong,wet meadow,.,Jane Smith
-forb,RHOINT,Rhodiola integrifolia,kings crown,Crassulaceae,,.,red,urceolate,5,cyme,alternate,"elliptic, linear,  oblanceolate, obovate ",oblong,"moist meadow, wet meadow",.,Jane Smith
-forb,RHORHO,Rhodiola rhodantha,queens crown,Crassulaceae,"Clementsia rhodantha, Sedum rhodanthum",.,pink,urceolate,5,cyme,alternate,"elliptic, linear, oblanceolate",oblong,wet meadow,.,Jane Smith
-forb,SEDLAN,Sedum lanceolatum,yellow stonecrop,Crassulaceae,,.,yellow,stellate,5,cyme,alternate,"elliptic, oblanceolate",oblong,"fellfield, dry meadow, moist meadow",.,Jane Smith
-forb,TRIDAS,Trifolium dasyphyllum,alpine clover,Fabaceae,,.,pink,papilionaceous,5,head,basal,ternate,ternate,"fellfield, dry meadow",.,Jane Smith
+forb,OREALP,Oreoxis alpina ,alpine parsley,Apiaceae,Cymopterus alpinus,.,yellow,radial,5,umbellate,basal,pinnatifid,dissected,snowbed,.,Jane G. Smith
+forb,ACHMIL,Achillea millefolium ,Garrett common yarrow,Asteraceae,"Achillea fusca, Achillea lanulosa ssp. alpicola, Achillea lanulosa var. alpicola, Achillea millefolium var. fusca, Achillea alpicola, Achillea subalpine",.,white,composite,.,corymbiform ,alternate,"linear, pinnatisect",dissected,"dry meadow, moist meadow",.,Jane G. Smith
+forb,ANTMED,Antennaria media ,Rocky Mountain pussytoes,Asteraceae,Antennaria alpina,.,white,composite,.,cyme,"basal, alternate","oblanceolate, spatulate",oblong,"dry meadow, moist meadow",.,Jane G. Smith
+forb,ANTROS,Antennaria rosea ,rosy pussytoes,Asteraceae,Antennaria microphylla,.,"white, pink",composite,.,corymbiform ,"basal, alternate","oblanceolate, spatulate",oblong,,.,Jane G. Smith
+forb,ARTARC,Artemisia arctica ,arctic sagewort,Asteraceae,"Artemisia arctica ssp. saxicola, A. norvegica",.,yellow,composite,.,"spicate, racemose, paniculate","basal, alternate",pinnatifid,dissected,snowbed,.,Jane G. Smith
+forb,ARTCAM,Artemisia campestris ,boreal sagewort,Asteraceae,"Artemisia borealis, Artemisia campestris var. purshii, Oligosporus groenlandicus",.,"orange, yellow",composite,.,"spicate, paniculate","basal, alternate",pinnatifid,dissected,dry meadow,.,Jane G. Smith
+forb,ARTPAT,Artemisia pattersonii ,Patterson’s sagewort,Asteraceae,,.,"white, yellow",composite,.,"racemose, spicate","basal, alternate",pinnatifid,dissected,"fellfield, dry meadow",.,Jane G. Smith
+forb,ARTSCO,Artemisia scopulorum ,Rocky Mountain sagewort,Asteraceae,,.,yellow,composite,.,spicate,"basal, alternate",pinnatifid,dissected,"dry meadow, moist meadow",.,Jane G. Smith
+forb,ERIMEL,Erigeron melanocephalus,blackhead fleabane,Asteraceae,,.,"pink, purple, white",composite,.,head,basal,"oblanceolate, spatulate",oblong,snowbed,.,Jane G. Smith
+forb,ERIPER,Erigeron peregrinus ,subalpine fleabane,Asteraceae,,.,purple,composite,.,head,"basal, alternate",lanceolate,oblong,"snowbed, subalpine",.,Jane G. Smith
+forb,ERIPIN,Erigeron pinnatisectus,featherleaf fleabane,Asteraceae,,.,purple,composite,.,head,basal,pinnatifid,dissected,dry meadow,.,Jane G. Smith
+forb,ERISIM,Erigeron simplex,onestem fleabane,Asteraceae,,.,"pink, purple, white",composite,.,head,basal,spatulate,oblong,"dry meadow, moist meadow",.,Jane G. Smith
+forb,PACCRO,Packera crocata,saffron ragwort,Asteraceae,"Senecio crocatus, Senecio crocatus var. wolfii",.,"yellow, orange",composite,.,corymbiform,"basal, alternate","ovate, oblanceolate",oblong,"moist meadow, subalpine",.,Jane G. Smith
+forb,PACCAN,Packera cana,woolly groundsel,Asteraceae,"Senecio harbourii, Senecio purshianus, Senecio canus, Senecio hallii var. discoidea, Senecio howellii, Senecio convallium, Senecio hallii",.,yellow,composite,.,corymbiform,"basal, alternate","ovate, elliptic, lanceolate",oblong,dry meadow,.,Jane G. Smith
+forb,SENFRE,Senecio fremontii,Fremont’s groundsel,Asteraceae,"Senecio blitoides, Senecio carthamoides, Senecio fremontii ssp. blitoides",.,yellow,composite,.,head,alternate,"obovate, spatulate",oblong,snowbed,.,Jane G. Smith
+forb,SOLMUL,Solidago multiradiata,Rocky Mountain goldenrod,Asteraceae,,.,yellow,composite,.,cyme,"basal, alternate","oblanceolate, spatulate",oblong,dry meadow,.,Jane G. Smith
+forb,TETACA,Tetraneuris acaulis var. caespitosa,caespitose four-nerve daisy ,Asteraceae,"Hymenoxys acaulis, Tetraneuris simplex, Actinea acaulis ",.,yellow,composite,.,solitary,basal,"spatulate, linear, oblanceolate",oblong,dry meadow,.,Jane G. Smith
+forb,TETGRA,Tetraneuris grandiflora,alpine sunflower,Asteraceae,"Actinea grandiflora, Rydbergia grandiflora, Hymenoxys grandiflora",.,yellow,composite,.,solitary,alternate,pinnatifid,dissected,dry meadow,.,Jane G. Smith
+forb,TONPYG,Tonestus pygmaeus,pygmy goldenweed,Asteraceae,Haplopappus pygmaeus,.,yellow,composite,.,head,"basal, alternate","linear, spatulate",oblong,dry meadow,.,Jane G. Smith
+forb,ERINAN,Eritrichium nanum ,alpine forget-me-not,Boraginaceae,"Eritrichium aretioides, Eritrichium elongatum var. aretioides",.,"blue, white",radial,5,cyme,rosette,deltoid,other,dry meadow,.,Jane G. Smith
+forb,MERLAN,Mertensia lanceolata ,greenleaf chiming bells,Boraginaceae,,.,blue,campanulate,5,cyme,alternate,"lanceolate, elliptic",oblong,"dry meadow, moist meadow",.,Jane G. Smith
+forb,ERYCAP,Erysimum capitatum ,Pursh’s wallflower,Brassicaceae,"Erysimum nivale, Erysimum asperum, Erysimum argillosum, Erysimum asperrimum, Erysimum desertorum",.,"orange, yellow",cruciform,4,racemose,"basal, alternate",linear,oblong,"fellfield, dry meadow",.,Jane G. Smith
+forb,NOCFEN,Noccaea fendleri ,alpine pennycress,Brassicaceae,"Thlaspi montanum var. montanum,  Thlaspi fendleri, Thlaspi glaucum, Thlaspi alpestre, Thlaspi austral, Thlaspi cochleariforme, Thlaspi hesperium, Noccaea coloradensis, Noccaea montana var. Montana",.,"pink, white",cruciform,4,racemose,"rosette, alternate","lanceolate, ovate",oblong,"fellfield, dry meadow",.,Jane G. Smith
+forb,CAMROT,Campanula rotundifolia,mountain harebell,Campanulaceae,,.,blue,campanulate,5,solitary,alternate,"orbicular, ovate,  linear, lanceolate ",oblong,dry meadow,.,Jane G. Smith
+forb,CAMUNI,Campanula uniflora,alpine harebell,Campanulaceae,,.,blue,campanulate,5,solitary,alternate,"elliptic, oblanceolate",oblong,dry meadow,.,Jane G. Smith
+forb,AREFEN,Arenaria fendleri ,Fendler’s sandwort,Caryophyllaceae,"Arenaria fendleri, Eremogone fendleri ",.,white,radial,5,"cyme, solitary",basal,linear,oblong,"fellfield, dry meadow",.,Jane G. Smith
+forb,CERARV,Cerastium arvense ,field chickweed,Caryophyllaceae,Cerastium strictum,.,white,radial,5,"cyme, solitary",opposite,"linear, lanceolate",oblong,"dry meadow, snowbed",.,Jane G. Smith
+forb,MINOBT,Minuartia obtusiloba,alpine sandwort,Caryophyllaceae,"Alsinopsis obtusiloba, Arenaria sajanensis, Lidia obtusiloba, Minuartia sajanensis, Arenaria obtusiloba",.,white,radial,5,"cyme, solitary",opposite,"subulate, linear",oblong,"fellfield, dry meadow, moist meadow",.,Jane G. Smith
+forb,SILACA,Silene acaulis,moss campion,Caryophyllaceae,,.,pink,salverform,5,solitary,opposite,"lanceolate, linear",oblong,"fellfield, dry meadow",.,Jane G. Smith
+forb,STELON,Stellaria longipes ,longstalk starwort,Caryophyllaceae,,.,white,stellate,5,"cyme, solitary",opposite,"lanceolate, linear",oblong,"moist meadow, wet meadow",.,Jane G. Smith
+forb,STEUMB,Stellaria umbellata,umbrella starwort,Caryophyllaceae,,.,green,stellate,5,"cyme, umbellate",opposite,"lanceolate, linear",oblong,wet meadow,.,Jane G. Smith
+forb,RHOINT,Rhodiola integrifolia,kings crown,Crassulaceae,,.,red,urceolate,5,cyme,alternate,"elliptic, linear,  oblanceolate, obovate ",oblong,"moist meadow, wet meadow",.,Jane G. Smith
+forb,RHORHO,Rhodiola rhodantha,queens crown,Crassulaceae,"Clementsia rhodantha, Sedum rhodanthum",.,pink,urceolate,5,cyme,alternate,"elliptic, linear, oblanceolate",oblong,wet meadow,.,Jane G. Smith
+forb,SEDLAN,Sedum lanceolatum,yellow stonecrop,Crassulaceae,,.,yellow,stellate,5,cyme,alternate,"elliptic, oblanceolate",oblong,"fellfield, dry meadow, moist meadow",.,Jane G. Smith
+forb,TRIDAS,Trifolium dasyphyllum,alpine clover,Fabaceae,,.,pink,papilionaceous,5,head,basal,ternate,ternate,"fellfield, dry meadow",.,Jane G. Smith
 forb,TRINAN,Trifolium nanum,dwarf clover,Fabaceae,,.,pink,papilionaceous,5,head,basal,ternate,ternate,"fellfield, dry meadow",.,Bill Bowman
-forb,TRIPAR,Trifolium parryi,Parry’s clover,Fabaceae,,.,pink,papilionaceous,5,head,basal,ternate,ternate,"moist meadow, wet meadow",.,Jane Smith
-forb,GENALG,Gentiana algida,arctic gentian,Gentianaceae,Gentianodes algida,.,white,funnelform,5,cyme,opposite,linear,oblong,"moist meadow, wet meadow",.,Jane Smith
-forb,GENPAR,Gentiana parryi,Parry’s gentian,Gentianaceae,"Gentiana calycosa var. asepala, Pneumonanthe calycosa ",.,blue,funnelform,5,cyme,opposite,"lanceolate, ovate",oblong,"wet meadow, subalpine",.,Jane Smith
-forb,GENPRO,Gentiana prostrata,pygmy gentian,Gentianaceae,,.,blue,funnelform,"4, 5",solitary,opposite,"elliptic, oblanceolate",oblong,wet meadow,.,Jane Smith
-forb,GENAMA,Gentianella amarella,autumn dwarf gentian,Gentianaceae,,.,"purple, white",funnelform,"4, 5",cyme,opposite,"elliptic, lanceolate, spatulate",oblong,"moist meadow, wet meadow",.,Jane Smith
-forb,SWEPER,Swertia perennis,felwort,Gentianaceae,,.,purple,stellate,5,cyme,basal,"obovate, elliptic, oblanceolate",oblong,wet meadow,.,Jane Smith
-forb,ALLGEY,Allium geyeri,Geyer’s onion,Liliaceae,,.,pink,urceolate,6,umbellate,basal,linear,oblong,dry meadow,.,Jane Smith
-forb,LLOSER,Lloydia serotina,alplily,Liliaceae,,.,white,radial,6,solitary,basal,linear,oblong,dry meadow,.,Jane Smith
-forb,PHLPUL,Phlox pulvinata,cushion phlox,Polemoniaceae,,.,"blue, purple, white",salverform,5,solitary,opposite,linear,oblong,"dry meadow, fellfield",.,Jane Smith
-forb,POLPUL,Polemonium pulcherrimum,Jacob’s ladder,Polemoniaceae,Polemonium delicatum,.,"blue, white",radial,5,cyme,basal,pinnate,other,subalpine,.,Jane Smith
-forb,POLVIS,Polemonium viscosum,sky pilot,Polemoniaceae,,.,purple,funnelform,5,cyme,basal,"linear, pinnatisect",dissected,dry meadow,.,Jane Smith
-forb,POLBIS,Polygonum bistortoides,American bistort,Polygonaceae,Bistorta bistortoides,.,white,other,5,spicate,"alternate, basal",lanceolate,oblong,"fellfield, dry meadow, moist meadow, wet meadow, snowbed",.,Jane Smith
-forb,POLVIV,Polygonum viviparum,alpine bistort,Polygonaceae,Bistorta vivipara,.,white,other,5,spicate,"alternate, basal",lanceolate,oblong,"dry meadow, moist meadow",.,Jane Smith
-forb,OXYDIG,Oxyria digyna,alpine sorrel,Polygonaceae,,.,yellow,other,4,paniculate,basal,reniform,round,snowbed,.,Jane Smith
-forb,LEWPYG,Lewisia pygmaea,pygmy bitterroot,Portulacaceae,Oreobroma pygmaeum,.,"pink, white",radial,"6, >6",solitary,rosette,linear,oblong,"moist meadow, snowbed",.,Jane Smith
-forb,ANDSEP,Androsace septentrionalis,rock primrose,Primulaceae,,.,white,salverform,5,umbellate,rosette,"elliptic, linear, oblanceolate",oblong,dry meadow,.,Jane Smith
-forb,DODPUL,Dodecatheon pulchellum,darkthroat shootingstar,Primulaceae,,.,"pink, white",reflexed,"4, 5","solitary, umbellate",basal,"oblanceolate, ovate",oblong,wet meadow,.,Jane Smith
-forb,PRIANG,Primula angustifolia,alpine primrose,Primulaceae,,.,pink,salverform,5,solitary,basal,"elliptic, linear",oblong,dry meadow,.,Jane Smith
-forb,PRIPAR,Primula parryi,Parry’s primrose,Primulaceae,,.,pink,salverform,5,umbellate,basal,"elliptic, oblanceolate",oblong,wet meadow,.,Jane Smith
-forb,CALLEP,Caltha leptosepala,white marsh marigold,Ranunculaceae,,.,white,radial,"5, 6, >6","cyme, solitary","alternate, basal","cordate, reniform",round,wet meadow,.,Jane Smith
-forb,RANADO,Ranunculus adoneus,snow buttercup,Ranunculaceae,,.,yellow,radial,"5, 6, >6",solitary,"alternate, basal",dissected,dissected,snowbed,.,Jane Smith
-forb,GEUROS,Geum rossii ,alpine avens,Roseaceae,Acomastylis rossii,.,yellow,radial,5,"cyme, solitary",basal,"oblanceolate, pinnatisect",dissected,"dry meadow, moist meadow, wet meadow, snowbed",.,Jane Smith
-forb,DRYOCT,Dryas octopetala ,mountain dryad,Roseaceae,,.,white,radial,>6,solitary,basal,elliptic,oblong,"fellfield, dry meadow",.,Jane Smith
-forb,POTDIV,Potentilla diversifolia,varileaf cinquefoil,Roseaceae,,.,yellow,radial,5,"cyme, solitary",basal,palmate,palmate,moist meadow,.,Jane Smith
-forb,SIBPRO,Sibbaldia procumbens,creeping sibbaldia,Roseaceae,,.,"green, yellow",stellate,5,"cyme, solitary",basal,ternate,ternate,"moist meadow, snowbed",.,Jane Smith
-forb,SAXRHO,Saxifraga rhomboidea,snowball saxifrage,Saxifragaceae,Micranthes rhomboidea,.,white,other,5,other,rosette,"ovate, rhombic",other,"dry meadow, moist meadow",.,Jane Smith
-forb,CHIJAM,Chionophila jamesii,Rocky Mountain snowlover,Scrophulariaceae,,.,white,labiate,5,helicoid,basal,"oblanceolate, spatulate",oblong,"moist meadow, wet meadow",.,Jane Smith
-forb,PEDGRO,Pedicularis groenlandica,elephanthead lousewort,Scrophulariaceae,,.,pink,labiate,5,"spicate, racemose",basal,"linear, pinnatisect",dissected,wet meadow,.,Jane Smith
-forb,VERWOR,Veronica wormskjoldii ,alpine speedwell,Scrophulariaceae,Veronica nutans,.,"blue, purple",labiate,5,"spicate, racemose",opposite,"elliptic, oblanceolate, ovate",oblong,"wet meadow, subalpine",.,Jane Smith
+forb,TRIPAR,Trifolium parryi,Parry’s clover,Fabaceae,,.,pink,papilionaceous,5,head,basal,ternate,ternate,"moist meadow, wet meadow",.,Jane G. Smith
+forb,GENALG,Gentiana algida,arctic gentian,Gentianaceae,Gentianodes algida,.,white,funnelform,5,cyme,opposite,linear,oblong,"moist meadow, wet meadow",.,Jane G. Smith
+forb,GENPAR,Gentiana parryi,Parry’s gentian,Gentianaceae,"Gentiana calycosa var. asepala, Pneumonanthe calycosa ",.,blue,funnelform,5,cyme,opposite,"lanceolate, ovate",oblong,"wet meadow, subalpine",.,Jane G. Smith
+forb,GENPRO,Gentiana prostrata,pygmy gentian,Gentianaceae,,.,blue,funnelform,"4, 5",solitary,opposite,"elliptic, oblanceolate",oblong,wet meadow,.,Jane G. Smith
+forb,GENAMA,Gentianella amarella,autumn dwarf gentian,Gentianaceae,,.,"purple, white",funnelform,"4, 5",cyme,opposite,"elliptic, lanceolate, spatulate",oblong,"moist meadow, wet meadow",.,Jane G. Smith
+forb,SWEPER,Swertia perennis,felwort,Gentianaceae,,.,purple,stellate,5,cyme,basal,"obovate, elliptic, oblanceolate",oblong,wet meadow,.,Jane G. Smith
+forb,ALLGEY,Allium geyeri,Geyer’s onion,Liliaceae,,.,pink,urceolate,6,umbellate,basal,linear,oblong,dry meadow,.,Jane G. Smith
+forb,LLOSER,Lloydia serotina,alplily,Liliaceae,,.,white,radial,6,solitary,basal,linear,oblong,dry meadow,.,Jane G. Smith
+forb,PHLPUL,Phlox pulvinata,cushion phlox,Polemoniaceae,,.,"blue, purple, white",salverform,5,solitary,opposite,linear,oblong,"dry meadow, fellfield",.,Jane G. Smith
+forb,POLPUL,Polemonium pulcherrimum,Jacob’s ladder,Polemoniaceae,Polemonium delicatum,.,"blue, white",radial,5,cyme,basal,pinnate,other,subalpine,.,Jane G. Smith
+forb,POLVIS,Polemonium viscosum,sky pilot,Polemoniaceae,,.,purple,funnelform,5,cyme,basal,"linear, pinnatisect",dissected,dry meadow,.,Jane G. Smith
+forb,POLBIS,Polygonum bistortoides,American bistort,Polygonaceae,Bistorta bistortoides,.,white,other,5,spicate,"alternate, basal",lanceolate,oblong,"fellfield, dry meadow, moist meadow, wet meadow, snowbed",.,Jane G. Smith
+forb,POLVIV,Polygonum viviparum,alpine bistort,Polygonaceae,Bistorta vivipara,.,white,other,5,spicate,"alternate, basal",lanceolate,oblong,"dry meadow, moist meadow",.,Jane G. Smith
+forb,OXYDIG,Oxyria digyna,alpine sorrel,Polygonaceae,,.,yellow,other,4,paniculate,basal,reniform,round,snowbed,.,Jane G. Smith
+forb,LEWPYG,Lewisia pygmaea,pygmy bitterroot,Portulacaceae,Oreobroma pygmaeum,.,"pink, white",radial,"6, >6",solitary,rosette,linear,oblong,"moist meadow, snowbed",.,Jane G. Smith
+forb,ANDSEP,Androsace septentrionalis,rock primrose,Primulaceae,,.,white,salverform,5,umbellate,rosette,"elliptic, linear, oblanceolate",oblong,dry meadow,.,Jane G. Smith
+forb,DODPUL,Dodecatheon pulchellum,darkthroat shootingstar,Primulaceae,,.,"pink, white",reflexed,"4, 5","solitary, umbellate",basal,"oblanceolate, ovate",oblong,wet meadow,.,Jane G. Smith
+forb,PRIANG,Primula angustifolia,alpine primrose,Primulaceae,,.,pink,salverform,5,solitary,basal,"elliptic, linear",oblong,dry meadow,.,Jane G. Smith
+forb,PRIPAR,Primula parryi,Parry’s primrose,Primulaceae,,.,pink,salverform,5,umbellate,basal,"elliptic, oblanceolate",oblong,wet meadow,.,Jane G. Smith
+forb,CALLEP,Caltha leptosepala,white marsh marigold,Ranunculaceae,,.,white,radial,"5, 6, >6","cyme, solitary","alternate, basal","cordate, reniform",round,wet meadow,.,Jane G. Smith
+forb,RANADO,Ranunculus adoneus,snow buttercup,Ranunculaceae,,.,yellow,radial,"5, 6, >6",solitary,"alternate, basal",dissected,dissected,snowbed,.,Jane G. Smith
+forb,GEUROS,Geum rossii ,alpine avens,Roseaceae,Acomastylis rossii,.,yellow,radial,5,"cyme, solitary",basal,"oblanceolate, pinnatisect",dissected,"dry meadow, moist meadow, wet meadow, snowbed",.,Jane G. Smith
+forb,DRYOCT,Dryas octopetala ,mountain dryad,Roseaceae,,.,white,radial,>6,solitary,basal,elliptic,oblong,"fellfield, dry meadow",.,Jane G. Smith
+forb,POTDIV,Potentilla diversifolia,varileaf cinquefoil,Roseaceae,,.,yellow,radial,5,"cyme, solitary",basal,palmate,palmate,moist meadow,.,Jane G. Smith
+forb,SIBPRO,Sibbaldia procumbens,creeping sibbaldia,Roseaceae,,.,"green, yellow",stellate,5,"cyme, solitary",basal,ternate,ternate,"moist meadow, snowbed",.,Jane G. Smith
+forb,SAXRHO,Saxifraga rhomboidea,snowball saxifrage,Saxifragaceae,Micranthes rhomboidea,.,white,other,5,other,rosette,"ovate, rhombic",other,"dry meadow, moist meadow",.,Jane G. Smith
+forb,CHIJAM,Chionophila jamesii,Rocky Mountain snowlover,Scrophulariaceae,,.,white,labiate,5,helicoid,basal,"oblanceolate, spatulate",oblong,"moist meadow, wet meadow",.,Jane G. Smith
+forb,PEDGRO,Pedicularis groenlandica,elephanthead lousewort,Scrophulariaceae,,.,pink,labiate,5,"spicate, racemose",basal,"linear, pinnatisect",dissected,wet meadow,.,Jane G. Smith
+forb,VERWOR,Veronica wormskjoldii ,alpine speedwell,Scrophulariaceae,Veronica nutans,.,"blue, purple",labiate,5,"spicate, racemose",opposite,"elliptic, oblanceolate, ovate",oblong,"wet meadow, subalpine",.,Jane G. Smith
