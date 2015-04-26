@@ -417,6 +417,9 @@
                                                 <include reference="U1L-zl-RXH"/>
                                             </mask>
                                         </variation>
+                                        <connections>
+                                            <action selector="cancelButton:" destination="dfp-wP-0Vb" eventType="touchUpInside" id="9yA-aw-vAh"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qcL-ih-MIE">
                                         <rect key="frame" x="133" y="20" width="46" height="30"/>
@@ -424,6 +427,9 @@
                                         <state key="normal" title="Search">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="searchButton:" destination="dfp-wP-0Vb" eventType="touchUpInside" id="YTg-bw-1hB"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -862,6 +868,9 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="filterTableView" destination="Bdf-Wq-1gx" id="0xB-7x-8sk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sCc-Nv-Ghm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -10,10 +10,10 @@
 
 @interface FilterViewController : UIViewController// <UITableViewDelegate, UITableViewDataSource>{}
 // Buttons
-//- (IBAction)cancelButton:(UIButton *)sender;
-//- (IBAction)searchButton:(UIButton *)sender;
+- (IBAction)cancelButton:(UIButton *)sender;
+- (IBAction)searchButton:(UIButton *)sender;
 
 // Table View
-//@property (strong, nonatomic) IBOutlet UITableView *filterTableView;
+@property (strong, nonatomic) IBOutlet UITableView *filterTableView;
 
 @end
