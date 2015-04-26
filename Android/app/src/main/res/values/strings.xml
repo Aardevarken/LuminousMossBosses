@@ -20,21 +20,15 @@
         <item>Home</item>
         <item>Add Observation</item>
         <item>My Observations</item>
-        <item>Sync Observations</item>
         <item>Field Guide</item>
         <item>About</item>
-        <item>Settings</item>
-        <item>Help</item>
     </string-array>
     <array name="nav_drawer_icons">
         <item>@drawable/ic_home</item>
         <item>@drawable/ic_camera</item>
         <item>@mipmap/ic_notepage</item>
-        <item>@drawable/ic_upload</item>
         <item>@drawable/ic_openbook</item>
         <item>@drawable/ic_info</item>
-        <item>@drawable/ic_cogwheel</item>
-        <item>@drawable/ic_help</item>
     </array>
 
     <!-- Field Guide Temp
@@ -61,6 +55,11 @@ The name rose comes from French, itself from Latin rosa, which was perhaps borro
     <string name="location_unavailable">No location available yet. Please take another photo when location services is available</string>
     <string name="failed_photo_file_create">Failed to create photo file. Please try again.</string>
 
+    <!-- Observations List Separators -->
+    <string name="separator_unidentified">Unidentified</string>
+    <string name="separator_silene">Identified as Silene acaulis</string>
+    <string name="separator_unknown">Unknown</string>
+
     <!-- My Observations Temp -->
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
@@ -76,6 +75,7 @@ The name rose comes from French, itself from Latin rosa, which was perhaps borro
     <string name="post_obs_success">Your observation was sent! Thanks for contributing to science</string>
     <string name="post_obs_failure">There was an issue connecting. Please try again with better data service or while connected to WiFi</string>
     <string name="unknown_species">Unknown</string>
+    <string name="unidentified">Unidentified</string>
 
     <!-- Dialog Messages -->
     <string name="dialog_remove_obs_msg">Are you sure you want to remove this observation?</string>
