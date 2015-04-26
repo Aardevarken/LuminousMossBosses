@@ -38,13 +38,14 @@ public class IdentifiyDialogFragment extends DialogFragment{
                     @Override
                     public void onClick(DialogInterface dialog,int id) {
                         Observation observation = ObservationFactory.getObservation(observationId, getActivity());
-                        IdActivity idActivity = new IdActivity(getActivity(),observationId);
-                        idActivity.execute(observation.getIcon().getPath());
+
 
                         CharSequence fragTitle = observation.getTitle();
-                        Fragment fragment = null;
+                        ObservationFragment fragment = null;
                         Activity activity = getActivity();
                         fragment = ObservationFragment.newInstance(observation);
+                        IdActivity idActivity = new IdActivity(getActivity(),observationId, fragment);
+                        idActivity.execute(observation.getIcon().getPath());
                         ((MainActivity) activity).setTitle(fragTitle);
                         ((MainActivity) activity).displayView(fragment);
 

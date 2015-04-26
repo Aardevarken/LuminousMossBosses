@@ -145,14 +145,17 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
         this.mDrawerList = (ListView) rootView.findViewById(R.id.fragment_list);
         this.context = container.getContext();
         this.listItems = new ArrayList<ListItem>();
+        ArrayList<ListItem> unidentifiedList = new ArrayList<ListItem>();
+        unidentifiedList.add(new Separator(getString(R.string.separator_unidentified)));
         ArrayList<ListItem> sileneList = new ArrayList<ListItem>();
-        sileneList.add(new Separator("Processed"));
+        sileneList.add(new Separator(getString(R.string.separator_silene)));
         ArrayList<ListItem> unknownList = new ArrayList<ListItem>();
-        unknownList.add(new Separator("Unprocessed"));
+        unknownList.add(new Separator(getString(R.string.separator_unknown)));
 
         //Cursor cursor = db.getAllObservation();
         Cursor cursor = db.getObservationBySyncStatus(status);
         int is_processed;
+        int is_silene;
         int id;
         File file;
         if (cursor.moveToFirst())
@@ -165,13 +168,18 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
 
 */
                 is_processed = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_PROCESSED_STATUS));
+                is_silene = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_IS_SILENE));
                 id = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_ID));
                 file = new File(cursor.getString(cursor.getColumnIndex(ObservationDBHandler.KEY_PHOTO_PATH)));
                 if(file.exists()) {
-                    if (is_processed == 1)
-                        sileneList.add(ObservationFactory.getObservation(id, getActivity()));
+                    if (is_processed == 1) {
+                        if (is_silene == 1)
+                            sileneList.add(ObservationFactory.getObservation(id, getActivity()));
+                        else
+                            unknownList.add(ObservationFactory.getObservation(id, getActivity()));
+                    }
                     else
-                        unknownList.add(ObservationFactory.getObservation(id, getActivity()));
+                        unidentifiedList.add(ObservationFactory.getObservation(id, getActivity()));
                 }
                 else{
                     db.deleteObservation(cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_ID)));
@@ -179,10 +187,12 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
 
             }while(cursor.moveToNext());
         db.close();
-        if (unknownList.size() > 1)
-            listItems.addAll(unknownList);
+        if (unidentifiedList.size() > 1)
+            listItems.addAll(unidentifiedList);
         if (sileneList.size() > 1)
             listItems.addAll(sileneList);
+        if (unknownList.size() > 1)
+            listItems.addAll(unknownList);
 
         adapter = new ObservationListAdapter(context, listItems);
         mDrawerList.setAdapter(adapter);

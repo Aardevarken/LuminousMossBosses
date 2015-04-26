@@ -22,6 +22,9 @@ public class Observation extends ListItem implements Serializable {
     private double longitude;
     private double latitude;
     private boolean hasBeenProcceced;
+
+
+
     private boolean is_silene;
     private boolean isBeingProcessed;
     private int id;
@@ -83,7 +86,7 @@ public class Observation extends ListItem implements Serializable {
         return hasBeenProcceced;
     }
 
-    public void setHasBeenProcceced(boolean hasBeenProcceced) {
+    public void setHasBeenProcceced() {
         this.hasBeenProcceced = hasBeenProcceced;
     }
 
@@ -136,5 +139,7 @@ public class Observation extends ListItem implements Serializable {
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
+
+    public boolean isSilene() { return is_silene; }
 
 }

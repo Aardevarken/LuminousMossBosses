@@ -46,11 +46,10 @@ public class MainActivity extends Activity {
     public static final int HOME_POSITION = 0;
     public static final int OBSERVATION_POSITION = 1;
     public static final int OBSERVATION_LIST_POSITION = 2;
-    public static final int SYNC_OBSERVATION_POSITION = 3;
-    public static final int FIELD_GUIDE_POSITION = 4;
-    public static final int ABOUT_POSITION = 5;
-    public static final int SETTINGS_POSITION = 6;
-    public static final int HELP_POSITION = 7;
+    public static final int FIELD_GUIDE_POSITION = 3;
+    public static final int ABOUT_POSITION = 4;
+    //public static final int SETTINGS_POSITION = 6;
+    //public static final int HELP_POSITION = 7;
 
     //For handling location
     protected GPSTracker mGPS;
@@ -153,8 +152,8 @@ public class MainActivity extends Activity {
         }
         // Handle action bar actions click
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
+            //case R.id.action_settings:
+            //    return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -167,7 +166,7 @@ public class MainActivity extends Activity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        //menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 

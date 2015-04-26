@@ -37,10 +37,20 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
 
     private int buttonContext;
 
+    public Button getSendButton() {
+        return sendButton;
+    }
+
+    public ProgressBar getProgressBar() {
+        return progressBar;
+    }
+
     private Button sendButton;
     private Observation observation;
+    private ProgressBar progressBar;
 
-    public ObservationFragment()  { }
+    public ObservationFragment()  {
+    }
 
     public static ObservationFragment newInstance(Observation observation)
     {
@@ -50,6 +60,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         fragment.setArguments(bundle);
         return fragment;
     }
+
 
     @Override
     public Boolean allowedBackPressed() {
@@ -85,7 +96,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
 
         listItems.add(new DataItem("Latitude:", observation.getLatitudeFormated()));
         listItems.add(new DataItem("Longitude:", observation.getLongitudeFormated()));
-        listItems.add(new DataItem("Location Accuracy:", Float.toString(observation.getAccuracy())));
+        listItems.add(new DataItem("Location Accuracy:", Float.toString(observation.getAccuracy())+"m"));
 
         DataListAdapter adapter = new DataListAdapter(container.getContext(), listItems);
         dataSet.setAdapter(adapter);
@@ -94,7 +105,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
 
         sendButton = (Button) rootView.findViewById(R.id.button_context);
         sendButton.setOnClickListener(this);
-        ProgressBar progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         //imageView.setOnClickListener(this);
 
         //Check if Buttons should be visible
@@ -167,8 +178,11 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
             case R.id.button_context:
                 if(buttonContext == IDENTIFY_CONTEXT)
                 {
-                    IdActivity idActivity = new IdActivity(getActivity(), observation.getId());
-                    idActivity.execute(observation.getIcon().getPath());
+                    if (!observation.isBeingProcessed() && !observation.isHasBeenProcceced()) {
+                        IdActivity idActivity = new IdActivity(getActivity(), observation.getId(), this);
+                        idActivity.execute(observation.getIcon().getPath());
+                        buttonContext = SEND_CONTEXT;
+                    }
                     break;
                 }
                 else
@@ -180,4 +194,5 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
 
         }
     }
+
 }
