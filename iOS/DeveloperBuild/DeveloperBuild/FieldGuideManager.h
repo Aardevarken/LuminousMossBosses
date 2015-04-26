@@ -19,5 +19,10 @@
  */
 + (FieldGuideManager*)getSharedInstance;
 - (NSArray*)getAllData;
+- (NSDictionary*)findSpeciesByID:(NSNumber*)id;
 
+/**
+ * get the image path in the form FORBS/image_name.jpg
+ */
+- (NSString *)getImagePathForSpeciesWithID:(NSNumber*)id;
 @end

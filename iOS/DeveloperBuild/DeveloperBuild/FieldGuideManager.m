@@ -12,6 +12,7 @@
 \* define */
 // ALog always displays output regardless of the DEBUG setting
 #define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define printa(fmt, ...) printf(("%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 // database name
 #define databaseName @"FieldGuide.db"
 
@@ -21,7 +22,7 @@ static FieldGuideManager *sharedInstance = nil;
 static NSString* databasePath = nil;
 static NSDictionary *typeMap = nil;
 // globals added for the field guide.
-NSString *filter = nil;//[NSString stringWithFormat:@"SELECT latin_name, common_name FROM species ORDER BY latin_name"];
+// NSString *filter = nil;//[NSString stringWithFormat:@"SELECT latin_name, common_name FROM species ORDER BY latin_name"];
 
 
 /*******************\
@@ -77,9 +78,6 @@ NSString *filter = nil;//[NSString stringWithFormat:@"SELECT latin_name, common_
 		/*** TEST CODE ***/
 		
 		NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"FieldGuide" ofType:@"db"];
-		NSString *path2 = [[NSBundle mainBundle] pathForResource:@"detector" ofType:@"h"];
-		ALog(@"sp: %@", sourcePath);
-		ALog(@"p2: %@", path2);
 		
 		// build the path to the database file
 		databasePath = [[NSString alloc] initWithString:[docsDir stringByAppendingPathComponent:databaseName]];
@@ -100,8 +98,9 @@ NSString *filter = nil;//[NSString stringWithFormat:@"SELECT latin_name, common_
 		
 		
 		
-		ALog(@"\n\ndb path: %@\n\ntargetPath: %@", databasePath, targetPath);
+		//ALog(@"\n\ndb path: %@\n\ntargetPath: %@", databasePath, targetPath);
 		databasePath = targetPath;
+//		printa("Database can be found at:\n%s\n\n", [databasePath UTF8String]);
 		/*** END OF TEST CODE ***/
 		
 	});
@@ -171,6 +170,13 @@ NSString *filter = nil;//[NSString stringWithFormat:@"SELECT latin_name, common_
 	// Convert result table into an array of dictionaries.
 	NSMutableArray* results = [[NSMutableArray alloc] init];
 	int queryStatus;
+//	queryStatus = sqlite3_step(statement);
+//	
+//	int debug = queryStatus;
+//	int n = 0;
+//	printa("----------------------------------------------------------\n");
+//	printa("QUERY: %s\n", [query UTF8String]);
+//	printa("debug(%d): %d\n",n++ ,debug);
 	for (queryStatus = sqlite3_step(statement); queryStatus == SQLITE_ROW; queryStatus = sqlite3_step(statement)) {
 		NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
 		
@@ -183,7 +189,7 @@ NSString *filter = nil;//[NSString stringWithFormat:@"SELECT latin_name, common_
 			NSString *typeName = [typeMap valueForKey:name];
 			
 			//if ([typeName isEqual:@"string"]) {
-				value = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, i)];
+			value = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, i)];
 			//} else if ([typeName isEqual:@"double"]){
 			//	value = [NSNumber numberWithDouble:sqlite3_column_double(statement, i)];
 			//}
@@ -191,10 +197,20 @@ NSString *filter = nil;//[NSString stringWithFormat:@"SELECT latin_name, common_
 			[dictionary setObject:value forKey:name];
 		}
 		
+		/*** some debugging code ***/
+//		if (debug != queryStatus) {
+//			printa("\t\tdebug(%d): %d\n",n ,debug);
+//		}
+//		++n;
+//		debug = queryStatus;
+		/*** debugging code ***/
+
+		
 		// Add to results array
 		[results addObject:(NSDictionary*) dictionary];
 	}
-	
+//	printa("debug(%d): %d\n",n++ ,debug);
+//	printa("----------------------------------------------------------\n\n");
 	// Get status and close DB
 	sqlite3_finalize(statement);
 	
@@ -234,8 +250,46 @@ NSString *filter = nil;//[NSString stringWithFormat:@"SELECT latin_name, common_
 }
 
 - (NSArray*)getAllData{
-	NSString *filter = [NSString stringWithFormat:@"SELECT latin_name, common_name FROM species ORDER BY latin_name"];
+	NSString *filter = [NSString stringWithFormat:@"SELECT id, latin_name, common_name, code FROM species ORDER BY latin_name"];
 	return [self runTableQuery:filter];
+}
+
+- (NSDictionary*)findSpeciesByID:(NSNumber*)id{
+	NSString *query = [NSString stringWithFormat:
+					   @"SELECT growthform.name, code, latin_name, common_name, family, description, flowershape.name, leafshapefilter.name, photocredit "
+					   @"FROM species "
+					   @"JOIN growthform on growthformid = growthform.id "
+					   @"JOIN flowershape on flowershape.id = flowershapeid "
+					   @"JOIN leafshapefilter on leafshapefilterid = leafshapefilter.id "
+					   @"WHERE species.id = %d"
+					   @";", (int)[id integerValue]
+					   ];
+	
+	NSArray *results = [self runTableQuery:query];
+	
+	if (results != nil && results.count == 1){
+		return results[0];
+	} else {
+		return nil;
+	}
+}
+
+- (NSString*)getImagePathForSpeciesWithID:(NSNumber*)id{
+	NSString *query = [NSString stringWithFormat:
+					   @"SELECT code "
+					   @"FROM species "
+					   @"WHERE species.id = %d "
+					   @";", (int)[id integerValue]
+					   ];
+	
+	NSArray *results = [self runTableQuery:query];
+	
+	if (results != nil && results.count == 1){
+		NSString *imgPath = [NSString stringWithFormat:@"FORBS/%@.jpg", [results[0] objectForKey:@"code"]];
+		return imgPath;
+	} else {
+		return nil;
+	}
 }
 
 /**
