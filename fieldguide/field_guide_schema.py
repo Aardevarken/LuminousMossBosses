@@ -53,8 +53,8 @@ class FlowerShape(Base):
 	picture_filename = Column(String)
 
 species_flowercolor_table = Table('species_flowercolor', Base.metadata,
-	Column('speciesid', Integer, ForeignKey('species.id')),
-	Column('flowercolorid', Integer, ForeignKey('flowercolor.id'))
+	Column('species_id', Integer, ForeignKey('species.id')),
+	Column('flowercolor_id', Integer, ForeignKey('flowercolor.id'))
 )
 
 class FlowerColor(Base):
@@ -64,8 +64,8 @@ class FlowerColor(Base):
 
 
 species_inflorescence_table = Table('species_inflorescence', Base.metadata,
-	Column('speciesid', Integer, ForeignKey('species.id')),
-	Column('inflorescenceid', Integer, ForeignKey('inflorescence.id'))
+	Column('species_id', Integer, ForeignKey('species.id')),
+	Column('inflorescence_id', Integer, ForeignKey('inflorescence.id'))
 )
 
 class Inflorescence(Base):
@@ -75,8 +75,8 @@ class Inflorescence(Base):
 	picture_filename = Column(String)
 
 species_petalnumber_table = Table('species_petalnumber', Base.metadata,
-	Column('speciesid', Integer, ForeignKey('species.id')),
-	Column('petalnumberid', Integer, ForeignKey('petalnumber.id'))
+	Column('species_id', Integer, ForeignKey('species.id')),
+	Column('petalnumber_id', Integer, ForeignKey('petalnumber.id'))
 )
 
 class PetalNumber(Base):
@@ -86,8 +86,8 @@ class PetalNumber(Base):
 
 
 species_leafarrangement_table = Table('species_leafarrangement', Base.metadata,
-	Column('speciesid', Integer, ForeignKey('species.id')),
-	Column('leafarrangementid', Integer, ForeignKey('leafarrangement.id'))
+	Column('species_id', Integer, ForeignKey('species.id')),
+	Column('leafarrangement_id', Integer, ForeignKey('leafarrangement.id'))
 )
 
 class LeafArrangement(Base):
@@ -98,8 +98,8 @@ class LeafArrangement(Base):
 
 
 species_leafshape_table = Table('species_leafshape', Base.metadata,
-	Column('speciesid', Integer, ForeignKey('species.id')),
-	Column('leafshapeid', Integer, ForeignKey('leafshape.id'))
+	Column('species_id', Integer, ForeignKey('species.id')),
+	Column('leafshape_id', Integer, ForeignKey('leafshape.id'))
 )
 
 class LeafShape(Base):
@@ -110,8 +110,8 @@ class LeafShape(Base):
 
 
 species_habitat_table = Table('species_habitat', Base.metadata,
-	Column('speciesid', Integer, ForeignKey('species.id')),
-	Column('habitatid', Integer, ForeignKey('habitat.id'))
+	Column('species_id', Integer, ForeignKey('species.id')),
+	Column('habitat_id', Integer, ForeignKey('habitat.id'))
 )
 
 class Habitat(Base):
@@ -122,7 +122,7 @@ class Habitat(Base):
 class Species(Base):
 	__tablename__ = 'species'
 	id = Column(Integer, primary_key=True)
-	growthformid = Column(Integer, ForeignKey('growthform.id'))
+	growthform_id = Column(Integer, ForeignKey('growthform.id'))
 	growthform = relationship ("GrowthForm")
 	code = Column(String)
 	latin_name = Column(String)
@@ -131,13 +131,13 @@ class Species(Base):
 	synonyms = relationship("Synonym")
 	description = Column(String)
 	flowercolor = relationship ("FlowerColor", secondary = species_flowercolor_table)
-	flowershapeid = Column(Integer, ForeignKey('flowershape.id'))
+	flowershape_id = Column(Integer, ForeignKey('flowershape.id'))
 	flowershape = relationship ("FlowerShape")
 	petalnumber = relationship ("PetalNumber", secondary = species_petalnumber_table)
 	inflorescence = relationship ("Inflorescence", secondary = species_inflorescence_table)
 	leafarrangement = relationship ("LeafArrangement", secondary = species_leafarrangement_table)
 	leafshape = relationship ("LeafShape", secondary = species_leafshape_table)
-	leafshapefilterid = Column(Integer, ForeignKey('leafshapefilter.id'))
+	leafshapefilter_id = Column(Integer, ForeignKey('leafshapefilter.id'))
 	leafshapefilter = relationship('LeafShapeFilter')
 	habitat = relationship ("Habitat", secondary = species_habitat_table)
 	cf = relationship("CF")
