@@ -9,5 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface FilterTableViewCell : UITableViewCell
+// labels
+@property (strong, nonatomic) IBOutlet UILabel *filterName;
+@property (strong, nonatomic) IBOutlet UILabel *filterValue;
+
+// uiimages
+@property (strong, nonatomic) IBOutlet UIImageView *filterValueImage;
 
 @end
