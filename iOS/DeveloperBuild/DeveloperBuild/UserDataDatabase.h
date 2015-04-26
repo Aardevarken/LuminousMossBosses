@@ -40,7 +40,7 @@
 
 -(BOOL) printResults:(NSArray*)array;
 
--(BOOL) updateObservation:(NSString*)imghexid andNewPercentIDed:(NSNumber*)percentIDed andNewStatus:(NSString*)status;
+-(BOOL) updateObservation:(NSString*)imghexid andNewPercentIDed:(NSNumber*)percentIDed andNewStatus:(NSString*)status isSilene:(NSString*) isSilene;
 
 -(BOOL) deleteObservationByID:(NSString*) imghexid;
 
@@ -51,5 +51,7 @@
 -(void) getGPS;
 
 -(void) pauseLocationTracking;
+
+- (CLLocation *) getBestKnownLocation;
 
 @end

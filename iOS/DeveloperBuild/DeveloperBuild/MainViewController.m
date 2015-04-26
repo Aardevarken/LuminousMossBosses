@@ -10,17 +10,27 @@
  * Imports
 \**********/
 
-#import "ViewController.h"
+#import "MainViewController.h"
 
 
 /******************\
  * View Controller
 \******************/
 
-@implementation ViewController
+@implementation MainViewController
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[self.navigationController setNavigationBarHidden:YES animated:animated];
+	[super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[self.navigationController setNavigationBarHidden:NO animated:animated];
+	[super viewWillDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning {

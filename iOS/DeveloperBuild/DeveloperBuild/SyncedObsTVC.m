@@ -14,7 +14,7 @@
 @end
 
 @implementation SyncedObsTVC{
-	NSArray *syncedObservations;
+	NSMutableArray *syncedObservations;
 }
 
 - (void)viewDidLoad {
@@ -25,7 +25,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-	syncedObservations = [[UserDataDatabase getSharedInstance] findObservationsByStatus:@"synced" like:NO orderBy:NULL];
+		syncedObservations = [NSMutableArray arrayWithArray:[[UserDataDatabase getSharedInstance] findObservationsByStatus:@"synced" like:NO orderBy:@"datetime DESC"]];
 	
 }
 
@@ -37,13 +37,11 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return [syncedObservations count];
 }
@@ -73,7 +71,7 @@
 	} failureBlock:nil];
 	
 	// set text fields
-	cell.nameLabel.text = [plantInformation objectForKey:@"imghexid"];
+	cell.nameLabel.text = @"Missing isSilene field in DB";//[plantInformation objectForKey:@"imghexid"];
 	cell.dateLabel.text = [plantInformation objectForKey:@"datetime"];
 	cell.percentLabel.text = [NSString stringWithFormat:@"%@%%", [plantInformation objectForKey:@"percentIDed"]];
 	
@@ -89,17 +87,22 @@
 }
 */
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
+		// Delete the row from the Database
+		NSDictionary *obToRemove = [[NSDictionary alloc] initWithDictionary:[syncedObservations objectAtIndex:indexPath.row]];
+		[[UserDataDatabase getSharedInstance] deleteObservationByID:[obToRemove objectForKey:@"imghexid"]];
+
+		// Delete the row from the data source
+		[syncedObservations removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
+
 
 /*
 // Override to support rearranging the table view.
@@ -123,8 +126,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-	// Get the new view controller using [segue destinationViewController].
-	// Pass the selected object to the new view controller.
 	if ([segue.identifier isEqualToString:@"MyObsSegue"]) {
 		NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 		ObsDetailViewController *destViewController = segue.destinationViewController;
@@ -140,8 +141,7 @@
     break;
 		}
 		
-		destViewController.plantInfo = selectedObservation;//[pendingObservations objectAtIndex:indexPath.row];
-																  //NSLog(@"Leaving prepareForSegue MyObsSegue");
+		destViewController.plantInfo = selectedObservation;
 	}
 
 }

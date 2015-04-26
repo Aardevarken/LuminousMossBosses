@@ -1,8 +1,8 @@
 //
 //  ServerAPITest.m
-//  DeveloperBuild
+//  Luminous ID
 //
-//  Created by Jamie Frampton Miller on 3/17/15.
+//  Created by Jamie Miller on 4/25/15.
 //  Copyright (c) 2015 CU Boulder. All rights reserved.
 //
 

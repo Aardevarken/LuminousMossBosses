@@ -10,5 +10,5 @@
 #import <Foundation/Foundation.h>
 
 @interface ServerAPI : NSObject
-+ (BOOL) uploadObservation:(NSString*) date time:(NSString*) time lat:(float) lat lng:(float) lng image:(UIImage*) image;
++ (BOOL) uploadObservation:(NSString*) date time:(NSString*) time lat:(float) lat lng:(float) lng locationerror:(float) locationerror image:(UIImage*) image;
 @end

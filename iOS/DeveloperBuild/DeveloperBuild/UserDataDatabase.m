@@ -15,6 +15,9 @@
 #define databaseName "userdata.db"
 #define TESTING NO
 
+// ALog always displays output regardless of the DEBUG setting
+#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+
 static UserDataDatabase* sharedInstance = nil;
 static NSString* databasePath = nil;
 static NSDictionary* typeMap = nil;
@@ -47,16 +50,18 @@ static NSDictionary* typeMap = nil;
         @"longitude double not null,"
         @"locationerror double,"
         @"status text not null default 'pending-noid',"
-        @"percentIDed double"
+        @"percentIDed double,"
+        @"isSilene text not null default 'idk'"
     @");";
     typeMap = @{
-        @"imghexid" : @"string", // These strings decide if NSString or NSNumber should be used later.
+        @"imghexid" : @"string", // These strings decide if NSString or NSNumber or NSBoolean should be used later.
         @"datetime" : @"string",
         @"latitude" : @"double",
         @"longitude" : @"double",
         @"locationerror" : @"double",
         @"status" : @"string",
-        @"percentIDed" : @"double"
+        @"percentIDed" : @"double",
+        @"isSilene" : @"string"
     };
     
     // Uncomment this line the first time you run code with a new database schema.
@@ -135,11 +140,11 @@ static NSDictionary* typeMap = nil;
 
 -(BOOL) saveObservation:(NSString*) imghexid date:(NSString*)date latitude:(NSNumber*)latitude longitude:(NSNumber*)longitude locationError:(NSNumber*) locationError percentIDed:(NSNumber*)percentIDed {
 	
-	#warning Change latitude and longitude to floats/doubles to reduce the amount of conversion for NSNumber?
+	//#warning Change latitude and longitude to floats/doubles to reduce the amount of conversion for NSNumber?
 	if(latitude == nil && longitude == nil && date == nil){
 		latitude = [NSNumber numberWithDouble:bestEffortAtLocation.coordinate.latitude];
 		longitude = [NSNumber numberWithDouble:bestEffortAtLocation.coordinate.longitude];
-		date = bestEffortAtLocation.timestamp;
+		date = [NSString stringWithFormat:@"%@",bestEffortAtLocation.timestamp];
 	} else {
 
 	}
@@ -148,10 +153,13 @@ static NSDictionary* typeMap = nil;
     return [self runBoolQuery:insertSQL];
 }
 
--(BOOL) updateObservation:(NSString *)imghexid andNewPercentIDed:(NSNumber *)percentIDed andNewStatus:(NSString *)status
+-(BOOL) updateObservation:(NSString *)imghexid andNewPercentIDed:(NSNumber *)percentIDed andNewStatus:(NSString *)status isSilene:(NSString*) isSilene
 {
-
-    NSString *query = [NSString stringWithFormat:@"UPDATE observations SET status='%@', percentIDed='%@' WHERE imghexid='%@';", status, percentIDed, imghexid];
+    NSString* isSileneString = @"";
+    if (isSilene != nil) {
+        isSileneString = [NSString stringWithFormat:@", isSilene='%@'", isSilene];
+    }
+    NSString *query = [NSString stringWithFormat:@"UPDATE observations SET status='%@', percentIDed='%@'%@ WHERE imghexid='%@';", status, percentIDed, isSileneString, imghexid];
     return [self runBoolQuery:query];
 }
 
@@ -237,7 +245,7 @@ static NSDictionary* typeMap = nil;
 	NSString* orderBystmt;
 	NSString* statusStmt;
 	if (orderBy != nil){
-		orderBystmt = [NSString stringWithFormat:@" order by %@", orderBy];
+		orderBystmt = [NSString stringWithFormat:@" ORDER BY %@", orderBy];
 	}
 	//else if(![orderBy length]) {orderBystmt = [NSString stringWithFormat:@"order by %@", orderBy];}
 	else{
@@ -269,10 +277,12 @@ static NSDictionary* typeMap = nil;
 		
 		[lib assetForURL:url
 			 resultBlock:^(ALAsset *asset) {
-				 NSLog(@"Asset: %@ exists", asset);
+				 if (asset == NULL) {
+					 [self deleteObservationByID:[object objectForKey:@"imghexid"]];
+				 }
 			 }
 			failureBlock:^(NSError *error) {
-				[self deleteObservationByID:[object objectForKey:@"imghexid"]];
+				ALog(@"SHOULD NOT HIT");
 		}];
 	}
 }
@@ -329,10 +339,10 @@ static NSDictionary* typeMap = nil;
 			NSLog(@"Update(%u) \t%@", updateCount, newLocation.description);
 		}
 		else if (locations.count > 1){
-			#warning Need to check time stamp when multible GPS coordinates.
+			//#warning Need to check time stamp when multible GPS coordinates.
 		}
 		else {
-			#warning THIS SHOULD NEVER HIT!
+			//#warning THIS SHOULD NEVER HIT!
 		}
 		++updateCount;
 	}
@@ -342,16 +352,20 @@ static NSDictionary* typeMap = nil;
 		return;
 	}
 	
-	// ???
 	// Test the age of the location mesurement to determine if the mesurement is cached, in most cases you will not want to rely on chached mesurements
-	// ???
 	NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
 	if (locationAge > 5.0) {
 		return;
 	}
 	
+	if ([newLocation.timestamp timeIntervalSinceDate:bestEffortAtLocation.timestamp] > 5) {
+		bestEffortAtLocation = nil;
+	}
+	
+
 	// test the mesurement to see if it is more accurate than the previous mesurement
-	if (bestEffortAtLocation == nil || bestEffortAtLocation.horizontalAccuracy > newLocation.horizontalAccuracy) {
+
+	if (bestEffortAtLocation == nil || bestEffortAtLocation.horizontalAccuracy >= newLocation.horizontalAccuracy) {
 		// store the new mesurement
 		bestEffortAtLocation = newLocation;
 		
@@ -383,9 +397,7 @@ static NSDictionary* typeMap = nil;
 				NSLog(@"Heading \t%@", self.locationManager.heading);
 				NSLog(@"Heading Filter \t%f (float)", self.locationManager.headingFilter);
 				NSLog(@"Heading Orientation \t%d (32-bit int)", self.locationManager.headingOrientation);
-
-				
-				NSLog(@"\n");
+				NSLog(@"\n");				
 			}
 			[self stopUpdatingLocationWithMessage:NSLocalizedString(@"Aquired Location", @"Acuired Location")];
 		}
@@ -435,6 +447,11 @@ static NSDictionary* typeMap = nil;
 	[self.locationManager stopUpdatingLocation];
 	self.locationManager.delegate = nil;
 }
+
+- (CLLocation *) getBestKnownLocation{
+	return bestEffortAtLocation;
+}
+
 @end
 
 

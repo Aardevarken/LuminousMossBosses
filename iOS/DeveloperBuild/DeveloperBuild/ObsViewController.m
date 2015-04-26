@@ -15,6 +15,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "ObsDetailViewController.h"
 #import "ServerAPI.h"
+#import "IdentifyingAssets.h"
 
 @interface ObsViewController ()
 
@@ -22,10 +23,13 @@
 
 #define getDataURL @"http://flowerid.cheetahjokes.com/cgi-bin/observations.py"
 #define MAX_NUMB_DISPLAYED 5
+// ALog always displays output regardless of the DEBUG setting
+#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define TESTING YES
 
 @implementation ObsViewController{
 	NSArray *plants;
-	NSArray *pendingObservations;
+	NSMutableArray *pendingObservations;
 	NSMutableArray *idedObservations;
 }
 
@@ -36,7 +40,6 @@ NSMutableArray *_myObservations;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	
 	
 	//NSLog(@"In ObsViewController (ObsViewController.m)");
 	_myObservations = [NSMutableArray arrayWithCapacity:20];
@@ -65,37 +68,63 @@ NSMutableArray *_myObservations;
 	
 	self.myObservations = _myObservations;
 	
-	// please work
-	/** /
-	pendingObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-noid" like:NO orderBy:NULL];
-	idedObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:NULL];
-	
-	//NSLog(@"po:%lu \t io:%lu", (unsigned long)[pendingObservations count], (unsigned long)[idedObservations count]);
-	
-	selectedSection = -1;
-	selectedRow = -1;
-	//NSLog(@"\n");
-	/**/
-	// keep this work
+//	// please work
+//	
+//	pendingObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-noid" like:NO orderBy:NULL];
+//	idedObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:NULL];
+//	
+//	//NSLog(@"po:%lu \t io:%lu", (unsigned long)[pendingObservations count], (unsigned long)[idedObservations count]);
+//	
+//	selectedSection = -1;
+//	selectedRow = -1;
+//	//NSLog(@"\n");
+//	// keep this work
 	
 	[self retrieveData];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-	/**/
-	pendingObservations = [[UserDataDatabase getSharedInstance] findObservationsByStatus:@"pending-noid" like:NO orderBy:NULL];
-	//idedObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:NULL];
-	idedObservations = [NSMutableArray array];
-	
-	for(id object in [[UserDataDatabase getSharedInstance] findObservationsByStatus:@"pending-id" like:NO orderBy:NULL]){
-		[idedObservations addObject:object];
-	}
-	//NSLog(@"po:%lu \t io:%lu", (unsigned long)[pendingObservations count], (unsigned long)[idedObservations count]);
-	
-	selectedSection = -1;
-	selectedRow = -1;
-	[self.tableView reloadData];
-	/**/
+    [self updateTables];
+    for(id object in pendingObservations){
+        [[IdentifyingAssets getByimghexid:[object objectForKey:@"imghexid"]] addObserver:self forKeyPath:@"percentageComplete" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    }
+    for(id object in idedObservations){
+        [[IdentifyingAssets getByimghexid:[object objectForKey:@"imghexid"]] addObserver:self forKeyPath:@"percentageComplete" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    for(id object in pendingObservations){
+        detectionHelper* detectionObject = [IdentifyingAssets getByimghexid:[object objectForKey:@"imghexid"]];
+        [detectionObject removeObserver:self forKeyPath:@"percentageComplete"];
+    }
+    for(id object in idedObservations){
+        detectionHelper* detectionObject = [IdentifyingAssets getByimghexid:[object objectForKey:@"imghexid"]];
+        [detectionObject removeObserver:self forKeyPath:@"percentageComplete"];
+    }
+}
+
+- (void)updateTables {
+    UserDataDatabase* database = [UserDataDatabase getSharedInstance];
+    NSString* dateOrder = @"datetime DESC";
+    NSArray* pendingResults = [database findObservationsByStatus:@"pending-noid" like:NO orderBy:dateOrder];
+    NSArray* idedResults = [database findObservationsByStatus:@"pending-id" like:NO orderBy:dateOrder];
+    
+    pendingObservations = [[NSMutableArray alloc] initWithArray: pendingResults];
+    idedObservations = [[NSMutableArray alloc] initWithArray: idedResults];
+    
+    selectedSection = -1;
+    selectedRow = -1;
+    [self.tableView reloadData];
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    
+    if ([keyPath isEqualToString:@"percentageComplete"]) {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [self updateTables];
+        });
+    }
 }
 
 
@@ -124,22 +153,32 @@ NSMutableArray *_myObservations;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+	// uncommenting this section will cause a crash when deleting all of the
+	// observations that are being displayed.
+//	unsigned long count = 0;
+//	if (pendingObservations.count > 0) {
+//		++count;
+//	}
+//	if (idedObservations.count > 0) {
+//		++count;
+//	}
+//	
+//	if (count == 0) {
+//		return 0;
+//	}
 	return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	NSInteger count = -1;
-	NSArray *data;// = pendingObservations;
 	
 	// All variable declaration must be pulled out of the switch statment
 	switch (section) {
 		case 0:
-			data = pendingObservations;//[[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-noid" like:NO orderBy:nil];
 			count = [pendingObservations count];
 			break;
 		case 1:
-			data = idedObservations;//[[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:nil];
 			count = [idedObservations count];
 			break;
 		default:
@@ -147,36 +186,80 @@ NSMutableArray *_myObservations;
 			break;
 	}
 	
-	//NSLog(@"section: %ld \t count: %ld", (long)section, (long)count);
 	return count;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
-		[idedObservations removeObjectAtIndex:indexPath.row];
+		NSDictionary *obsToRemove = [[NSDictionary alloc] initWithDictionary:[self getInfoForSection:indexPath.section andRow:indexPath.row]];
+		
+		switch (indexPath.section) {
+			case 0:
+				[pendingObservations removeObjectAtIndex:indexPath.row];
+				break;
+				
+			case 1:
+				[idedObservations removeObjectAtIndex:indexPath.row];
+				break;
+				
+			default:
+				break;
+		}
+		
+		
+		[[UserDataDatabase getSharedInstance] deleteObservationByID:[obsToRemove objectForKey:@"imghexid"]];
 		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        // Unsubsribe from deleted object, not really necessary.
+        detectionHelper* detectionObject = [IdentifyingAssets getByimghexid:[obsToRemove objectForKey:@"imghexid"]];
+        [detectionObject removeObserver:self forKeyPath:@"percentageComplete"];
 	}
 	else {
 		NSLog(@"Unhandled editing sytle! %ld", editingStyle);
 	}
 }
 
+- (NSDictionary *)getInfoForSection:(long)section andRow:(long)row{
+	
+	NSArray *data;
+	
+	switch (section) {
+		case 0:
+			data = pendingObservations;
+			break;
+		
+		case 1:
+			data = idedObservations;
+			break;
+		default:
+			return NULL;
+			break;
+	}
+	
+	return [data objectAtIndex:row];
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	
-	ObservationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ObservationCell_ID" forIndexPath:indexPath];
+//	ObservationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ObservationCell_ID" forIndexPath:indexPath];
 	///? what does this do ?///
-	if (cell == nil) {
-		// do something
-	}
+//	if (cell == nil) {
+//		// do something
+//	}
 	
 //	NewObs *myObservation = [self.observationsArray objectAtIndex:indexPath.row];
+	
+	ObservationCell *cell;
 	NSArray *data;
 	if (indexPath.section == 0) {
 		data = pendingObservations;
+		cell = [tableView dequeueReusableCellWithIdentifier:@"ObservationCell_ID" forIndexPath:indexPath];
 	}
 	else if (indexPath.section == 1){
 		data = idedObservations;
+		cell = [tableView dequeueReusableCellWithIdentifier:@"ObservationCell_ID_2" forIndexPath:indexPath];
 	}
 	else {
 		return cell;
@@ -301,7 +384,7 @@ NSMutableArray *_myObservations;
 	}
 	*/
 	
-	NSLog(@"%@", [json objectAtIndex:0]);
+	ALog(@"%@", [json objectAtIndex:0]);
 	
 	UIImage * newImage = [json objectAtIndex:0];
 	
@@ -332,13 +415,8 @@ NSMutableArray *_myObservations;
 	// Pass the selected object to the new view controller.
 	if ([segue.identifier isEqualToString:@"MyObsSegue"]) {
 		NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-		//NSLog(@"indexpath: %@", indexPath);
-		//NSLog(@"indexpath.section: %ld", (long)indexPath.section);
-		//NSLog(@"indexpath.row: %ld", (long)indexPath.row);
 
 		ObsDetailViewController *destViewController = segue.destinationViewController;
-		//NSLog(@"%@", [pendingObservations objectAtIndex:indexPath.row]);
-		
 		
 		NSDictionary *selectedPendingObservation;
 		switch (indexPath.section) {
@@ -354,49 +432,90 @@ NSMutableArray *_myObservations;
     break;
 		}
 		
-		destViewController.plantInfo = selectedPendingObservation;//[pendingObservations objectAtIndex:indexPath.row];
-		//NSLog(@"Leaving prepareForSegue MyObsSegue");
+		destViewController.plantInfo = selectedPendingObservation;
 	}
 }
 
 - (IBAction)syncAllBtn:(UIButton *)sender {
-	for(id object in idedObservations){
-		[[UserDataDatabase getSharedInstance] updateObservation:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced"];
-        NSDictionary* observationData = object;
-        
-        // Get position and time data
-        NSString* date = [NSString stringWithFormat:@"%@", [observationData objectForKey:@"date"]];
-        float lat = [[observationData objectForKey:@"latitude"] floatValue];
-        float lng = [[observationData objectForKey:@"longitude"] floatValue];
-        
-        // Get image url
-        NSURL *url = [NSURL URLWithString:[observationData objectForKey:@"imghexid"]];
-        if ([url  isEqual: @"(null)"]) {
-            NSLog(@"img path is null");
-        }
-        
-        // Fetch image at url
-        ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
-        [lib assetForURL: url
-             resultBlock: ^(ALAsset *asset) {
-                 ALAssetRepresentation *r = [asset defaultRepresentation];
-                 UIImageOrientation orientation = (UIImageOrientation) (int) r.orientation;
-                 UIImage* image = [UIImage imageWithCGImage:r.fullResolutionImage scale:r.scale orientation:orientation];
-                 // Unrotate image
-                 UIImage* normalizedImage;
-                 if (image.imageOrientation == UIImageOrientationUp) {
-                     normalizedImage = image;
-                 } else {
-                     UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
-                     [image drawInRect:(CGRect){0, 0, image.size}];
-                     normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
-                     UIGraphicsEndImageContext();
-                 }
-                 // Send to server.
-                 [ServerAPI uploadObservation:date time:date lat:lat lng:lng image:normalizedImage];
-             }
-            failureBlock: nil];
+	unsigned long originalCount = idedObservations.count;
+	if (originalCount == 0) {
+		return;
 	}
+	
+	[[self syncBtn] setTitle:[NSString stringWithFormat:@"Syncing... (%d/%lu)", 1, originalCount] forState:UIControlStateNormal];
+
+	[[self syncBtn] setEnabled:NO];
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+		
+		for(id object in idedObservations){
+			
+			NSDictionary* observationData = object;
+			
+			// Get position and time data
+			NSString* date = [NSString stringWithFormat:@"%@", [observationData objectForKey:@"datetime"]];
+			float lat = [[observationData objectForKey:@"latitude"] floatValue];
+			float lng = [[observationData objectForKey:@"longitude"] floatValue];
+            float locationerror = [[observationData objectForKey:@"locationerror"] floatValue];
+			
+			// Get image url
+			NSURL *url = [NSURL URLWithString:[observationData objectForKey:@"imghexid"]];
+			if ([url  isEqual: @"(null)"]) {
+				NSLog(@"img path is null");
+			}
+			
+			// Fetch image at url
+			//dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+				ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
+				[lib assetForURL: url
+					 resultBlock: ^(ALAsset *asset) {
+						 ALAssetRepresentation *r = [asset defaultRepresentation];
+						 UIImageOrientation orientation = (UIImageOrientation) (int) r.orientation;
+						 UIImage* image = [UIImage imageWithCGImage:r.fullResolutionImage scale:r.scale orientation:orientation];
+						 // Unrotate image
+						 UIImage* normalizedImage;
+						 if (image.imageOrientation == UIImageOrientationUp) {
+							 normalizedImage = image;
+						 } else {
+							 UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
+							 [image drawInRect:(CGRect){0, 0, image.size}];
+							 normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
+							 UIGraphicsEndImageContext();
+						 }
+						 
+						 
+						 // upload to server
+						 //sleep(2.5);
+                         [ServerAPI uploadObservation:date time:date lat:lat lng:lng locationerror:locationerror image:normalizedImage];
+						 
+						 // change status of observation in the database
+						 //sleep(0.8);
+                         [[UserDataDatabase getSharedInstance] updateObservation:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced" isSilene:nil];
+						 
+						 // update and remove synced rows.
+						 dispatch_async(dispatch_get_main_queue(), ^{
+							 NSInteger rowIndex = [idedObservations indexOfObjectIdenticalTo:object];
+							 
+							 [idedObservations removeObjectIdenticalTo:object];
+							 
+							 [[self syncBtn] setTitle:[NSString stringWithFormat:@"Syncing... (%ld/%lu)", originalCount - idedObservations.count + 1, originalCount] forState:UIControlStateNormal];
+							 [self removeRow:rowIndex inSection:1];
+							 
+							 if (idedObservations.count == 0) {
+								 [[self syncBtn] setEnabled:YES];
+								 [[self syncBtn] setTitle:[NSString stringWithFormat:@"Sync All"] forState:UIControlStateNormal];
+								 [idedObservations removeAllObjects];
+							 }
+						 });
+					 }
+					failureBlock: nil];
+			//});
+		}
+	});
+}
+
+-(void) removeRow:(NSInteger)row inSection:(NSInteger)section{
+	NSIndexPath *myIndex = [NSIndexPath indexPathForRow:row inSection:section];
+	[self.tableView deleteRowsAtIndexPaths:@[myIndex] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 
