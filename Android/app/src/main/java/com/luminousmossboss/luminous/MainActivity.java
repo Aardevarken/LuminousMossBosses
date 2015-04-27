@@ -238,6 +238,10 @@ public class MainActivity extends Activity {
                 //icon = R.drawable.ic_openbook;
                 break;
 
+            case ABOUT_POSITION:
+                displayView(new AboutFragment());
+                break;
+
             default:
                 break;
         }

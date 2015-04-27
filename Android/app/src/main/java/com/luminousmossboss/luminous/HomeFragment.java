@@ -56,18 +56,17 @@ public class HomeFragment extends Fragment implements OnClickListener, BackButto
                     ((MainActivity) activity).displayView(MainActivity.FIELD_GUIDE_POSITION);
                     break;
             case R.id.add_observation_button:
-                if(activity instanceof MainActivity) {
+                if(activity instanceof MainActivity)
                     ((MainActivity) activity).displayView(MainActivity.OBSERVATION_POSITION);
-                }
+                break;
             case R.id.my_observation_button:
-                if(activity instanceof MainActivity) {
+                if(activity instanceof MainActivity)
                     ((MainActivity) activity).displayView(MainActivity.OBSERVATION_LIST_POSITION);
-                }
-            /*case R.id.settings_button:
-                if(activity instanceof MainActivity) {
-                    ((MainActivity) activity).displayView(MainActivity.SETTINGS_POSITION);
-                }
-                break;*/
+                break;
+            case R.id.settings_button:
+                if(activity instanceof MainActivity)
+                    ((MainActivity) activity).displayView(MainActivity.ABOUT_POSITION);
+                break;
         }
     }
 }
