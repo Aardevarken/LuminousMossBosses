@@ -170,20 +170,22 @@ static NSDictionary* typeMap = nil;
 	@"longitude double not null,"
 	@"locationerror double,"
 	@"status text not null default 'pending-noid',"
-	@"percentIDed double"
+	@"percentIDed double,"
+	@"isSilene text not null default 'idk'"
 	@");";
 	typeMap = @{
-				@"imghexid" : @"string", // These strings decide if NSString or NSNumber should be used later.
+				@"imghexid" : @"string", // These strings decide if NSString or NSNumber or NSBoolean should be used later.
 				@"datetime" : @"string",
 				@"latitude" : @"double",
 				@"longitude" : @"double",
 				@"locationerror" : @"double",
 				@"status" : @"string",
-				@"percentIDed" : @"double"
+				@"percentIDed" : @"double",
+				@"isSilene" : @"string"
     };
 	
 	// Uncomment this line the first time you run code with a new database schema.
-	//[self runBoolQuery:@"DROP TABLE IF EXISTS observations;"];
+	[self runBoolQuery:@"DROP TABLE IF EXISTS observations;"];
 	
 	return [self runBoolQuery:createTables];
 }

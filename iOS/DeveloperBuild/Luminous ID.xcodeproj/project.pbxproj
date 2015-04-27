@@ -33,6 +33,15 @@
 		1642DE531ADCA085002FB11C /* MyObsTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1642DE521ADCA085002FB11C /* MyObsTabBarController.m */; };
 		165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 165B6A201AA3F5C4004FE7CB /* nocamera.png */; };
 		165B6A271AA66418004FE7CB /* MyObservations.m in Sources */ = {isa = PBXBuildFile; fileRef = 165B6A251AA66418004FE7CB /* MyObservations.m */; };
+		165C72AD1AEE014F007BB2AA /* ic_about.png in Resources */ = {isa = PBXBuildFile; fileRef = 165C72A91AEE014F007BB2AA /* ic_about.png */; };
+		165C72AE1AEE014F007BB2AA /* ic_fieldguide.png in Resources */ = {isa = PBXBuildFile; fileRef = 165C72AA1AEE014F007BB2AA /* ic_fieldguide.png */; };
+		165C72AF1AEE014F007BB2AA /* ic_addobservation.png in Resources */ = {isa = PBXBuildFile; fileRef = 165C72AB1AEE014F007BB2AA /* ic_addobservation.png */; };
+		165C72B01AEE014F007BB2AA /* ic_myobservations.png in Resources */ = {isa = PBXBuildFile; fileRef = 165C72AC1AEE014F007BB2AA /* ic_myobservations.png */; };
+		165C72B91AEE0D97007BB2AA /* round_button_normal2.png in Resources */ = {isa = PBXBuildFile; fileRef = 165C72B81AEE0D97007BB2AA /* round_button_normal2.png */; };
+		165C72BE1AEE1081007BB2AA /* my_observations_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 165C72BA1AEE1081007BB2AA /* my_observations_normal.png */; };
+		165C72BF1AEE1081007BB2AA /* add_observation_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 165C72BB1AEE1081007BB2AA /* add_observation_normal.png */; };
+		165C72C01AEE1081007BB2AA /* about_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 165C72BC1AEE1081007BB2AA /* about_normal.png */; };
+		165C72C11AEE1081007BB2AA /* field_guide_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 165C72BD1AEE1081007BB2AA /* field_guide_normal.png */; };
 		16A6D8481A636C6F00CB4563 /* ObsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 160D23EB1A63396000F7B916 /* ObsTableViewController.m */; };
 		16A6D84C1A63765C00CB4563 /* Observation.m in Sources */ = {isa = PBXBuildFile; fileRef = 16A6D84B1A63765C00CB4563 /* Observation.m */; };
 		16A6D84E1A637DEA00CB4563 /* ObservationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16A6D84D1A637DEA00CB4563 /* ObservationCell.m */; };
@@ -158,6 +167,15 @@
 		165B6A261AA66418004FE7CB /* MyObservations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyObservations.h; sourceTree = "<group>"; };
 		165C45FC1AB54EE8006ECDDC /* detectionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = detectionHelper.h; sourceTree = "<group>"; };
 		165C45FD1AB54EE8006ECDDC /* detectionHelper.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = detectionHelper.mm; sourceTree = "<group>"; };
+		165C72A91AEE014F007BB2AA /* ic_about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_about.png; sourceTree = "<group>"; };
+		165C72AA1AEE014F007BB2AA /* ic_fieldguide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_fieldguide.png; sourceTree = "<group>"; };
+		165C72AB1AEE014F007BB2AA /* ic_addobservation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_addobservation.png; sourceTree = "<group>"; };
+		165C72AC1AEE014F007BB2AA /* ic_myobservations.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_myobservations.png; sourceTree = "<group>"; };
+		165C72B81AEE0D97007BB2AA /* round_button_normal2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = round_button_normal2.png; sourceTree = "<group>"; };
+		165C72BA1AEE1081007BB2AA /* my_observations_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = my_observations_normal.png; sourceTree = "<group>"; };
+		165C72BB1AEE1081007BB2AA /* add_observation_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_observation_normal.png; sourceTree = "<group>"; };
+		165C72BC1AEE1081007BB2AA /* about_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = about_normal.png; sourceTree = "<group>"; };
+		165C72BD1AEE1081007BB2AA /* field_guide_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = field_guide_normal.png; sourceTree = "<group>"; };
 		16A6D84B1A63765C00CB4563 /* Observation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Observation.m; sourceTree = "<group>"; };
 		16A6D84D1A637DEA00CB4563 /* ObservationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObservationCell.m; sourceTree = "<group>"; };
 		16A6D84F1A6386C600CB4563 /* ObsTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObsTableView.h; sourceTree = "<group>"; };
@@ -334,6 +352,23 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		165C72B11AEE015E007BB2AA /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				165C72A91AEE014F007BB2AA /* ic_about.png */,
+				165C72AA1AEE014F007BB2AA /* ic_fieldguide.png */,
+				165C72AB1AEE014F007BB2AA /* ic_addobservation.png */,
+				165C72AC1AEE014F007BB2AA /* ic_myobservations.png */,
+				165C72B81AEE0D97007BB2AA /* round_button_normal2.png */,
+				165C72BA1AEE1081007BB2AA /* my_observations_normal.png */,
+				165C72BB1AEE1081007BB2AA /* add_observation_normal.png */,
+				165C72BC1AEE1081007BB2AA /* about_normal.png */,
+				165C72BD1AEE1081007BB2AA /* field_guide_normal.png */,
+			);
+			name = Icons;
+			path = DeveloperBuild;
+			sourceTree = "<group>";
+		};
 		16B0529E1A5B4BDE007837B4 = {
 			isa = PBXGroup;
 			children = (
@@ -343,6 +378,7 @@
 				16B052A91A5B4BDE007837B4 /* DeveloperBuild */,
 				7D0559741AEB7A72000479FC /* Luminous ID Tests */,
 				16B052A81A5B4BDE007837B4 /* Products */,
+				165C72B11AEE015E007BB2AA /* Icons */,
 				16CCBC3D1A773D87008B7E96 /* Flower Images */,
 				16CCBC421A773E06008B7E96 /* XML Files */,
 				16B052DF1A5B53D4007837B4 /* Frameworks */,
@@ -610,22 +646,31 @@
 				E6BAA8E71AEB4897007A8F34 /* Luminous-ID.png in Resources */,
 				F0D4ED171AA59917008CBAD4 /* silene.xml in Resources */,
 				16CCBC3C1A773D71008B7E96 /* minuartia1.jpg in Resources */,
+				165C72C01AEE1081007BB2AA /* about_normal.png in Resources */,
 				E6ED3AE81ADB837800099064 /* ic_fieldguide copy.png in Resources */,
 				16CCBC3A1A773D71008B7E96 /* IMG_2003.jpg in Resources */,
+				165C72BF1AEE1081007BB2AA /* add_observation_normal.png in Resources */,
+				165C72B01AEE014F007BB2AA /* ic_myobservations.png in Resources */,
+				165C72BE1AEE1081007BB2AA /* my_observations_normal.png in Resources */,
 				1642DE501ADC9A84002FB11C /* homeBtnIcon.png in Resources */,
 				16CCBC401A773E00008B7E96 /* flower25.xml in Resources */,
 				16B052B61A5B4BDE007837B4 /* Main.storyboard in Resources */,
 				E6BAA8E91AEB4B0E007A8F34 /* CompSciRev.png in Resources */,
+				165C72AF1AEE014F007BB2AA /* ic_addobservation.png in Resources */,
 				16CCBC3B1A773D71008B7E96 /* IMG_2278.JPG in Resources */,
 				163623B61AEB7C4C00A50CA3 /* FieldGuide.db in Resources */,
 				16CCBC391A773D71008B7E96 /* IMG_1997.jpg in Resources */,
 				E6ED3AE21ADB7C5200099064 /* ic_notepad_copy.png in Resources */,
+				165C72B91AEE0D97007BB2AA /* round_button_normal2.png in Resources */,
 				16B052BB1A5B4BDE007837B4 /* LaunchScreen.xib in Resources */,
 				165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */,
 				16CCBC411A773E00008B7E96 /* flower30.xml in Resources */,
+				165C72C11AEE1081007BB2AA /* field_guide_normal.png in Resources */,
 				E6BAA8EB1AEB4CAE007A8F34 /* app_icon2.png in Resources */,
+				165C72AD1AEE014F007BB2AA /* ic_about.png in Resources */,
 				E6FDFD381AE718B500E88C6B /* Lobster_1.4.otf in Resources */,
 				16CCBC381A773D71008B7E96 /* IMG_1976.jpg in Resources */,
+				165C72AE1AEE014F007BB2AA /* ic_fieldguide.png in Resources */,
 				E6ED3AE71ADB837800099064 /* ic_addobservation copy.png in Resources */,
 				16B052B81A5B4BDE007837B4 /* Images.xcassets in Resources */,
 			);
