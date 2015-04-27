@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_img">
+    android:background="@drawable/background_img"
+    android:id="@+id/background">
 
 
     <GridLayout
@@ -164,5 +165,17 @@
             android:paddingLeft="10dp"
             android:paddingBottom="10dp" />
     </GridLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/luminous_id"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/grid"
+        android:layout_alignEnd="@+id/grid"
+        android:layout_above="@+id/grid"
+        android:layout_alignLeft="@+id/grid"
+        android:layout_alignStart="@+id/grid" />
 
 </RelativeLayout>
