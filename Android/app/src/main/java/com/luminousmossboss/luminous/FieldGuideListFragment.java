@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.luminousmossboss.luminous.adapter.FGListAdapter;
@@ -37,6 +38,8 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
     private FGListAdapter adapter;
     private ArrayList<ListItem> listItems;
 
+    private Button filter_btn;
+
     public FieldGuideListFragment(){}
 
     @Override
@@ -48,7 +51,7 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_listview, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_fieldguide_list, container, false);
 
         initList(rootView, container);
 

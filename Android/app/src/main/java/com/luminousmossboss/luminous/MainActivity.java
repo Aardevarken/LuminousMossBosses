@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.luminousmossboss.luminous.adapter.NavDrawerListAdapter;
@@ -56,7 +58,7 @@ public class MainActivity extends Activity {
     private ObservationDBHandler db;
 
     //For keeping track of the Photo:
-   private static String mCurrentPhotoPath;
+    private static String mCurrentPhotoPath;
     // nav drawer title
     private CharSequence mDrawerTitle;
 
@@ -76,6 +78,13 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // set font for actionbar
+        int titleId = getResources().getIdentifier("action_bar_title", "id",
+                "android");
+        Typeface lobster = Typeface.createFromAsset(getAssets(), "Fonts/Lobster-Regular.ttf");
+        TextView yourTextView = (TextView) findViewById(titleId);
+        yourTextView.setTypeface(lobster);
 
         mTitle = mDrawerTitle = getTitle();
         mGPS = new GPSTracker(this);
@@ -111,6 +120,7 @@ public class MainActivity extends Activity {
         // enabling action bar app icon and behaving it as toggle button
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
+
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, //nav menu toggle icon
