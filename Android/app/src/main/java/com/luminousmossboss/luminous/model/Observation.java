@@ -23,6 +23,8 @@ public class Observation extends ListItem implements Serializable {
     private double latitude;
     private boolean hasBeenProcceced;
 
+    private boolean isSent;
+
 
 
     private boolean is_silene;
@@ -141,5 +143,13 @@ public class Observation extends ListItem implements Serializable {
     }
 
     public boolean isSilene() { return is_silene; }
+
+    public boolean isSent() {
+        return isSent;
+    }
+
+    public void setSent(boolean sent) {
+        isSent = sent;
+    }
 
 }

@@ -120,7 +120,6 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         }
         else if(cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_SYNCED_STATUS)) == 0 ) {
             buttonContext = SEND_CONTEXT;
-
         }
         if (cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_SYNCED_STATUS)) != 0 || observation.isBeingProcessed())
         {
@@ -134,6 +133,10 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
             sendButton.setEnabled(false);
             sendButton.setVisibility(View.GONE);
 
+        }
+        if (observation.isSent() && buttonContext == SEND_CONTEXT) {
+            sendButton.setEnabled(false);
+            sendButton.setVisibility(View.GONE);
         }
         cursor.close();
         db.close();
@@ -187,7 +190,8 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
                 }
                 else
                 {
-                    new SendPostActivity(getActivity(), observation.getId(), sendButton).execute(observation);
+                    if (!observation.isSent())
+                        new SendPostActivity(getActivity(), observation, sendButton).execute(observation);
                     break;
                 }
 
