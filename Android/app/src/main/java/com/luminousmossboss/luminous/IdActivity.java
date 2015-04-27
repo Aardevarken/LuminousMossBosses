@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.luminousmossboss.luminous.model.Observation;
@@ -62,6 +63,8 @@ public class IdActivity extends AsyncTask <String, Void, Boolean>{
         {
             message = Toast.makeText(mContext, R.string.id_silene_acaulis, Toast.LENGTH_LONG);
             mobservation.updateIsSilene(mContext);
+           TextView title= (TextView) parentFragment.getView().findViewById(R.id.title);
+           title.setText(R.string.silene_acaulis);
 
         }
         else
