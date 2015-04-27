@@ -23,6 +23,7 @@
 	NSData* defaultRepresentationData;	// Under review for removal
 }
 
+@property (strong, nonatomic) IBOutlet UIView *buttonView;
 @property (nonatomic, retain) IBOutlet UIImageView * imageView;
 @property (nonatomic, retain) IBOutlet UIButton * takePhotoBtn;
 @property (nonatomic, retain) IBOutlet UIButton * addObsBtn;
