@@ -14,6 +14,8 @@
 	NSString *databasePath;
 }
 
+@property (nonatomic, strong) NSString *fetchQuery;
+
 /**
  *
  */

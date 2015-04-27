@@ -38,7 +38,9 @@
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
 	NSString *db = [[[FilterOptions getSharedInstance] filterDatabaseName] objectAtIndex:filterOptionIndexNumber];
-	[self setOptionsToFilter:[[FieldGuideManager getSharedInstance] getFilterOptionsFor:db]];
+	//[self setOptionsToFilter:[[FieldGuideManager getSharedInstance] getFilterOptionsFor:db]];
+	[self setOptionsToFilter:@[@"All"]];
+	[self setOptionsToFilter:[optionsToFilter arrayByAddingObjectsFromArray:[[FieldGuideManager getSharedInstance] getFilterOptionsFor:db]]];
 	
 	return [[self optionsToFilter] count];
 }
@@ -66,8 +68,16 @@
 
 - (IBAction)saveFilterOption:(id)sender {
 	NSIndexPath *indexPath = [[self optionsTableView] indexPathForSelectedRow];
+	NSUInteger index = indexPath.row;
+	NSString *newFilterValue;
 	
-	NSString *newFilterValue = [[self optionsToFilter] objectAtIndex:indexPath.row];
+	if (index == 0) {
+		newFilterValue = @"All";
+	}
+	else{
+		newFilterValue = [[self optionsToFilter] objectAtIndex:index];
+	}
+	
 	NSLog(@"\n\nOldOptions: %@", [[FilterOptions getSharedInstance] filterOption]);
 	[[FilterOptions getSharedInstance] updateFilterOptionsAtIndex:filterOptionIndexNumber withOption:newFilterValue];
 	NSLog(@"NewOptions: %@\n\n", [[FilterOptions getSharedInstance] filterOption]);

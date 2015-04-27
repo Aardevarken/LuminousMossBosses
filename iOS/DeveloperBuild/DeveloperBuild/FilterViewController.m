@@ -36,8 +36,10 @@ static NSMutableDictionary *filterCurrentValue;
 									 @"Habitat", @"habitat",
 									 @"Leaf shape", @"leafshape",
 									 @"Petal number", @"petalnumber",
+									 @"Inflorescence", @"inflorescence",
+									 @"Leaf arrangement", @"leafarrangement",
 									 nil];
-
+	
 	[[FilterOptions getSharedInstance] createFiltersWithTitles:titleAndFilters];
 
 	[self getFilterTitle];
@@ -118,16 +120,12 @@ static NSMutableDictionary *filterCurrentValue;
 }
 
 - (IBAction)searchButton:(UIButton *)sender {
+
 	NSArray *selectedIndexPath = [filterTableView indexPathsForSelectedRows];
 	
 	NSLog(@"selected: %ld", (long)[[selectedIndexPath objectAtIndex:0] row]);
 	
-	
-	
-	NSString *selectFrom = [NSString stringWithFormat:
-						@"SELECT species.latin_name, species.common_name, species.code "
-						@"FROM species "
-						];
+	[[FilterOptions getSharedInstance] generateFilterQuery];
 	
 	[[self navigationController] popViewControllerAnimated:YES];
 }

@@ -52,6 +52,8 @@ static NSDictionary *typeMap = nil;
 
 @implementation FieldGuideManager
 
+@synthesize fetchQuery;
+
 /*
  * The following functions are required for the field guide database
  */
@@ -60,6 +62,13 @@ static NSDictionary *typeMap = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		sharedInstance = [[super alloc] init];
+		
+		// Set fetchQuere to its default value
+		[sharedInstance setFetchQuery:
+		 @"SELECT species.id, species.latin_name, species.common_name, species.code\n"
+		 @"FROM species\n"
+		 @"ORDER BY species.latin_name"
+		 ];
 	});
 	return sharedInstance;
 }
@@ -250,8 +259,9 @@ static NSDictionary *typeMap = nil;
 }
 
 - (NSArray*)getAllData{
-	NSString *filter = [NSString stringWithFormat:@"SELECT id, latin_name, common_name, code FROM species ORDER BY latin_name"];
-	return [self runTableQuery:filter];
+//	NSString *filter = [NSString stringWithFormat:@"SELECT id, latin_name, common_name, code FROM species ORDER BY latin_name"];
+//	return [self runTableQuery:filter];
+	return [self runTableQuery:fetchQuery];
 }
 
 - (NSDictionary*)findSpeciesByID:(NSNumber*)id{
