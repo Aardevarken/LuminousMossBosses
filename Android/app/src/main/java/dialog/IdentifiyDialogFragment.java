@@ -45,6 +45,7 @@ public class IdentifiyDialogFragment extends DialogFragment{
                         Activity activity = getActivity();
                         fragment = ObservationFragment.newInstance(observation);
                         IdActivity idActivity = new IdActivity(getActivity(),observationId, fragment);
+                        fragment.attachIdActivity(idActivity);
                         idActivity.execute(observation.getIcon().getPath());
                         ((MainActivity) activity).setTitle(fragTitle);
                         ((MainActivity) activity).displayView(fragment);

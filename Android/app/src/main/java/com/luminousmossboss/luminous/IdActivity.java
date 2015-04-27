@@ -1,7 +1,5 @@
 package com.luminousmossboss.luminous;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
@@ -20,12 +18,12 @@ public class IdActivity extends AsyncTask <String, Void, Boolean>{
     private ObservationDBHandler db;
     private ProgressBar progressBar;
     private Button sendButton;
-    private ObservationFragment startingFragment;
+    private ObservationFragment parentFragment;
 
 
     public IdActivity(Context context, int observationId, ObservationFragment startingFragment)
     {
-        this.startingFragment = startingFragment;
+        this.parentFragment = startingFragment;
         if (startingFragment.getProgressBar() == null)
         this.progressBar = startingFragment.getProgressBar();
         this.sendButton = startingFragment.getSendButton();
@@ -39,9 +37,9 @@ public class IdActivity extends AsyncTask <String, Void, Boolean>{
     {
         mobservation.setBeingProcessed(true);
         try {
-            sendButton.setVisibility(View.GONE);
-            sendButton.setEnabled(false);
-            progressBar.setVisibility(View.VISIBLE);
+            parentFragment.getSendButton().setVisibility(View.GONE);
+            parentFragment.getSendButton().setEnabled(false);
+            parentFragment.getProgressBar().setVisibility(View.VISIBLE);
         } catch (Exception e) {
         }
     }
@@ -58,8 +56,8 @@ public class IdActivity extends AsyncTask <String, Void, Boolean>{
         Toast message;
         mobservation.setBeingProcessed(false);
         mobservation.setHasBeenProcceced();
-        progressBar = startingFragment.getProgressBar();
-        sendButton = startingFragment.getSendButton();
+        progressBar = parentFragment.getProgressBar();
+        sendButton = parentFragment.getSendButton();
         if (detectionResult)
         {
             message = Toast.makeText(mContext, R.string.id_silene_acaulis, Toast.LENGTH_LONG);
@@ -76,10 +74,16 @@ public class IdActivity extends AsyncTask <String, Void, Boolean>{
         sendButton.setEnabled(true);
         sendButton.setVisibility(View.VISIBLE);
         sendButton.setText("Send");
+        parentFragment.setButtonContextSend();
+        parentFragment.detachIdActivity();
         db.close();
         message.show();
 
 
 
+    }
+
+    public void attachFragment(ObservationFragment fragment) {
+        parentFragment = fragment;
     }
 }

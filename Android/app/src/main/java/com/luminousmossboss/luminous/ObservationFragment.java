@@ -24,6 +24,7 @@ import com.luminousmossboss.luminous.model.Observation;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import dialog.DeleteDialogFragment;
 import dialog.DialogListener;
@@ -34,6 +35,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
     //flags for what the Button should do
     private final int IDENTIFY_CONTEXT = 0;
     private final int SEND_CONTEXT = 1;
+    private static HashMap<Integer, IdActivity> runningActivities = new HashMap<>();
 
     private int buttonContext;
 
@@ -129,10 +131,9 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         if ( observation.isBeingProcessed())
         {
             progressBar.setVisibility(View.VISIBLE);
-
             sendButton.setEnabled(false);
             sendButton.setVisibility(View.GONE);
-
+            runningActivities.get(observation.getId()).attachFragment(this);
         }
         if (observation.isSent() && buttonContext == SEND_CONTEXT) {
             sendButton.setEnabled(false);
@@ -183,6 +184,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
                 {
                     if (!observation.isBeingProcessed() && !observation.isHasBeenProcceced()) {
                         IdActivity idActivity = new IdActivity(getActivity(), observation.getId(), this);
+                        runningActivities.put(observation.getId(), idActivity);
                         idActivity.execute(observation.getIcon().getPath());
                         buttonContext = SEND_CONTEXT;
                     }
@@ -197,6 +199,20 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
 
 
         }
+    }
+
+    public void attachIdActivity (IdActivity activity) {
+        Bundle bundle = getArguments();
+        this.observation = (Observation) bundle.getSerializable(OBSERVATION_KEY);
+        runningActivities.put(observation.getId(), activity);
+    }
+
+    public void detachIdActivity() {
+        runningActivities.remove(observation.getId());
+    }
+
+    public void setButtonContextSend() {
+        buttonContext = SEND_CONTEXT;
     }
 
 }
