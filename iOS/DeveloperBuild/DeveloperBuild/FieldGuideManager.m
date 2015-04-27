@@ -235,53 +235,61 @@ static NSDictionary *typeMap = nil;
 }
 
 #pragma mark - field guide queries
-/*
- given a filter, you can filter by N options.
- You can only filter flowercolor, habitat, infloresence, leafarrangement, leafshape, and petalnumber with this.
- 
- SELECT species.id, filter_1.name, filter_2.name, ..., filter_N.name
- FROM species, filter_1, filter_2, ..., filter_N
- JOIN species_filter_1 on species.id = filter_1.species_id
- JOIN filter_1 on filter_1.id = filter_1_id;
- ...
- WHERE filter_1.name = <FilterByThis_1>
- AND filter_2.name = <FilterByThis_2>
- ...
- AND filter_N.name = <FilterByThis_N>
- ORDER BY species.id;
- */
-//NSMutableArray *results = nil;
-//NSArray *filterResults = nil;
-//NSString *filter = [NSString stringWithFormat:@"SELECT species.latin_name, species.common_name"];// FROM species ORDER BY species.latin_name"];
 
 - (NSArray*)getDataFilteredBy:(NSString*)filter{
 	return [self runTableQuery:filter];
 }
 
 - (NSArray*)getAllData{
-//	NSString *filter = [NSString stringWithFormat:@"SELECT id, latin_name, common_name, code FROM species ORDER BY latin_name"];
-//	return [self runTableQuery:filter];
 	return [self runTableQuery:fetchQuery];
 }
 
 - (NSDictionary*)findSpeciesByID:(NSNumber*)id{
 	NSString *query = [NSString stringWithFormat:
-					   @"SELECT growthform.name, code, latin_name, common_name, family, description, flowershape.name, leafshapefilter.name, photocredit "
+					   @"SELECT code, latin_name, common_name, family, description, photocredit "
 					   @"FROM species "
-					   @"JOIN growthform on growthformid = growthform.id "
-					   @"JOIN flowershape on flowershape.id = flowershapeid "
-					   @"JOIN leafshapefilter on leafshapefilterid = leafshapefilter.id "
 					   @"WHERE species.id = %d"
 					   @";", (int)[id integerValue]
 					   ];
+
+	NSArray *results1 = [self runTableQuery:query];
 	
-	NSArray *results = [self runTableQuery:query];
+	query = [NSString stringWithFormat:
+			 @"SELECT growthform.name "
+			 @"FROM species "
+			 @"JOIN growthform on growthformid = growthform.id "
+			 @"WHERE species.id = %d;",
+			 (int)[id integerValue]
+			 ];
 	
-	if (results != nil && results.count == 1){
-		return results[0];
-	} else {
-		return nil;
-	}
+	NSArray *results2 = [self runTableQuery:query];
+	
+	query = [NSString stringWithFormat:
+			 @"SELECT flowershape.name "
+			 @"FROM species "
+			 @"JOIN flowershape on flowershape.id = flowershapeid "
+			 @"WHERE species.id = %d;",
+			 (int)[id integerValue]
+			 ];
+	
+	NSArray *results3 = [self runTableQuery:query];
+	
+	query = [NSString stringWithFormat:
+			 @"SELECT leafshapefilter.name "
+			 @"FROM species "
+			 @"JOIN leafshapefilter on leafshapefilterid = leafshapefilter.id "
+			 @"WHERE species.id = %d;",
+			 (int)[id integerValue]
+			 ];
+
+	NSArray *results4 = [self runTableQuery:query];
+
+	NSMutableDictionary *dicR = [[NSMutableDictionary alloc] initWithDictionary:results1[0]];
+	[dicR setObject:[results2[0] objectForKey:@"name"] forKey:@"growthform"];
+	[dicR setObject:[results3[0] objectForKey:@"name"] forKey:@"flower shape"];
+	[dicR setObject:[results4[0] objectForKey:@"name"] forKey:@"leaf shape filter"];
+	
+	return [[NSDictionary alloc] initWithDictionary:dicR];
 }
 
 - (NSString*)getImagePathForSpeciesWithID:(NSNumber*)id{
@@ -319,43 +327,6 @@ static NSDictionary *typeMap = nil;
 	return flat;
 }
 
-/**
- *
- */
-/*
-- (NSArray*)filterFieldGuidColor:(NSString *)color{
-	 addtional data tha might be usefull
-	flowercolor.name
-	 
-	 id INTEGER NOT NULL,
-	 growthform_id INTEGER, 			// table
-	 code VARCHAR,
-	 latin_name VARCHAR,
-	 common_name VARCHAR,
-	 family VARCHAR,
-	 description VARCHAR,
-	 flowershape_id INTEGER, 		// table
-	 leafshapefilter_id INTEGER, 	// table
-	 photocredit VARCHAR,
-	 
- 
-	
-	SELECT species.id species.latin_name, species.common_name, species.family
-	FROM species
-	JOIN species_flowercolor
-		ON species.id = species_id
-	JOIN flowercolor
-		ON flowercolor.id = flowercolor_id
-	WHERE flowercolor.name = "yellow"
-	ORDER BY species.id;
-	
-	return nil;
-}
-*/
-/**
- *
- */
-//- (NSMutableArray*) applyFilter:(NSArray*);
 
 @end
 
