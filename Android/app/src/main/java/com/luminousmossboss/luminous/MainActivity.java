@@ -249,15 +249,26 @@ public class MainActivity extends Activity {
         mDrawerList.setSelection(position);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
+
+    private void fragmentTransaction(FragmentManager fragmentManager, Fragment fragment) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_container, fragment, "TAG");
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
     public void displayView(Fragment fragment) {
         if (fragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_container, fragment, "TAG");
-
-            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            Fragment currentFragment = fragmentManager.findFragmentByTag("TAG");
+            if (currentFragment != null) {
+                if (fragment.getClass().getName() != currentFragment.getClass().getName()) {
+                    fragmentTransaction(fragmentManager, fragment);
+                }
+            } else {
+                fragmentTransaction(fragmentManager, fragment);
+            }
         } else {
             Log.e("MainActivity", "Error in creating fragment");
         }

@@ -58,7 +58,8 @@
         android:id="@+id/listView"
         android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/button_context" />
+        android:layout_above="@+id/button_context"
+        android:listSelector="@android:color/transparent"/>
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
