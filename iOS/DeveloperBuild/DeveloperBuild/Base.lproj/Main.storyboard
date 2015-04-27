@@ -477,7 +477,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="FilterCell_ID" rowHeight="77" id="q1C-X4-Vxn" customClass="FilterTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="FilterCell_ID" rowHeight="77" id="q1C-X4-Vxn" customClass="FilterTableViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q1C-X4-Vxn" id="r8k-cX-wdu">
@@ -489,6 +489,9 @@
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="132" y="28" width="228" height="20"/>
+                                                    </variation>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Filter" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fb9-pO-e25">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -2866,7 +2869,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Ikp-UG-lQ5" customClass="OptionsTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OptionsCell_ID" rowHeight="45" id="Ikp-UG-lQ5" customClass="OptionsTableViewCell">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ikp-UG-lQ5" id="ULt-5X-RWe">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -2881,8 +2884,10 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="wD1-nB-Ova" secondAttribute="trailing" constant="16" id="5mC-Fr-zwe"/>
                                                 <constraint firstAttribute="centerY" secondItem="wD1-nB-Ova" secondAttribute="centerY" id="ABb-KQ-pmn"/>
+                                                <constraint firstItem="wD1-nB-Ova" firstAttribute="top" secondItem="ULt-5X-RWe" secondAttribute="topMargin" constant="4" id="GCp-41-SPb"/>
                                                 <constraint firstItem="wD1-nB-Ova" firstAttribute="leading" secondItem="ULt-5X-RWe" secondAttribute="leadingMargin" constant="16" id="VhS-PH-BoB"/>
                                                 <constraint firstAttribute="centerX" secondItem="wD1-nB-Ova" secondAttribute="centerX" id="gLj-J6-e6p"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="wD1-nB-Ova" secondAttribute="bottom" constant="4" id="llU-dK-Iuz"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="subviews">
@@ -2891,8 +2896,10 @@
                                                 <mask key="constraints">
                                                     <exclude reference="5mC-Fr-zwe"/>
                                                     <exclude reference="ABb-KQ-pmn"/>
+                                                    <exclude reference="GCp-41-SPb"/>
                                                     <exclude reference="VhS-PH-BoB"/>
                                                     <exclude reference="gLj-J6-e6p"/>
+                                                    <exclude reference="llU-dK-Iuz"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -2902,8 +2909,10 @@
                                                 <mask key="constraints">
                                                     <include reference="5mC-Fr-zwe"/>
                                                     <include reference="ABb-KQ-pmn"/>
+                                                    <include reference="GCp-41-SPb"/>
                                                     <include reference="VhS-PH-BoB"/>
                                                     <include reference="gLj-J6-e6p"/>
+                                                    <include reference="llU-dK-Iuz"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>

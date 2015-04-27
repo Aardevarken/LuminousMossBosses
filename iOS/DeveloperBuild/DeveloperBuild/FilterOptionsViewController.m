@@ -7,7 +7,7 @@
 //
 
 #import "FilterOptionsViewController.h"
-#import "FieldGuideManager.m"
+#import "FieldGuideManager.h"
 #import "FilterOptions.h"
 #import "OptionsTableViewCell.h"
 
@@ -37,14 +37,14 @@
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
-	NSString *db = [[[FilterOptions getSharedInstance] filterOption] objectAtIndex:filterOptionIndexNumber];
+	NSString *db = [[[FilterOptions getSharedInstance] filterDatabaseName] objectAtIndex:filterOptionIndexNumber];
 	[self setOptionsToFilter:[[FieldGuideManager getSharedInstance] getFilterOptionsFor:db]];
 	
 	return [[self optionsToFilter] count];
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-	NSString *identifier = @"";
+	NSString *identifier = @"OptionsCell_ID";
 	OptionsTableViewCell *cell = [optionsTableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
 	
 	// Configure the cell...
