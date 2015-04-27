@@ -25,4 +25,7 @@
  * get the image path in the form FORBS/image_name.jpg
  */
 - (NSString *)getImagePathForSpeciesWithID:(NSNumber*)id;
+
+- (NSArray*)getFilterOptionsFor:(NSString*)filter;
+
 @end

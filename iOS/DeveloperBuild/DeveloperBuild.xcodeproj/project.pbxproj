@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		16008CCA1AB62A7800672891 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 16008CC91AB62A7800672891 /* libc++.dylib */; };
 		16008CCC1AB62C5200672891 /* detectionHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 165C45FD1AB54EE8006ECDDC /* detectionHelper.mm */; };
+		16172D991AEDB2C5002C1F80 /* OptionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16172D981AEDB2C5002C1F80 /* OptionsTableViewCell.m */; };
 		1617BB751AE3438100709D50 /* IdentifyingAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = 1617BB741AE3438100709D50 /* IdentifyingAssets.m */; };
 		1617BB771AE4636400709D50 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1617BB761AE4636400709D50 /* AVFoundation.framework */; };
 		1617BB7A1AE467CE00709D50 /* CaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1617BB791AE467CE00709D50 /* CaptureSessionManager.m */; };
@@ -30,6 +31,9 @@
 		163623D51AEC96BF00A50CA3 /* DetailFieldGuidCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623D41AEC96BF00A50CA3 /* DetailFieldGuidCell.m */; };
 		163623D81AECA6D500A50CA3 /* FilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623D71AECA6D500A50CA3 /* FilterViewController.m */; };
 		163623DB1AECAAF000A50CA3 /* FilterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623DA1AECAAF000A50CA3 /* FilterTableViewCell.m */; };
+		163623DF1AECDDA500A50CA3 /* FilterOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623DE1AECDDA500A50CA3 /* FilterOptionsViewController.m */; };
+		163623E21AECE08E00A50CA3 /* FilterOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623E11AECE08E00A50CA3 /* FilterOptions.m */; };
+		163623E51AECE24400A50CA3 /* FilterObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623E41AECE24400A50CA3 /* FilterObject.m */; };
 		1642DE501ADC9A84002FB11C /* homeBtnIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */; };
 		1642DE531ADCA085002FB11C /* MyObsTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1642DE521ADCA085002FB11C /* MyObsTabBarController.m */; };
 		165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 165B6A201AA3F5C4004FE7CB /* nocamera.png */; };
@@ -100,6 +104,8 @@
 		160D23EF1A633E3B00F7B916 /* Observation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Observation.h; sourceTree = "<group>"; };
 		160D23F21A635C3F00F7B916 /* ObservationCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObservationCell.h; sourceTree = "<group>"; };
 		1616F7D51ADCA24000D9D7E8 /* libc++.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.1.dylib"; path = "usr/lib/libc++.1.dylib"; sourceTree = SDKROOT; };
+		16172D971AEDB2C5002C1F80 /* OptionsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsTableViewCell.h; sourceTree = "<group>"; };
+		16172D981AEDB2C5002C1F80 /* OptionsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsTableViewCell.m; sourceTree = "<group>"; };
 		1617BB731AE3438100709D50 /* IdentifyingAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentifyingAssets.h; sourceTree = "<group>"; };
 		1617BB741AE3438100709D50 /* IdentifyingAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentifyingAssets.m; sourceTree = "<group>"; };
 		1617BB761AE4636400709D50 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -135,6 +141,12 @@
 		163623D71AECA6D500A50CA3 /* FilterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterViewController.m; sourceTree = "<group>"; };
 		163623D91AECAAF000A50CA3 /* FilterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterTableViewCell.h; sourceTree = "<group>"; };
 		163623DA1AECAAF000A50CA3 /* FilterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterTableViewCell.m; sourceTree = "<group>"; };
+		163623DD1AECDDA500A50CA3 /* FilterOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterOptionsViewController.h; sourceTree = "<group>"; };
+		163623DE1AECDDA500A50CA3 /* FilterOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterOptionsViewController.m; sourceTree = "<group>"; };
+		163623E01AECE08E00A50CA3 /* FilterOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterOptions.h; sourceTree = "<group>"; };
+		163623E11AECE08E00A50CA3 /* FilterOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterOptions.m; sourceTree = "<group>"; };
+		163623E31AECE24400A50CA3 /* FilterObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterObject.h; sourceTree = "<group>"; };
+		163623E41AECE24400A50CA3 /* FilterObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterObject.m; sourceTree = "<group>"; };
 		1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = homeBtnIcon.png; path = DeveloperBuild/homeBtnIcon.png; sourceTree = "<group>"; };
 		1642DE511ADCA085002FB11C /* MyObsTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyObsTabBarController.h; sourceTree = "<group>"; };
 		1642DE521ADCA085002FB11C /* MyObsTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyObsTabBarController.m; sourceTree = "<group>"; };
@@ -246,6 +258,8 @@
 				163623D11AEC72EB00A50CA3 /* FieldGuideDetailViewController.m */,
 				163623D61AECA6D500A50CA3 /* FilterViewController.h */,
 				163623D71AECA6D500A50CA3 /* FilterViewController.m */,
+				163623DD1AECDDA500A50CA3 /* FilterOptionsViewController.h */,
+				163623DE1AECDDA500A50CA3 /* FilterOptionsViewController.m */,
 				1627A1251AB430D3009BD6EF /* ObsDetailViewController.h */,
 				1627A1261AB430D3009BD6EF /* ObsDetailViewController.m */,
 				16E2D4991A64860900CA8845 /* ObsViewController.h */,
@@ -278,6 +292,8 @@
 			children = (
 				163623C51AEC563D00A50CA3 /* FieldGuidCell.h */,
 				163623C61AEC563D00A50CA3 /* FieldGuidCell.m */,
+				16172D971AEDB2C5002C1F80 /* OptionsTableViewCell.h */,
+				16172D981AEDB2C5002C1F80 /* OptionsTableViewCell.m */,
 				163623D31AEC96BF00A50CA3 /* DetailFieldGuidCell.h */,
 				163623D41AEC96BF00A50CA3 /* DetailFieldGuidCell.m */,
 				160D23F21A635C3F00F7B916 /* ObservationCell.h */,
@@ -333,6 +349,10 @@
 				163623DC1AECAB0200A50CA3 /* Cells */,
 				165C45FC1AB54EE8006ECDDC /* detectionHelper.h */,
 				165C45FD1AB54EE8006ECDDC /* detectionHelper.mm */,
+				163623E01AECE08E00A50CA3 /* FilterOptions.h */,
+				163623E11AECE08E00A50CA3 /* FilterOptions.m */,
+				163623E31AECE24400A50CA3 /* FilterObject.h */,
+				163623E41AECE24400A50CA3 /* FilterObject.m */,
 				16F8F5581AA7F522007FEEBE /* UserDataDatabase.h */,
 				16F8F5591AA7F522007FEEBE /* UserDataDatabase.m */,
 				163623BC1AEC2D6300A50CA3 /* FieldGuideManager.h */,
@@ -588,12 +608,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				163623DF1AECDDA500A50CA3 /* FilterOptionsViewController.m in Sources */,
 				F0D4ED201AA59BAD008CBAD4 /* img_helper.cpp in Sources */,
+				163623E51AECE24400A50CA3 /* FilterObject.m in Sources */,
 				16B2A6CF1A9D4D2200A73A86 /* ImageViewController.m in Sources */,
 				F0395FEA1A98365500EE1BF9 /* identified.cpp in Sources */,
 				1617BB751AE3438100709D50 /* IdentifyingAssets.m in Sources */,
 				163623D51AEC96BF00A50CA3 /* DetailFieldGuidCell.m in Sources */,
 				F0395FE61A9835F700EE1BF9 /* detector.cpp in Sources */,
+				16172D991AEDB2C5002C1F80 /* OptionsTableViewCell.m in Sources */,
 				1617BB7A1AE467CE00709D50 /* CaptureSessionManager.m in Sources */,
 				16B052B31A5B4BDE007837B4 /* MainViewController.m in Sources */,
 				16E2D49B1A64860900CA8845 /* ObsViewController.m in Sources */,
@@ -601,6 +624,7 @@
 				1627A1271AB430D4009BD6EF /* ObsDetailViewController.m in Sources */,
 				161F47651A8ED7B300E67313 /* NewObs.m in Sources */,
 				163623CD1AEC59A500A50CA3 /* FieldGuideTableViewController.m in Sources */,
+				163623E21AECE08E00A50CA3 /* FilterOptions.m in Sources */,
 				165B6A271AA66418004FE7CB /* MyObservations.m in Sources */,
 				16B052B01A5B4BDE007837B4 /* AppDelegate.m in Sources */,
 				16A6D8511A6386C600CB4563 /* ObsTableView.m in Sources */,

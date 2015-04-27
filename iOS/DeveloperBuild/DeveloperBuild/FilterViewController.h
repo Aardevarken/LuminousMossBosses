@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FilterViewController : UIViewController// <UITableViewDelegate, UITableViewDataSource>{}
+@interface FilterViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
+	
+}
+// storage
+//@property (nonatomic, strong) static NSMutableDictionary *filterCurrentValue;
+
 // Buttons
 - (IBAction)cancelButton:(UIButton *)sender;
 - (IBAction)searchButton:(UIButton *)sender;

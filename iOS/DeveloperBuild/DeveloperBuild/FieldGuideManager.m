@@ -292,6 +292,23 @@ static NSDictionary *typeMap = nil;
 	}
 }
 
+- (NSArray*)getFilterOptionsFor:(NSString*)filter{
+	NSString *query = [NSString stringWithFormat:
+					   @"SELECT name "
+					   @"FROM %@;",
+					   filter
+					   ];
+
+	NSArray *results = [self runTableQuery:query];
+
+	NSMutableArray *flat = [[NSMutableArray alloc] initWithCapacity:results.count];
+	for (int i = 0; i < results.count; ++i) {
+		[flat addObject:[[results objectAtIndex:i] objectForKey:@"name"]];
+	}
+	
+	return flat;
+}
+
 /**
  *
  */
