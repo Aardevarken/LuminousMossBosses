@@ -68,34 +68,41 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        setHasOptionsMenu(true);
+        rootView = inflater.inflate(R.layout.fragment_observationlist, container, false);
+
+        // Handle Button Events
+        mTabPending = (RadioButton) rootView.findViewById(R.id.tab_pending);
+        mTabPending.setOnClickListener(this);
+        mTabSynced = (RadioButton) rootView.findViewById(R.id.tab_synced);
+        mTabSynced.setOnClickListener(this);
+
+        syncedTab = PENDING;
         if(savedInstanceState != null)
         {
             syncedTab = savedInstanceState.getInt("Tab");
-        }
-        else if (syncedTab == SYNCED)
-        {
-
-        }
-        else
-        {
-            syncedTab = PENDING;
         }
         Bundle bundle = getArguments();
         if(bundle!=null)
         {
             syncedTab = bundle.getInt("Tab");
         }
+        if (syncedTab == SYNCED)
+        {
+            mTabPending.setChecked(false);
+            mTabSynced.setChecked(true);
+        }
+        else
+        {
+            mTabPending.setChecked(true);
+            mTabSynced.setChecked(false);
+        }
 
-        setHasOptionsMenu(true);
-
-
-        rootView = inflater.inflate(R.layout.fragment_observationlist, container, false);
         this.container = container;
         final Activity activity = getActivity();
         this.db = new ObservationDBHandler(activity);
         initList(rootView, container, syncedTab);
-
-
 
         //For selecting individual observations in the list
         this.mDrawerList.setOnItemClickListener(new OnItemClickListener() {
@@ -110,14 +117,6 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
                 }
             }
         });
-
-        // Handle Button Events
-        mTabPending = (RadioButton) rootView.findViewById(R.id.tab_pending);
-        mTabPending.setOnClickListener(this);
-        mTabSynced = (RadioButton) rootView.findViewById(R.id.tab_synced);
-        mTabSynced.setOnClickListener(this);
-
-
 
         // Set tab color
         SegmentedGroup tab_host = (SegmentedGroup) rootView.findViewById(R.id.tab_host);
