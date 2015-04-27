@@ -17,5 +17,6 @@
 - (void) createFiltersWithTitles:(NSDictionary*)titlesWithFilters;
 - (void) updateFilterOptionsAtIndex:(NSUInteger)index withOption:(NSString*)newFilterValue;
 - (void) generateFilterQuery;
+- (void) resetFilterOptions;
 
 @end

@@ -459,7 +459,8 @@
                                         <exclude reference="huG-Qo-1FC"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="16" y="685" width="368" height="55"/>
                                     <mask key="constraints">
                                         <include reference="0Pe-eY-RQH"/>
                                         <include reference="VA3-um-0Ix"/>
@@ -590,7 +591,8 @@
                                                             <exclude reference="wG3-os-k0p"/>
                                                         </mask>
                                                     </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="300" y="8" width="60" height="60"/>
                                                         <mask key="constraints">
                                                             <include reference="wG3-os-k0p"/>
                                                         </mask>
@@ -602,6 +604,9 @@
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="132" y="28" width="160" height="20"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -667,6 +672,9 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7PN-kc-x74">
                                                     <rect key="frame" x="-25" y="-15" width="51" height="31"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="311" y="19" width="51" height="31"/>
+                                                    </variation>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Filter" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6bW-cE-ax5">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -694,6 +702,9 @@
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="140" y="25" width="163" height="20"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                             <constraints>
@@ -740,6 +751,9 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="64" width="400" height="605"/>
+                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="dfp-wP-0Vb" id="f8K-5a-0H0"/>
                                     <outlet property="delegate" destination="dfp-wP-0Vb" id="YsD-Cz-DBd"/>
@@ -748,13 +762,19 @@
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="14t-7V-ODd" firstAttribute="top" secondItem="How-rJ-y8t" secondAttribute="bottom" constant="16" id="84F-bc-NBM"/>
+                            <constraint firstItem="14t-7V-ODd" firstAttribute="top" secondItem="How-rJ-y8t" secondAttribute="bottom" constant="16" id="84F-bc-NBM">
+                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                            </constraint>
                             <constraint firstItem="h7A-NE-XMZ" firstAttribute="top" secondItem="OyU-8D-jUl" secondAttribute="bottom" constant="16" id="AAH-wd-Rqa"/>
-                            <constraint firstItem="14t-7V-ODd" firstAttribute="leading" secondItem="4fo-YY-SVn" secondAttribute="leading" constant="16" id="Sld-Cb-WIg"/>
+                            <constraint firstItem="14t-7V-ODd" firstAttribute="leading" secondItem="4fo-YY-SVn" secondAttribute="leading" constant="16" id="Sld-Cb-WIg">
+                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                            </constraint>
                             <constraint firstItem="OyU-8D-jUl" firstAttribute="leading" secondItem="4fo-YY-SVn" secondAttribute="leading" constant="16" id="WHt-Sr-DHc"/>
                             <constraint firstAttribute="trailing" secondItem="OyU-8D-jUl" secondAttribute="trailing" constant="16" id="hRD-CF-IQ3"/>
                             <constraint firstItem="OyU-8D-jUl" firstAttribute="top" secondItem="14t-7V-ODd" secondAttribute="bottom" constant="16" id="wgk-Ea-c37"/>
-                            <constraint firstAttribute="trailing" secondItem="14t-7V-ODd" secondAttribute="trailing" constant="16" id="xVD-kB-Gqt"/>
+                            <constraint firstAttribute="trailing" secondItem="14t-7V-ODd" secondAttribute="trailing" constant="16" id="xVD-kB-Gqt">
+                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                            </constraint>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -785,6 +805,14 @@
                             </mask>
                         </variation>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Filter" id="wog-Ia-Q58">
+                        <barButtonItem key="rightBarButtonItem" title="Reset" id="cTa-qv-fzX">
+                            <connections>
+                                <action selector="resetFilterButton:" destination="dfp-wP-0Vb" id="90r-gH-Xyq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="filterTableView" destination="14t-7V-ODd" id="C2F-40-bru"/>
                     </connections>

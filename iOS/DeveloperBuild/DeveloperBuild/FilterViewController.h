@@ -17,6 +17,7 @@
 // Buttons
 - (IBAction)cancelButton:(UIButton *)sender;
 - (IBAction)searchButton:(UIButton *)sender;
+- (IBAction)resetFilterButton:(UIBarButtonItem *)sender;
 
 // Table View
 @property (strong, nonatomic) IBOutlet UITableView *filterTableView;

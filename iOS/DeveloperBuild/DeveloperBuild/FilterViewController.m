@@ -130,4 +130,10 @@ static NSMutableDictionary *filterCurrentValue;
 	[[self navigationController] popViewControllerAnimated:YES];
 }
 
+- (IBAction)resetFilterButton:(UIBarButtonItem *)sender {
+	[[FilterOptions getSharedInstance] resetFilterOptions];
+	filterCellOptions = [[FilterOptions getSharedInstance] filterOption];
+	[self.filterTableView reloadData];
+}
+
 @end

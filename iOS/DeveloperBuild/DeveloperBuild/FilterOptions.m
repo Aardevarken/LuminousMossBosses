@@ -106,6 +106,10 @@
 	[[FieldGuideManager getSharedInstance] setFetchQuery:query];
 }
 
+- (void)resetFilterOptions{
+	[self setFilterOption:[self nullArrayOfLenght:[filterTitle count]]];
+}
+
 #pragma mark - private memeber functions
 - (NSMutableArray *)nullArrayOfLenght:(NSUInteger)len{
 	NSMutableArray *nullarray = [[NSMutableArray alloc] initWithCapacity:len];
