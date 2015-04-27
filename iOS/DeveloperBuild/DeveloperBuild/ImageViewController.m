@@ -40,18 +40,23 @@
 @synthesize imageView, takePhotoBtn;
 @synthesize addObsBtn;
 @synthesize captureManager;
+@synthesize buttonView;
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+	// for testing button layout
+//	[[self addObsBtn] setHidden:NO];
+//	[[self retakePhotoBtn] setHidden:NO];
+//	[[self takePhotoBtn] setHidden:YES];
 	
 	// check to make sure the device has a camera
 	if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
 		// display no camera icon
 		imageView.hidden = NO;
 		imageView.image = [UIImage imageNamed:@"nocamera.png"];
-		
+
 		// display alert box
 		UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"ERROR"
 															  message:@"Device has no camera"
@@ -59,9 +64,12 @@
 													cancelButtonTitle:@"OK"
 													otherButtonTitles:nil];
 		[myAlertView show];
+		[self hideTakePhotoBtn];
+		[self hideRetakePhotoBtn];
+		[self hideAddObservationBtn];
+		[[self buttonView] setHidden:YES];
 	}
 	else {
-		
 		[self setCaptureManager:[[CaptureSessionManager alloc] init]];
 		
 		[[self captureManager] addVideoInput];

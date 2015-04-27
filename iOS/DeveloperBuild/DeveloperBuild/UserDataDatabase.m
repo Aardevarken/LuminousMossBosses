@@ -185,7 +185,7 @@ static NSDictionary* typeMap = nil;
     };
 	
 	// Uncomment this line the first time you run code with a new database schema.
-	[self runBoolQuery:@"DROP TABLE IF EXISTS observations;"];
+	//[self runBoolQuery:@"DROP TABLE IF EXISTS observations;"];
 	
 	return [self runBoolQuery:createTables];
 }
@@ -196,10 +196,13 @@ static NSDictionary* typeMap = nil;
 	if(latitude == nil && longitude == nil && date == nil){
 		latitude = [NSNumber numberWithDouble:bestEffortAtLocation.coordinate.latitude];
 		longitude = [NSNumber numberWithDouble:bestEffortAtLocation.coordinate.longitude];
-		date = [NSString stringWithFormat:@"%@",bestEffortAtLocation.timestamp];
 	} else {
 
 	}
+	
+	// parse out the +0000 from the date
+	NSRange range = [date rangeOfString:@" +"];
+	date = [date substringToIndex:range.location];
 	
     NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO observations (imghexid, datetime, latitude, longitude, locationerror, percentIDed) VALUES ('%@','%@','%@','%@','%@','%@');", imghexid, date, latitude, longitude, locationError, percentIDed];
     return [self runBoolQuery:insertSQL];
