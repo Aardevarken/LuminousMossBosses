@@ -43,8 +43,8 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
     private ArrayList<Observation> selectedObservations;
     private ObservationDBHandler db;
 
-    private final int PENDING = 0;
-    private final int SYNCED = 1;
+    public static final int PENDING = 0;
+    public static final int SYNCED = 1;
     private int syncedTab;
 
     private RadioButton mTabPending;
@@ -53,7 +53,7 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
 
     public ObservationListFragment(){}
 
-    //static method used for setting arguments;
+
 
     @Override
     public Boolean allowedBackPressed() {
@@ -75,6 +75,11 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
         else
         {
             syncedTab = PENDING;
+        }
+        Bundle bundle = getArguments();
+        if(bundle!=null)
+        {
+            syncedTab = bundle.getInt("Tab");
         }
 
         rootView = inflater.inflate(R.layout.fragment_observationlist, container, false);
