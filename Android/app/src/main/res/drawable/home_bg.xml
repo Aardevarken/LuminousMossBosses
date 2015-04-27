@@ -6,4 +6,5 @@
         android:startColor="@color/home_bg_start"
         android:endColor="@color/home_bg_end"
         android:type="linear"/>
+
 </shape>

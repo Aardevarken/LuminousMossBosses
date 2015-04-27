@@ -97,8 +97,8 @@ public class MainActivity extends Activity {
             Uri iconUri = Util.resIdToUri(this, navMenuIcons.getResourceId(i, -1));
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], iconUri));
         }
-        ((NavDrawerItem) navDrawerItems.get(FIELD_GUIDE_POSITION)).setCounterVisibility(true);
-        ((NavDrawerItem) navDrawerItems.get(FIELD_GUIDE_POSITION)).setCount(2);
+        //((NavDrawerItem) navDrawerItems.get(FIELD_GUIDE_POSITION)).setCounterVisibility(true);
+        //((NavDrawerItem) navDrawerItems.get(FIELD_GUIDE_POSITION)).setCount(2);
 
         // Recycle the typed array
         navMenuIcons.recycle();
