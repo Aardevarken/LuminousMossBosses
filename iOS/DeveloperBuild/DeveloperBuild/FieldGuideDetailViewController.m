@@ -12,6 +12,8 @@
 
 static NSArray* valueInfoToDisplay;
 static NSArray* keyInfoToDisplay;
+static NSDictionary* typeMap = nil;
+
 
 @interface FieldGuideDetailViewController ()
 
@@ -25,6 +27,21 @@ static NSArray* keyInfoToDisplay;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		typeMap = @{
+					@"family"		: @"Family",
+					@"latin_name"	: @"Latin name",
+					@"code"			: @"Code",
+					@"growthform"	: @"Growthform",
+					@"common_name"	: @"Common name",
+					@"flower shape"	: @"Flower shape",
+					@"leaf shape filter"	:	@"Leaf shape",
+					@"description"	: @"Description",
+					@"photocredit"	: @"Photocredit"
+					};
+	});
+
 	speciesInfo = [[FieldGuideManager getSharedInstance] findSpeciesByID:[self speciesID]];
 	valueInfoToDisplay = [speciesInfo allValues];
 	keyInfoToDisplay = [speciesInfo allKeys];
@@ -52,7 +69,7 @@ static NSArray* keyInfoToDisplay;
 	DetailFieldGuidCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailFieldGuideCell_ID"];
 	
 	cell.value.text = [valueInfoToDisplay objectAtIndex:indexPath.row];
-	cell.title.text = [keyInfoToDisplay objectAtIndex:indexPath.row];
+	cell.title.text = [typeMap objectForKey:[keyInfoToDisplay objectAtIndex:indexPath.row]];
 	
 	return cell;
 }

@@ -73,16 +73,17 @@ detectionHelper *detectionObject;
 			[self.startRunning setEnabled:NO];
 			[self.activityIndicator startAnimating];
 			[self hideTapToStartBtnText];
-
+			[[self tapToStartBtn] setHidden:YES];
 		}
-		
 		else {
-//			[[self startRunningBtn] setEnabled:YES];
-			[self setTapToStartBtnText];
+			//[self setTapToStartBtnText];
+			//[[self tapToStartBtn] setEnabled:NO];
+			//..[[self startRunning] setEnabled:YES];
+			//[self hideTapToStartBtnText];
+			
 		}
 	}
 	else {
-		
 		[self setTapToStartBtnText];
 //		[startRunningBtn setHidden:YES];
 //		[startRunningBtn setEnabled:NO];
@@ -93,6 +94,21 @@ detectionHelper *detectionObject;
 - (void)viewWillAppear:(BOOL)animated{
 	// add an observer to the identification helper object assosiated with the asset id
 	[[IdentifyingAssets getByimghexid:[plantInfo objectForKey:@"imghexid"]] addObserver:self forKeyPath:@"percentageComplete" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+	
+	NSString *t = [plantInfo objectForKey:@"isSilene"];
+	NSString *name = [NSString alloc];
+	
+	if ([t isEqualToString:@"yes"]) {
+		name = @"Silene";
+	}
+	else if ([t isEqualToString:@"idk"]){
+		name = @"Unidentified";
+	}
+	else {
+		name = @"Unknown";
+	}
+	
+	nameLabel.text = name;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -170,12 +186,18 @@ detectionHelper *detectionObject;
 	obsImage.image = [detectionObject identifiedImage];
 	percentLabel.text = [NSString stringWithFormat:@"%.0f%%",[[detectionObject probability] floatValue]*100];
 	
+	NSString *t = [plantInfo objectForKey:@"isSilene"];
+	NSString *name = [NSString alloc];
+	
 	if ([detectionObject positiveID]) {
 		percentLabel.textColor = [UIColor colorWithRed:0 green:255.f blue:0 alpha:1];
+		name = @"Silene";
+
 	} else {
 		percentLabel.textColor = [UIColor colorWithRed:255.f green:0 blue:0 alpha:1];
+		name = @"Unknown";
 	}
-	
+	[[self nameLabel] setText:name];
 	startRunning.hidden = YES;
 	[[self tapToStartBtn] setHidden:NO];
 }
@@ -225,6 +247,7 @@ detectionHelper *detectionObject;
 //				[[self identifyView] setHidden:YES];
 				
 				[[self tapToStartBtn] setHidden:NO];
+				[[self tapToStartBtn] setEnabled:NO];
 //				[self setTapToStartBtnText];
 				
 			});

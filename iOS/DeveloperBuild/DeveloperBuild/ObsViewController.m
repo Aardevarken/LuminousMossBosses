@@ -17,6 +17,10 @@
 #import "ServerAPI.h"
 #import "IdentifyingAssets.h"
 
+static BOOL reloadSwitch;
+static BOOL syncing;
+static unsigned long synccout;
+static unsigned long synctotal;
 @interface ObsViewController ()
 
 @end
@@ -80,6 +84,8 @@ NSMutableArray *_myObservations;
 //	//NSLog(@"\n");
 //	// keep this work
 	
+	reloadSwitch = NO;
+	syncing = NO;
 	[self retrieveData];
 }
 
@@ -91,6 +97,22 @@ NSMutableArray *_myObservations;
     for(id object in idedObservations){
         [[IdentifyingAssets getByimghexid:[object objectForKey:@"imghexid"]] addObserver:self forKeyPath:@"percentageComplete" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+	if (reloadSwitch) {
+		[self.tableView reloadData];//]]reloadSections:1 withRowAnimation:UITableViewRowAnimationFade];
+		ALog(@"HERE");
+		dispatch_async(dispatch_get_main_queue(), ^{
+			if (syncing) {
+				[[self syncBtn] setEnabled:YES];
+				[[self syncBtn] setTitle:[NSString stringWithFormat:@"Sync All"] forState:UIControlStateNormal];
+			} else {
+				[[self syncBtn] setEnabled:NO];
+				[[self syncBtn] setTitle:[NSString stringWithFormat:@"Syncing... (%lu/%lu)", synccout, synctotal] forState:UIControlStateNormal];
+			}
+		});
+	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -286,7 +308,20 @@ NSMutableArray *_myObservations;
 	}
 		failureBlock: nil];
 	
-	cell.nameLabel.text		= @"Unknown";//[NSString stringWithFormat:@"%@", [dic objectForKey:@"imghexid"]];
+	NSString *t = [dic objectForKey:@"isSilene"];
+	NSString *name = [NSString alloc];
+	
+	if ([t isEqualToString:@"yes"]) {
+		name = @"Silene";
+	}
+	else if ([t isEqualToString:@"idk"]){
+		name = @"Unidentified";
+	}
+	else {
+		name = @"Unknown";
+	}
+	
+	cell.nameLabel.text		= name;//[NSString stringWithFormat:@"%@", [dic objectForKey:@"imghexid"]];
 	cell.dateLabel.text		= [NSString stringWithFormat:@"%@", [dic objectForKey:@"datetime"]];
 	
 //	if ([[dic objectForKey:@"percentIDed"]  isEqual: @"(null)"]) {
@@ -441,6 +476,7 @@ NSMutableArray *_myObservations;
 	if (originalCount == 0) {
 		return;
 	}
+	synctotal = originalCount;
 	
 	[[self syncBtn] setTitle:[NSString stringWithFormat:@"Syncing... (%d/%lu)", 1, originalCount] forState:UIControlStateNormal];
 
@@ -485,25 +521,30 @@ NSMutableArray *_myObservations;
 						 
 						 // upload to server
 						 //sleep(2.5);
-                         [ServerAPI uploadObservation:date time:date lat:lat lng:lng locationerror:locationerror image:normalizedImage];
+						 [ServerAPI uploadObservation:date time:date lat:lat lng:lng locationerror:locationerror image:normalizedImage];
 						 
 						 // change status of observation in the database
 						 //sleep(0.8);
-                         [[UserDataDatabase getSharedInstance] updateObservation:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced" isSilene:nil];
+						 [[UserDataDatabase getSharedInstance] updateObservation:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced" isSilene:nil];
 						 
 						 // update and remove synced rows.
 						 dispatch_async(dispatch_get_main_queue(), ^{
+							 syncing = YES;
 							 NSInteger rowIndex = [idedObservations indexOfObjectIdenticalTo:object];
 							 
 							 [idedObservations removeObjectIdenticalTo:object];
+							 
+							 synccout = originalCount - idedObservations.count + 1;
 							 
 							 [[self syncBtn] setTitle:[NSString stringWithFormat:@"Syncing... (%ld/%lu)", originalCount - idedObservations.count + 1, originalCount] forState:UIControlStateNormal];
 							 [self removeRow:rowIndex inSection:1];
 							 
 							 if (idedObservations.count == 0) {
+								 syncing = NO;
 								 [[self syncBtn] setEnabled:YES];
 								 [[self syncBtn] setTitle:[NSString stringWithFormat:@"Sync All"] forState:UIControlStateNormal];
 								 [idedObservations removeAllObjects];
+								 [self.tableView reloadData];
 							 }
 						 });
 					 }
@@ -515,7 +556,16 @@ NSMutableArray *_myObservations;
 
 -(void) removeRow:(NSInteger)row inSection:(NSInteger)section{
 	NSIndexPath *myIndex = [NSIndexPath indexPathForRow:row inSection:section];
-	[self.tableView deleteRowsAtIndexPaths:@[myIndex] withRowAnimation:UITableViewRowAnimationFade];
+	@try {
+		[self.tableView deleteRowsAtIndexPaths:@[myIndex] withRowAnimation:UITableViewRowAnimationFade];
+	}
+	@catch (NSException * e) {
+		reloadSwitch = YES;
+		ALog(@"Exception: %@", e);
+	}
+	
+
+	
 }
 
 

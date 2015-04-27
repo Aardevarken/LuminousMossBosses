@@ -77,7 +77,17 @@
 	} failureBlock:nil];
 	
 	// set text fields
-	cell.nameLabel.text = @"Missing isSilene field in DB";//[plantInformation objectForKey:@"imghexid"];
+	NSString *t = [plantInformation objectForKey:@"isSilene"];
+	NSString *name = [NSString alloc];
+
+	if ([t isEqualToString:@"yes"]) {
+		name = @"Silene";
+	}
+	else {
+		name = @"Unknown";
+	}
+	
+	cell.nameLabel.text = name;//[plantInformation objectForKey:@"imghexid"];
 	cell.dateLabel.text = [plantInformation objectForKey:@"datetime"];
 	cell.percentLabel.text = [NSString stringWithFormat:@"%@%%", [plantInformation objectForKey:@"percentIDed"]];
 	

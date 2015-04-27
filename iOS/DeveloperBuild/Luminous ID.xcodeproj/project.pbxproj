@@ -29,6 +29,8 @@
 		163623DF1AECDDA500A50CA3 /* FilterOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623DE1AECDDA500A50CA3 /* FilterOptionsViewController.m */; };
 		163623E21AECE08E00A50CA3 /* FilterOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623E11AECE08E00A50CA3 /* FilterOptions.m */; };
 		163623E51AECE24400A50CA3 /* FilterObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623E41AECE24400A50CA3 /* FilterObject.m */; };
+		163ACAB81AEEBBB9004602B6 /* background_img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 163ACAB71AEEBBB9004602B6 /* background_img.jpg */; };
+		163ACABA1AEECA47004602B6 /* silene_acaulis_img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 163ACAB91AEECA47004602B6 /* silene_acaulis_img.jpg */; };
 		1642DE501ADC9A84002FB11C /* homeBtnIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */; };
 		1642DE531ADCA085002FB11C /* MyObsTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1642DE521ADCA085002FB11C /* MyObsTabBarController.m */; };
 		165B6A211AA3F5C4004FE7CB /* nocamera.png in Resources */ = {isa = PBXBuildFile; fileRef = 165B6A201AA3F5C4004FE7CB /* nocamera.png */; };
@@ -159,6 +161,8 @@
 		163623E11AECE08E00A50CA3 /* FilterOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterOptions.m; sourceTree = "<group>"; };
 		163623E31AECE24400A50CA3 /* FilterObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterObject.h; sourceTree = "<group>"; };
 		163623E41AECE24400A50CA3 /* FilterObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterObject.m; sourceTree = "<group>"; };
+		163ACAB71AEEBBB9004602B6 /* background_img.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_img.jpg; sourceTree = "<group>"; };
+		163ACAB91AEECA47004602B6 /* silene_acaulis_img.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = silene_acaulis_img.jpg; sourceTree = "<group>"; };
 		1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = homeBtnIcon.png; path = DeveloperBuild/homeBtnIcon.png; sourceTree = "<group>"; };
 		1642DE511ADCA085002FB11C /* MyObsTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyObsTabBarController.h; sourceTree = "<group>"; };
 		1642DE521ADCA085002FB11C /* MyObsTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyObsTabBarController.m; sourceTree = "<group>"; };
@@ -364,6 +368,8 @@
 				165C72BB1AEE1081007BB2AA /* add_observation_normal.png */,
 				165C72BC1AEE1081007BB2AA /* about_normal.png */,
 				165C72BD1AEE1081007BB2AA /* field_guide_normal.png */,
+				163ACAB71AEEBBB9004602B6 /* background_img.jpg */,
+				163ACAB91AEECA47004602B6 /* silene_acaulis_img.jpg */,
 			);
 			name = Icons;
 			path = DeveloperBuild;
@@ -644,9 +650,11 @@
 				163623CF1AEC6C5400A50CA3 /* FORBS in Resources */,
 				F0D4ED191AA59926008CBAD4 /* vocabulary.xml in Resources */,
 				E6BAA8E71AEB4897007A8F34 /* Luminous-ID.png in Resources */,
+				163ACABA1AEECA47004602B6 /* silene_acaulis_img.jpg in Resources */,
 				F0D4ED171AA59917008CBAD4 /* silene.xml in Resources */,
 				16CCBC3C1A773D71008B7E96 /* minuartia1.jpg in Resources */,
 				165C72C01AEE1081007BB2AA /* about_normal.png in Resources */,
+				163ACAB81AEEBBB9004602B6 /* background_img.jpg in Resources */,
 				E6ED3AE81ADB837800099064 /* ic_fieldguide copy.png in Resources */,
 				16CCBC3A1A773D71008B7E96 /* IMG_2003.jpg in Resources */,
 				165C72BF1AEE1081007BB2AA /* add_observation_normal.png in Resources */,
