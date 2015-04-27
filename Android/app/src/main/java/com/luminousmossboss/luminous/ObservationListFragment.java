@@ -6,6 +6,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,6 +24,7 @@ import com.luminousmossboss.luminous.model.Separator;
 import java.io.File;
 import java.util.ArrayList;
 
+import dialog.DeleteDialogFragment;
 import info.hoang8f.android.segmented.SegmentedGroup;
 
 /**
@@ -82,6 +86,9 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
             syncedTab = bundle.getInt("Tab");
         }
 
+        setHasOptionsMenu(true);
+
+
         rootView = inflater.inflate(R.layout.fragment_observationlist, container, false);
         this.container = container;
         final Activity activity = getActivity();
@@ -118,6 +125,23 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
 
         activity.setTitle(MainActivity.OBSERVATION_LIST_POSITION);
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.observationlist_normal, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final Activity activity = getActivity();
+        switch (item.getItemId()) {
+            case R.id.action_add_observation:
+                ((MainActivity) activity).displayView(MainActivity.OBSERVATION_POSITION);
+                break;
+        }
+        return true;
     }
 
     /**
