@@ -4,18 +4,16 @@
     android:background="@drawable/fieldguide_bg">
 
     <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="230dp"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
         android:maxWidth="512dp"
         android:maxHeight="512dp"
         android:id="@+id/imageView"
         android:src="@drawable/silene_acaulis_img"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:cropToPadding="false" />
+        android:cropToPadding="false"
+        android:layout_marginRight="240dp"
+        android:layout_alignTop="@+id/listView"
+        android:layout_alignBottom="@+id/button_context" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,8 +24,9 @@
         android:textColor="@color/fieldguide_title"
         android:textStyle="bold"
         android:textSize="26dp"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/button_context"
+        android:layout_toStartOf="@+id/button_context" />
 
     <Button
         android:layout_width="match_parent"
@@ -47,19 +46,23 @@
         android:textAlignment="center"
 
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_margin="10dp"
-        style="@style/RadioButton" />
+        style="@style/RadioButton"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignLeft="@+id/listView"
+        android:layout_alignStart="@+id/listView" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_marginLeft="362dp"
+        android:layout_marginStart="362dp"
         android:layout_below="@+id/title"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/button_context"
-        android:listSelector="@android:color/transparent"/>
+        android:layout_above="@+id/button_context" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"

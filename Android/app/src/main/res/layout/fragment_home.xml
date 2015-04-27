@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/home_bg">
+    android:background="@drawable/background_img">
 
 
     <GridLayout
@@ -63,12 +63,12 @@
             android:layout_row="0"
             android:layout_column="1"
             android:layout_gravity="center" />
-
+        <!-- this should be the settings button, but there isn't much of a settings to change so yeah... -->
         <ImageButton
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/round_button"
-            android:src="@drawable/ic_cogwheel"
+            android:src="@drawable/ic_info"
             android:adjustViewBounds="true"
             android:padding="20dp"
             android:gravity="center_vertical|center_horizontal"
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Settings"
+            android:text="About"
             android:textColor="@color/home_text"
             android:id="@+id/textView3"
             android:layout_row="3"

@@ -18,23 +18,17 @@
     <string name="app_name">Luminous Id</string>
     <string-array name="nav_drawer_items">
         <item>Home</item>
-        <item>Add Observations</item>
+        <item>Add Observation</item>
         <item>My Observations</item>
-        <item>Sync Observations</item>
         <item>Field Guide</item>
         <item>About</item>
-        <item>Settings</item>
-        <item>Help</item>
     </string-array>
     <array name="nav_drawer_icons">
         <item>@drawable/ic_home</item>
         <item>@drawable/ic_camera</item>
         <item>@mipmap/ic_notepage</item>
-        <item>@drawable/ic_upload</item>
         <item>@drawable/ic_openbook</item>
         <item>@drawable/ic_info</item>
-        <item>@drawable/ic_cogwheel</item>
-        <item>@drawable/ic_help</item>
     </array>
 
     <!-- Field Guide Temp
@@ -57,6 +51,15 @@ The name rose comes from French, itself from Latin rosa, which was perhaps borro
         <item>@drawable/rose_icon</item>
     </array>
 
+    <!-- Main activity -->
+    <string name="location_unavailable">No location available yet. Please take another photo when location services is available</string>
+    <string name="failed_photo_file_create">Failed to create photo file. Please try again.</string>
+
+    <!-- Observations List Separators -->
+    <string name="separator_unidentified">Unidentified</string>
+    <string name="separator_silene">Identified as Silene acaulis</string>
+    <string name="separator_unknown">Unknown</string>
+
     <!-- My Observations Temp -->
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
@@ -66,13 +69,24 @@ The name rose comes from French, itself from Latin rosa, which was perhaps borro
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
     <string name="fieldGuide_Location">Locations</string>
     <string name="fieldGuide_observation">Add Observation</string>
+    <string name="silene_acaulis">Silene acaulis</string>
+    <string name="id_silene_acaulis">Your image was identified as Silene acaulis</string>
+    <string name="id_unknown">Your image was not identified as Silene acaulis</string>
+    <string name="post_obs_success">Your observation was sent! Thanks for contributing to science</string>
+    <string name="post_obs_failure">There was an issue connecting. Please try again with better data service or while connected to WiFi</string>
+    <string name="unknown_species">Unknown</string>
+    <string name="unidentified">Unidentified</string>
 
     <!-- Dialog Messages -->
     <string name="dialog_remove_obs_msg">Are you sure you want to remove this observation?</string>
-    <string name="dialog_send_obs_msg">Observation was not identified as Silene Acaulis, are you sure you want to send data?</string>
+    <string name="dialog_send_obs_msg">Observation was not identified as Silene acaulis, are you sure you want to send data?</string>
     <string name="dialog_identify_obs_msg">Would you like to run the identification program now?</string>
     <string name="dialog_confirm">Yes</string>
     <string name="dialog_decline">Cancel</string>
     <string name="dialog_neutral">Later</string>
+    <string name="dialog_settings">Settings</string>
+    <string name="fg_db_name">fieldguide.db</string>
+    <string name="gps_message_body">GPS must be enabled to take observations. Please turn location services on in the settings menu.</string>
+    <string name="gps_message_title">GPS is disabled</string>
 </resources>
 

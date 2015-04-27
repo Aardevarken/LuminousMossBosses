@@ -4,8 +4,8 @@ include $(CLEAR_VARS)
 
 #opencv
 #change this to your Android OpenCV root folder
-#OPENCVROOT := ~/Downloads/OpenCV-2.4.10-android-sdk
-OPENCVROOT := C:/ocvAndroid
+OPENCVROOT := ~/Downloads/OpenCV-2.4.10-android-sdk
+#OPENCVROOT := C:/ocvAndroid
 OPENCV_INSTALL_MODULES := on
 OPENCV_CAMERA_MODULES := off
 OPENCV_LIB_TYPE := STATIC

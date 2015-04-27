@@ -46,11 +46,10 @@ public class MainActivity extends Activity {
     public static final int HOME_POSITION = 0;
     public static final int OBSERVATION_POSITION = 1;
     public static final int OBSERVATION_LIST_POSITION = 2;
-    public static final int SYNC_OBSERVATION_POSITION = 3;
-    public static final int FIELD_GUIDE_POSITION = 4;
-    public static final int ABOUT_POSITION = 5;
-    public static final int SETTINGS_POSITION = 6;
-    public static final int HELP_POSITION = 7;
+    public static final int FIELD_GUIDE_POSITION = 3;
+    public static final int ABOUT_POSITION = 4;
+    //public static final int SETTINGS_POSITION = 6;
+    //public static final int HELP_POSITION = 7;
 
     //For handling location
     protected GPSTracker mGPS;
@@ -98,8 +97,8 @@ public class MainActivity extends Activity {
             Uri iconUri = Util.resIdToUri(this, navMenuIcons.getResourceId(i, -1));
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], iconUri));
         }
-        ((NavDrawerItem) navDrawerItems.get(FIELD_GUIDE_POSITION)).setCounterVisibility(true);
-        ((NavDrawerItem) navDrawerItems.get(FIELD_GUIDE_POSITION)).setCount(2);
+        //((NavDrawerItem) navDrawerItems.get(FIELD_GUIDE_POSITION)).setCounterVisibility(true);
+        //((NavDrawerItem) navDrawerItems.get(FIELD_GUIDE_POSITION)).setCount(2);
 
         // Recycle the typed array
         navMenuIcons.recycle();
@@ -153,8 +152,8 @@ public class MainActivity extends Activity {
         }
         // Handle action bar actions click
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
+            //case R.id.action_settings:
+            //    return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -167,7 +166,7 @@ public class MainActivity extends Activity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        //menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -239,6 +238,10 @@ public class MainActivity extends Activity {
                 //icon = R.drawable.ic_openbook;
                 break;
 
+            case ABOUT_POSITION:
+                displayView(new AboutFragment());
+                break;
+
             default:
                 break;
         }
@@ -246,15 +249,26 @@ public class MainActivity extends Activity {
         mDrawerList.setSelection(position);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
+
+    private void fragmentTransaction(FragmentManager fragmentManager, Fragment fragment) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_container, fragment, "TAG");
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
     public void displayView(Fragment fragment) {
         if (fragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_container, fragment, "TAG");
-
-            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            Fragment currentFragment = fragmentManager.findFragmentByTag("TAG");
+            if (currentFragment != null) {
+                if (fragment.getClass().getName() != currentFragment.getClass().getName()) {
+                    fragmentTransaction(fragmentManager, fragment);
+                }
+            } else {
+                fragmentTransaction(fragmentManager, fragment);
+            }
         } else {
             Log.e("MainActivity", "Error in creating fragment");
         }
@@ -357,11 +371,11 @@ public class MainActivity extends Activity {
         Location loc = mGPS.getLocation();
         if( loc == null || (loc.getLatitude() == 0 && loc.getLongitude() == 0))
         {
-            Toast.makeText(this, "No Location available yet. PLease take another photo when location available", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.location_unavailable, Toast.LENGTH_LONG).show();
         }
         else if(mCurrentPhotoPath == null)
         {
-            Toast.makeText(this, "Failed to create photo file. Please try again", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.failed_photo_file_create, Toast.LENGTH_LONG).show();
         }
         else
         {

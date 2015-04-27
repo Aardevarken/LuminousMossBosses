@@ -27,24 +27,23 @@ public class SendPostActivity extends AsyncTask<Object,Void,Integer>{
     private int observationId;
     private Context context;
     private Button sendButton;
+    private Observation observation;
 
     private final String POST_URL = "http://luminousid.com/_post_observation";
     private final int STATUS_OK = 200;
 
 
-    public SendPostActivity(Context context, int id, Button sendButton) {
+    public SendPostActivity(Context context, Observation observation, Button sendButton) {
         this.context = context;
-        observationId = id;
+        observationId = observation.getId();
         this.sendButton = sendButton;
-
-
-
+        this.observation = observation;
     }
     @Override
     protected void onPreExecute(){
+        observation.setSent(true);
         sendButton.setEnabled(false);
         sendButton.setVisibility(View.GONE);
-
     }
 
     @Override
@@ -85,7 +84,7 @@ public class SendPostActivity extends AsyncTask<Object,Void,Integer>{
     @Override
     protected void onPostExecute(Integer result){
         if (result == STATUS_OK){
-            Toast.makeText(context,"Your observation was sent! Thanks for contributing to science",Toast.LENGTH_LONG).show();
+            Toast.makeText(context,R.string.post_obs_success,Toast.LENGTH_LONG).show();
 
             ObservationDBHandler db = new ObservationDBHandler(context);
             db.updateSyncedStatus(observationId);
@@ -93,7 +92,8 @@ public class SendPostActivity extends AsyncTask<Object,Void,Integer>{
 
         }
         else {
-            Toast.makeText(context,"There was an issue connecting, please try again with better service",Toast.LENGTH_LONG).show();
+            Toast.makeText(context,R.string.post_obs_failure,Toast.LENGTH_LONG).show();
+            observation.setSent(false);
             sendButton.setEnabled(true);
             sendButton.setVisibility(View.VISIBLE);
 

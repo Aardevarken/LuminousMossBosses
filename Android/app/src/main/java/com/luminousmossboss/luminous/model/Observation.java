@@ -6,6 +6,7 @@ import android.location.Location;
 import android.net.Uri;
 
 import com.luminousmossboss.luminous.ObservationDBHandler;
+import com.luminousmossboss.luminous.R;
 
 import java.io.File;
 import java.io.Serializable;
@@ -21,6 +22,11 @@ public class Observation extends ListItem implements Serializable {
     private double longitude;
     private double latitude;
     private boolean hasBeenProcceced;
+
+    private boolean isSent;
+
+
+
     private boolean is_silene;
     private boolean isBeingProcessed;
     private int id;
@@ -62,9 +68,9 @@ public class Observation extends ListItem implements Serializable {
             is_silene = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_IS_SILENE)) > 0;
 
             if (is_silene)
-                setTitle("Silene Aculis");
+                setTitle(context.getString(R.string.silene_acaulis));
             else
-                setTitle("Unknown");
+                setTitle(context.getString(R.string.unknown_species));
         }
         cursor.close();
         db.close();
@@ -82,7 +88,7 @@ public class Observation extends ListItem implements Serializable {
         return hasBeenProcceced;
     }
 
-    public void setHasBeenProcceced(boolean hasBeenProcceced) {
+    public void setHasBeenProcceced() {
         this.hasBeenProcceced = hasBeenProcceced;
     }
 
@@ -90,7 +96,7 @@ public class Observation extends ListItem implements Serializable {
     {
         ObservationDBHandler db = new ObservationDBHandler(context);
         db.updateIsSilene(id);
-        setTitle("Silene Aculis");
+        setTitle(context.getString(R.string.silene_acaulis));
 
     }
     public float getAccuracy() {
@@ -134,6 +140,16 @@ public class Observation extends ListItem implements Serializable {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public boolean isSilene() { return is_silene; }
+
+    public boolean isSent() {
+        return isSent;
+    }
+
+    public void setSent(boolean sent) {
+        isSent = sent;
     }
 
 }
