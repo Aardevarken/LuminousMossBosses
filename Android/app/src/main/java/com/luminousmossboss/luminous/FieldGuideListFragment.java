@@ -51,7 +51,7 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_fieldguide_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_listview, container, false);
 
         initList(rootView, container);
 
