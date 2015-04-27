@@ -16,7 +16,11 @@
 		<string>https://github.com/Aardevarken/LuminousMossBosses.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
+<<<<<<< HEAD:iOS/DeveloperBuild/Luminous ID.xcodeproj/project.xcworkspace/xcshareddata/DeveloperBuild.xccheckout
 	<string>iOS/DeveloperBuild/Luminous ID.xcodeproj/project.xcworkspace</string>
+=======
+	<string>iOS/DeveloperBuild/DeveloperBuild.xcodeproj/project.xcworkspace</string>
+>>>>>>> iBeta:iOS/DeveloperBuild/DeveloperBuild.xcodeproj/project.xcworkspace/xcshareddata/DeveloperBuild.xccheckout
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>5546ED9D52371092F58FD39F35E7E4B85EDE4D7F</key>

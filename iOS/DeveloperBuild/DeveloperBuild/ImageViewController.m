@@ -186,7 +186,7 @@
 	if (highestError < bestLocationForImage.verticalAccuracy) {
 		highestError = bestLocationForImage.verticalAccuracy;
 	}
-	
+
 	success = [[UserDataDatabase getSharedInstance]
 			   saveObservation:img
 			   date: [NSString stringWithFormat:@"%@",bestLocationForImage.timestamp]

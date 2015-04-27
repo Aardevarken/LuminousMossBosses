@@ -1,0 +1,22 @@
+growth form,flower color,inflorescence,flower shape,petal number,leaf arrangement,leaf shape,leaf shape FILTER,habitat
+forb,white,corymbiform,campanulate,3,alternate,cordate,dissected,fellfield 
+,yellow,cyme,composite,4,basal,deltoid,oblong,dry meadow 
+,orange,head,cruciform,5,cauline,dissected,palmate,moist meadow
+,red,helicoid,funnelform,6,opposite,elliptic,round,wet meadow 
+,pink,paniculate,labiate,>6,rosette,lanceolate,ternate,snowbed 
+,purple,racemose,papilionaceous,,whorled,linear,other,subalpine
+,blue,solitary,radial,,other,oblanceolate,,
+,green,spicate,reflexed,,,obovate,,
+,other,umbellate,rotate,,,orbicular,,
+,,other,salverform,,,ovate,,
+,,,stellate,,,palmate,,
+,,,urceolate,,,pinnate,,
+,,,other,,,pinnatifid,,
+,,,,,,pinnatisect,,
+,,,,,,reniform,,
+,,,,,,rhombic,,
+,,,,,,spatulate,,
+,,,,,,subulate,,
+,,,,,,ternate,,
+,,,,,,oblong,,
+,,,,,,other,,
