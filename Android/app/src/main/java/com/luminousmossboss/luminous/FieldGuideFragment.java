@@ -59,9 +59,13 @@ public class FieldGuideFragment extends Fragment implements BackButtonInterface 
 
 
         title.setText(fgitem.getTitle());
-        String[] columns = fgitem.getColumns();
+        String[] columns = fgitem.getDisplayColumns();
+        String value;
+
         for (int i= 0; i < columns.length; i++) {
-            listItems.add(new DataItem(columns[i] + ":", fgitem.getProperty(columns[i])));
+            value = fgitem.getProperty(columns[i]);
+            if (value != "" && !value.equals("."))
+                listItems.add(new DataItem(columns[i] + ":", fgitem.getProperty(columns[i])));
         }
 
         DataListAdapter adapter = new DataListAdapter(container.getContext(), listItems);
