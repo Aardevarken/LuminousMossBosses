@@ -65,6 +65,12 @@
 */
 
 - (IBAction)saveFilterOption:(id)sender {
+	NSIndexPath *indexPath = [[self optionsTableView] indexPathForSelectedRow];
 	
+	NSString *newFilterValue = [[self optionsToFilter] objectAtIndex:indexPath.row];
+	NSLog(@"\n\nOldOptions: %@", [[FilterOptions getSharedInstance] filterOption]);
+	[[FilterOptions getSharedInstance] updateFilterOptionsAtIndex:filterOptionIndexNumber withOption:newFilterValue];
+	NSLog(@"NewOptions: %@\n\n", [[FilterOptions getSharedInstance] filterOption]);
+	[[self navigationController]popViewControllerAnimated:YES];
 }
 @end

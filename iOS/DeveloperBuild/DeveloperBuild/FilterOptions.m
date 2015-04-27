@@ -35,8 +35,8 @@
 	});
 }
 
-- (void) addFilterOption:(NSString*)newOption toFilter:(NSString*)filterTitle{
-	[[self filterOption] addObject:newOption];
+- (void) updateFilterOptionsAtIndex:(NSUInteger)index withOption:(NSString*)newFilterValue{
+	[[self filterOption] setObject:newFilterValue atIndexedSubscript:index];
 }
 
 - (NSString*) generateFilterQuery{

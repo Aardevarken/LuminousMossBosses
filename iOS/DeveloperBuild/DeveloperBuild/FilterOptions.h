@@ -15,7 +15,7 @@
 
 + (FilterOptions*) getSharedInstance;
 - (void) createFiltersWithTitles:(NSDictionary*)titlesWithFilters;
-- (void) addFilterOption:(NSString*)newOption toFilter:(NSString*)filterTitle;
+- (void) updateFilterOptionsAtIndex:(NSUInteger)index withOption:(NSString*)newFilterValue;
 - (NSString*) generateFilterQuery;
 
 @end
