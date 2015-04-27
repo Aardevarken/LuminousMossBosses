@@ -31,7 +31,8 @@
                                         <exclude reference="Yni-2U-nfL"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="400" height="318"/>
                                     <mask key="constraints">
                                         <exclude reference="2QH-kV-8lQ"/>
                                         <exclude reference="Yni-2U-nfL"/>
@@ -471,7 +472,7 @@
                                 </variation>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.08235294118" green="0.35686274509999999" blue="0.039215686270000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.12941176470588237" green="0.18823529411764706" blue="0.12549019607843137" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="16c-Bd-FuB" secondAttribute="trailing" constant="16" id="2sZ-lC-pd1"/>
                             <constraint firstItem="9yN-53-Btw" firstAttribute="top" secondItem="W1Z-gG-xe5" secondAttribute="topMargin" constant="30" id="63j-YD-ukY"/>
@@ -1748,9 +1749,6 @@
                                         <state key="normal" title="Add Observation">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="288" y="8" width="272" height="54"/>
-                                        </variation>
                                         <connections>
                                             <action selector="addObservation:" destination="FEo-qL-flj" eventType="touchUpInside" id="hcg-6Y-zmW"/>
                                         </connections>
@@ -1762,9 +1760,6 @@
                                         <state key="normal" title="Retake">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="8" y="8" width="272" height="54"/>
-                                        </variation>
                                         <connections>
                                             <action selector="retakePhotoBtn:" destination="FEo-qL-flj" eventType="touchUpInside" id="9hX-33-Njf"/>
                                         </connections>
@@ -1776,9 +1771,6 @@
                                         <state key="normal" title="Take Photo">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="8" y="8" width="552" height="54"/>
-                                        </variation>
                                         <connections>
                                             <action selector="takePhoto:" destination="FEo-qL-flj" eventType="touchUpInside" id="yok-Vu-zjb"/>
                                         </connections>
@@ -1860,8 +1852,7 @@
                                         <exclude reference="zt9-s1-1I3"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="16" y="510" width="568" height="70"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="48y-p2-ZMg"/>
                                         <include reference="7Rf-uj-uvT"/>
@@ -1898,9 +1889,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f8J-9J-QBo">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" red="0.56078361742424243" green="0.56078361742424243" blue="0.56078361742424243" alpha="1" colorSpace="calibratedRGB"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                </variation>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3448,6 +3436,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="ahZ-cO-ktD"/>
         <segue reference="mth-UZ-qS1"/>
-        <segue reference="Q57-1f-H6Z"/>
+        <segue reference="Ru1-vo-Wgq"/>
     </inferredMetricsTieBreakers>
 </document>
