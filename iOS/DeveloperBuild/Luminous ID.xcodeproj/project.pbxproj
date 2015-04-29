@@ -72,6 +72,7 @@
 		16CE5B811A7AC7E700FDABA5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CE5B801A7AC7E700FDABA5 /* MapKit.framework */; };
 		16DBE0621ABA5C0700220872 /* SyncedObsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16DBE0611ABA5C0700220872 /* SyncedObsTVC.m */; };
 		16E2D49B1A64860900CA8845 /* ObsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E2D49A1A64860900CA8845 /* ObsViewController.m */; };
+		16F131111AF0964400F40229 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F131101AF0964400F40229 /* AboutViewController.m */; };
 		16F8F5571AA7EA40007FEEBE /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F8F5561AA7EA40007FEEBE /* UserData.m */; };
 		16F8F55A1AA7F522007FEEBE /* UserDataDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F8F5591AA7F522007FEEBE /* UserDataDatabase.m */; };
 		16F8F55C1AA80828007FEEBE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F8F55B1AA80828007FEEBE /* libsqlite3.dylib */; };
@@ -216,6 +217,8 @@
 		16DBE0611ABA5C0700220872 /* SyncedObsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncedObsTVC.m; sourceTree = "<group>"; };
 		16E2D4991A64860900CA8845 /* ObsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObsViewController.h; sourceTree = "<group>"; };
 		16E2D49A1A64860900CA8845 /* ObsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObsViewController.m; sourceTree = "<group>"; };
+		16F1310F1AF0964400F40229 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		16F131101AF0964400F40229 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		16F8F5551AA7EA40007FEEBE /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
 		16F8F5561AA7EA40007FEEBE /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
 		16F8F5581AA7F522007FEEBE /* UserDataDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDataDatabase.h; sourceTree = "<group>"; };
@@ -306,6 +309,8 @@
 				16B052B21A5B4BDE007837B4 /* MainViewController.m */,
 				16B2A6CD1A9D4D2200A73A86 /* ImageViewController.h */,
 				16B2A6CE1A9D4D2200A73A86 /* ImageViewController.m */,
+				16F1310F1AF0964400F40229 /* AboutViewController.h */,
+				16F131101AF0964400F40229 /* AboutViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -714,6 +719,7 @@
 				163623D51AEC96BF00A50CA3 /* DetailFieldGuidCell.m in Sources */,
 				F0395FE61A9835F700EE1BF9 /* detector.cpp in Sources */,
 				16172D991AEDB2C5002C1F80 /* OptionsTableViewCell.m in Sources */,
+				16F131111AF0964400F40229 /* AboutViewController.m in Sources */,
 				1617BB7A1AE467CE00709D50 /* CaptureSessionManager.m in Sources */,
 				16B052B31A5B4BDE007837B4 /* MainViewController.m in Sources */,
 				16E2D49B1A64860900CA8845 /* ObsViewController.m in Sources */,
