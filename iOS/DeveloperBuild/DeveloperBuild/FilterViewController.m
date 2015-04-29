@@ -21,6 +21,7 @@ static NSDictionary* filters;
 static NSArray *filterCellTitles;
 static NSArray *filterCellOptions;
 static NSMutableDictionary *filterCurrentValue;
+static NSDictionary *filtersWithImages;
 /*** end of temp vars ***/
 
 @implementation FilterViewController
@@ -39,6 +40,10 @@ static NSMutableDictionary *filterCurrentValue;
 									 @"Inflorescence", @"inflorescence",
 									 @"Leaf arrangement", @"leafarrangement",
 									 nil];
+	filtersWithImages = [[NSDictionary alloc] initWithObjectsAndKeys:
+						 @"
+						 , nil];
+	
 	
 	[[FilterOptions getSharedInstance] createFiltersWithTitles:titleAndFilters];
 
