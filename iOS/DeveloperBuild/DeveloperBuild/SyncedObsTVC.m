@@ -38,6 +38,8 @@
 - (void)viewDidAppear:(BOOL)animated{
 	[[self tableView] reloadData];
 	NSLog(@"reloading");
+	
+	[super viewDidAppear:animated];
 }
 
 #pragma mark - Table view data source
@@ -78,7 +80,7 @@
 	
 	// set text fields
 	NSString *t = [plantInformation objectForKey:@"isSilene"];
-	NSString *name = [NSString alloc];
+	NSString *name;// = [NSString alloc];
 
 	if ([t isEqualToString:@"yes"]) {
 		name = @"Silene";

@@ -96,7 +96,7 @@ detectionHelper *detectionObject;
 	[[IdentifyingAssets getByimghexid:[plantInfo objectForKey:@"imghexid"]] addObserver:self forKeyPath:@"percentageComplete" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 	
 	NSString *t = [plantInfo objectForKey:@"isSilene"];
-	NSString *name = [NSString alloc];
+	NSString *name;// = [NSString alloc];
 	
 	if ([t isEqualToString:@"yes"]) {
 		name = @"Silene";
@@ -109,11 +109,14 @@ detectionHelper *detectionObject;
 	}
 	
 	nameLabel.text = name;
+	
+	[super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
 	// remove the observer assosiated with the asset id.
 	[[IdentifyingAssets getByimghexid:[plantInfo objectForKey:@"imghexid"]] removeObserver:self forKeyPath:@"percentageComplete"];
+	[super viewWillDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -164,7 +167,7 @@ detectionHelper *detectionObject;
  */
 - (NSString*)getTitleOfBtnForState{
 	NSString *state = [[self plantInfo] objectForKey:@"status"];
-	NSString *tapTo = [NSString alloc];
+	NSString *tapTo;// = [NSString alloc];
 	
 	if ([state isEqual:@"pending-noid"]) {
 		tapTo = @"Identify";
@@ -186,8 +189,7 @@ detectionHelper *detectionObject;
 	obsImage.image = [detectionObject identifiedImage];
 	percentLabel.text = [NSString stringWithFormat:@"%.0f%%",[[detectionObject probability] floatValue]*100];
 	
-	NSString *t = [plantInfo objectForKey:@"isSilene"];
-	NSString *name = [NSString alloc];
+	NSString *name;// = [NSString alloc];
 	
 	if ([detectionObject positiveID]) {
 		percentLabel.textColor = [UIColor colorWithRed:0 green:255.f blue:0 alpha:1];

@@ -195,7 +195,7 @@ static NSDictionary *typeMap = nil;
 		for (int i = 0; i < count; i++) {
 			NSString *name = [NSString stringWithUTF8String:sqlite3_column_name(statement, i)];
 			NSObject *value = nil;
-			NSString *typeName = [typeMap valueForKey:name];
+			//NSString *typeName = [typeMap valueForKey:name];
 			
 			//if ([typeName isEqual:@"string"]) {
 			value = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, i)];

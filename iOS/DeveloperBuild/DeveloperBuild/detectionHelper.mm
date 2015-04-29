@@ -120,7 +120,7 @@
     NSNumber *NSnewprob = [NSNumber  numberWithFloat:newprob];
 	
 	NSString *newState = @"pending-id";
-	// NSString *oldState = @"pending-noid";
+	NSString *oldState = @"pending-noid";
     
     // update row variables
     NSString* isSileneString;
@@ -130,7 +130,7 @@
         isSileneString = @"no";
     }
 	BOOL success = [[UserDataDatabase getSharedInstance]
-                    updateObservation:[self assetID] andNewPercentIDed:NSnewprob andNewStatus:newState isSilene: isSileneString];
+                    updateObservation:[self assetID] andNewPercentIDed:NSnewprob andNewStatus:oldState isSilene: isSileneString];
     
     // Did it all work? Inform the UI
     if (success) {

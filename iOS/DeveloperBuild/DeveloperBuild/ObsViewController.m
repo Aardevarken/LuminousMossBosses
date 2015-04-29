@@ -44,49 +44,9 @@ NSMutableArray *_myObservations;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	
-	//NSLog(@"In ObsViewController (ObsViewController.m)");
-	_myObservations = [NSMutableArray arrayWithCapacity:20];
-	
-	Observation *newObs = [[Observation alloc] init];
-	newObs.name = @"name test 1";
-	newObs.date = @"data test 1";
-	//	observation.plantImage = 1;
-	newObs.percent = @"10%";
-	[_myObservations addObject:newObs];
-	
-	newObs = [[Observation alloc] init];
-	newObs.name = @"name test 2";
-	newObs.date = @"data test 2";
-	//	observation.plantImage = 2;
-	newObs.percent = @"20%";
-	[_myObservations addObject:newObs];
-	
-	newObs = [[Observation alloc] init];
-	
-	newObs.name = @"name test 3";
-	newObs.date = @"data test 3";
-	//	observation.plantImage = 3;
-	newObs.percent = @"30%";
-	[_myObservations addObject:newObs];
-	
-	self.myObservations = _myObservations;
-	
-//	// please work
-//	
-//	pendingObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-noid" like:NO orderBy:NULL];
-//	idedObservations = [[UserDataDatabase getSharedInstance] findObsByStatus:@"pending-id" like:NO orderBy:NULL];
-//	
-//	//NSLog(@"po:%lu \t io:%lu", (unsigned long)[pendingObservations count], (unsigned long)[idedObservations count]);
-//	
-//	selectedSection = -1;
-//	selectedRow = -1;
-//	//NSLog(@"\n");
-//	// keep this work
-	
+
 	reloadSwitch = NO;
 	syncing = NO;
-	[self retrieveData];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -97,6 +57,8 @@ NSMutableArray *_myObservations;
     for(id object in idedObservations){
         [[IdentifyingAssets getByimghexid:[object objectForKey:@"imghexid"]] addObserver:self forKeyPath:@"percentageComplete" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     }
+	
+	[super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -113,6 +75,8 @@ NSMutableArray *_myObservations;
 			}
 		});
 	}
+	
+	[super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -124,6 +88,8 @@ NSMutableArray *_myObservations;
         detectionHelper* detectionObject = [IdentifyingAssets getByimghexid:[object objectForKey:@"imghexid"]];
         [detectionObject removeObserver:self forKeyPath:@"percentageComplete"];
     }
+	
+	[super viewWillDisappear:animated];
 }
 
 - (void)updateTables {
@@ -264,15 +230,7 @@ NSMutableArray *_myObservations;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	
-//	ObservationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ObservationCell_ID" forIndexPath:indexPath];
-	///? what does this do ?///
-//	if (cell == nil) {
-//		// do something
-//	}
-	
-//	NewObs *myObservation = [self.observationsArray objectAtIndex:indexPath.row];
-	
+
 	ObservationCell *cell;
 	NSArray *data;
 	if (indexPath.section == 0) {
@@ -286,8 +244,6 @@ NSMutableArray *_myObservations;
 	else {
 		return cell;
 	}
-	
-	//[[UserDataDatabase getSharedInstance] findObsByStatus:@"pending_noid" orderBy:nil]; // need to refactor
 	
 	NSDictionary *dic = [data objectAtIndex:indexPath.row];
 	
@@ -309,7 +265,7 @@ NSMutableArray *_myObservations;
 		failureBlock: nil];
 	
 	NSString *t = [dic objectForKey:@"isSilene"];
-	NSString *name = [NSString alloc];
+	NSString *name;// = [NSString alloc];
 	
 	if ([t isEqualToString:@"yes"]) {
 		name = @"Silene";
@@ -321,119 +277,16 @@ NSMutableArray *_myObservations;
 		name = @"Unknown";
 	}
 	
-	cell.nameLabel.text		= name;//[NSString stringWithFormat:@"%@", [dic objectForKey:@"imghexid"]];
+	cell.nameLabel.text		= name;
 	cell.dateLabel.text		= [NSString stringWithFormat:@"%@", [dic objectForKey:@"datetime"]];
-	
-//	if ([[dic objectForKey:@"percentIDed"]  isEqual: @"(null)"]) {
-//		cell.percentLabel.text	= @"";	}
-//	else{
-//	NSString *percentString = [NSString stringWithFormat:@"%@", [dic objectForKey:@"percentIDed"]];
 	if ([dic objectForKey:@"percentIDed"] == NULL) {
 		cell.percentLabel.text	= @"";
 	}
 	else{
 		cell.percentLabel.text	= [NSString stringWithFormat:@"%@%%", [dic objectForKey:@"percentIDed"]];
 	}
-//	
-	//cell.plantImageView.image = [dic objectForKey:@"imghexid"];
-	
-	/*
-	
-	cell.nameLabel.text = myObservation.FileName;
-	cell.dateLabel.text = [NSString stringWithFormat:@"ImageID: %@",myObservation.ImageID];
-	cell.percentLabel.text = @"";
-	
-	//[self retriveImage: myObservation.FileName];
-	
-	//	"http://flowerid.cheetahjokes.com/pics/silene/"
-	//cell.plantImageView.image = [[UIImageView alloc] init];
-	//cell.plantImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"http://flowerid.cheetahjokes.com/pics/silene/%@", myObservation.FileName]];
-	
-	NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[NSString stringWithFormat: @"http://flowerid.cheetahjokes.com/pics/silene/%@", myObservation.FileName]]];
-	if ( data == nil )
-		return cell;
-	// WARNING: is the cell still using the same data by this point??
-	cell.plantImageView.image = [UIImage imageWithData: data];
 
-		//[data release];
-	
-	//cell.plantImageView.image = [self getImageFromURL:myObservation.FileName];
-	 
-	 */
 	return cell;
-}
-
-
-- (void) retrieveData
-{
-	/*
-	NSURL* url = [NSURL URLWithString:getDataURL];
-	NSData* data = [NSData dataWithContentsOfURL:url];
-	
-	json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-	
-	// set up array
-	observationsArray = [[NSMutableArray alloc] init];
-	
-	for (int i = 0; i < json.count && i < MAX_NUMB_DISPLAYED; i++){
-		
-		// print what was retreived for debugging.
-		NSLog(@"#%d: %@", i , [json objectAtIndex:i]);
-		
-		// create objects
-		NSString * newFileName = [[json objectAtIndex:i] objectForKey:@"FileName"];
-		NSNumber * newImageID = [[json objectAtIndex:i] objectForKey:@"ImageID"];
-		NSNumber * newObsID = [[json objectAtIndex:i] objectForKey:@"ObsID"];
-		
-		NewObs * newObs = [[NewObs alloc]initWithFileName:newFileName andImageID:newImageID andObsID:newObsID];
-		
-		[observationsArray addObject:newObs];
-	}
-	*/
-}
-
-- (UIImage *) retriveImage: (NSString *) fName
-{
-	NSURL* url = [NSURL URLWithString:[NSString stringWithFormat: @"http://flowerid.cheetahjokes.com/pics/silene/%@", fName]];
-	NSData* data = [NSData dataWithContentsOfURL:url];
-	
-	json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-	
-	// set up array
-	
-	//observationsArray = [[NSMutableArray alloc] init];
-	/*
-	for (int i = 0; i < json.count && i < MAX_NUMB_DISPLAYED; i++){
-		
-		// print what was retreived for debugging.
-		NSLog(@"#%d: %@", i , [json objectAtIndex:i]);
-		
-		// create objects
-		NSString * newFileName = [[json objectAtIndex:i] objectForKey:@"FileName"];
-		NSNumber * newImageID = [[json objectAtIndex:i] objectForKey:@"ImageID"];
-		NSNumber * newObsID = [[json objectAtIndex:i] objectForKey:@"ObsID"];
-		
-		NewObs * newObs = [[NewObs alloc]initWithFileName:newFileName andImageID:newImageID andObsID:newObsID];
-		
-		[observationsArray addObject:newObs];
-	}
-	*/
-	
-	ALog(@"%@", [json objectAtIndex:0]);
-	
-	UIImage * newImage = [json objectAtIndex:0];
-	
-	return newImage;
-
-}
-
--(UIImage *) getImageFromURL:(NSString *)fName {
-	UIImage * result;
-	
-	NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://flowerid.cheetahjokes.com/pics/silene/%@", fName]]];
-	result = [UIImage imageWithData:data];
-	
-	return result;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

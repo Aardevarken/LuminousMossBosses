@@ -51,7 +51,8 @@ static NSMutableDictionary *filterCurrentValue;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-	[self.filterTableView reloadData];	// cannot call realoadData. will erase selected rows. 
+	[self.filterTableView reloadData];	// cannot call realoadData. will erase selected rows.
+	[super viewWillAppear:animated];
 }
 
 

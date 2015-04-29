@@ -93,10 +93,14 @@
 											 selector:@selector(didFinishSavingImageWithError:)
 												 name:kImageCapturedSuccessfully
 											   object:nil];
+	
+	[super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	[super viewWillDisappear:animated];
 }
 
 
@@ -226,7 +230,6 @@
 //	[self presentViewController:tbc animated:YES completion:nil];
 	
 	// try #3
-	ObsViewController *myViewController = [[ObsViewController alloc] initWithNibName:nil bundle:nil];
 	NSString * storyboardName = @"Main";
 	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
 	UITabBarController * tbc = [storyboard instantiateViewControllerWithIdentifier:@"ThisController12345"];

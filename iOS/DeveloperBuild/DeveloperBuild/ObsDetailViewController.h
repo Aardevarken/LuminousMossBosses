@@ -9,8 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ObsDetailViewController : UIViewController{
-	@private
-	int startActivityIndicator;
+
 }
 
 @property (nonatomic, strong) IBOutlet UILabel *nameLabel;

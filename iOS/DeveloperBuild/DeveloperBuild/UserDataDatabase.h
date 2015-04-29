@@ -14,7 +14,6 @@
 	NSString *databasePath;
 	
 	@private
-	NSArray *columnNamesArray;
 	CLLocation *bestEffortAtLocation;
 }
 

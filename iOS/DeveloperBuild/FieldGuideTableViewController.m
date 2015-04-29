@@ -38,6 +38,7 @@
 	fieldGuideData = [db getAllData];
 	
 	[self.tableView reloadData];
+	[super viewWillAppear:animated];
 }
 
 #pragma mark - Table view data source
@@ -66,6 +67,7 @@
 	cell.commonNameLabel.text = [dic objectForKey:@"common_name"];
 	NSString *imgName = [NSString stringWithFormat:@"FORBS/%@.jpg", [dic objectForKey:@"code"]];
 	cell.plantImage.image = [UIImage imageNamed:imgName];
+	//[UIImage ]
 	
 	
     return cell;
