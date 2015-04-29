@@ -20,8 +20,9 @@
 static NSDictionary* filters;
 static NSArray *filterCellTitles;
 static NSArray *filterCellOptions;
+static NSArray *filterCellTitlesWithImages;
+static NSArray *filterCellOptionsWithImages;
 static NSMutableDictionary *filterCurrentValue;
-static NSDictionary *filtersWithImages;
 /*** end of temp vars ***/
 
 @implementation FilterViewController
@@ -35,24 +36,30 @@ static NSDictionary *filtersWithImages;
 	NSDictionary *titleAndFilters = [[NSDictionary alloc] initWithObjectsAndKeys:
 									 @"Flower color", @"flowercolor",
 									 @"Habitat", @"habitat",
-									 @"Leaf shape", @"leafshape",
 									 @"Petal number", @"petalnumber",
 									 @"Inflorescence", @"inflorescence",
 									 @"Leaf arrangement", @"leafarrangement",
 									 nil];
-	filtersWithImages = [[NSDictionary alloc] initWithObjectsAndKeys:
-						 @"
-						 , nil];
 	
+	 NSDictionary *filtersWithImages = [[NSDictionary alloc] initWithObjectsAndKeys:
+						 @"Flower shape", @"flowershape",
+						 @"Leaf shape", @"leafshape",
+						 nil];
 	
 	[[FilterOptions getSharedInstance] createFiltersWithTitles:titleAndFilters];
+	[[FilterOptions getSharedInstance] createFiltersWithTitlesAndImages:filtersWithImages];
 
 	[self getFilterTitle];
 }
 
 - (void)getFilterTitle{
-	filterCellTitles = [[NSArray alloc] initWithArray:[[FilterOptions getSharedInstance] filterTitle]];
-	filterCellOptions = [[FilterOptions getSharedInstance] filterOption];
+	FilterOptions *theFilter = [FilterOptions getSharedInstance];
+
+	filterCellTitlesWithImages = [theFilter filterTitlesWithImages];
+	filterCellOptionsWithImages = [theFilter filterOptionsWithImages];
+
+	filterCellTitles = [[theFilter filterTitle] arrayByAddingObjectsFromArray:filterCellTitlesWithImages];
+	filterCellOptions = [[theFilter filterOption] arrayByAddingObjectsFromArray:filterCellOptionsWithImages];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -67,24 +74,52 @@ static NSDictionary *filtersWithImages;
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
-	return 1;
+	return 1;//2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-	return filterCellTitles.count;
+	
+	if (section == 0) {
+		return filterCellTitles.count;
+	}
+	else if (section == 1) {
+		return filterCellTitlesWithImages.count;
+	}
+	else {
+		return 0;
+	}
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-	FilterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FilterCell_ID"];
-	cell.filterName.text = [filterCellTitles objectAtIndex:indexPath.row];//[NSString stringWithFormat:@"Filter #%ld", (long)indexPath.row];
+	FilterTableViewCell *cell;
+	NSString *fvt;
+	NSUInteger index = indexPath.row;
 	
-	NSString *fvt = [filterCellOptions objectAtIndex:indexPath.row];
-	if ([fvt isEqualToString:@"All"]) {
-		cell.accessoryType = UITableViewCellAccessoryNone;//UITableViewCellAccessoryCheckmark;
+	if (index < [[[FilterOptions getSharedInstance] filterTitle] count]) {
+	//if (indexPath.section == 0) {
+		cell = [tableView dequeueReusableCellWithIdentifier:@"FilterCell_ID"];
+		cell.filterName.text = [filterCellTitles objectAtIndex:index];
+		fvt = [filterCellOptions objectAtIndex:index];
 	}
-	cell.filterValue.text = fvt;
-	//[NSString stringWithFormat:@"filter value #%ld", (long)indexPath.row];
+	else if (index < ([[[FilterOptions getSharedInstance] filterTitle] count] +[[[FilterOptions getSharedInstance] filterTitle] count])) {
+	//else if (indexPath.section == 1) {
+		index -= [[[FilterOptions getSharedInstance] filterTitle] count];
+		cell = [tableView dequeueReusableCellWithIdentifier:@"FilterCellWithImage_ID"];
+		cell.filterName.text = [filterCellTitlesWithImages objectAtIndex:index];
+		fvt = [filterCellOptionsWithImages objectAtIndex:index];
+		if (![fvt isEqualToString:@"All"]) {
+			cell.accessoryType = UITableViewCellAccessoryNone;
+			cell.filterValueImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"GlossaryImages/%@.jpg", fvt]];
+		}
+	}
+	else {
+		return cell;
+	}
+
+	if ([fvt isEqualToString:@"All"]) {
+		cell.accessoryType = UITableViewCellAccessoryNone;
+	}
 	
 	return cell;
 }
@@ -96,11 +131,6 @@ static NSDictionary *filtersWithImages;
 	NSLog(@"title: %@ \t option: %@ indexPath: %ld(row) ", title, opt, (long)indexPath.row);
 	
 	[filterCurrentValue setObject:@"pending" forKey:[NSNumber numberWithUnsignedInteger:indexPath.row]];
-}
-
-- (void)createFilterStmt{
-	NSMutableArray *joins;
-	NSMutableArray *wheres;
 }
 
 

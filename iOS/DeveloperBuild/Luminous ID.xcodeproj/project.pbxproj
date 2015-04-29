@@ -73,6 +73,8 @@
 		16DBE0621ABA5C0700220872 /* SyncedObsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16DBE0611ABA5C0700220872 /* SyncedObsTVC.m */; };
 		16E2D49B1A64860900CA8845 /* ObsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E2D49A1A64860900CA8845 /* ObsViewController.m */; };
 		16F131111AF0964400F40229 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F131101AF0964400F40229 /* AboutViewController.m */; };
+		16F131131AF0BFAF00F40229 /* GlossaryImages in Resources */ = {isa = PBXBuildFile; fileRef = 16F131121AF0BFAF00F40229 /* GlossaryImages */; };
+		16F131161AF0C59700F40229 /* FilterOptionsTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F131151AF0C59700F40229 /* FilterOptionsTabViewController.m */; };
 		16F8F5571AA7EA40007FEEBE /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F8F5561AA7EA40007FEEBE /* UserData.m */; };
 		16F8F55A1AA7F522007FEEBE /* UserDataDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F8F5591AA7F522007FEEBE /* UserDataDatabase.m */; };
 		16F8F55C1AA80828007FEEBE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 16F8F55B1AA80828007FEEBE /* libsqlite3.dylib */; };
@@ -219,6 +221,9 @@
 		16E2D49A1A64860900CA8845 /* ObsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObsViewController.m; sourceTree = "<group>"; };
 		16F1310F1AF0964400F40229 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		16F131101AF0964400F40229 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		16F131121AF0BFAF00F40229 /* GlossaryImages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GlossaryImages; sourceTree = "<group>"; };
+		16F131141AF0C59700F40229 /* FilterOptionsTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterOptionsTabViewController.h; sourceTree = "<group>"; };
+		16F131151AF0C59700F40229 /* FilterOptionsTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterOptionsTabViewController.m; sourceTree = "<group>"; };
 		16F8F5551AA7EA40007FEEBE /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
 		16F8F5561AA7EA40007FEEBE /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
 		16F8F5581AA7F522007FEEBE /* UserDataDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDataDatabase.h; sourceTree = "<group>"; };
@@ -299,6 +304,8 @@
 				163623D71AECA6D500A50CA3 /* FilterViewController.m */,
 				163623DD1AECDDA500A50CA3 /* FilterOptionsViewController.h */,
 				163623DE1AECDDA500A50CA3 /* FilterOptionsViewController.m */,
+				16F131141AF0C59700F40229 /* FilterOptionsTabViewController.h */,
+				16F131151AF0C59700F40229 /* FilterOptionsTabViewController.m */,
 				1627A1251AB430D3009BD6EF /* ObsDetailViewController.h */,
 				1627A1261AB430D3009BD6EF /* ObsDetailViewController.m */,
 				16E2D4991A64860900CA8845 /* ObsViewController.h */,
@@ -383,6 +390,7 @@
 		16B0529E1A5B4BDE007837B4 = {
 			isa = PBXGroup;
 			children = (
+				16F131121AF0BFAF00F40229 /* GlossaryImages */,
 				163623CE1AEC6C5400A50CA3 /* FORBS */,
 				163623BB1AEB7C6200A50CA3 /* Field Guide */,
 				F0D4ED1A1AA5996A008CBAD4 /* Algorithms */,
@@ -667,6 +675,7 @@
 				165C72BE1AEE1081007BB2AA /* my_observations_normal.png in Resources */,
 				1642DE501ADC9A84002FB11C /* homeBtnIcon.png in Resources */,
 				16CCBC401A773E00008B7E96 /* flower25.xml in Resources */,
+				16F131131AF0BFAF00F40229 /* GlossaryImages in Resources */,
 				16B052B61A5B4BDE007837B4 /* Main.storyboard in Resources */,
 				E6BAA8E91AEB4B0E007A8F34 /* CompSciRev.png in Resources */,
 				165C72AF1AEE014F007BB2AA /* ic_addobservation.png in Resources */,
@@ -746,6 +755,7 @@
 				163623D21AEC72EB00A50CA3 /* FieldGuideDetailViewController.m in Sources */,
 				16F8F55A1AA7F522007FEEBE /* UserDataDatabase.m in Sources */,
 				163623BE1AEC2D6300A50CA3 /* FieldGuideManager.m in Sources */,
+				16F131161AF0C59700F40229 /* FilterOptionsTabViewController.m in Sources */,
 				163623C11AEC373C00A50CA3 /* DBManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

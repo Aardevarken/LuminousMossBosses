@@ -1,36 +1,34 @@
 //
-//  FilterOptionsViewController.m
-//  DeveloperBuild
+//  FilterOptionsTabViewController.m
+//  Luminous ID
 //
-//  Created by Jacob Rail on 4/26/15.
+//  Created by Jacob Rail on 4/29/15.
 //  Copyright (c) 2015 CU Boulder. All rights reserved.
 //
 
-#import "FilterOptionsViewController.h"
+#import "FilterOptionsTabViewController.h"
 #import "FieldGuideManager.h"
 #import "FilterOptions.h"
 #import "OptionsTableViewCell.h"
 
-@interface FilterOptionsViewController ()
+@interface FilterOptionsTabViewController ()
 
 @end
 
-@implementation FilterOptionsViewController{
-
-}
+@implementation FilterOptionsTabViewController
 
 @synthesize optionsTableView;
 @synthesize filterOptionIndexNumber;
 @synthesize optionsToFilter;
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+	[super viewDidLoad];
+	// Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+	[super didReceiveMemoryWarning];
+	// Dispose of any resources that can be recreated.
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
@@ -38,9 +36,9 @@
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-
+	
 	NSString *db = [[FilterOptions getSharedInstance] getDatabaseNameAtIndex:filterOptionIndexNumber];
-	//[self setOptionsToFilter:[[FieldGuideManager getSharedInstance] getFilterOptionsFor:db]];
+	[self setOptionsToFilter:[[FieldGuideManager getSharedInstance] getFilterOptionsFor:db]];
 	[self setOptionsToFilter:@[@"All"]];
 	[self setOptionsToFilter:[optionsToFilter arrayByAddingObjectsFromArray:[[FieldGuideManager getSharedInstance] getFilterOptionsFor:db]]];
 	
@@ -52,21 +50,24 @@
 	OptionsTableViewCell *cell = [optionsTableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
 	
 	// Configure the cell...
-	cell.filterOptionLabel.text = [[self optionsToFilter] objectAtIndex:indexPath.row];
-
+	NSString *someText = [[NSString alloc] initWithString:[[self optionsToFilter] objectAtIndex:indexPath.row]];
+	cell.filterOptionLabel.text = someText;
+	NSString *img = [[NSString alloc] initWithFormat:@"GlossaryImages/%@.jpeg", someText];
+	cell.filterOptionImage.image = [UIImage imageNamed:img];
+	
 	return cell;
 }
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 - (IBAction)saveFilterOption:(id)sender {
 	NSIndexPath *indexPath = [[self optionsTableView] indexPathForSelectedRow];

@@ -13,8 +13,16 @@
 @property (nonatomic, strong) NSArray *filterDatabaseName;
 @property (nonatomic, strong) NSMutableArray *filterOption;
 
+@property (nonatomic, strong) NSArray *filterTitlesWithImages;
+@property (nonatomic, strong) NSArray *filterDatabasenNamesWithImages;
+@property (nonatomic, strong) NSMutableArray *filterOptionsWithImages;
+
 + (FilterOptions*) getSharedInstance;
+//- (void) addFiltersWithTitles:(NSDictionary*)titlesWithFilters;
+//- (void) addFiltersAndImagesWithTitles:(NSDictionary*)filtersWithImages;
+- (void) createFiltersWithTitlesAndImages:(NSDictionary*)titlesWithFilters;
 - (void) createFiltersWithTitles:(NSDictionary*)titlesWithFilters;
+- (NSString*) getDatabaseNameAtIndex:(NSInteger)index;
 - (void) updateFilterOptionsAtIndex:(NSUInteger)index withOption:(NSString*)newFilterValue;
 - (void) generateFilterQuery;
 - (void) resetFilterOptions;

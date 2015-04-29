@@ -17,6 +17,9 @@
 @synthesize filterTitle;
 @synthesize filterDatabaseName;
 @synthesize filterOption;
+@synthesize filterTitlesWithImages;
+@synthesize filterDatabasenNamesWithImages;
+@synthesize filterOptionsWithImages;
 
 + (FilterOptions*)getSharedInstance{
 	static FilterOptions *sharedInstance = nil;
@@ -25,6 +28,15 @@
 		sharedInstance = [[self alloc] init];
 	});
 	return sharedInstance;
+}
+
+- (void) createFiltersWithTitlesAndImages:(NSDictionary*)titlesWithFilters{
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		[self setFilterTitlesWithImages:[titlesWithFilters allValues]];
+		[self setFilterDatabasenNamesWithImages:[titlesWithFilters allKeys]];
+		[self setFilterOptionsWithImages:[self nullArrayOfLenght:filterTitlesWithImages.count]];
+	});
 }
 
 - (void) createFiltersWithTitles:(NSDictionary*)titlesWithFilters{
@@ -38,6 +50,15 @@
 
 - (void) updateFilterOptionsAtIndex:(NSUInteger)index withOption:(NSString*)newFilterValue{
 	[[self filterOption] setObject:newFilterValue atIndexedSubscript:index];
+}
+
+- (NSString*) getDatabaseNameAtIndex:(NSInteger)index{
+	if (index < [filterDatabaseName count]) {
+		return [filterDatabaseName objectAtIndex:index];
+	} else {
+		index -= [filterDatabaseName count];
+		return [filterDatabasenNamesWithImages objectAtIndex:index];
+	}
 }
 
 - (void) generateFilterQuery{
@@ -89,6 +110,31 @@
 		}
 	}
 	
+	capacity = [filterTitlesWithImages count];
+	
+	for (NSUInteger filterAtIndex = 0; filterAtIndex < capacity; ++filterAtIndex) {
+		NSString *filterBy = [filterOption objectAtIndex:filterAtIndex];
+		if (![filterBy isEqualToString:@"All"]) {
+			
+			NSString *dbName = [filterDatabaseName objectAtIndex:filterAtIndex];
+			NSString *newJoin = [[NSString alloc] initWithFormat:
+								 @"JOIN %@ ON species.%@_id = %@.id\n",
+								 dbName,
+								 dbName,
+								 dbName
+								 ];
+			
+			NSString *newWhere = [[NSString alloc] initWithFormat:
+								  @"%@.name = \"%@\"\n",
+								  dbName,
+								  filterBy
+								  ];
+			
+			[joins addObject:newJoin];
+			[whereAnds addObject:newWhere];
+		}
+	}
+
 	NSMutableString *query = [[NSMutableString alloc] initWithString:selectFrom];
 	//[query appendString:selectFrom];
 	[query appendString:[joins componentsJoinedByString:@""]];

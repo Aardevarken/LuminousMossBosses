@@ -10,5 +10,5 @@
 
 @interface OptionsTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *filterOptionLabel;
-
+@property (strong, nonatomic) IBOutlet UIImageView *filterOptionImage;
 @end
