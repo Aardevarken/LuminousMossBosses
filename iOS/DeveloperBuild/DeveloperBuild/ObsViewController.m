@@ -24,11 +24,10 @@ static unsigned long synctotal;
 @interface ObsViewController ()
 
 @end
-
-#define getDataURL @"http://flowerid.cheetahjokes.com/cgi-bin/observations.py"
 #define MAX_NUMB_DISPLAYED 5
 // ALog always displays output regardless of the DEBUG setting
 #define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define printa(fmt, ...) printf(("%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 #define TESTING YES
 
 @implementation ObsViewController{
@@ -336,7 +335,7 @@ NSMutableArray *_myObservations;
 	[[self syncBtn] setEnabled:NO];
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
 		
-		for(id object in idedObservations){
+		for(NSMutableDictionary *object in idedObservations){
 			
 			NSDictionary* observationData = object;
 			
@@ -383,9 +382,9 @@ NSMutableArray *_myObservations;
 						 // update and remove synced rows.
 						 dispatch_async(dispatch_get_main_queue(), ^{
 							 syncing = YES;
-							 NSInteger rowIndex = [idedObservations indexOfObjectIdenticalTo:object];
+							 NSUInteger rowIndex = [idedObservations indexOfObject:object];
 							 
-							 [idedObservations removeObjectIdenticalTo:object];
+							 [idedObservations removeObject:object];
 							 
 							 synccout = originalCount - idedObservations.count + 1;
 							 
@@ -407,10 +406,13 @@ NSMutableArray *_myObservations;
 	});
 }
 
--(void) removeRow:(NSInteger)row inSection:(NSInteger)section{
+-(void) removeRow:(NSUInteger)row inSection:(NSUInteger)section{
+	//ALog(@"#section: %ld", (long)[[self tableView] numberOfSections]);
+	//ALog(@"#rows:    %ld", (long)[[self tableView] numberOfRowsInSection:1]);
+	ALog(@"%lu/%lu remaining", idedObservations.count, synctotal);
 	NSIndexPath *myIndex = [NSIndexPath indexPathForRow:row inSection:section];
 	@try {
-		[self.tableView deleteRowsAtIndexPaths:@[myIndex] withRowAnimation:UITableViewRowAnimationFade];
+		[[self tableView] deleteRowsAtIndexPaths:@[myIndex] withRowAnimation:UITableViewRowAnimationFade];
 	}
 	@catch (NSException * e) {
 		reloadSwitch = YES;
