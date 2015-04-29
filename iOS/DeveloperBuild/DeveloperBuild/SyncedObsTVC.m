@@ -37,7 +37,6 @@
 }
 - (void)viewDidAppear:(BOOL)animated{
 	[[self tableView] reloadData];
-	NSLog(@"reloading");
 	
 	[super viewDidAppear:animated];
 }

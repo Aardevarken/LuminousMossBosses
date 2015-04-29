@@ -171,7 +171,7 @@
                                                     </mask>
                                                 </variation>
                                                 <connections>
-                                                    <segue destination="AeR-9n-53P" kind="show" id="PUS-O8-lDt"/>
+                                                    <segue destination="Fe2-hQ-p6e" kind="show" id="5nj-02-DTV"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="About" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lG6-X6-IjR">
@@ -3971,12 +3971,24 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xLp-0v-Phj">
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xLp-0v-Phj">
                                 <rect key="frame" x="-4" y="310" width="408" height="388"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="About" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5hY-PO-KaS">
                                         <rect key="frame" x="20" y="20" width="368" height="21"/>
                                         <fontDescription key="fontDescription" type="italicSystem" pointSize="28"/>
+                                        <color key="textColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Developers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Qs-Zl-1Yn">
+                                        <rect key="frame" x="36" y="49" width="352" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <color key="textColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brian Bauer, Andrey Shprengel, Morgan Garske, Jamie Miller, Jacob Rail and Jack Skinner" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="vxY-ak-ZsF">
+                                        <rect key="frame" x="68" y="68" width="288" height="61"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -3992,12 +4004,6 @@
                                         <color key="textColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brian Bauer, Andrey Shprengel, Morgan Garske, Jamie Miller, Jacob Rail and Jack Skinner" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="vxY-ak-ZsF">
-                                        <rect key="frame" x="68" y="68" width="288" height="61"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Purpose" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sf2-Rx-edx">
                                         <rect key="frame" x="36" y="185" width="65" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
@@ -4008,12 +4014,6 @@
                                         <rect key="frame" x="52" y="205" width="304" height="163"/>
                                         <string key="text">An app to take a picture of a plant, determine if it is a flowering alpine species called Silene acaulis, and record the plant’s location. This data will be sent to a server where Nathalie Chardon and other researchers can use this to find the range of the alpine plant species. </string>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Developers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Qs-Zl-1Yn">
-                                        <rect key="frame" x="36" y="49" width="352" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <color key="textColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -4047,14 +4047,19 @@
                                     <constraint firstItem="W1t-8q-0Hl" firstAttribute="top" secondItem="Sf2-Rx-edx" secondAttribute="bottom" constant="-1" id="ymb-vJ-5nQ"/>
                                     <constraint firstAttribute="centerX" secondItem="5hY-PO-KaS" secondAttribute="centerX" id="ytR-2m-VD3"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="keyPath">
+                                        <size key="value" width="368" height="410"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <variation key="default">
                                     <mask key="subviews">
+                                        <exclude reference="0Qs-Zl-1Yn"/>
+                                        <exclude reference="vxY-ak-ZsF"/>
                                         <exclude reference="gRW-k1-I7u"/>
                                         <exclude reference="2gw-KY-jGn"/>
-                                        <exclude reference="vxY-ak-ZsF"/>
                                         <exclude reference="Sf2-Rx-edx"/>
                                         <exclude reference="W1t-8q-0Hl"/>
-                                        <exclude reference="0Qs-Zl-1Yn"/>
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="BfP-Uv-pBw"/>
@@ -4084,15 +4089,15 @@
                                         <exclude reference="ymb-vJ-5nQ"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
+                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
                                     <rect key="frame" x="16" y="374" width="368" height="410"/>
                                     <mask key="subviews">
+                                        <include reference="0Qs-Zl-1Yn"/>
+                                        <include reference="vxY-ak-ZsF"/>
                                         <include reference="gRW-k1-I7u"/>
                                         <include reference="2gw-KY-jGn"/>
-                                        <include reference="vxY-ak-ZsF"/>
                                         <include reference="Sf2-Rx-edx"/>
                                         <include reference="W1t-8q-0Hl"/>
-                                        <include reference="0Qs-Zl-1Yn"/>
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="BfP-Uv-pBw"/>
@@ -4167,6 +4172,8 @@
                             </mask>
                         </variation>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="400" height="800"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qim-Zd-41H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
