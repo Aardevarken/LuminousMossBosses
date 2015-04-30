@@ -112,8 +112,11 @@ static NSMutableDictionary *filterCurrentValue;
 		cell = [tableView dequeueReusableCellWithIdentifier:@"FilterCellWithImage_ID"];
 		cell.filterName.text = [filterCellTitlesWithImages objectAtIndex:index];
 		fvt = [filterCellOptionsWithImages objectAtIndex:index];
+		
 		if (![fvt isEqualToString:@"All"]) {
 			cell.filterValueImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"GlossaryImages/%@.jpeg", fvt]];
+		} else {
+			cell.filterValueImage.image = nil;
 		}
 	}
 	else {
