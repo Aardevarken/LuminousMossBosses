@@ -2432,7 +2432,7 @@
         <!--MyObservations-->
         <scene sceneID="0mZ-Pg-CgH">
             <objects>
-                <tabBarController storyboardIdentifier="ThisController12345" title="MyObservations" id="TvY-dZ-Mzy" customClass="MyObsTabBarController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MyObservations" title="MyObservations" id="TvY-dZ-Mzy" customClass="MyObsTabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="0GP-Qo-gX9">
                         <barButtonItem key="leftBarButtonItem" title="HOME" id="Ila-yh-nOe">
                             <connections>
@@ -3922,8 +3922,8 @@
         <image name="upload30x30.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RhZ-Nd-42A"/>
-        <segue reference="s9o-7d-XRk"/>
-        <segue reference="Ru1-vo-Wgq"/>
+        <segue reference="ahZ-cO-ktD"/>
+        <segue reference="mth-UZ-qS1"/>
+        <segue reference="Q57-1f-H6Z"/>
     </inferredMetricsTieBreakers>
 </document>

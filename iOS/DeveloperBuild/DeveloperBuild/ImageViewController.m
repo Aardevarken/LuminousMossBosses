@@ -109,72 +109,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) saveObsToPhotos{
-	ALog(@"This method is marked for removal and its code has been commented out");
-//	// save image to photos
-//	__block BOOL didItWork = NO;
-//	
-//	if(selectedAsset == nil){
-//		ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-//		[library writeImageToSavedPhotosAlbum:((UIImage *)[pictureInfo objectForKey:UIImagePickerControllerOriginalImage]).CGImage//(imageView.image).CGImage
-//									 metadata:[pictureInfo objectForKey:UIImagePickerControllerMediaMetadata]
-//							  completionBlock:^(NSURL *assetURL, NSError *error) {
-//								  
-//								  selectedAsset = [NSString stringWithFormat:@"%@", assetURL];
-//								  /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"assetURL: %@", assetURL]
-//								   message:nil
-//								   delegate:nil
-//								   cancelButtonTitle:@"OK"
-//								   otherButtonTitles:nil];
-//								   */
-//								  NSLog(@"selected asset: %@", selectedAsset);
-//								  didItWork = YES;
-//								  //[alert show];
-//							  }];
-//		NSLog(@"func selectedAsset: %@", selectedAsset);
-//	}
-//	selectedAsset = [pictureInfo objectForKey:@"UIImagePickerControllerReferenceURL"];
-}
-
-/*
- * imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"]; 
- * stores the hex id for the image in imageView under _storage in a UIImage format
- */
-// This method is called when an image has been chosen from the library or taken from the camera.
-- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-	ALog(@"This method is marked for removal and its code has been commented out");
-//	[picker dismissViewControllerAnimated:YES completion:NULL];
-//	//imageView.image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-//	
-//	// display the image
-//	UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-//	NSString *urlPath = [[info objectForKey:@"UIImagePickerControllerReferenceURL"] absoluteString];
-//	self.capedImg = urlPath;
-//	imageView.image = image;
-//	selectedAsset = urlPath;
-//	pictureInfo = info;
-//	
-//	
-//	if(selectedAsset == nil){
-//		ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-//		[library writeImageToSavedPhotosAlbum:((UIImage *)[pictureInfo objectForKey:UIImagePickerControllerOriginalImage]).CGImage
-//									 metadata:[pictureInfo objectForKey:UIImagePickerControllerMediaMetadata]
-//							  completionBlock:^(NSURL *assetURL, NSError *error) {
-//									selectedAsset = [NSString stringWithFormat:@"%@", assetURL];
-//							  }];
-//	}
-//
-//	// for testing
-//	if(TESTING){
-//	static int imgnum = 1;
-//		NSString *breakSymbol = @"========================";
-//		NSLog(@"%@ %i %@",breakSymbol, imgnum++, breakSymbol);
-//		NSLog(@"imageView.image: %@", imageView.image);
-//		NSLog(@"object: %@", [info objectForKey:@"UIImagePickerControllerOriginalImage"]);
-//		NSLog(@"%@===%@",breakSymbol, breakSymbol);
-//	}
-}
-
 - (void) addAnOb {
 	// use this to find the location of the database on your mechine disk.
 	if(TESTING){
@@ -188,7 +122,7 @@
 	NSString *img = [NSString stringWithFormat:@"%@", selectedAsset];//self.capedImg];
 
 	//ALog(@"SelectedAsset: %@", selectedAsset);
-	if (selectedAsset == nil){//self.capedImg == [NSString stringWithFormat:@"%@",[UIImage imageNamed:@"nocamera.png"]]) {
+	if (selectedAsset == nil){
 		NSLog(@"You cannot submit that");
 		return;
 	}
@@ -217,44 +151,11 @@
 
 
 - (void)displayMyObservationsVC {
-//	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Base.lprog/Main.storyboard" bundle:nil];
-//	MyObservations *viewController = (MyObservations *)[storyboard instantiateViewControllerWithIdentifier:@"MyObservationsTabBarController"];
-//	[self presentViewController:viewController animated:YES completion:nil];
-	
-	// try #2
-//	NSString * storyboardName = @"Main";
-//	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-//	UITabBarController * tbc = [storyboard instantiateViewControllerWithIdentifier:@"ThisController12345"];
-//	
-//	//[self navigationController]
-//	[self presentViewController:tbc animated:YES completion:nil];
-	
-	// try #3
 	NSString * storyboardName = @"Main";
 	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-	UITabBarController * tbc = [storyboard instantiateViewControllerWithIdentifier:@"ThisController12345"];
-//	UINavigationController *navigationController =[[UINavigationController alloc] initWithRootViewController:myViewController];
-	
-	//[[self navigationController] :NO];
-	
-	[[self navigationController] pushViewController:tbc animated:YES];
-	
-	//now present this navigation controller modally
-	//[self presentViewController:navigationController
-//					   animated:YES
-//					 completion:^{
-//						 
-//					 }];
-	
-	// try #4
-	//Present controller
-	/*
-	[self presentViewController:tbc
-					   animated:YES
-					 completion:nil];
-	//Add to navigation Controller
-	[self navigationController].viewControllers = [[self navigationController].viewControllers arrayByAddingObject:tbc];
-	 */
+	UITabBarController * tbc = [storyboard instantiateViewControllerWithIdentifier:@"MyObservations"];
+
+	[[self navigationController] pushViewController:tbc animated:YES];	
 }
 
 - (void)saveImageToPhotoAlbum{
