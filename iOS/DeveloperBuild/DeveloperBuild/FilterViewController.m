@@ -11,6 +11,11 @@
 #import "FieldGuideManager.h"
 #import "FilterOptions.h"
 #import "FilterOptionsViewController.h"
+#import "FilterOptionsTabViewController.h"
+
+// ALog always displays output regardless of the DEBUG setting
+#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define printa(fmt, ...) printf(("%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
 @interface FilterViewController ()
 
@@ -43,7 +48,7 @@ static NSMutableDictionary *filterCurrentValue;
 	
 	 NSDictionary *filtersWithImages = [[NSDictionary alloc] initWithObjectsAndKeys:
 						 @"Flower shape", @"flowershape",
-						 @"Leaf shape", @"leafshape",
+						 @"Leaf shape", @"leafshapefilter",
 						 nil];
 	
 	[[FilterOptions getSharedInstance] createFiltersWithTitles:titleAndFilters];
@@ -57,9 +62,10 @@ static NSMutableDictionary *filterCurrentValue;
 
 	filterCellTitlesWithImages = [theFilter filterTitlesWithImages];
 	filterCellOptionsWithImages = [theFilter filterOptionsWithImages];
-
-	filterCellTitles = [[theFilter filterTitle] arrayByAddingObjectsFromArray:filterCellTitlesWithImages];
-	filterCellOptions = [[theFilter filterOption] arrayByAddingObjectsFromArray:filterCellOptionsWithImages];
+	filterCellTitles = [theFilter filterTitle];
+	filterCellOptions = [theFilter filterOption];
+//	filterCellTitles = [[theFilter filterTitle] arrayByAddingObjectsFromArray:filterCellTitlesWithImages];
+//	filterCellOptions = [[theFilter filterOption] arrayByAddingObjectsFromArray:filterCellOptionsWithImages];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -74,7 +80,7 @@ static NSMutableDictionary *filterCurrentValue;
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
-	return 1;//2;
+	return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -96,27 +102,26 @@ static NSMutableDictionary *filterCurrentValue;
 	NSString *fvt;
 	NSUInteger index = indexPath.row;
 	
-	if (index < [[[FilterOptions getSharedInstance] filterTitle] count]) {
-	//if (indexPath.section == 0) {
+	if (indexPath.section == 0) {
 		cell = [tableView dequeueReusableCellWithIdentifier:@"FilterCell_ID"];
 		cell.filterName.text = [filterCellTitles objectAtIndex:index];
 		fvt = [filterCellOptions objectAtIndex:index];
 	}
-	else if (index < ([[[FilterOptions getSharedInstance] filterTitle] count] +[[[FilterOptions getSharedInstance] filterTitle] count])) {
-	//else if (indexPath.section == 1) {
-		index -= [[[FilterOptions getSharedInstance] filterTitle] count];
+	else if (indexPath.section == 1) {
+//		index -= [[[FilterOptions getSharedInstance] filterTitle] count];
 		cell = [tableView dequeueReusableCellWithIdentifier:@"FilterCellWithImage_ID"];
 		cell.filterName.text = [filterCellTitlesWithImages objectAtIndex:index];
 		fvt = [filterCellOptionsWithImages objectAtIndex:index];
 		if (![fvt isEqualToString:@"All"]) {
-			cell.accessoryType = UITableViewCellAccessoryNone;
-			cell.filterValueImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"GlossaryImages/%@.jpg", fvt]];
+			cell.filterValueImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"GlossaryImages/%@.jpeg", fvt]];
 		}
 	}
 	else {
 		return cell;
 	}
 
+	cell.filterValue.text = fvt;
+	
 	if ([fvt isEqualToString:@"All"]) {
 		cell.accessoryType = UITableViewCellAccessoryNone;
 	}
@@ -124,12 +129,15 @@ static NSMutableDictionary *filterCurrentValue;
 	return cell;
 }
 
+
+/**
+ *	The following method *should not be needed and is marked for deletion.
+ */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSString *title = [[NSString alloc] initWithString:[filterCellTitles objectAtIndex:indexPath.row]];
-	NSString *opt = [[NSString alloc] initWithString:[filterCellOptions objectAtIndex:indexPath.row]];
-	NSLog(@"title: %@ \t option: %@ indexPath: %ld(row) ", title, opt, (long)indexPath.row);
-	
+//	NSString *title = [[NSString alloc] initWithString:[filterCellTitles objectAtIndex:indexPath.row]];
+//	NSString *opt = [[NSString alloc] initWithString:[filterCellOptions objectAtIndex:indexPath.row]];
+//	ALog(@"title: %@ \t option: %@ indexPath: %ld(row) ", title, opt, (long)indexPath.row);
 	[filterCurrentValue setObject:@"pending" forKey:[NSNumber numberWithUnsignedInteger:indexPath.row]];
 }
 
@@ -148,10 +156,33 @@ static NSMutableDictionary *filterCurrentValue;
 		
 		destViewController.filterOptionIndexNumber = (NSUInteger)indexPath.row;
 	}
+	
+	NSString *segueIDToFilterOptionsTab = @"SegueIDFilterOptionTBC";
+	
+	if ([segue.identifier isEqualToString:segueIDToFilterOptionsTab]) {
+		
+		ALog(@"Preparing segue to %@", segueIDToFilterOptionsTab);
+		NSIndexPath *indexPath = [self.filterTableView indexPathForSelectedRow];
+		
+		//destViewController.filterOptionIndexNumber = (NSUInteger)indexPath.row;
+		
+		/*** Try #2 ***/
+		UITabBarController *tabar = segue.destinationViewController;
+		FilterOptionsTabViewController *vcat0 = [tabar.viewControllers objectAtIndex:0];
+		FilterOptionsTabViewController *vcat1 = [tabar.viewControllers objectAtIndex:1];
+		
+		vcat0.filterOptionIndexNumber = indexPath.row;
+//		vcat1.filterOptionIndexNumber = indexPath.row;
+		
+//		svc.groupArray = [(NSArray*)sender objectAtIndex:0];
+//		svc.userArray = [(NSArray*)sender objectAtIndex:1];
+//		svc.taskArray = [(NSMutableArray*)sender objectAtIndex:2];
+//		svc.selfArray = [(NSMutableArray*)sender objectAtIndex:3];
+		[tabar setSelectedIndex:0];
+	}
 }
 
 - (IBAction)cancelButton:(UIButton *)sender {
-	NSLog(@"%@", filterCurrentValue);
 	[[self navigationController] popViewControllerAnimated:YES];
 }
 
@@ -167,8 +198,10 @@ static NSMutableDictionary *filterCurrentValue;
 }
 
 - (IBAction)resetFilterButton:(UIBarButtonItem *)sender {
-	[[FilterOptions getSharedInstance] resetFilterOptions];
-	filterCellOptions = [[FilterOptions getSharedInstance] filterOption];
+	FilterOptions *fo = [FilterOptions getSharedInstance];
+	[fo resetFilterOptions];
+	filterCellOptions = [fo filterOption];
+	filterCellOptionsWithImages = [fo filterOptionsWithImages];
 	[self.filterTableView reloadData];
 }
 

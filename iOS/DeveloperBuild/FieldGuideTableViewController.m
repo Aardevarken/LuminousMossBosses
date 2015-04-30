@@ -10,6 +10,10 @@
 #import "FieldGuideManager.h"
 #import "FieldGuideDetailViewController.h"
 
+// ALog always displays output regardless of the DEBUG setting
+#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define printa(fmt, ...) printf(("%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+
 @interface FieldGuideTableViewController ()
 
 @end
@@ -37,6 +41,7 @@
 	FieldGuideManager *db = [FieldGuideManager getSharedInstance];
 	fieldGuideData = [db getAllData];
 	
+	ALog(@"\n%@", fieldGuideData);
 	[self.tableView reloadData];
 	[super viewWillAppear:animated];
 }

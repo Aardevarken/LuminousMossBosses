@@ -11,6 +11,10 @@
 #import "FilterOptions.h"
 #import "OptionsTableViewCell.h"
 
+// ALog always displays output regardless of the DEBUG setting
+#define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define printa(fmt, ...) printf(("%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+
 @interface FilterOptionsTabViewController ()
 
 @end
@@ -24,6 +28,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	// Do any additional setup after loading the view.
+	ALog(@"FGTabListVC: index(%lu)", (unsigned long)filterOptionIndexNumber);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,12 +37,14 @@
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
+	printa("index : %lu\n", filterOptionIndexNumber);
 	return 1;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 	
-	NSString *db = [[FilterOptions getSharedInstance] getDatabaseNameAtIndex:filterOptionIndexNumber];
+	NSString *db = [[[FilterOptions getSharedInstance] filterDatabasenNamesWithImages] objectAtIndex:filterOptionIndexNumber];
+	
 	[self setOptionsToFilter:[[FieldGuideManager getSharedInstance] getFilterOptionsFor:db]];
 	[self setOptionsToFilter:@[@"All"]];
 	[self setOptionsToFilter:[optionsToFilter arrayByAddingObjectsFromArray:[[FieldGuideManager getSharedInstance] getFilterOptionsFor:db]]];
@@ -81,9 +88,12 @@
 		newFilterValue = [[self optionsToFilter] objectAtIndex:index];
 	}
 	
-	NSLog(@"\n\nOldOptions: %@", [[FilterOptions getSharedInstance] filterOption]);
-	[[FilterOptions getSharedInstance] updateFilterOptionsAtIndex:filterOptionIndexNumber withOption:newFilterValue];
-	NSLog(@"NewOptions: %@\n\n", [[FilterOptions getSharedInstance] filterOption]);
+	FilterOptions *fo = [FilterOptions getSharedInstance];
+	[fo printFilters];
+//	ALog(@"\n\nOldOptions: %@", [[fo filterOption] arrayByAddingObjectsFromArray:[fo  filterOptionsWithImages]]);
+	[fo updateFilterOptionsWithImagesAtIndex:filterOptionIndexNumber withOption:newFilterValue];
+//	ALog(@"\n\nOldOptions: %@", [[fo filterOption] arrayByAddingObjectsFromArray:[fo filterOptionsWithImages]]);
+	[fo printFilters];
 	[[self navigationController]popViewControllerAnimated:YES];
 }
 @end

@@ -24,7 +24,9 @@
 - (void) createFiltersWithTitles:(NSDictionary*)titlesWithFilters;
 - (NSString*) getDatabaseNameAtIndex:(NSInteger)index;
 - (void) updateFilterOptionsAtIndex:(NSUInteger)index withOption:(NSString*)newFilterValue;
+- (void) updateFilterOptionsWithImagesAtIndex:(NSUInteger)index withOption:(NSString *)newFilterValue;
 - (void) generateFilterQuery;
 - (void) resetFilterOptions;
+- (void) printFilters;
 
 @end

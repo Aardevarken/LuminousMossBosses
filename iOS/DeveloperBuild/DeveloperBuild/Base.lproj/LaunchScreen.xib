@@ -23,7 +23,7 @@
                         <constraint firstAttribute="width" secondItem="hbC-a2-3Bk" secondAttribute="height" multiplier="16:9" id="zVQ-gM-8ZG"/>
                     </constraints>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_icon2.png" translatesAutoresizingMaskIntoConstraints="NO" id="IJW-e8-Tyy">
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_icon2.png" translatesAutoresizingMaskIntoConstraints="NO" id="IJW-e8-Tyy">
                     <rect key="frame" x="80" y="226" width="215" height="215"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="IJW-e8-Tyy" secondAttribute="height" multiplier="1:1" id="1aT-Iu-1vy"/>
