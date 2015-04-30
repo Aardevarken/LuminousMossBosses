@@ -3319,10 +3319,10 @@
             </objects>
             <point key="canvasLocation" x="5455.5" y="-1170"/>
         </scene>
-        <!--About View Controller-->
+        <!--About-->
         <scene sceneID="VGF-E3-w9K">
             <objects>
-                <viewController id="Fe2-hQ-p6e" customClass="AboutViewController" sceneMemberID="viewController">
+                <viewController title="About" id="Fe2-hQ-p6e" customClass="AboutViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UbD-Gn-OL7"/>
                         <viewControllerLayoutGuide type="bottom" id="icc-Pc-M1I"/>
@@ -3346,7 +3346,7 @@
                                         <color key="textColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" text="Brian Bauer, Andrey Shprengel, Morgan Garske, Jamie Miller, Jacob Rail and Jack Skinner" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="vxY-ak-ZsF">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" text="Brian Bauer, Morgan Garske, Jamie Miller, Jacob Rail, Andrey Shprengel and Jack Skinner" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="vxY-ak-ZsF">
                                         <rect key="frame" x="68" y="68" width="288" height="61"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3405,7 +3405,9 @@
                                         <variation key="heightClass=regular-widthClass=compact" constant="-1"/>
                                     </constraint>
                                     <constraint firstAttribute="trailing" secondItem="vxY-ak-ZsF" secondAttribute="trailing" constant="32" id="I1X-Jk-Ex6"/>
-                                    <constraint firstAttribute="bottom" secondItem="vt6-5N-0xr" secondAttribute="bottom" id="PmN-mf-Dbn"/>
+                                    <constraint firstAttribute="bottom" secondItem="vt6-5N-0xr" secondAttribute="bottom" id="PmN-mf-Dbn">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="32"/>
+                                    </constraint>
                                     <constraint firstItem="5hY-PO-KaS" firstAttribute="leading" secondItem="xLp-0v-Phj" secondAttribute="leading" id="ShO-CS-EAZ"/>
                                     <constraint firstItem="Sf2-Rx-edx" firstAttribute="leading" secondItem="gRW-k1-I7u" secondAttribute="leading" id="UtN-Lr-6Au"/>
                                     <constraint firstItem="2gw-KY-jGn" firstAttribute="trailing" secondItem="vxY-ak-ZsF" secondAttribute="trailing" id="W6L-7j-qc8"/>
