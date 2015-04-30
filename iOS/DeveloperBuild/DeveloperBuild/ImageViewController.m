@@ -132,10 +132,12 @@
 	if (highestError < bestLocationForImage.verticalAccuracy) {
 		highestError = bestLocationForImage.verticalAccuracy;
 	}
-
+	
+	NSDate* localDateTime = [NSDate dateWithTimeInterval:[[NSTimeZone systemTimeZone] secondsFromGMT] sinceDate:bestLocationForImage.timestamp];
+	
 	success = [[UserDataDatabase getSharedInstance]
 			   saveObservation:img
-			   date: [NSString stringWithFormat:@"%@",bestLocationForImage.timestamp]
+			   date: [NSString stringWithFormat:@"%@", localDateTime]
 			   latitude: [NSNumber numberWithDouble:bestLocationForImage.coordinate.latitude]
 			   longitude: [NSNumber numberWithDouble:bestLocationForImage.coordinate.longitude]
 			   locationError:[NSNumber numberWithFloat:highestError]
