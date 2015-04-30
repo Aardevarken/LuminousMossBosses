@@ -1382,7 +1382,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="zep-ph-bAt"/>
+                    <tabBarItem key="tabBarItem" title="grid" image="grid40x40.png" id="zep-ph-bAt"/>
                     <connections>
                         <outlet property="imageCollectionView" destination="Kmn-l1-pqL" id="ZEd-Dr-P4H"/>
                         <outlet property="saveButton" destination="ceQ-57-Eum" id="awS-aK-v3d"/>
@@ -3672,6 +3672,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0AR-if-2eb">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.73777489569999999" green="0.92120170589999995" blue="0.71656698649999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="uMf-jw-a3m">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="55"/>
+                                    </constraint>
+                                </constraints>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="uMf-jw-a3m"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="uMf-jw-a3m"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="saveFilterOption:" destination="XHa-FX-Dn4" eventType="touchUpInside" id="gsd-s3-2st"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Bs8-yj-C9a">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -3801,32 +3827,6 @@
                                     <outlet property="delegate" destination="XHa-FX-Dn4" id="S0O-Mo-ukZ"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0AR-if-2eb">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="0.73777489569999999" green="0.92120170589999995" blue="0.71656698649999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="uMf-jw-a3m">
-                                        <variation key="heightClass=regular-widthClass=compact" constant="55"/>
-                                    </constraint>
-                                </constraints>
-                                <state key="normal" title="Save">
-                                    <color key="titleColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="uMf-jw-a3m"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="uMf-jw-a3m"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <action selector="saveFilterOption:" destination="XHa-FX-Dn4" eventType="touchUpInside" id="gsd-s3-2st"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -3858,8 +3858,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="Bs8-yj-C9a"/>
                                 <exclude reference="0AR-if-2eb"/>
+                                <exclude reference="Bs8-yj-C9a"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="hqQ-5h-5pr"/>
@@ -3877,8 +3877,8 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="Bs8-yj-C9a"/>
                                 <include reference="0AR-if-2eb"/>
+                                <include reference="Bs8-yj-C9a"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="hqQ-5h-5pr"/>
@@ -3895,7 +3895,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="niz-l2-02o"/>
+                    <tabBarItem key="tabBarItem" title="list" image="list40x40.png" id="niz-l2-02o"/>
                     <connections>
                         <outlet property="optionsTableView" destination="Bs8-yj-C9a" id="M3e-kI-8Mh"/>
                     </connections>
@@ -3911,6 +3911,8 @@
         <image name="add_observation_normal.png" width="150" height="150"/>
         <image name="background_img.jpg" width="808" height="1224"/>
         <image name="field_guide_normal.png" width="150" height="150"/>
+        <image name="grid40x40.png" width="40" height="40"/>
+        <image name="list40x40.png" width="40" height="40"/>
         <image name="my_observations_normal.png" width="150" height="150"/>
         <image name="silene_acaulis_img.jpg" width="725" height="548"/>
     </resources>

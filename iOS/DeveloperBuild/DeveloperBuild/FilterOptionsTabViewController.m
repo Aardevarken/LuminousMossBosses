@@ -28,7 +28,6 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	// Do any additional setup after loading the view.
-//	ALog(@"FGTabListVC: index(%lu)", (unsigned long)filterOptionIndexNumber);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,7 +36,6 @@
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
-//	printa("index : %lu\n", filterOptionIndexNumber);
 	return 1;
 }
 
@@ -89,11 +87,7 @@
 	}
 	
 	FilterOptions *fo = [FilterOptions getSharedInstance];
-	[fo printFilters];
-//	ALog(@"\n\nOldOptions: %@", [[fo filterOption] arrayByAddingObjectsFromArray:[fo  filterOptionsWithImages]]);
 	[fo updateFilterOptionsWithImagesAtIndex:filterOptionIndexNumber withOption:newFilterValue];
-//	ALog(@"\n\nOldOptions: %@", [[fo filterOption] arrayByAddingObjectsFromArray:[fo filterOptionsWithImages]]);
-	[fo printFilters];
 	[[self navigationController]popViewControllerAnimated:YES];
 }
 @end

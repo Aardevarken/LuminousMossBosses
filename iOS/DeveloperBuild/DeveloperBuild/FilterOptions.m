@@ -71,7 +71,7 @@
 }
 
 - (void) generateFilterQuery{
-	// the following is how the string needs to be formated.
+	// the following is how the string needs to be formated for species_<databasename>
 	/******
 	 SELECT species.id, species.latin_name, species.common_name, species.code
 	 FROM species
@@ -157,7 +157,7 @@
 	
 	[query appendString:orderBy];
 	
-	ALog(@"\nQuery:\n%@\n\n", query);
+//	ALog(@"\nQuery:\n%@\n\n", query);
 	[[FieldGuideManager getSharedInstance] setFetchQuery:query];
 }
 

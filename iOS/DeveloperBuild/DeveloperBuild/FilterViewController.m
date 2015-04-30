@@ -21,14 +21,11 @@
 
 @end
 
-/*** temp vars used as place holders to generate cells ***/
-static NSDictionary* filters;
 static NSArray *filterCellTitles;
 static NSArray *filterCellOptions;
 static NSArray *filterCellTitlesWithImages;
 static NSArray *filterCellOptionsWithImages;
 static NSMutableDictionary *filterCurrentValue;
-/*** end of temp vars ***/
 
 @implementation FilterViewController
 
@@ -64,12 +61,10 @@ static NSMutableDictionary *filterCurrentValue;
 	filterCellOptionsWithImages = [theFilter filterOptionsWithImages];
 	filterCellTitles = [theFilter filterTitle];
 	filterCellOptions = [theFilter filterOption];
-//	filterCellTitles = [[theFilter filterTitle] arrayByAddingObjectsFromArray:filterCellTitlesWithImages];
-//	filterCellOptions = [[theFilter filterOption] arrayByAddingObjectsFromArray:filterCellOptionsWithImages];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-	[self.filterTableView reloadData];	// cannot call realoadData. will erase selected rows.
+	[self.filterTableView reloadData];
 	[super viewWillAppear:animated];
 }
 
@@ -108,7 +103,6 @@ static NSMutableDictionary *filterCurrentValue;
 		fvt = [filterCellOptions objectAtIndex:index];
 	}
 	else if (indexPath.section == 1) {
-//		index -= [[[FilterOptions getSharedInstance] filterTitle] count];
 		cell = [tableView dequeueReusableCellWithIdentifier:@"FilterCellWithImage_ID"];
 		cell.filterName.text = [filterCellTitlesWithImages objectAtIndex:index];
 		fvt = [filterCellOptionsWithImages objectAtIndex:index];
@@ -130,18 +124,6 @@ static NSMutableDictionary *filterCurrentValue;
 	}
 	
 	return cell;
-}
-
-
-/**
- *	The following method *should not be needed and is marked for deletion.
- */
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-//	NSString *title = [[NSString alloc] initWithString:[filterCellTitles objectAtIndex:indexPath.row]];
-//	NSString *opt = [[NSString alloc] initWithString:[filterCellOptions objectAtIndex:indexPath.row]];
-//	ALog(@"title: %@ \t option: %@ indexPath: %ld(row) ", title, opt, (long)indexPath.row);
-	[filterCurrentValue setObject:@"pending" forKey:[NSNumber numberWithUnsignedInteger:indexPath.row]];
 }
 
 

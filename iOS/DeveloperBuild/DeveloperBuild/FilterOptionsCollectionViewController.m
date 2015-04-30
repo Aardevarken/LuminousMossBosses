@@ -76,25 +76,11 @@
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//	printf("----------SELECTED---------\n");
-//	printf("index [0]=%lu [1]=%lu\n", indexPath.section, indexPath.row);
-//	printf("img path: %s\n", [[filterOptionImages objectAtIndex:indexPath.row] UTF8String]);
-//	printf("\n-----------------------\n");
-	
-	// TODO: Select Item
 	UICollectionViewCell *cell = [imageCollectionView cellForItemAtIndexPath:indexPath];
 	cell.contentView.backgroundColor = [UIColor blueColor];
-	//[cell setSelected:YES];
-	//[cell setHighlighted:YES];
-
 }
+
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-//	printf("----------DESELECTED---------\n");
-//	printf("index [0]=%lu [1]=%lu\n", indexPath.section, indexPath.row);
-//	printf("img path: %s\n", [[filterOptionImages objectAtIndex:indexPath.row] UTF8String]);
-//	printf("\n-------------------------\n");
-	
-	// TODO: Deselect item
 	UICollectionViewCell *cell = [imageCollectionView cellForItemAtIndexPath:indexPath];
 	cell.contentView.backgroundColor = [UIColor blackColor];
 	[cell setSelected:NO];

@@ -26,7 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	NSLog(@"FGList");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,9 +80,7 @@
 		newFilterValue = [[self optionsToFilter] objectAtIndex:index];
 	}
 	
-	NSLog(@"\n\nOldOptions: %@", [[FilterOptions getSharedInstance] filterOption]);
 	[[FilterOptions getSharedInstance] updateFilterOptionsAtIndex:filterOptionIndexNumber withOption:newFilterValue];
-	NSLog(@"NewOptions: %@\n\n", [[FilterOptions getSharedInstance] filterOption]);
 	[[self navigationController]popViewControllerAnimated:YES];
 }
 @end
