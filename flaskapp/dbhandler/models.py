@@ -69,6 +69,7 @@ class Observation(Base):
         self.Date = Date
         self.Latitude = Latitude
         self.Longitude = Longitude
+        self.LocationError = LocationError
         self.Device_id = Device_id
         self.IsSilene = IsSilene
         self.UseForTraining = UseForTraining

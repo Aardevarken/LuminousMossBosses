@@ -8,6 +8,7 @@ from dbhandler.database import db_session
 from dbhandler.models import Observation, DetectionObject, Device, User, RotationObject 
 from util.filename import *
 from util.miscellaneous import * 
+import subprocess
 
 # configuration
 DEBUG = True# Change this to false when put into production 
@@ -150,28 +151,34 @@ def detection_list():
         return render_template('detection_list.html', detections=result[0], urlargs=result[1])
     else:
         abort(404)
-'''
-@app.route('/gen_detection_list')
-@login_required
-def gen_detection_list():
+
+def gen_detection_images(obsid = None):
     detections = db_session().query(DetectionObject.ObjectID, DetectionObject.ParentObsID, DetectionObject.Location, DetectionObject.FileName, DetectionObject.XCord, DetectionObject.YCord, DetectionObject.Radius)
+    if obsid != None:
+        detections = detections.filter(DetectionObject.ParentObsID == obsid)
+    
     for detection in detections:
-        x = str(detection.XCord - detection.Radius)
-        y = str(detection.YCord - detection.Radius)
-        radius = str(detection.Radius*2)
+        radius = detection.Radius*1.4 
+        x = str(detection.XCord - radius)
+        y = str(detection.YCord - radius)
+        radius = radius * 2
+        
         original_filename = str(db_session().query(Observation.ObsID, Observation.FileName).filter(Observation.ObsID == detection.ParentObsID).first().FileName)
-        filename = createUniqueFileName(original_filename, str(detection.ObjectID))
-        os.system("convert " + os.path.join(app.config['UPLOAD_FOLDER'], original_filename)+ \
-            " -crop " + radius + "x" + radius + "+" + x + "+" + y \
-            + " " + os.path.join(CROPPED_FOLDER, filename))
+        filename = str(detection.ObjectID) + "_cropped_" + original_filename
+        subprocess.Popen("convert " + os.path.join(app.config['UPLOAD_FOLDER'], original_filename)+ \
+            " -crop " + str(radius) + "x" + str(radius) + "+" + x + "+" + y \
+            + " " + os.path.join(CROPPED_FOLDER, filename) + " 2> /dev/null", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         save = DetectionObject.query.get(detection.ObjectID)
         save.FileName = filename
         save.Location = CROPPED_FOLDER
-        print save.FileName
-        print save.Location
         db_session.commit()
-    return redirect(url_for('detection_list'))
-'''
+
+def rm_detection(objectid):
+    detection = db_session().query(DetectionObject.ObjectID, DetectionObject.Location, DetectionObject.FileName).filter(DetectionObject.ObjectID == objectid).first()
+    if (detection != None):
+        if (detection.Location != None and detection.FileName != None):
+            os.system("rm " + detection.Location + "/" + detection.FileName)
+
 @app.route('/device_list')
 @login_required
 def device_list():
@@ -322,8 +329,10 @@ def update_detectionObjects():
                 if not obj['removed']:
                     obj_db.IsPosDetect = not obj['falsePositive']
                 elif obj['removed'] and bool(obj_db.IsUserDetected):
+                    rm_detection(obj_db.ObjectID)
                     db_session().delete(obj_db)
         db_session().commit()
+        gen_detection_images(observationId)
     return jsonify(data=data)
 
 @app.route('/_change_password', methods=["POST"])
@@ -387,7 +396,13 @@ def post_observation():
 
         observation = Observation(Time, Date, Latitude, Longitude, LocationError, filename, UPLOAD_FOLDER, device.id) 
         db_session().add(observation)
+        db_session().flush()
+        db_session().refresh(observation)
+        obs_id =  observation.ObsID
         db_session().commit()
+        print obs_id
+        subprocess.Popen('python /home/ubuntu/LuminousMossBosses/Database/id_to_db.py ' + str(obs_id) + ' 2> /dev/null', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        gen_detection_images(obs_id)
         results = "sent"
         errors = None
 
