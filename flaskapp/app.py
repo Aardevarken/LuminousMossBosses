@@ -9,6 +9,20 @@ from dbhandler.models import Observation, DetectionObject, Device, User, Rotatio
 from util.filename import *
 from util.miscellaneous import * 
 import subprocess
+from celery import Celery
+
+#Configuring Celery
+def make_celery(app):
+    celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'])
+    celery.conf.update(app.config)
+    TaskBase = celery.Task
+    class ContextTask(TaskBase):
+        abstract = True
+        def __call__(self, *args, **kwargs):
+            with app.app_context():
+                return TaskBase.__call__(self, *args, **kwargs)
+    celery.Task = ContextTask
+    return celery
 
 # configuration
 DEBUG = True# Change this to false when put into production 
@@ -28,6 +42,11 @@ login_manager = LoginManager()
 
 # initiate application
 app = Flask(__name__)
+app.config.update(
+        CELERY_BROKER_URL='redis://localhost:5000/0',
+        CELERY_RESULT_BACKEND='redis://localhost:5000/0'
+)
+celery = make_celery(app)
 app.config.from_object(__name__)
 app.config.from_envvar('FLASK_APP_SETTINGS', silent=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -152,8 +171,11 @@ def detection_list():
     else:
         abort(404)
 
+@celery.task
 def gen_detection_images(obsid = None):
-    detections = db_session().query(DetectionObject.ObjectID, DetectionObject.ParentObsID, DetectionObject.Location, DetectionObject.FileName, DetectionObject.XCord, DetectionObject.YCord, DetectionObject.Radius)
+    detections = db_session().query(DetectionObject.ObjectID, DetectionObject.ParentObsID,\
+            DetectionObject.Location, DetectionObject.FileName, DetectionObject.XCord,\
+            DetectionObject.YCord, DetectionObject.Radius)
     if obsid != None:
         detections = detections.filter(DetectionObject.ParentObsID == obsid)
     
@@ -163,16 +185,19 @@ def gen_detection_images(obsid = None):
         y = str(detection.YCord - radius)
         radius = radius * 2
         
-        original_filename = str(db_session().query(Observation.ObsID, Observation.FileName).filter(Observation.ObsID == detection.ParentObsID).first().FileName)
+        original_filename = str(db_session().query(Observation.ObsID, Observation.FileName)\
+                .filter(Observation.ObsID == detection.ParentObsID).first().FileName)
         filename = str(detection.ObjectID) + "_cropped_" + original_filename
         subprocess.Popen("convert " + os.path.join(app.config['UPLOAD_FOLDER'], original_filename)+ \
             " -crop " + str(radius) + "x" + str(radius) + "+" + x + "+" + y \
-            + " " + os.path.join(CROPPED_FOLDER, filename) + " 2> /dev/null", shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            + " " + os.path.join(CROPPED_FOLDER, filename) + " 2> /dev/null", shell=True, \
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         save = DetectionObject.query.get(detection.ObjectID)
         save.FileName = filename
         save.Location = CROPPED_FOLDER
         db_session.commit()
 
+@celery.task
 def rm_detection(objectid):
     detection = db_session().query(DetectionObject.ObjectID, DetectionObject.Location, DetectionObject.FileName).filter(DetectionObject.ObjectID == objectid).first()
     if (detection != None):
@@ -329,10 +354,10 @@ def update_detectionObjects():
                 if not obj['removed']:
                     obj_db.IsPosDetect = not obj['falsePositive']
                 elif obj['removed'] and bool(obj_db.IsUserDetected):
-                    rm_detection(obj_db.ObjectID)
+                    rm_detection.delay(obj_db.ObjectID)
                     db_session().delete(obj_db)
         db_session().commit()
-        gen_detection_images(observationId)
+        gen_detection_images.delay(observationId)
     return jsonify(data=data)
 
 @app.route('/_change_password', methods=["POST"])
@@ -401,8 +426,7 @@ def post_observation():
         obs_id =  observation.ObsID
         db_session().commit()
         print obs_id
-        subprocess.Popen('python /home/ubuntu/LuminousMossBosses/Database/id_to_db.py ' + str(obs_id) + ' 2> /dev/null', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        gen_detection_images(obs_id)
+        id_to_db.delay(obs_id)
         results = "sent"
         errors = None
 
@@ -412,7 +436,11 @@ def post_observation():
         errors = e.message + " " + repr(e)
 
     return jsonify(results=results, errors=errors)
-
+@celery.task
+def id_to_db(obs_id):
+        subprocess.Popen('python /home/ubuntu/LuminousMossBosses/Database/id_to_db.py ' + str(obs_id) + ' 2> /dev/null', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        gen_detection_images(obs_id)
+    
 def allowed_file(filename):
     return '.' in filename and \
             filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
