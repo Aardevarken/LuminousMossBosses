@@ -1203,7 +1203,7 @@
                         </variation>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Filter" id="wog-Ia-Q58">
+                    <navigationItem key="navigationItem" id="wog-Ia-Q58">
                         <barButtonItem key="rightBarButtonItem" title="Reset" id="cTa-qv-fzX">
                             <connections>
                                 <action selector="resetFilterButton:" destination="dfp-wP-0Vb" id="90r-gH-Xyq"/>
@@ -1382,7 +1382,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="grid" image="grid40x40.png" id="zep-ph-bAt"/>
+                    <tabBarItem key="tabBarItem" title="grid" image="grid30x30.png" id="zep-ph-bAt"/>
                     <connections>
                         <outlet property="imageCollectionView" destination="Kmn-l1-pqL" id="ZEd-Dr-P4H"/>
                         <outlet property="saveButton" destination="ceQ-57-Eum" id="awS-aK-v3d"/>
@@ -2057,7 +2057,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Synced" id="enq-bV-aom"/>
+                    <tabBarItem key="tabBarItem" title="synced" image="upload30x30.png" id="enq-bV-aom"/>
                     <navigationItem key="navigationItem" title="Synced Obs" id="Pnw-wf-tz9">
                         <barButtonItem key="backBarButtonItem" title="back 2" id="zNm-8W-YfW"/>
                     </navigationItem>
@@ -2085,7 +2085,9 @@
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <color key="backgroundColor" red="0.73777489569999999" green="0.92120170589999995" blue="0.71656698649999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="vUo-6s-xF2"/>
+                                    <constraint firstAttribute="height" constant="42" id="vUo-6s-xF2">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="55"/>
+                                    </constraint>
                                 </constraints>
                                 <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                 <state key="normal" title="Sync All">
@@ -2416,9 +2418,8 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Pending" id="Cq2-ta-QY5"/>
+                    <tabBarItem key="tabBarItem" title="pending" image="obs30x30.png" id="Cq2-ta-QY5"/>
                     <toolbarItems/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="syncBtn" destination="IPO-bd-Em3" id="9hB-cv-zvb"/>
                         <outlet property="tableView" destination="IsI-qm-tif" id="902-oi-KQh"/>
@@ -2931,7 +2932,8 @@
                                         <variation key="heightClass=regular" ambiguous="YES">
                                             <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                         </variation>
-                                        <variation key="heightClass=regular-widthClass=compact">
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="0.0" width="282" height="503"/>
                                             <mask key="constraints">
                                                 <include reference="yih-og-tpT"/>
                                             </mask>
@@ -2956,7 +2958,8 @@
                                 <variation key="heightClass=regular" ambiguous="YES">
                                     <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="59" y="64" width="282" height="503"/>
                                     <mask key="constraints">
                                         <include reference="4is-EG-UaM"/>
                                         <include reference="EPh-DA-bwZ"/>
@@ -3377,10 +3380,10 @@
             </objects>
             <point key="canvasLocation" x="5752.5" y="-2171.25"/>
         </scene>
-        <!--Filter Tab Bar Controller-->
+        <!--Tab Bar Controller-->
         <scene sceneID="DJi-9I-zhp">
             <objects>
-                <tabBarController title="Filter Tab Bar Controller" automaticallyAdjustsScrollViewInsets="NO" id="BGu-DT-Wdt" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="BGu-DT-Wdt" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="2sF-ix-Qzk">
@@ -3895,7 +3898,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="list" image="list40x40.png" id="niz-l2-02o"/>
+                    <tabBarItem key="tabBarItem" title="list" image="list30x30.png" id="niz-l2-02o"/>
                     <connections>
                         <outlet property="optionsTableView" destination="Bs8-yj-C9a" id="M3e-kI-8Mh"/>
                     </connections>
@@ -3911,10 +3914,12 @@
         <image name="add_observation_normal.png" width="150" height="150"/>
         <image name="background_img.jpg" width="808" height="1224"/>
         <image name="field_guide_normal.png" width="150" height="150"/>
-        <image name="grid40x40.png" width="40" height="40"/>
-        <image name="list40x40.png" width="40" height="40"/>
+        <image name="grid30x30.png" width="30" height="30"/>
+        <image name="list30x30.png" width="30" height="30"/>
         <image name="my_observations_normal.png" width="150" height="150"/>
+        <image name="obs30x30.png" width="30" height="30"/>
         <image name="silene_acaulis_img.jpg" width="725" height="548"/>
+        <image name="upload30x30.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="RhZ-Nd-42A"/>
