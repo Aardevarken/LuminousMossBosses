@@ -32,6 +32,7 @@
 - (IBAction)retakePhotoBtn:(id)sender;
 - (IBAction)takePhoto:(id) sender;
 - (IBAction)addObservation:(UIButton *)sender;
+- (IBAction)selectButton:(id)sender;
 
 // Code added from the iOS Camera Overlay Example Using AVCaptureSession tutorial
 // @ http://www.musicalgeometry.com/?p=1273

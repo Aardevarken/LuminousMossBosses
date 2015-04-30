@@ -76,6 +76,7 @@
 		16CABE9D1AF22427000597D4 /* upload30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = 16CABE9C1AF22427000597D4 /* upload30x30.png */; };
 		16CABEA01AF226B3000597D4 /* grid30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = 16CABE9E1AF226B3000597D4 /* grid30x30.png */; };
 		16CABEA11AF226B3000597D4 /* list30x30.png in Resources */ = {isa = PBXBuildFile; fileRef = 16CABE9F1AF226B3000597D4 /* list30x30.png */; };
+		16CABEA31AF234F5000597D4 /* taptoaddanobs.png in Resources */ = {isa = PBXBuildFile; fileRef = 16CABEA21AF234F5000597D4 /* taptoaddanobs.png */; };
 		16CCBC381A773D71008B7E96 /* IMG_1976.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 16CCBC331A773D71008B7E96 /* IMG_1976.jpg */; };
 		16CCBC391A773D71008B7E96 /* IMG_1997.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 16CCBC341A773D71008B7E96 /* IMG_1997.jpg */; };
 		16CCBC3A1A773D71008B7E96 /* IMG_2003.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 16CCBC351A773D71008B7E96 /* IMG_2003.jpg */; };
@@ -237,6 +238,7 @@
 		16CABE9C1AF22427000597D4 /* upload30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upload30x30.png; sourceTree = "<group>"; };
 		16CABE9E1AF226B3000597D4 /* grid30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid30x30.png; sourceTree = "<group>"; };
 		16CABE9F1AF226B3000597D4 /* list30x30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list30x30.png; sourceTree = "<group>"; };
+		16CABEA21AF234F5000597D4 /* taptoaddanobs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = taptoaddanobs.png; sourceTree = "<group>"; };
 		16CCBC331A773D71008B7E96 /* IMG_1976.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_1976.jpg; sourceTree = "<group>"; };
 		16CCBC341A773D71008B7E96 /* IMG_1997.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_1997.jpg; sourceTree = "<group>"; };
 		16CCBC351A773D71008B7E96 /* IMG_2003.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_2003.jpg; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 				16CABE9C1AF22427000597D4 /* upload30x30.png */,
 				16CABE9E1AF226B3000597D4 /* grid30x30.png */,
 				16CABE9F1AF226B3000597D4 /* list30x30.png */,
+				16CABEA21AF234F5000597D4 /* taptoaddanobs.png */,
 			);
 			name = Icons;
 			path = DeveloperBuild;
@@ -746,6 +749,7 @@
 				E6BAA8EB1AEB4CAE007A8F34 /* app_icon2.png in Resources */,
 				16CABE991AF22214000597D4 /* obs22x22.png in Resources */,
 				16CABE931AF21ECB000597D4 /* upload.png in Resources */,
+				16CABEA31AF234F5000597D4 /* taptoaddanobs.png in Resources */,
 				16CABE981AF22214000597D4 /* obs40x40v2.png in Resources */,
 				165C72AD1AEE014F007BB2AA /* ic_about.png in Resources */,
 				E6FDFD381AE718B500E88C6B /* Lobster_1.4.otf in Resources */,

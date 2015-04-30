@@ -1416,7 +1416,8 @@
                                         <exclude reference="zIH-g9-Hvo"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="16" y="72" width="368" height="307"/>
                                     <mask key="constraints">
                                         <exclude reference="Bcd-eh-m7m"/>
                                         <exclude reference="zIH-g9-Hvo"/>
@@ -1626,18 +1627,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O9Y-nW-J7G">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <items>
-                                    <navigationItem title="Title" id="c3S-qY-CeO">
-                                        <barButtonItem key="backBarButtonItem" title="Home" id="LXp-pi-Ue9"/>
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="3mk-y5-NTi"/>
-                                    </navigationItem>
-                                </items>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
-                                </variation>
-                            </navigationBar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f8J-9J-QBo">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" red="0.56078361742424243" green="0.56078361742424243" blue="0.56078361742424243" alpha="1" colorSpace="calibratedRGB"/>
@@ -1803,7 +1792,6 @@
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="O9Y-nW-J7G"/>
                                 <exclude reference="f8J-9J-QBo"/>
                                 <exclude reference="5wi-jR-wS1"/>
                             </mask>
@@ -1820,7 +1808,6 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="O9Y-nW-J7G"/>
                                 <include reference="f8J-9J-QBo"/>
                                 <include reference="5wi-jR-wS1"/>
                             </mask>
@@ -1837,8 +1824,13 @@
                         </variation>
                     </view>
                     <toolbarItems/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
+                    <navigationItem key="navigationItem" title="camera" id="i2I-QX-tG7">
+                        <barButtonItem key="rightBarButtonItem" title="select" id="O1u-DW-K2C">
+                            <connections>
+                                <action selector="selectButton:" destination="FEo-qL-flj" id="roq-Yl-IhI"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addObsBtn" destination="48y-p2-ZMg" id="QIA-DC-ldV"/>
                         <outlet property="buttonView" destination="5wi-jR-wS1" id="APN-W8-YQ5"/>
@@ -2386,16 +2378,16 @@
                                 <exclude reference="IsI-qm-tif"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="Cgc-nw-e8D"/>
+                                <exclude reference="DcD-xg-dIP"/>
+                                <exclude reference="bW1-0l-jPp"/>
+                                <exclude reference="p4J-mF-RMC"/>
                                 <exclude reference="0y9-dZ-6bD"/>
                                 <exclude reference="216-py-38b"/>
                                 <exclude reference="70Z-Mz-zuI"/>
                                 <exclude reference="8ZT-TV-8MI"/>
                                 <exclude reference="bH0-fP-gKT"/>
                                 <exclude reference="hJN-Nx-37f"/>
-                                <exclude reference="Cgc-nw-e8D"/>
-                                <exclude reference="DcD-xg-dIP"/>
-                                <exclude reference="bW1-0l-jPp"/>
-                                <exclude reference="p4J-mF-RMC"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -2404,17 +2396,17 @@
                                 <include reference="IsI-qm-tif"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="Cgc-nw-e8D"/>
+                                <include reference="DcD-xg-dIP"/>
+                                <exclude reference="VuE-WL-QyM"/>
+                                <include reference="bW1-0l-jPp"/>
+                                <include reference="p4J-mF-RMC"/>
                                 <include reference="0y9-dZ-6bD"/>
                                 <include reference="216-py-38b"/>
                                 <include reference="70Z-Mz-zuI"/>
                                 <exclude reference="8ZT-TV-8MI"/>
                                 <exclude reference="bH0-fP-gKT"/>
                                 <include reference="hJN-Nx-37f"/>
-                                <include reference="Cgc-nw-e8D"/>
-                                <include reference="DcD-xg-dIP"/>
-                                <exclude reference="VuE-WL-QyM"/>
-                                <include reference="bW1-0l-jPp"/>
-                                <include reference="p4J-mF-RMC"/>
                             </mask>
                         </variation>
                     </view>
@@ -3924,6 +3916,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="ahZ-cO-ktD"/>
         <segue reference="mth-UZ-qS1"/>
-        <segue reference="Q57-1f-H6Z"/>
+        <segue reference="Ru1-vo-Wgq"/>
     </inferredMetricsTieBreakers>
 </document>

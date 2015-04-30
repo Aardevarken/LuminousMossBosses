@@ -197,7 +197,6 @@
 
 #pragma mark - Actions
 - (IBAction)retakePhotoBtn:(id)sender {
-	//ALog(@"Hit retake photo button");
 	[self hideAddObservationBtn];
 	[self hideRetakePhotoBtn];
 	[self prepTakePhotoBtn];
@@ -218,6 +217,35 @@
 	
 	self.addObsBtn.enabled = NO;
 	[self saveImageToPhotoAlbum];
+}
+
+- (IBAction)selectButton:(id)sender {
+	bestLocationForImage = [[UserDataDatabase getSharedInstance] getBestKnownLocation];
+	[[[self captureManager] captureSession] stopRunning];
+
+	UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+	imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+	imagePickerController.delegate = self;
+	[self presentViewController:imagePickerController animated:YES completion:nil];
+	
+	[self hideTakePhotoBtn];
+	[self prepRetakePhotoBtn];
+	[self prepAddObservationBtn];
+}
+
+// This method is called when an image has been chosen from the library or taken from the camera.
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+	//You can retrieve the actual UIImage
+	UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+	//Or you can get the image url from AssetsLibrary
+	NSURL *path = [info valueForKey:UIImagePickerControllerReferenceURL];
+	
+	[picker dismissViewControllerAnimated:YES completion:^{
+		[[self captureManager] setStillImage:image];
+		[[self imageView] setHidden:NO];
+		[[self imageView] setImage:image];
+	}];
 }
 
 #pragma mark - Prep buttons
