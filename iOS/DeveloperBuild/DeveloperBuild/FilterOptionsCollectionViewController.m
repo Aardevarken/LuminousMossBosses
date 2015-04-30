@@ -60,7 +60,7 @@
 	
 	if (!tempImage) {
 		ALog(@"Image %@ could not be found\n", imgpath);
-		tempImage = [UIImage imageNamed:@"round_button_normal2.png"];
+		tempImage = [UIImage imageNamed:@"icon-exclamation.png"];
 	}
 	else {
 	
@@ -74,20 +74,20 @@
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	printf("----------SELECTED---------\n");
-	printf("index [0]=%lu [1]=%lu\n", indexPath.section, indexPath.row);
-	printf("img path: %s\n", [[filterOptionImages objectAtIndex:indexPath.row] UTF8String]);
-	printf("\n-----------------------\n");
+//	printf("----------SELECTED---------\n");
+//	printf("index [0]=%lu [1]=%lu\n", indexPath.section, indexPath.row);
+//	printf("img path: %s\n", [[filterOptionImages objectAtIndex:indexPath.row] UTF8String]);
+//	printf("\n-----------------------\n");
 	
 	// TODO: Select Item
 	UICollectionViewCell *cell = [imageCollectionView cellForItemAtIndexPath:indexPath];
 	cell.contentView.backgroundColor = [UIColor blueColor];
 }
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-	printf("----------DESELECTED---------\n");
-	printf("index [0]=%lu [1]=%lu\n", indexPath.section, indexPath.row);
-	printf("img path: %s\n", [[filterOptionImages objectAtIndex:indexPath.row] UTF8String]);
-	printf("\n-------------------------\n");
+//	printf("----------DESELECTED---------\n");
+//	printf("index [0]=%lu [1]=%lu\n", indexPath.section, indexPath.row);
+//	printf("img path: %s\n", [[filterOptionImages objectAtIndex:indexPath.row] UTF8String]);
+//	printf("\n-------------------------\n");
 	
 	// TODO: Deselect item
 	UICollectionViewCell *cell = [imageCollectionView cellForItemAtIndexPath:indexPath];
@@ -115,8 +115,19 @@
 	NSArray *rawImageNames = [[NSArray alloc] initWithArray:[fgm getFilterOptionsFor:dbname]];
 	
 	NSMutableArray *imageNamesWithPath = [[NSMutableArray alloc] initWithCapacity:rawImageNames.count];
+	UIImage *tempImage;
 	for (NSString* img in rawImageNames) {
-		[imageNamesWithPath addObject:[[NSString alloc] initWithFormat:@"GlossaryImages/%@.jpeg", img]];
+		
+		NSString *imgpath = [[NSString alloc] initWithFormat:@"GlossaryImages/%@.jpeg", img];
+		tempImage = [UIImage imageNamed:imgpath];
+		
+		if (!tempImage) {
+			ALog(@"Image %@ could not be found\n", imgpath);
+			break;
+		}
+		else {
+			[imageNamesWithPath addObject:imgpath];
+		}
 	}
 	
 	// Might need to dealloc some memory here.
