@@ -13,9 +13,11 @@
 	
 }
 @property (nonatomic, readwrite) NSUInteger filterOptionIndexNumber;
+@property (nonatomic, strong) NSArray *filterOptionImagePath;
+@property (nonatomic, strong) NSArray *optionsToFilter;
 
 @property (strong, nonatomic) IBOutlet UIButton *saveButton;
 @property (strong, nonatomic) IBOutlet UICollectionView *imageCollectionView;
-@property (strong, nonatomic) IBOutlet UICollectionViewCell *cellview;
 
+- (IBAction)saveButton:(UIButton *)sender;
 @end

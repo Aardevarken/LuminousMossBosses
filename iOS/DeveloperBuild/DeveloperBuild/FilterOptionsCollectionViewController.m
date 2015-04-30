@@ -20,20 +20,21 @@
 @end
 
 @implementation FilterOptionsCollectionViewController{
-	NSArray *filterOptionImages;
 	NSUInteger numberOfImages;
+	NSUInteger indexForSelectedCell;
 }
 @synthesize filterOptionIndexNumber;
 @synthesize imageCollectionView;
+@synthesize filterOptionImagePath;
+@synthesize optionsToFilter;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-	filterOptionImages = [self createImageArray];
-	numberOfImages = [filterOptionImages count];
+	filterOptionImagePath = [self createImageArray];
+	numberOfImages = [filterOptionImagePath count];
 	// for debugging
 //	[self printFilterOptionsImages];
-//	[[self imageCollectionView] reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,12 +55,13 @@
 	static NSString *identifier = @"FilterOptionImageCVC";
 	
 	FilterOptionImageCollectionViewCell *viewcell = [imageCollectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-	NSString *imgpath = [filterOptionImages objectAtIndex:indexPath.row];
+	NSString *imgpath = [filterOptionImagePath objectAtIndex:indexPath.row];
 	
 	UIImage *tempImage = [UIImage imageNamed:imgpath];
 	
 	if (!tempImage) {
 		ALog(@"Image %@ could not be found\n", imgpath);
+		// image from https://www.contender.com/img/icon-exclamation.png
 		tempImage = [UIImage imageNamed:@"icon-exclamation.png"];
 	}
 	else {
@@ -82,6 +84,9 @@
 	// TODO: Select Item
 	UICollectionViewCell *cell = [imageCollectionView cellForItemAtIndexPath:indexPath];
 	cell.contentView.backgroundColor = [UIColor blueColor];
+	//[cell setSelected:YES];
+	//[cell setHighlighted:YES];
+
 }
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
 //	printf("----------DESELECTED---------\n");
@@ -92,7 +97,22 @@
 	// TODO: Deselect item
 	UICollectionViewCell *cell = [imageCollectionView cellForItemAtIndexPath:indexPath];
 	cell.contentView.backgroundColor = [UIColor blackColor];
+	[cell setSelected:NO];
+}
 
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+	NSArray *a = [[NSArray alloc] initWithArray:[[self imageCollectionView] indexPathsForSelectedItems]];
+	NSInteger i = [a indexOfObject:indexPath];
+
+	if (i == NSNotFound) {
+		return YES;
+	} else {
+		UICollectionViewCell *cell = [imageCollectionView cellForItemAtIndexPath:indexPath];
+		[cell setSelected:NO];
+		[[self imageCollectionView] deselectItemAtIndexPath:indexPath animated:NO];
+		cell.contentView.backgroundColor = [UIColor blackColor];
+		return NO;
+	}
 }
 
 
@@ -112,11 +132,11 @@
 	FilterOptions *fo = [FilterOptions getSharedInstance];
 	NSString *dbname = [[fo filterDatabasenNamesWithImages] objectAtIndex:filterOptionIndexNumber];
 	
-	NSArray *rawImageNames = [[NSArray alloc] initWithArray:[fgm getFilterOptionsFor:dbname]];
+	[self setOptionsToFilter:[fgm getFilterOptionsFor:dbname]];
 	
-	NSMutableArray *imageNamesWithPath = [[NSMutableArray alloc] initWithCapacity:rawImageNames.count];
+	NSMutableArray *imageNamesWithPath = [[NSMutableArray alloc] initWithCapacity:[[self optionsToFilter] count]];
 	UIImage *tempImage;
-	for (NSString* img in rawImageNames) {
+	for (NSString* img in [self optionsToFilter]) {
 		
 		NSString *imgpath = [[NSString alloc] initWithFormat:@"GlossaryImages/%@.jpeg", img];
 		tempImage = [UIImage imageNamed:imgpath];
@@ -136,10 +156,31 @@
 
 - (void)printFilterOptionsImages{
 	printf("Contents of filterOptionsImages:\n");
-	for (unsigned long index = 0; index < filterOptionImages.count; ++index) {
-		printf("\t [%lu] %s\n", index, [[filterOptionImages objectAtIndex:index] UTF8String]);
+	for (unsigned long index = 0; index < filterOptionImagePath.count; ++index) {
+		printf("\t [%lu] %s\n", index, [[filterOptionImagePath objectAtIndex:index] UTF8String]);
 	}
 	printf("\n");
 }
 
+#pragma mark - IBaction
+- (IBAction)saveButton:(UIButton *)sender {
+	NSArray *selectedItems = [[self imageCollectionView] indexPathsForSelectedItems];
+	NSAssert([selectedItems count] <= 1, @"Multiple selection is not supported");
+
+	NSIndexPath *indexPath = [selectedItems firstObject];
+	NSUInteger index = indexPath.row;
+	NSString *newFilterValue;
+	
+	if (index == 0) {
+		newFilterValue = @"All";
+	}
+	else{
+		newFilterValue = [[self optionsToFilter] objectAtIndex:index];
+	}
+	
+	FilterOptions *fo = [FilterOptions getSharedInstance];
+	[fo updateFilterOptionsWithImagesAtIndex:filterOptionIndexNumber withOption:newFilterValue];
+	
+	[[self navigationController] popViewControllerAnimated:YES];
+}
 @end

@@ -163,24 +163,15 @@ static NSMutableDictionary *filterCurrentValue;
 	NSString *segueIDToFilterOptionsTab = @"SegueIDFilterOptionTBC";
 	
 	if ([segue.identifier isEqualToString:segueIDToFilterOptionsTab]) {
-		
-//		ALog(@"Preparing segue to %@", segueIDToFilterOptionsTab);
 		NSIndexPath *indexPath = [self.filterTableView indexPathForSelectedRow];
 		
-		//destViewController.filterOptionIndexNumber = (NSUInteger)indexPath.row;
-		
-		/*** Try #2 ***/
 		UITabBarController *tabar = segue.destinationViewController;
 		FilterOptionsTabViewController *vcat0 = [tabar.viewControllers objectAtIndex:0];
 		FilterOptionsTabViewController *vcat1 = [tabar.viewControllers objectAtIndex:1];
 		
 		vcat0.filterOptionIndexNumber = indexPath.row;
-//		vcat1.filterOptionIndexNumber = indexPath.row;
+		vcat1.filterOptionIndexNumber = indexPath.row;
 		
-//		svc.groupArray = [(NSArray*)sender objectAtIndex:0];
-//		svc.userArray = [(NSArray*)sender objectAtIndex:1];
-//		svc.taskArray = [(NSMutableArray*)sender objectAtIndex:2];
-//		svc.selfArray = [(NSMutableArray*)sender objectAtIndex:3];
 		[tabar setSelectedIndex:0];
 	}
 }
