@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	// Do any additional setup after loading the view.
-	ALog(@"FGTabListVC: index(%lu)", (unsigned long)filterOptionIndexNumber);
+//	ALog(@"FGTabListVC: index(%lu)", (unsigned long)filterOptionIndexNumber);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,7 +37,7 @@
 }
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
-	printa("index : %lu\n", filterOptionIndexNumber);
+//	printa("index : %lu\n", filterOptionIndexNumber);
 	return 1;
 }
 

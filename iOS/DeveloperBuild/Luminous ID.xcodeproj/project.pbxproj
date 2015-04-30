@@ -62,6 +62,8 @@
 		16BE1B4D1AE47F7500C57C46 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16BE1B4C1AE47F7500C57C46 /* CoreMedia.framework */; };
 		16BE1B4F1AE47F8000C57C46 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16BE1B4E1AE47F8000C57C46 /* CoreVideo.framework */; };
 		16C745901AB0EC0E0039AE3C /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16C7458F1AB0EC0E0039AE3C /* AssetsLibrary.framework */; };
+		16CABE801AF1C2AA000597D4 /* FilterOptionsCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16CABE7F1AF1C2AA000597D4 /* FilterOptionsCollectionViewController.m */; };
+		16CABE831AF1DD4D000597D4 /* FilterOptionImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16CABE821AF1DD4D000597D4 /* FilterOptionImageCollectionViewCell.m */; };
 		16CCBC381A773D71008B7E96 /* IMG_1976.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 16CCBC331A773D71008B7E96 /* IMG_1976.jpg */; };
 		16CCBC391A773D71008B7E96 /* IMG_1997.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 16CCBC341A773D71008B7E96 /* IMG_1997.jpg */; };
 		16CCBC3A1A773D71008B7E96 /* IMG_2003.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 16CCBC351A773D71008B7E96 /* IMG_2003.jpg */; };
@@ -207,6 +209,10 @@
 		16BE1B4C1AE47F7500C57C46 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		16BE1B4E1AE47F8000C57C46 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		16C7458F1AB0EC0E0039AE3C /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		16CABE7E1AF1C2AA000597D4 /* FilterOptionsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterOptionsCollectionViewController.h; sourceTree = "<group>"; };
+		16CABE7F1AF1C2AA000597D4 /* FilterOptionsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterOptionsCollectionViewController.m; sourceTree = "<group>"; };
+		16CABE811AF1DD4D000597D4 /* FilterOptionImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterOptionImageCollectionViewCell.h; sourceTree = "<group>"; };
+		16CABE821AF1DD4D000597D4 /* FilterOptionImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterOptionImageCollectionViewCell.m; sourceTree = "<group>"; };
 		16CCBC331A773D71008B7E96 /* IMG_1976.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_1976.jpg; sourceTree = "<group>"; };
 		16CCBC341A773D71008B7E96 /* IMG_1997.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_1997.jpg; sourceTree = "<group>"; };
 		16CCBC351A773D71008B7E96 /* IMG_2003.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_2003.jpg; sourceTree = "<group>"; };
@@ -306,6 +312,8 @@
 				163623DE1AECDDA500A50CA3 /* FilterOptionsViewController.m */,
 				16F131141AF0C59700F40229 /* FilterOptionsTabViewController.h */,
 				16F131151AF0C59700F40229 /* FilterOptionsTabViewController.m */,
+				16CABE7E1AF1C2AA000597D4 /* FilterOptionsCollectionViewController.h */,
+				16CABE7F1AF1C2AA000597D4 /* FilterOptionsCollectionViewController.m */,
 				1627A1251AB430D3009BD6EF /* ObsDetailViewController.h */,
 				1627A1261AB430D3009BD6EF /* ObsDetailViewController.m */,
 				16E2D4991A64860900CA8845 /* ObsViewController.h */,
@@ -348,6 +356,8 @@
 				16A6D84D1A637DEA00CB4563 /* ObservationCell.m */,
 				163623D91AECAAF000A50CA3 /* FilterTableViewCell.h */,
 				163623DA1AECAAF000A50CA3 /* FilterTableViewCell.m */,
+				16CABE811AF1DD4D000597D4 /* FilterOptionImageCollectionViewCell.h */,
+				16CABE821AF1DD4D000597D4 /* FilterOptionImageCollectionViewCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -720,6 +730,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				163623DF1AECDDA500A50CA3 /* FilterOptionsViewController.m in Sources */,
+				16CABE831AF1DD4D000597D4 /* FilterOptionImageCollectionViewCell.m in Sources */,
 				F0D4ED201AA59BAD008CBAD4 /* img_helper.cpp in Sources */,
 				163623E51AECE24400A50CA3 /* FilterObject.m in Sources */,
 				16B2A6CF1A9D4D2200A73A86 /* ImageViewController.m in Sources */,
@@ -745,6 +756,7 @@
 				1642DE531ADCA085002FB11C /* MyObsTabBarController.m in Sources */,
 				16DBE0621ABA5C0700220872 /* SyncedObsTVC.m in Sources */,
 				162FAD841ADDA83100F811CD /* MyObservationData.m in Sources */,
+				16CABE801AF1C2AA000597D4 /* FilterOptionsCollectionViewController.m in Sources */,
 				16008CCC1AB62C5200672891 /* detectionHelper.mm in Sources */,
 				163623D81AECA6D500A50CA3 /* FilterViewController.m in Sources */,
 				16A6D84E1A637DEA00CB4563 /* ObservationCell.m in Sources */,

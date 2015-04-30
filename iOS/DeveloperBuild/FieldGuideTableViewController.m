@@ -41,7 +41,7 @@
 	FieldGuideManager *db = [FieldGuideManager getSharedInstance];
 	fieldGuideData = [db getAllData];
 	
-	ALog(@"\n%@", fieldGuideData);
+//	ALog(@"\n%@", fieldGuideData);
 	[self.tableView reloadData];
 	[super viewWillAppear:animated];
 }
@@ -49,20 +49,16 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return fieldGuideData.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	//UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-	
 	FieldGuidCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FieldGuideCell_ID" forIndexPath:indexPath];
 	
     // Configure the cell...
@@ -72,9 +68,7 @@
 	cell.commonNameLabel.text = [dic objectForKey:@"common_name"];
 	NSString *imgName = [NSString stringWithFormat:@"FORBS/%@.jpg", [dic objectForKey:@"code"]];
 	cell.plantImage.image = [UIImage imageNamed:imgName];
-	//[UIImage ]
-	
-	
+		
     return cell;
 }
 

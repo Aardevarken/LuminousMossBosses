@@ -164,7 +164,7 @@ static NSMutableDictionary *filterCurrentValue;
 	
 	if ([segue.identifier isEqualToString:segueIDToFilterOptionsTab]) {
 		
-		ALog(@"Preparing segue to %@", segueIDToFilterOptionsTab);
+//		ALog(@"Preparing segue to %@", segueIDToFilterOptionsTab);
 		NSIndexPath *indexPath = [self.filterTableView indexPathForSelectedRow];
 		
 		//destViewController.filterOptionIndexNumber = (NSUInteger)indexPath.row;
@@ -191,10 +191,6 @@ static NSMutableDictionary *filterCurrentValue;
 
 - (IBAction)searchButton:(UIButton *)sender {
 
-	NSArray *selectedIndexPath = [filterTableView indexPathsForSelectedRows];
-	
-	NSLog(@"selected: %ld", (long)[[selectedIndexPath objectAtIndex:0] row]);
-	
 	[[FilterOptions getSharedInstance] generateFilterQuery];
 	
 	[[self navigationController] popViewControllerAnimated:YES];

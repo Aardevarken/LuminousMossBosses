@@ -109,7 +109,7 @@ static NSDictionary *typeMap = nil;
 		
 		//ALog(@"\n\ndb path: %@\n\ntargetPath: %@", databasePath, targetPath);
 		databasePath = targetPath;
-		printa("Database can be found at:\n%s\n\n", [databasePath UTF8String]);
+//		printa("Database can be found at:\n%s\n\n", [databasePath UTF8String]);
 		/*** END OF TEST CODE ***/
 		
 	});
