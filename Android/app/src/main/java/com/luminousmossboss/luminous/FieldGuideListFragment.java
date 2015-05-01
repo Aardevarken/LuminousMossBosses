@@ -102,6 +102,11 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
         HashMap<Integer, String> latinNames = fieldGuideDBH.getLatinNames();
         HashMap<Integer, String> commonNames = fieldGuideDBH.getCommonNames();
         HashMap<Integer, String> iconPaths = fieldGuideDBH.getIconPaths();
+        // filtering example
+//        List<Integer> ids = fieldGuideDBH.filterByHabitat("dry meadow");
+//        HashMap<Integer, String> latinNames = fieldGuideDBH.getLatinNamesForIDs(ids);
+//        HashMap<Integer, String> commonNames = fieldGuideDBH.getCommonNamesForIDs(ids);
+//        HashMap<Integer, String> iconPaths = fieldGuideDBH.getIconPathsForIDs(ids);
         for (int i = 0; i < ids.size(); i++) {
 //            listItems.add(fieldGuideDBH.getFGItemWithID(ids.get(i)));
             int id = ids.get(i);
