@@ -8,6 +8,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,6 +25,8 @@ import com.luminousmossboss.luminous.model.Separator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import dialog.DeleteDialogFragment;
 
 /**
  *
@@ -80,6 +85,23 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
                     ((MainActivity) activity).displayView(3);
             }
         });*/
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.fieldguide, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final Activity activity = getActivity();
+        switch (item.getItemId()) {
+            case R.id.action_filter:
+                ((MainActivity) activity).displayView(new FiltersFragment());
+                break;
+        }
+        return true;
     }
 
     /**
