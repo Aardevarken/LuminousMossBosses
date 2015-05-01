@@ -1917,15 +1917,6 @@
                                                         </mask>
                                                     </variation>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="###%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="rqg-vR-ZWm">
-                                                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="249" y="29" width="63" height="29"/>
-                                                    </variation>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Name Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="VCs-iR-7K5">
                                                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -1938,13 +1929,9 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Iyg-RO-g34" firstAttribute="top" secondItem="VCs-iR-7K5" secondAttribute="bottom" constant="5" id="59J-Ct-6Mx"/>
-                                                <constraint firstItem="rqg-vR-ZWm" firstAttribute="leading" secondItem="VCs-iR-7K5" secondAttribute="trailing" constant="8" id="GOI-pc-VBP"/>
                                                 <constraint firstItem="TO5-9x-X6l" firstAttribute="top" secondItem="pcO-CF-igc" secondAttribute="topMargin" constant="5" id="Gvc-ya-gda"/>
-                                                <constraint firstAttribute="centerY" secondItem="rqg-vR-ZWm" secondAttribute="centerY" id="Kw2-ql-Wy0"/>
                                                 <constraint firstItem="TO5-9x-X6l" firstAttribute="leading" secondItem="pcO-CF-igc" secondAttribute="leadingMargin" id="MiD-OW-W2h"/>
                                                 <constraint firstItem="VCs-iR-7K5" firstAttribute="top" secondItem="pcO-CF-igc" secondAttribute="topMargin" constant="5" id="TvJ-cD-pHU"/>
-                                                <constraint firstItem="rqg-vR-ZWm" firstAttribute="leading" secondItem="Iyg-RO-g34" secondAttribute="trailing" constant="8" id="dST-aj-W9B"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="rqg-vR-ZWm" secondAttribute="trailing" id="ec7-ul-hNh"/>
                                                 <constraint firstItem="Iyg-RO-g34" firstAttribute="top" secondItem="pcO-CF-igc" secondAttribute="topMargin" constant="5" id="mum-Jq-FBK"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="TO5-9x-X6l" secondAttribute="bottom" constant="5" id="pN0-5E-jeR"/>
                                                 <constraint firstItem="VCs-iR-7K5" firstAttribute="leading" secondItem="TO5-9x-X6l" secondAttribute="trailing" constant="8" id="sdP-P1-FUV"/>
@@ -1954,7 +1941,6 @@
                                                 <mask key="subviews">
                                                     <exclude reference="Iyg-RO-g34"/>
                                                     <exclude reference="TO5-9x-X6l"/>
-                                                    <exclude reference="rqg-vR-ZWm"/>
                                                     <exclude reference="VCs-iR-7K5"/>
                                                 </mask>
                                                 <mask key="constraints">
@@ -1963,10 +1949,6 @@
                                                     <exclude reference="yMl-xN-UN6"/>
                                                     <exclude reference="TvJ-cD-pHU"/>
                                                     <exclude reference="sdP-P1-FUV"/>
-                                                    <exclude reference="GOI-pc-VBP"/>
-                                                    <exclude reference="Kw2-ql-Wy0"/>
-                                                    <exclude reference="dST-aj-W9B"/>
-                                                    <exclude reference="ec7-ul-hNh"/>
                                                     <exclude reference="Gvc-ya-gda"/>
                                                     <exclude reference="MiD-OW-W2h"/>
                                                     <exclude reference="pN0-5E-jeR"/>
@@ -1976,7 +1958,6 @@
                                                 <mask key="subviews">
                                                     <include reference="Iyg-RO-g34"/>
                                                     <include reference="TO5-9x-X6l"/>
-                                                    <include reference="rqg-vR-ZWm"/>
                                                     <include reference="VCs-iR-7K5"/>
                                                 </mask>
                                                 <mask key="constraints">
@@ -1985,10 +1966,6 @@
                                                     <include reference="yMl-xN-UN6"/>
                                                     <include reference="TvJ-cD-pHU"/>
                                                     <include reference="sdP-P1-FUV"/>
-                                                    <include reference="GOI-pc-VBP"/>
-                                                    <include reference="Kw2-ql-Wy0"/>
-                                                    <include reference="dST-aj-W9B"/>
-                                                    <include reference="ec7-ul-hNh"/>
                                                     <include reference="Gvc-ya-gda"/>
                                                     <include reference="MiD-OW-W2h"/>
                                                     <include reference="pN0-5E-jeR"/>
@@ -1998,7 +1975,6 @@
                                         <connections>
                                             <outlet property="dateLabel" destination="Iyg-RO-g34" id="DlY-FJ-evz"/>
                                             <outlet property="nameLabel" destination="VCs-iR-7K5" id="uE8-oq-Gkv"/>
-                                            <outlet property="percentLabel" destination="rqg-vR-ZWm" id="CY5-gT-qhR"/>
                                             <outlet property="plantImageView" destination="TO5-9x-X6l" id="raZ-HM-Mbk"/>
                                             <segue destination="yg5-3J-N3Q" kind="show" identifier="MyObsSegue" id="Q57-1f-H6Z"/>
                                         </connections>
@@ -2268,27 +2244,14 @@
                                                         <rect key="frame" x="96" y="40" width="145" height="18"/>
                                                     </variation>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="###%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="clk-RL-OkY">
-                                                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="249" y="29" width="63" height="29"/>
-                                                    </variation>
-                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="GQh-yk-wwO" secondAttribute="bottom" constant="5" id="Bpa-hM-GYV"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="clk-RL-OkY" secondAttribute="trailing" id="CGT-PA-fwm"/>
                                                 <constraint firstItem="OgU-IJ-FDv" firstAttribute="top" secondItem="S4C-9f-Mly" secondAttribute="topMargin" constant="5" id="DOp-xv-hyU"/>
                                                 <constraint firstItem="OgU-IJ-FDv" firstAttribute="top" secondItem="dE5-lW-6wu" secondAttribute="bottom" constant="5" id="Hlt-02-BIs"/>
-                                                <constraint firstItem="clk-RL-OkY" firstAttribute="leading" secondItem="OgU-IJ-FDv" secondAttribute="trailing" constant="8" id="Lhf-fy-dwz"/>
-                                                <constraint firstItem="clk-RL-OkY" firstAttribute="leading" secondItem="dE5-lW-6wu" secondAttribute="trailing" constant="8" id="T70-jD-BvA"/>
                                                 <constraint firstItem="dE5-lW-6wu" firstAttribute="top" secondItem="S4C-9f-Mly" secondAttribute="topMargin" constant="5" id="Xc4-S2-aY7"/>
                                                 <constraint firstItem="GQh-yk-wwO" firstAttribute="top" secondItem="S4C-9f-Mly" secondAttribute="topMargin" constant="5" id="cwL-RA-44Q"/>
                                                 <constraint firstItem="GQh-yk-wwO" firstAttribute="leading" secondItem="S4C-9f-Mly" secondAttribute="leadingMargin" id="dne-bR-cr4"/>
-                                                <constraint firstAttribute="centerY" secondItem="clk-RL-OkY" secondAttribute="centerY" id="hGJ-w3-RML"/>
                                                 <constraint firstItem="dE5-lW-6wu" firstAttribute="leading" secondItem="GQh-yk-wwO" secondAttribute="trailing" constant="8" id="n6g-OD-Zi0"/>
                                                 <constraint firstItem="OgU-IJ-FDv" firstAttribute="top" secondItem="dE5-lW-6wu" secondAttribute="bottom" constant="5" id="wr2-u8-zGd"/>
                                                 <constraint firstItem="OgU-IJ-FDv" firstAttribute="leading" secondItem="dE5-lW-6wu" secondAttribute="leading" id="xue-Me-ybC"/>
@@ -2298,17 +2261,12 @@
                                                     <exclude reference="GQh-yk-wwO"/>
                                                     <exclude reference="dE5-lW-6wu"/>
                                                     <exclude reference="OgU-IJ-FDv"/>
-                                                    <exclude reference="clk-RL-OkY"/>
                                                 </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="DOp-xv-hyU"/>
                                                     <exclude reference="Hlt-02-BIs"/>
                                                     <exclude reference="wr2-u8-zGd"/>
                                                     <exclude reference="xue-Me-ybC"/>
-                                                    <exclude reference="CGT-PA-fwm"/>
-                                                    <exclude reference="Lhf-fy-dwz"/>
-                                                    <exclude reference="T70-jD-BvA"/>
-                                                    <exclude reference="hGJ-w3-RML"/>
                                                     <exclude reference="Xc4-S2-aY7"/>
                                                     <exclude reference="n6g-OD-Zi0"/>
                                                     <exclude reference="Bpa-hM-GYV"/>
@@ -2321,17 +2279,12 @@
                                                     <include reference="GQh-yk-wwO"/>
                                                     <include reference="dE5-lW-6wu"/>
                                                     <include reference="OgU-IJ-FDv"/>
-                                                    <include reference="clk-RL-OkY"/>
                                                 </mask>
                                                 <mask key="constraints">
                                                     <exclude reference="DOp-xv-hyU"/>
                                                     <include reference="Hlt-02-BIs"/>
                                                     <exclude reference="wr2-u8-zGd"/>
                                                     <include reference="xue-Me-ybC"/>
-                                                    <include reference="CGT-PA-fwm"/>
-                                                    <include reference="Lhf-fy-dwz"/>
-                                                    <include reference="T70-jD-BvA"/>
-                                                    <include reference="hGJ-w3-RML"/>
                                                     <include reference="Xc4-S2-aY7"/>
                                                     <include reference="n6g-OD-Zi0"/>
                                                     <include reference="Bpa-hM-GYV"/>
@@ -2343,7 +2296,6 @@
                                         <connections>
                                             <outlet property="dateLabel" destination="OgU-IJ-FDv" id="cfN-TA-BSV"/>
                                             <outlet property="nameLabel" destination="dE5-lW-6wu" id="c6e-fv-faN"/>
-                                            <outlet property="percentLabel" destination="clk-RL-OkY" id="1qm-Zf-CGQ"/>
                                             <outlet property="plantImageView" destination="GQh-yk-wwO" id="hfJ-dy-0Ej"/>
                                             <segue destination="yg5-3J-N3Q" kind="show" identifier="MyObsSegue" id="Ru1-vo-Wgq"/>
                                         </connections>
@@ -2879,7 +2831,7 @@
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m8s-sK-tFb">
                                 <rect key="frame" x="43" y="52" width="315" height="530"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.89999997615814209" contentMode="scaleAspectFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XPV-Wp-1i8">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XPV-Wp-1i8">
                                         <rect key="frame" x="20" y="20" width="275" height="490"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="XPV-Wp-1i8" secondAttribute="height" multiplier="9:16" id="yih-og-tpT"/>
@@ -3851,7 +3803,7 @@
         <image name="upload30x30.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ru1-vo-Wgq"/>
+        <segue reference="Q57-1f-H6Z"/>
         <segue reference="ahZ-cO-ktD"/>
         <segue reference="s9o-7d-XRk"/>
     </inferredMetricsTieBreakers>
