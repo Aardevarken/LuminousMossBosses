@@ -396,9 +396,9 @@ function resetView() {
 function addEntry() {
 	mousebutton.addEntry = !mousebutton.addEntry;
 	if (mousebutton.addEntry)
-		document.getElementById("add").innerHTML="Cancel"
+		document.getElementById("add").innerText="Cancel"
 	else
-		document.getElementById("add").innerHTML="Add"
+		document.getElementById("add").innerText="Add"
 }
 
 /**
@@ -409,9 +409,9 @@ function removeEntry() {
 	if (selectAmount < 1) {
 		mousebutton.removeEntry = !mousebutton.removeEntry;
 		if(mousebutton.removeEntry)
-			document.getElementById("remove").innerHTML="Cancel"
+			document.getElementById("remove").innerText="Cancel"
 		else
-			document.getElementById("remove").innerHTML="Remove"
+			document.getElementById("remove").innerText="Remove"
 	}
 	else {
 		for (var i = 0; i < identified.length; i++) {
@@ -437,9 +437,9 @@ function markFalse() {
 	if (selectAmount < 1) {
 		mousebutton.markFalse = !mousebutton.markFalse;
 		if(mousebutton.markFalse)
-			document.getElementById("mfalse").innerHTML="Cancel"
+			document.getElementById("mfalse").innerText="Cancel"
 		else
-			document.getElementById("mfalse").innerHTML="Mark False"
+			document.getElementById("mfalse").innerText="Mark False"
 	}
 	else {
 		for(var i = 0; i < identified.length; i++) {
@@ -462,9 +462,9 @@ function markTrue() {
 	if (selectAmount < 1) {
 		mousebutton.markTrue = !mousebutton.markTrue;
 		if(mousebutton.markTrue)
-			document.getElementById("mtrue").innerHTML="Cancel"
+			document.getElementById("mtrue").innerText="Cancel"
 		else
-			document.getElementById("mtrue").innerHTML="Mark true"
+			document.getElementById("mtrue").innerText="Mark true"
 	}
 	else {
 		for(var i = 0; i < identified.length; i++) {
