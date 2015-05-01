@@ -22,7 +22,7 @@
 		<div class="row">
 			<div class="col-md-3 col-sm-4">
 				<hr>
-				<h4> Pettles </h4>
+				<h4> Petals </h4>
 				<table class="table table-striped" id=orientation_sheet>
 				</table>
 				<button class="btn btn-default" onclick="addOrientation()">Add Orientation</button>
@@ -43,7 +43,10 @@
                 </li>
                 {% endif %}
                 </ul>
-                <button class="btn btn-default" onclick="addOrientation()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+				<button onclick="save_image()" class="btn btn-default btn-block" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-floppy-disk"></span>
+				    Save
+				</button>
 			</div>
 			<div class="col-md-6 col-sm-8" id="canvas_div">
 				<canvas id="image_viewer" width="910" height="700">Site requires HTML5</canvas>

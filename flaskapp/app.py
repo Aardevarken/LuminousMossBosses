@@ -1,14 +1,15 @@
-from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash, jsonify 
+from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash, jsonify, send_file 
 from flask.ext.login import LoginManager, login_required, login_user, logout_user 
 from flask_user import current_user
 from werkzeug.utils import secure_filename
 import json, sha, os, datetime, importlib
 from sqlalchemy import and_
-from dbhandler.database import db_session
+from dbhandler.database import db_session, engine
 from dbhandler.models import Observation, DetectionObject, Device, User, RotationObject 
 from util.filename import *
 from util.miscellaneous import * 
 import subprocess
+from shell_scripts.generatecsv import generateCSV
 from celery import Celery
 
 #CELERY
@@ -23,75 +24,6 @@ def make_celery(app):
                 return TaskBase.__call__(self, *args, **kwargs)
     celery.Task = ContextTask
     return celery
-
-@celery.task()
-def gen_detection_images(obsid = None):
-    detections = db_session().query(DetectionObject.ObjectID, DetectionObject.ParentObsID,\
-            DetectionObject.Location, DetectionObject.FileName, DetectionObject.XCord,\
-            DetectionObject.YCord, DetectionObject.Radius)
-    if obsid != None:
-        detections = detections.filter(DetectionObject.ParentObsID == obsid)
-    
-    for detection in detections:
-        radius = detection.Radius*1.4 
-        x = str(detection.XCord - radius)
-        y = str(detection.YCord - radius)
-        radius = radius * 2
-        
-        original_filename = str(db_session().query(Observation.ObsID, Observation.FileName)\
-                .filter(Observation.ObsID == detection.ParentObsID).first().FileName)
-        filename = str(detection.ObjectID) + "_cropped_" + original_filename
-        os.system("convert " + os.path.join(app.config['UPLOAD_FOLDER'], original_filename)+ \
-            " -crop " + str(radius) + "x" + str(radius) + "+" + x + "+" + y \
-            + " " + os.path.join(CROPPED_FOLDER, filename))
-        print filename
-        save = DetectionObject.query.get(detection.ObjectID)
-        save.FileName = filename
-        save.Location = CROPPED_FOLDER
-        db_session.commit()
-
-@celerytask()
-def gen_rotation_images(objid = None):
-    rotations = db_session.query(RotationObject.id, RotationObject.ParentDetectionObjectID, \
-            RotationObject.Location, RotationObject.FileName, RotationObject.RotationAngle)
-    if id != None:
-        rotations = rotations.filter(RotationObject.ParentDetectionObjectID == objid)
-
-    for rotation in rotations:
-        rotationangle = rotation.RotationAngle
-
-        original_filename = str(db_session().query(DetectionObject.ObjectID, DetectionObject.FileName)\
-                .filter(DetectionObject.DetectionObject == RotationObject.ParentDetectionObjectID)\
-                .first().FileName)
-
-        filename = str(rotation.id) + "_rotated_" + original_filename
-        os.system("./rotate_image " + os.path.join(CROPPED_FOLDER, original_filename) + " " +\
-                os.path.join(ROTATED_FOLDER, filename) + " " + rotationangle)
-
-       save = RotationObject.query.get(rotation.id)
-       save.FileName = filename
-       save.Location = ROTATED_FOLDER
-       db_session.commit()
-
-@celery.task()
-def rm_detection(objectid):
-    detection = db_session().query(DetectionObject.ObjectID, DetectionObject.Location, DetectionObject.FileName).filter(DetectionObject.ObjectID == objectid).first()
-    if (detection != None):
-        if (detection.Location != None and detection.FileName != None):
-            os.system("rm " + detection.Location + "/" + detection.FileName)
-
-@celery.task()
-def rm_rotation(objectid):
-    detection = db_session().query(DetectionObject.ObjectID, DetectionObject.Location, DetectionObject.FileName).filter(DetectionObject.ObjectID == objectid).first()
-    if (detection != None):
-        if (detection.Location != None and detection.FileName != None):
-            os.system("rm " + detection.Location + "/" + detection.FileName)
-
-@celery.task()
-def id_to_db(obs_id):
-    process = subprocess.Popen('python /home/ubuntu/LuminousMossBosses/Database/id_to_db.py ' + str(obs_id) + ' 2> /dev/null', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    process.wait()
-    gen_detection_images(obs_id)
 
 # configuration
 DEBUG = True# Change this to false when put into production 
@@ -127,6 +59,75 @@ def has_permissions():
 
 def has_admin_permissions():
     return current_user.Type in ['admin']
+
+@celery.task()
+def gen_detection_images(obsid = None):
+    detections = db_session().query(DetectionObject.ObjectID, DetectionObject.ParentObsID,\
+            DetectionObject.Location, DetectionObject.FileName, DetectionObject.XCord,\
+            DetectionObject.YCord, DetectionObject.Radius)
+    if obsid != None:
+        detections = detections.filter(DetectionObject.ParentObsID == obsid)
+    
+    for detection in detections:
+        radius = detection.Radius*1.4 
+        x = str(detection.XCord - radius)
+        y = str(detection.YCord - radius)
+        radius = radius * 2
+        
+        original_filename = str(db_session().query(Observation.ObsID, Observation.FileName)\
+                .filter(Observation.ObsID == detection.ParentObsID).first().FileName)
+        filename = str(detection.ObjectID) + "_cropped_" + original_filename
+        os.system("convert " + os.path.join(app.config['UPLOAD_FOLDER'], original_filename)+ \
+            " -crop " + str(radius) + "x" + str(radius) + "+" + x + "+" + y \
+            + " " + os.path.join(CROPPED_FOLDER, filename))
+        print filename
+        save = DetectionObject.query.get(detection.ObjectID)
+        save.FileName = filename
+        save.Location = CROPPED_FOLDER
+        db_session.commit()
+
+@celery.task()
+def gen_rotation_images(objid = None):
+    rotations = db_session.query(RotationObject.id, RotationObject.ParentDetectionObjectID, \
+            RotationObject.Location, RotationObject.FileName, RotationObject.RotationAngle)
+    if id != None:
+        rotations = rotations.filter(RotationObject.ParentDetectionObjectID == objid)
+
+    for rotation in rotations:
+        rotationangle = rotation.RotationAngle
+
+        original_filename = str(db_session().query(DetectionObject.ObjectID, DetectionObject.FileName)\
+                .filter(DetectionObject.DetectionObject == RotationObject.ParentDetectionObjectID)\
+                .first().FileName)
+
+        filename = str(rotation.id) + "_rotated_" + original_filename
+        os.system("./rotate_image " + os.path.join(CROPPED_FOLDER, original_filename) + " " +\
+                os.path.join(ROTATED_FOLDER, filename) + " " + rotationangle)
+
+        save = RotationObject.query.get(rotation.id)
+        save.FileName = filename
+        save.Location = ROTATED_FOLDER
+        db_session.commit()
+
+@celery.task()
+def rm_detection(objectid):
+    detection = db_session().query(DetectionObject.ObjectID, DetectionObject.Location, DetectionObject.FileName).filter(DetectionObject.ObjectID == objectid).first()
+    if (detection != None):
+        if (detection.Location != None and detection.FileName != None):
+            os.system("rm " + detection.Location + "/" + detection.FileName)
+
+@celery.task()
+def rm_rotation(objectid):
+    detection = db_session().query(DetectionObject.ObjectID, DetectionObject.Location, DetectionObject.FileName).filter(DetectionObject.ObjectID == objectid).first()
+    if (detection != None):
+        if (detection.Location != None and detection.FileName != None):
+            os.system("rm " + detection.Location + "/" + detection.FileName)
+
+@celery.task()
+def id_to_db(obs_id):
+    process = subprocess.Popen('python /home/ubuntu/LuminousMossBosses/Database/id_to_db.py ' + str(obs_id) + ' 2> /dev/null', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    process.wait()
+    gen_detection_images(obs_id)
 
 @login_manager.unauthorized_handler
 def unauthorized():
@@ -265,6 +266,20 @@ def user_list():
     else:
         abort(404)
 
+@app.route('/csv')
+@login_required
+def csv_view():
+    if has_permissions():
+        observations = engine.execute('select ObsID, Latitude, Longitude, LocationError, Date, Probability, count(ObjectID) as NumFlowers, isSilene, IDbyAlgorithm, DeviceId, DeviceType from observations join devices on devices.id = Device_id and DeviceType in ("iOS", "AndroidPhone", "AndroidDevice") left join detection_objects on ParentObsID = ObsID group by ObsID;')
+        return render_template('download_csv.html', observations=observations)
+
+@app.route('/save_csv')
+@login_required
+def csv_save():
+    FileName = generateCSV()
+    return send_file(FileName, as_attachment=True)
+    
+
 @app.route('/observation_view')
 @login_required
 def observation_view():
@@ -321,12 +336,11 @@ def get_detection_data():
     page = request.args.get('detectionid', 0, type=int)
     print page
     detection = db_session().query(DetectionObject.FileName, DetectionObject.Location).filter(DetectionObject.ObjectID == page).first()
-    rotations = db_session().query(RotationObject.RotationAngle, RotationObject.id).filter(RotationObject.id == page).all()
+    rotations = db_session().query(RotationObject.RotationAngle, RotationObject.id, RotationObject.ParentDetectionObjectID).filter(RotationObject.ParentDetectionObjectID == page).all()
     lines = []
-    print detection
     for rotation in rotations:
-        print rotation
-        line.append({'rot':rotation.RotationAngle,'id':rotation.id})
+        print rotation.RotationAngle
+        lines.append({'RotationAngle':rotation.RotationAngle, 'id':rotation.id})
     return jsonify(FileName=detection.FileName, Location=detection.Location, lines=lines) 
 
 def update_isValue(module, attribute):
@@ -400,21 +414,25 @@ def update_detectionObjects():
 
 @app.route('/_update_rotationObjects', methods=["POST"])
 @login_required
-def update_detectionObjects():
+def update_rotationObjects():
     data = {'error':None, 'results':None}
     if has_permissions():
         rotationObjects = json.loads(request.form.get('sentValue'))
         detectionId = request.form.get('sentId')
         for obj in rotationObjects:
-            if obj['id'] == None and not obj['removed']:
+            print obj['angle']
+            if obj['id'] == None:
+                print "adding"
                 rotation_db = RotationObject(detectionId, obj['angle'])
                 db_session().add(rotation_db)
-            elif obj['id'] != None and obj['removed']:
+            elif obj['id'] != None:
                 rotation_db = db_session().query(RotationObject).get(obj['id'])
-                rm_rotation.delay(rotation_db.id)
-                db_session().delete(rotation_db)
+                if rotation_db != None:
+                    print "removing"
+                    rm_rotation.delay(rotation_db.id)
+                    db_session().delete(rotation_db)
         db_session().commit()
-        gen_rotation_images.delay(observationId)
+        gen_rotation_images.delay(detectionId)
     return jsonify(data=data)
 
 @app.route('/_change_password', methods=["POST"])

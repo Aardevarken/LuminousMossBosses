@@ -18,11 +18,6 @@ var canvas = document.getElementById("image_viewer");
 var ctx;
 var image = new Image();
 
-/** IMAGE SOURCE FILE */
-//image.src = "example_flower.jpg";
-//reference.src = "reference.png";
-//1IMG_1997.jpg";
-
 var scale = .3;
 var asp = 1;
 var x = -1060;
@@ -34,13 +29,16 @@ rot_data = {
 	k : 0,
 	value : [],
 	key : [],
+    obj_id : [],
 	append : function(value) {
 		this.value[this.value.length] = value;
 		this.key[this.key.length] = this.k++;
+        this.obj_id[this.obj_id.length] = null;
 	},
 	pop : function(index) {
 		this.value.splice(index,1);
 		this.key.splice(index,1);
+		this.id.splice(index,1);
 		this.k = (this.value.length === 0)? 0 : this.k
 	},
 	length : function() {
@@ -48,7 +46,19 @@ rot_data = {
 	},
 	getRow : function(key) {
 		return this.key.indexOf(key);
-	}
+	},
+    appendExisting : function(value, obj_id) {
+		this.value[this.value.length] = value;
+		this.key[this.key.length] = this.k++;
+        this.obj_id[this.key.length] = obj_id;
+    },
+    packageValues : function() {
+        rotation = [];
+        for (var i = 0; i < this.obj_id.length; i++){
+            rotation.push({id : this.obj_id[i], angle : this.value[i]});
+        }
+        return JSON.stringify(rotation);
+    },
 };
 
 /**
@@ -78,12 +88,25 @@ window.onresize = function(event) {
 };
 
 function get_image(data) {
+	var table = document.getElementById("orientation_sheet");
     data.lines.forEach(function(obj) {
-       setExistingRotation(obj.rot);
-       addOrientation();
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+        rot_data.appendExisting(obj.RotationAngle, obj.id)
+        row.innerHTML ="<td><button class='btn btn-danger btn-circle' onmouseout='unselectRow()' onmouseover='selectRow("+rot_data.key[rowCount]+")' onclick='removeOrientation("+rot_data.key[rowCount]+")'>\
+        <span class='glyphicon glyphicon-remove'></span></button></td>\
+        <td>"+obj.RotationAngle+"</td>"
     });
     console.log(data.Location) 
     image.src = "/static/cropped/"+ data.FileName
+}
+
+function save_image(data) {
+    imageid = getUrlVars()['detectionid']
+    $.post('_update_rotationObjects', {
+    sentValue: rot_data.packageValues(),
+    sentId: imageid,
+    },function(data){flash = data.flash}, 'json');
 }
 
 /**

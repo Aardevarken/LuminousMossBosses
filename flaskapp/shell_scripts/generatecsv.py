@@ -28,18 +28,22 @@ HOST = 'localhost'
 USER = 'flaskapi'
 PASSWORD = 'totallynotapassword'
 DATABASE = 'luminous_db'
+CSV_LOCATION = '/work/csv'
 
 engine = create_engine('mysql://%s:%s@%s/%s' % (USER, PASSWORD, HOST, DATABASE), echo=False)
 
-conn = engine.connect()
-query_result = engine.execute('select ObsID, Latitude, Longitude, LocationError, Date, Probability, count(ObjectID) as NumFlowers, isSilene, IDbyAlgorithm, DeviceId, DeviceType from observations join devices on devices.id = Device_id and DeviceType in ("iOS", "AndroidPhone", "AndroidDevice") left join detection_objects on ParentObsID = ObsID group by ObsID;')
-with open('observations' + time.strftime("%Y%m%d%H%M%S") + ".csv", 'w') as csv_file:
-    csv_file.write("Observation ID,Latitude,Longitude,Location Accuracy,Date,Bag of Words Probability,Number of Flowers,Researcher Verified,Identified by Algorithm,Device ID,Device Type\n")
-    for row in query_result:
-        record = ""
-        for item in row:
-            record += str(item)
-            record += ","
-        record = record[:-1]
-        record += "\n"
-        csv_file.write(record)
+def generateCSV():
+    conn = engine.connect()
+    query_result = engine.execute('select ObsID, Latitude, Longitude, LocationError, Date, Probability, count(ObjectID) as NumFlowers, isSilene, IDbyAlgorithm, DeviceId, DeviceType from observations join devices on devices.id = Device_id and DeviceType in ("iOS", "AndroidPhone", "AndroidDevice") left join detection_objects on ParentObsID = ObsID group by ObsID;')
+    filename = CSV_LOCATION + '/observations' + time.strftime("%Y%m%d%H%M%S") + ".csv"
+    with open(filename, 'w') as csv_file:
+        csv_file.write("Observation ID,Latitude,Longitude,Location Accuracy,Date,Bag of Words Probability,Number of Flowers,Researcher Verified,Identified by Algorithm,Device ID,Device Type\n")
+        for row in query_result:
+            record = ""
+            for item in row:
+                record += str(item)
+                record += ","
+            record = record[:-1]
+            record += "\n"
+            csv_file.write(record)
+    return filename 

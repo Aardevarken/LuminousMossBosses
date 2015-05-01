@@ -61,9 +61,11 @@ class Observation(Base):
     UseForTraining = Column(Boolean, unique=True)
     FileName = Column(String(256), unique=True)
     Location = Column(String(256), unique=True)
+    Probability = Column(Float, unique=True) 
+    IDbyAlgorithm = Column(Boolean, unique=True)
 
     def __init__(self, Time=None, Date=None, Latitude=None,
-        Longitude=None, LocationError=None, FileName=None, Location=None, Device_id=None, IsSilene=None, UseForTraining=None):
+        Longitude=None, LocationError=None, FileName=None, Location=None, Device_id=None, IsSilene=None, UseForTraining=None, Probability=None, IDbyAlgorithm=None):
         #self.ObsID = ObsID
         self.Time = Time
         self.Date = Date
@@ -75,6 +77,8 @@ class Observation(Base):
         self.UseForTraining = UseForTraining
         self.FileName = FileName
         self.Location = Location
+        self.Probability = Probability
+        self.IDbyAlgorithm = IDbyAlgorithm
 
     def __repr__(self):
         return '<Observation %r %r %r %r %r %r>' % (self.Time,
