@@ -102,12 +102,18 @@ Inheritance diagram for ImageViewController:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Instance Methods</h2></td></tr>
-<tr class="memitem:a27a697e9a7bfaab579a9efc58dfef4c0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a27a697e9a7bfaab579a9efc58dfef4c0"></a>
-(IBAction)&#160;</td><td class="memItemRight" valign="bottom">- <b>getPhoto:</b></td></tr>
-<tr class="separator:a27a697e9a7bfaab579a9efc58dfef4c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d1c6faf6aaceccf46376922ede39d9c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9d1c6faf6aaceccf46376922ede39d9c"></a>
+(IBAction)&#160;</td><td class="memItemRight" valign="bottom">- <b>retakePhotoBtn:</b></td></tr>
+<tr class="separator:a9d1c6faf6aaceccf46376922ede39d9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2c3cf417203493c01bf84d34a1678a3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae2c3cf417203493c01bf84d34a1678a3"></a>
+(IBAction)&#160;</td><td class="memItemRight" valign="bottom">- <b>takePhoto:</b></td></tr>
+<tr class="separator:ae2c3cf417203493c01bf84d34a1678a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80326e2fd461cf6132ea10a15e463812"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a80326e2fd461cf6132ea10a15e463812"></a>
 (IBAction)&#160;</td><td class="memItemRight" valign="bottom">- <b>addObservation:</b></td></tr>
 <tr class="separator:a80326e2fd461cf6132ea10a15e463812"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a752da19c7f4a1efb7a00f46bcd2774c6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a752da19c7f4a1efb7a00f46bcd2774c6"></a>
+(IBAction)&#160;</td><td class="memItemRight" valign="bottom">- <b>selectButton:</b></td></tr>
+<tr class="separator:a752da19c7f4a1efb7a00f46bcd2774c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -120,18 +126,36 @@ UIButton *&#160;</td><td class="memItemRight" valign="bottom"><b>choosePhotoBtn<
 <tr class="memitem:a923ed1c182a6b020f5f8f6512daefb12"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a923ed1c182a6b020f5f8f6512daefb12"></a>
 UIButton *&#160;</td><td class="memItemRight" valign="bottom"><b>takePhotoBtn</b></td></tr>
 <tr class="separator:a923ed1c182a6b020f5f8f6512daefb12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e4d60ee221f81abd8ee9619283ad6a4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0e4d60ee221f81abd8ee9619283ad6a4"></a>
+UINavigationController *&#160;</td><td class="memItemRight" valign="bottom"><b>testNav</b></td></tr>
+<tr class="separator:a0e4d60ee221f81abd8ee9619283ad6a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7b2ac897afa6beff0f82602b336dfcd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af7b2ac897afa6beff0f82602b336dfcd"></a>
+NSConditionLock *&#160;</td><td class="memItemRight" valign="bottom"><b>albumReadLock</b></td></tr>
+<tr class="separator:af7b2ac897afa6beff0f82602b336dfcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4afe15ff0346b6fa51fd348b8f38c085"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4afe15ff0346b6fa51fd348b8f38c085"></a>
+NSData *&#160;</td><td class="memItemRight" valign="bottom"><b>defaultRepresentationData</b></td></tr>
+<tr class="separator:a4afe15ff0346b6fa51fd348b8f38c085"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
+<tr class="memitem:ab5e48ee94b411d6a13834e4a73207cdf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab5e48ee94b411d6a13834e4a73207cdf"></a>
+IBOutlet UIView *&#160;</td><td class="memItemRight" valign="bottom"><b>buttonView</b></td></tr>
+<tr class="separator:ab5e48ee94b411d6a13834e4a73207cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff96818028c4f3bef705b47f16686337"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aff96818028c4f3bef705b47f16686337"></a>
 IBOutlet UIImageView *&#160;</td><td class="memItemRight" valign="bottom"><b>imageView</b></td></tr>
 <tr class="separator:aff96818028c4f3bef705b47f16686337"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9279af59cae2ff4a2e1c9784c43a9f39"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9279af59cae2ff4a2e1c9784c43a9f39"></a>
-IBOutlet UIButton *&#160;</td><td class="memItemRight" valign="bottom"><b>choosePhotoBtn</b></td></tr>
-<tr class="separator:a9279af59cae2ff4a2e1c9784c43a9f39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe00fe96033dc13fcbc1f9f60c226f55"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abe00fe96033dc13fcbc1f9f60c226f55"></a>
 IBOutlet UIButton *&#160;</td><td class="memItemRight" valign="bottom"><b>takePhotoBtn</b></td></tr>
 <tr class="separator:abe00fe96033dc13fcbc1f9f60c226f55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d02f5ac2ca6e504fab974bde00d8c25"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6d02f5ac2ca6e504fab974bde00d8c25"></a>
+IBOutlet UIButton *&#160;</td><td class="memItemRight" valign="bottom"><b>addObsBtn</b></td></tr>
+<tr class="separator:a6d02f5ac2ca6e504fab974bde00d8c25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af50a2d92d4c7321fcfabf594c5c6b4d1"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af50a2d92d4c7321fcfabf594c5c6b4d1"></a>
+IBOutlet UIButton *&#160;</td><td class="memItemRight" valign="bottom"><b>retakePhotoBtn</b></td></tr>
+<tr class="separator:af50a2d92d4c7321fcfabf594c5c6b4d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a897a180ab5311e04e6646381e6fcc1cb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a897a180ab5311e04e6646381e6fcc1cb"></a>
+<a class="el" href="interface_capture_session_manager.html">CaptureSessionManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>captureManager</b></td></tr>
+<tr class="separator:a897a180ab5311e04e6646381e6fcc1cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_image_view_controller_8h_source.html">ImageViewController.h</a></li>
@@ -140,7 +164,7 @@ IBOutlet UIButton *&#160;</td><td class="memItemRight" valign="bottom"><b>takePh
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 13 2015 20:43:29 for My Project by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 2 2015 13:24:46 for My Project by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

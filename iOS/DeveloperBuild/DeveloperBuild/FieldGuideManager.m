@@ -28,24 +28,8 @@ static NSDictionary *typeMap = nil;
 /*******************\
 \* private methods */
 @interface FieldGuideManager ()
-/**
- *
- */
 - (sqlite3*)openDB;
-
-/**
- *
- */
 - (void)closeDB:(sqlite3*) database;
-
-/**
- *
- */
-- (BOOL)runBoolQuery:(NSString*) query;
-
-/**
- *
- */
 - (NSArray*)runTableQuery:(NSString*) query;
 @end
 
@@ -54,9 +38,6 @@ static NSDictionary *typeMap = nil;
 
 @synthesize fetchQuery;
 
-/*
- * The following functions are required for the field guide database
- */
 + (FieldGuideManager*)getSharedInstance{
 	// create a singleton object
 	static dispatch_once_t onceToken;
@@ -83,35 +64,25 @@ static NSDictionary *typeMap = nil;
 		NSArray *dirPaths;
 		dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
 		docsDir = dirPaths[0];
-		
-		/*** TEST CODE ***/
-		
+	
 		NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"FieldGuide" ofType:@"db"];
 		
 		// build the path to the database file
-		databasePath = [[NSString alloc] initWithString:[docsDir stringByAppendingPathComponent:databaseName]];
+		//databasePath = [[NSString alloc] initWithString:[docsDir stringByAppendingPathComponent:databaseName]];
 		
 		
 		NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
-		NSString *targetPath = [libraryPath stringByAppendingPathComponent:databaseName];
-		
-		if (![[NSFileManager defaultManager] fileExistsAtPath:targetPath]) {
+		//NSString *targetPath = [libraryPath stringByAppendingPathComponent:databaseName];
+		databasePath = [libraryPath stringByAppendingPathComponent:databaseName];
+		if (![[NSFileManager defaultManager] fileExistsAtPath:databasePath/*targetPath*/]) {
 			// database doesn't exist in your library path... copy it from the bundle
-			//NSString *sourcePath = [[NSBundle mainBundle] pathForResource:@"FieldGuide" ofType:@"db"];
 			NSError *error = nil;
 			
-			if (![[NSFileManager defaultManager] copyItemAtPath:sourcePath toPath:targetPath error:&error]) {
+			if (![[NSFileManager defaultManager] copyItemAtPath:sourcePath toPath:databasePath/*targetPath*/ error:&error]) {
 				ALog(@"Error: %@", error);
 			}
 		}
-		
-		
-		
-		//ALog(@"\n\ndb path: %@\n\ntargetPath: %@", databasePath, targetPath);
-		databasePath = targetPath;
-//		printa("Database can be found at:\n%s\n\n", [databasePath UTF8String]);
-		/*** END OF TEST CODE ***/
-		
+		//databasePath = targetPath;
 	});
 	
 	// Open the database handler.
@@ -129,42 +100,8 @@ static NSDictionary *typeMap = nil;
 	sqlite3_close(database);
 }
 
-/**
- *	There should be no need for this method because we will not be inserting or
- deleting any data from the field guide.
- */
-- (BOOL)runBoolQuery:(NSString *)query{
-	ALog(@"THIS METHOD IS MARKED FOR DELETION");
-	
-	// Open database
-	sqlite3 *database = [self openDB];
-	if (database == nil) {
-		return NO;
-	}
-	
-	// Build statement
-	const char *insert_stmt = [query UTF8String];
-	sqlite3_stmt *statement = nil;
-	sqlite3_prepare_v2(database, insert_stmt, -1, &statement, NULL);
-	
-	// Get satus and close DB
-	int queryStatus = sqlite3_step(statement);
-	sqlite3_finalize(statement);
-	
-	// Return or log errors.
-	if (queryStatus == SQLITE_DONE) {
-		[self closeDB:database];
-		return YES;
-	} else {
-		ALog(@"Bool query failed: %s", sqlite3_errmsg(database));
-		[self closeDB:database];
-		return NO;
-	}
-}
 
-/**
- *
- */
+/*! */
 - (NSArray*)runTableQuery:(NSString *)query{
 	// Open database
 	sqlite3 *database = [self openDB];
@@ -179,13 +116,7 @@ static NSDictionary *typeMap = nil;
 	// Convert result table into an array of dictionaries.
 	NSMutableArray* results = [[NSMutableArray alloc] init];
 	int queryStatus;
-//	queryStatus = sqlite3_step(statement);
-//	
-//	int debug = queryStatus;
-//	int n = 0;
-//	printa("----------------------------------------------------------\n");
-//	printa("QUERY: %s\n", [query UTF8String]);
-//	printa("debug(%d): %d\n",n++ ,debug);
+
 	for (queryStatus = sqlite3_step(statement); queryStatus == SQLITE_ROW; queryStatus = sqlite3_step(statement)) {
 		NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
 		
@@ -195,31 +126,14 @@ static NSDictionary *typeMap = nil;
 		for (int i = 0; i < count; i++) {
 			NSString *name = [NSString stringWithUTF8String:sqlite3_column_name(statement, i)];
 			NSObject *value = nil;
-			//NSString *typeName = [typeMap valueForKey:name];
-			
-			//if ([typeName isEqual:@"string"]) {
 			value = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(statement, i)];
-			//} else if ([typeName isEqual:@"double"]){
-			//	value = [NSNumber numberWithDouble:sqlite3_column_double(statement, i)];
-			//}
 			
 			[dictionary setObject:value forKey:name];
 		}
 		
-		/*** some debugging code ***/
-//		if (debug != queryStatus) {
-//			printa("\t\tdebug(%d): %d\n",n ,debug);
-//		}
-//		++n;
-//		debug = queryStatus;
-		/*** debugging code ***/
-
-		
-		// Add to results array
+	// Add to results array
 		[results addObject:(NSDictionary*) dictionary];
 	}
-//	printa("debug(%d): %d\n",n++ ,debug);
-//	printa("----------------------------------------------------------\n\n");
 	// Get status and close DB
 	sqlite3_finalize(statement);
 	
@@ -245,6 +159,7 @@ static NSDictionary *typeMap = nil;
 }
 
 - (NSDictionary*)findSpeciesByID:(NSNumber*)id{
+	// Query #1
 	NSString *query = [NSString stringWithFormat:
 					   @"SELECT code, latin_name, common_name, family, description, photocredit "
 					   @"FROM species "
@@ -254,6 +169,7 @@ static NSDictionary *typeMap = nil;
 
 	NSArray *results1 = [self runTableQuery:query];
 	
+	// Query #2
 	query = [NSString stringWithFormat:
 			 @"SELECT growthform.name "
 			 @"FROM species "
@@ -264,6 +180,7 @@ static NSDictionary *typeMap = nil;
 	
 	NSArray *results2 = [self runTableQuery:query];
 	
+	// Query #3
 	query = [NSString stringWithFormat:
 			 @"SELECT flowershape.name "
 			 @"FROM species "
@@ -274,6 +191,7 @@ static NSDictionary *typeMap = nil;
 	
 	NSArray *results3 = [self runTableQuery:query];
 	
+	// Query #4
 	query = [NSString stringWithFormat:
 			 @"SELECT leafshapefilter.name "
 			 @"FROM species "
@@ -284,6 +202,7 @@ static NSDictionary *typeMap = nil;
 
 	NSArray *results4 = [self runTableQuery:query];
 
+	// combine all queries together.
 	NSMutableDictionary *dicR = [[NSMutableDictionary alloc] initWithDictionary:results1[0]];
 	[dicR setObject:[results2[0] objectForKey:@"name"] forKey:@"growthform"];
 	[dicR setObject:[results3[0] objectForKey:@"name"] forKey:@"flower shape"];

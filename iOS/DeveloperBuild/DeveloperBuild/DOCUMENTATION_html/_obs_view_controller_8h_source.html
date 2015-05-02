@@ -94,20 +94,29 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#import &lt;UIKit/UIKit.h&gt;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#import &quot;NewObs.h&quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="interface_obs_view_controller.html">   12</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_obs_view_controller.html">ObsViewController</a> : UIViewController &lt;UITableViewDelegate, UITableViewDataSource&gt;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">@property</span> (nonatomic, strong) NSMutableArray * myObservations;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">@property</span> (nonatomic, strong) NSMutableArray * observationsArray;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">@property</span> (nonatomic, strong) NSMutableArray * imageArray;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">@property</span> (nonatomic, strong) NSMutableArray * json;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">@end</span></div>
-<div class="ttc" id="interface_obs_view_controller_html"><div class="ttname"><a href="interface_obs_view_controller.html">ObsViewController</a></div><div class="ttdef"><b>Definition:</b> ObsViewController.h:12</div></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="interface_obs_view_controller.html">   13</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_obs_view_controller.html">ObsViewController</a> : UIViewController &lt;UITableViewDelegate, UITableViewDataSource&gt;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    NSInteger selectedSection;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    NSInteger selectedRow;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">@property</span> (nonatomic, strong) NSMutableArray * myObservations;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">@property</span> (nonatomic, strong) NSMutableArray * observationsArray;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">@property</span> (nonatomic, strong) NSMutableArray * imageArray;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">@property</span> (nonatomic, strong) NSMutableArray * json;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">@property</span> (strong, nonatomic) IBOutlet UIButton *syncBtn;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">// might not need</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">@property</span> (nonatomic, strong) IBOutlet UITableView *tableView;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;- (IBAction)syncAllBtn:(UIButton *)sender;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">@end</span></div>
+<div class="ttc" id="interface_obs_view_controller_html"><div class="ttname"><a href="interface_obs_view_controller.html">ObsViewController</a></div><div class="ttdef"><b>Definition:</b> ObsViewController.h:13</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 13 2015 20:43:29 for My Project by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 2 2015 13:24:45 for My Project by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

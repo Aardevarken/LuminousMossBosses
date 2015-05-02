@@ -86,6 +86,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#pub-methods">Instance Methods</a> &#124;
 <a href="#pub-static-methods">Class Methods</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#properties">Properties</a> &#124;
 <a href="class_user_data_database-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">UserDataDatabase Class Reference</div>  </div>
@@ -104,15 +105,39 @@ Inheritance diagram for UserDataDatabase:</div>
 Instance Methods</h2></td></tr>
 <tr class="memitem:aa7ed10dc7ff06418ed59b806c086129f"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_user_data_database.html#aa7ed10dc7ff06418ed59b806c086129f">createDB</a></td></tr>
 <tr class="separator:aa7ed10dc7ff06418ed59b806c086129f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cb4c0c5e388a0115f8f0f8e0e04325d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9cb4c0c5e388a0115f8f0f8e0e04325d"></a>
-(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <b>saveData:date:latitude:longitude:percentIDed:</b></td></tr>
-<tr class="separator:a9cb4c0c5e388a0115f8f0f8e0e04325d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20a6856bf7d03890c64eca70c15b8fb3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a20a6856bf7d03890c64eca70c15b8fb3"></a>
-(NSArray *)&#160;</td><td class="memItemRight" valign="bottom">- <b>findByImgID:</b></td></tr>
-<tr class="separator:a20a6856bf7d03890c64eca70c15b8fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41520d7a55a2d0af3ff49f61373ef043"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a41520d7a55a2d0af3ff49f61373ef043"></a>
+(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <b>saveObservation:date:latitude:longitude:locationError:percentIDed:</b></td></tr>
+<tr class="separator:a41520d7a55a2d0af3ff49f61373ef043"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b21edb69afd541d425352fb5e7db6ea"><td class="memItemLeft" align="right" valign="top">(NSArray *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_user_data_database.html#a8b21edb69afd541d425352fb5e7db6ea">findObservationByID:</a></td></tr>
+<tr class="separator:a8b21edb69afd541d425352fb5e7db6ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb7eff58c62d5da42541333111d96d44"><td class="memItemLeft" align="right" valign="top">(NSArray *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_user_data_database.html#afb7eff58c62d5da42541333111d96d44">findObservationsByStatus:like:orderBy:</a></td></tr>
+<tr class="separator:afb7eff58c62d5da42541333111d96d44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a293b1ad94f0ac4c9c4dec32e7a99c422"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a293b1ad94f0ac4c9c4dec32e7a99c422"></a>
 (BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <b>printResults:</b></td></tr>
 <tr class="separator:a293b1ad94f0ac4c9c4dec32e7a99c422"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe5a117eb554fa9c09f77d515cd2a632"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afe5a117eb554fa9c09f77d515cd2a632"></a>
+(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <b>updateObservation:andNewPercentIDed:andNewStatus:isSilene:</b></td></tr>
+<tr class="separator:afe5a117eb554fa9c09f77d515cd2a632"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c2c961e97fdbb784bbc36a33b9612d6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0c2c961e97fdbb784bbc36a33b9612d6"></a>
+(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <b>deleteObservationByID:</b></td></tr>
+<tr class="separator:a0c2c961e97fdbb784bbc36a33b9612d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9f2c1795e37c83d24a97052b353304d"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_user_data_database.html#ac9f2c1795e37c83d24a97052b353304d">removeDeletedAssets</a></td></tr>
+<tr class="separator:ac9f2c1795e37c83d24a97052b353304d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64cdab2de79b0d76e252f58c82602d88"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a64cdab2de79b0d76e252f58c82602d88"></a>
+(void)&#160;</td><td class="memItemRight" valign="bottom">- <b>startLocationTracking</b></td></tr>
+<tr class="separator:a64cdab2de79b0d76e252f58c82602d88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af13596e686533c41fb603cb4998b5e6d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af13596e686533c41fb603cb4998b5e6d"></a>
+(void)&#160;</td><td class="memItemRight" valign="bottom">- <b>stopLocationTracking</b></td></tr>
+<tr class="separator:af13596e686533c41fb603cb4998b5e6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a1633ffb938a0195cacb42405b272f0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3a1633ffb938a0195cacb42405b272f0"></a>
+(void)&#160;</td><td class="memItemRight" valign="bottom">- <b>getGPS</b></td></tr>
+<tr class="separator:a3a1633ffb938a0195cacb42405b272f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a141fdc7f067f4ccfc53ed3216a82aa3e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a141fdc7f067f4ccfc53ed3216a82aa3e"></a>
+(void)&#160;</td><td class="memItemRight" valign="bottom">- <b>pauseLocationTracking</b></td></tr>
+<tr class="separator:a141fdc7f067f4ccfc53ed3216a82aa3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9ba200c41c94c03050c63a284cb05be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9ba200c41c94c03050c63a284cb05be"></a>
+(CLLocation *)&#160;</td><td class="memItemRight" valign="bottom">- <b>getBestKnownLocation</b></td></tr>
+<tr class="separator:ae9ba200c41c94c03050c63a284cb05be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Class Methods</h2></td></tr>
@@ -124,6 +149,15 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a94570198f7e633a3b4824936de8c2ddf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a94570198f7e633a3b4824936de8c2ddf"></a>
 NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>databasePath</b></td></tr>
 <tr class="separator:a94570198f7e633a3b4824936de8c2ddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a86ed986eee9004b39b17364fbd1176ba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a86ed986eee9004b39b17364fbd1176ba"></a>
+CLLocationManager *&#160;</td><td class="memItemRight" valign="bottom"><b>locationManager</b></td></tr>
+<tr class="separator:a86ed986eee9004b39b17364fbd1176ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b5488bce432494141ed41d818e001d8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6b5488bce432494141ed41d818e001d8"></a>
+NSMutableArray *&#160;</td><td class="memItemRight" valign="bottom"><b>locations</b></td></tr>
+<tr class="separator:a6b5488bce432494141ed41d818e001d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Method Documentation</h2>
 <a class="anchor" id="aa7ed10dc7ff06418ed59b806c086129f"></a>
@@ -139,6 +173,56 @@ NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>databasePath</b
       </table>
 </div><div class="memdoc">
 <p>Create a database based off of hardcoded string. If called to create a database that already exists, display an error. </p><dl class="section return"><dt>Returns</dt><dd>YES if creation is successful, NO if database already exists or failed to create database table. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8b21edb69afd541d425352fb5e7db6ea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSDictionary *) findObservationByID: </td>
+          <td></td>
+          <td class="paramtype">(NSString*)&#160;</td>
+          <td class="paramname"><em>imghexid</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Finds a single observation by id and returns it's columns as a dictionary, or nil on error. </p>
+
+</div>
+</div>
+<a class="anchor" id="afb7eff58c62d5da42541333111d96d44"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSArray *) findObservationsByStatus: </td>
+          <td></td>
+          <td class="paramtype">(NSString*)&#160;</td>
+          <td class="paramname"><em>status</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">like:</td>
+          <td></td>
+          <td class="paramtype">(BOOL)&#160;</td>
+          <td class="paramname"><em>like</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">orderBy:</td>
+          <td></td>
+          <td class="paramtype">(NSString*)&#160;</td>
+          <td class="paramname"><em>orderBy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This function will take in a sqlite statement and return the results in an array of ditionaries, or nil on error. </p>
 
 </div>
 </div>
@@ -158,6 +242,22 @@ NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>databasePath</b
 
 </div>
 </div>
+<a class="anchor" id="ac9f2c1795e37c83d24a97052b353304d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) removeDeletedAssets </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Remove all assets that no longer exists </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_user_data_database_8h_source.html">UserDataDatabase.h</a></li>
 <li>UserDataDatabase.m</li>
@@ -165,7 +265,7 @@ NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>databasePath</b
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 13 2015 20:43:29 for My Project by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 2 2015 13:24:46 for My Project by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
