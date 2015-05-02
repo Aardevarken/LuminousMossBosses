@@ -64,12 +64,21 @@ The name rose comes from French, itself from Latin rosa, which was perhaps borro
     
     <!-- Glossary Categories -->
     <string name="glossary_flowercolor">Flower Color</string>
-    <string name="glossary_infloresceF">Flower Color</string>
-    <string name="glossary_flowercolor">Flower Color</string>
-    <string name="glossary_flowercolor">Flower Color</string>
-    <string name="glossary_flowercolor">Flower Color</string>
-    <string name="glossary_flowercolor">Flower Color</string>
-    <string name="glossary_flowercolor">Flower Color</string>
+    <string name="glossary_inflorescence">Inflorescence</string>
+    <string name="glossary_flowershape">Flower Shape</string>
+    <string name="glossary_leafarrangement">Leaf Arrangement</string>
+    <string name="glossary_leafshape">Leaf Shape</string>
+    <string name="glossary_habitat">Habitat</string>
+
+    <!-- filter categories -->
+    <string name="filter_growthform">Growth Form</string>
+    <string name="filter_flowercolor">Flower Color</string>
+    <string name="filter_inflorescence">Inflorescence</string>
+    <string name="filter_flowershape">Flower Shape</string>
+    <string name="filter_petalnumber">Number of Petals</string>
+    <string name="filter_leafarrangement">Leaf Arrangement</string>
+    <string name="filter_leafshapefilter">Leaf Shape</string>
+    <string name="filter_habitat">Habitat</string>
 
     <!-- My Observations Temp -->
     <string name="drawer_open">Open navigation drawer</string>
