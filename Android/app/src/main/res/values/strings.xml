@@ -61,6 +61,15 @@ The name rose comes from French, itself from Latin rosa, which was perhaps borro
     <string name="separator_unidentified">Unidentified</string>
     <string name="separator_silene">Identified as Silene acaulis</string>
     <string name="separator_unknown">Unknown</string>
+    
+    <!-- Glossary Categories -->
+    <string name="glossary_flowercolor">Flower Color</string>
+    <string name="glossary_infloresceF">Flower Color</string>
+    <string name="glossary_flowercolor">Flower Color</string>
+    <string name="glossary_flowercolor">Flower Color</string>
+    <string name="glossary_flowercolor">Flower Color</string>
+    <string name="glossary_flowercolor">Flower Color</string>
+    <string name="glossary_flowercolor">Flower Color</string>
 
     <!-- My Observations Temp -->
     <string name="drawer_open">Open navigation drawer</string>

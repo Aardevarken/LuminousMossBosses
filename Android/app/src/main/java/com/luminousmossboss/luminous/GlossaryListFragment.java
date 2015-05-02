@@ -69,7 +69,7 @@ public class GlossaryListFragment extends Fragment implements BackButtonInterfac
             }
         });
 
-        activity.setTitle(MainActivity.FIELD_GUIDE_POSITION);
+        activity.setTitle(MainActivity.GLOSSARY_POSITION);
         return rootView;
 
         /*btn_fieldGuide = (ImageButton) rootView.findViewById(R.id.Field_Guide_button);
@@ -82,11 +82,11 @@ public class GlossaryListFragment extends Fragment implements BackButtonInterfac
         });*/
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.fieldguide, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        inflater.inflate(R.menu.fieldguide, menu);
+//        super.onCreateOptionsMenu(menu, inflater);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -105,9 +105,6 @@ public class GlossaryListFragment extends Fragment implements BackButtonInterfac
      * @param container
      */
     private void initList(View rootView, ViewGroup container) {
-        String[] listTitles = getResources().getStringArray(R.array.field_guide_items);
-        TypedArray listIcons = getResources().obtainTypedArray(R.array.field_guide_icons);
-        String[] listDescriptions = getResources().getStringArray(R.array.field_guide_description);
 
         this.mDrawerList = (ListView) rootView.findViewById(R.id.fragment_list);
         this.context = container.getContext();
@@ -119,18 +116,11 @@ public class GlossaryListFragment extends Fragment implements BackButtonInterfac
         HashMap<Integer, String> latinNames = fieldGuideDBH.getLatinNames();
         HashMap<Integer, String> commonNames = fieldGuideDBH.getCommonNames();
         HashMap<Integer, String> iconPaths = fieldGuideDBH.getIconPaths();
-        // filtering example
-//        List<Integer> ids = fieldGuideDBH.filterByHabitat("dry meadow");
-//        HashMap<Integer, String> latinNames = fieldGuideDBH.getLatinNamesForIDs(ids);
-//        HashMap<Integer, String> commonNames = fieldGuideDBH.getCommonNamesForIDs(ids);
-//        HashMap<Integer, String> iconPaths = fieldGuideDBH.getIconPathsForIDs(ids);
         for (int i = 0; i < ids.size(); i++) {
 //            listItems.add(fieldGuideDBH.getFGItemWithID(ids.get(i)));
             int id = ids.get(i);
             listItems.add(new FieldGuideItem(id, latinNames.get(id), iconPaths.get(id), commonNames.get(id)));
         }
-
-        listIcons.recycle();
 
         adapter = new FGListAdapter(context, listItems);
         mDrawerList.setAdapter(adapter);
