@@ -138,10 +138,15 @@ float detector::predict(Mat image) {
   vector<KeyPoint> keyPoints;
   Mat histogram;
   featureDetector->detect(image, keyPoints);
-  bowide->compute(image, keyPoints, histogram);
-
-  // Classify
-  return classifier.predict(histogram, true);
+  if (keyPoints.size() > 0) {
+    bowide->compute(image, keyPoints, histogram);
+    // Classify
+    return classifier.predict(histogram, true);
+  } else {
+    // Typically this only occurs with blank images or very blurry ones.
+    // Return an absurdly high number, declaring it to not be silene.
+    return 2.0;
+  }
 }
 
 
@@ -151,7 +156,13 @@ float detector::predict(Mat image) {
 float detector::probability(Mat image) {
     Mat thumbnail = img_helper::resizeSetWidth(image, 200);
     float prediction = predict(thumbnail);
-    return 1.0 - (1.0/0.16)*(prediction-0.88);
+    float prob = 1.0 - (1.0/0.16)*(prediction-0.88);
+    if (prob > 1.0) {
+      prob = 1.0;
+    } else if (prob < 0.0) {
+      prob = 0.0;
+    }
+    return prob;
 }
 
 
