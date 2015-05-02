@@ -1,0 +1,18 @@
+<resources>
+    <string-array name="about_title_items">
+        <item>Developers</item>
+        <item>Sponsor</item>
+        <item>Purpose</item>
+    </string-array>
+    <string-array name="about_text_items">
+        <item>
+            Jamie Miller, Andrey Shprengel, Morgan Garske, Brian Bauer, Jacob Rail and Jack Skinner
+        </item>
+        <item>
+            Nathalie Chardon from Doak Lab
+        </item>
+        <item>
+            An app to take a picture of a plant, determine if it is a flowering alpine species called Silene acaulis, and record the plant\'s location. This data will be sent to a server where Nathalie Chardon and other researchers can use this to find the range of the alpine plant species.
+        </item>
+    </string-array>
+</resources>

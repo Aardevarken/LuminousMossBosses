@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_img"
+    android:id="@+id/background">
+
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rowCount="4"
+        android:columnCount="2"
+        android:id="@+id/grid"
+        android:paddingBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:rowOrderPreserved="true"
+        android:padding="10dp">
+
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/round_button"
+            android:src="@drawable/ic_openbook"
+            android:adjustViewBounds="true"
+            android:padding="20dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:id="@+id/Field_Guide_button"
+            android:visibility="visible"
+            android:cropToPadding="false"
+            android:minHeight="130dp"
+            android:minWidth="130dp"
+            android:maxHeight="130dp"
+            android:maxWidth="130dp"
+            android:scaleType="fitCenter"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_gravity="center" />
+
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/round_button"
+            android:src="@drawable/ic_camera"
+            android:adjustViewBounds="true"
+            android:padding="20dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:id="@+id/add_observation_button"
+            android:visibility="visible"
+            android:cropToPadding="false"
+            android:minHeight="130dp"
+            android:minWidth="130dp"
+            android:maxHeight="130dp"
+            android:maxWidth="130dp"
+            android:scaleType="fitCenter"
+            android:layout_alignTop="@+id/Field_Guide_button"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_gravity="center" />
+        <!-- this should be the settings button, but there isn't much of a settings to change so yeah... -->
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/round_button"
+            android:src="@drawable/ic_action_action_book"
+            android:adjustViewBounds="true"
+            android:padding="20dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:id="@+id/glossary_button"
+            android:visibility="visible"
+            android:cropToPadding="false"
+            android:minHeight="130dp"
+            android:minWidth="130dp"
+            android:maxHeight="130dp"
+            android:maxWidth="130dp"
+            android:scaleType="fitCenter"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:layout_gravity="center" />
+
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/round_button"
+            android:src="@mipmap/ic_notepage"
+            android:adjustViewBounds="true"
+            android:padding="20dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:id="@+id/my_observation_button"
+            android:visibility="visible"
+            android:cropToPadding="false"
+            android:minHeight="130dp"
+            android:minWidth="130dp"
+            android:maxHeight="130dp"
+            android:maxWidth="130dp"
+            android:scaleType="fitCenter"
+            android:layout_alignTop="@+id/glossary_button"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Glossary"
+            android:textColor="@color/home_text"
+            android:id="@+id/textView3"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:layout_gravity="center|fill"
+            android:paddingRight="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="My Observations"
+            android:textColor="@color/home_text"
+            android:id="@+id/textView4"
+            android:layout_row="3"
+            android:layout_column="1"
+            android:layout_gravity="center|fill"
+            android:paddingLeft="10dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Field Guide"
+            android:textColor="@color/home_text"
+            android:id="@+id/textView"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_gravity="center|fill"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Add Observation"
+            android:textColor="@color/home_text"
+            android:id="@+id/textView2"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_gravity="center|fill"
+            android:paddingLeft="10dp"
+            android:paddingBottom="10dp" />
+    </GridLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/luminous_id"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/grid"
+        android:layout_alignEnd="@+id/grid"
+        android:layout_above="@+id/grid"
+        android:layout_alignLeft="@+id/grid"
+        android:layout_alignStart="@+id/grid" />
+
+</RelativeLayout>
