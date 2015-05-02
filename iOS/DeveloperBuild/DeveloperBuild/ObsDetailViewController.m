@@ -40,6 +40,8 @@ detectionHelper *detectionObject;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    toFieldGuide1.hidden = YES;
+    toFieldGuide2.hidden = YES;
     // Do any additional setup after loading the view.
 	nameLabel.text = [NSString stringWithFormat:@"%@", [plantInfo objectForKey:@"imghexid"]];
 	percentLabel.text = [NSString stringWithFormat:@"%@%% ", [plantInfo objectForKey:@"percentIDed"]];
@@ -106,7 +108,7 @@ detectionHelper *detectionObject;
 	
 	if ([t isEqualToString:@"yes"]) {
 		name = @"Silene";
-        toFieldGuide2.hidden = NO;
+        //toFieldGuide2.hidden = NO;
 	}
 	else if ([t isEqualToString:@"idk"]){
 		name = @"Unidentified";
@@ -204,7 +206,7 @@ detectionHelper *detectionObject;
 	if ([detectionObject positiveID]) {
 		percentLabel.textColor = [UIColor colorWithRed:0 green:255.f blue:0 alpha:1];
 		name = @"Silene";
-        toFieldGuide1.hidden = NO;
+        //toFieldGuide1.hidden = NO;
         
 
 	} else {
@@ -296,11 +298,9 @@ detectionHelper *detectionObject;
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if ([segue.identifier isEqualToString:@"FieldGuideDVSegue2"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        
         FieldGuideDetailViewController *destViewController = segue.destinationViewController;
         
-        destViewController.speciesID = [[fieldGuideData objectAtIndex:indexPath.row] objectForKey:@"id"];
+        destViewController.speciesID = [objectForKey:@"id"];
         
         
     }

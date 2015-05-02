@@ -246,7 +246,7 @@ NSMutableArray *_myObservations;
 	NSString *name;
 	
 	if ([t isEqualToString:@"yes"]) {
-		name = @"Silene";
+		name = @"Silene acalis";
 	}
 	else if ([t isEqualToString:@"idk"]){
 		name = @"Unidentified";
