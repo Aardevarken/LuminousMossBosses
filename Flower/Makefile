@@ -24,6 +24,9 @@ all: $(SOURCES) $(EXECUTABLE)
 $(EXECUTABLE): $(OBJECTS)
 	$(CC) $(OBJECTS) $(LIBS) -o $@
 
+manifest_db: manifest_db.o
+	$(CC) manifest_db.o $(LIBS) -lmysqlcppconn -o $@
+
 .cpp.o:
 	$(CC) $(CFLAGS) $< -o $@
 
