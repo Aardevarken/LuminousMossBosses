@@ -10,6 +10,8 @@
 #import "detectionHelper.h"
 #import "UserDataDatabase.h"
 #import "IdentifyingAssets.h"
+#import "FieldGuideManager.h"
+#import "FieldGuideDetailViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
@@ -19,7 +21,9 @@ detectionHelper *detectionObject;
 @interface ObsDetailViewController ()
 @end
 
-@implementation ObsDetailViewController
+@implementation ObsDetailViewController{
+    NSArray *fieldGuideData;
+}
 @synthesize nameLabel;
 @synthesize percentLabel;
 @synthesize dateLabel;
@@ -30,6 +34,8 @@ detectionHelper *detectionObject;
 @synthesize latitudeLabel;
 @synthesize locationLabel;
 @synthesize tapToStartBtn;
+@synthesize toFieldGuide1;
+@synthesize toFieldGuide2;
 @synthesize buttonSuperView;
 
 - (void)viewDidLoad {
@@ -100,12 +106,16 @@ detectionHelper *detectionObject;
 	
 	if ([t isEqualToString:@"yes"]) {
 		name = @"Silene";
+        toFieldGuide2.hidden = NO;
 	}
 	else if ([t isEqualToString:@"idk"]){
 		name = @"Unidentified";
+        toFieldGuide1.hidden = YES;
+        toFieldGuide2.hidden = YES;
 	}
 	else {
 		name = @"Unknown";
+        toFieldGuide2.hidden = YES;
 	}
 	
 	nameLabel.text = name;
@@ -194,10 +204,13 @@ detectionHelper *detectionObject;
 	if ([detectionObject positiveID]) {
 		percentLabel.textColor = [UIColor colorWithRed:0 green:255.f blue:0 alpha:1];
 		name = @"Silene";
+        toFieldGuide1.hidden = NO;
+        
 
 	} else {
 		percentLabel.textColor = [UIColor colorWithRed:255.f green:0 blue:0 alpha:1];
 		name = @"Unknown";
+        toFieldGuide1.hidden = YES;
 	}
 	[[self nameLabel] setText:name];
 	startRunning.hidden = YES;
@@ -278,6 +291,19 @@ detectionHelper *detectionObject;
 		NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 	}
 }
-*/
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"FieldGuideDVSegue2"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        
+        FieldGuideDetailViewController *destViewController = segue.destinationViewController;
+        
+        destViewController.speciesID = [[fieldGuideData objectAtIndex:indexPath.row] objectForKey:@"id"];
+        
+        
+    }
+}*/
 
 @end
