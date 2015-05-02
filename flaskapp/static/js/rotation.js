@@ -38,7 +38,7 @@ rot_data = {
 	pop : function(index) {
 		this.value.splice(index,1);
 		this.key.splice(index,1);
-		this.id.splice(index,1);
+		this.obj_id.splice(index,1);
 		this.k = (this.value.length === 0)? 0 : this.k
 	},
 	length : function() {
@@ -50,13 +50,14 @@ rot_data = {
     appendExisting : function(value, obj_id) {
 		this.value[this.value.length] = value;
 		this.key[this.key.length] = this.k++;
-        this.obj_id[this.key.length] = obj_id;
+        this.obj_id[this.obj_id.length] = obj_id;
     },
     packageValues : function() {
         rotation = [];
         for (var i = 0; i < this.obj_id.length; i++){
             rotation.push({id : this.obj_id[i], angle : this.value[i]});
         }
+        console.log(rotation)
         return JSON.stringify(rotation);
     },
 };

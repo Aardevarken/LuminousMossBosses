@@ -87,22 +87,24 @@ def gen_detection_images(obsid = None):
         db_session.commit()
 
 @celery.task()
-def gen_rotation_images(objid = None):
+def gen_rotation_images(objid):
     rotations = db_session.query(RotationObject.id, RotationObject.ParentDetectionObjectID, \
-            RotationObject.Location, RotationObject.FileName, RotationObject.RotationAngle)
-    if id != None:
-        rotations = rotations.filter(RotationObject.ParentDetectionObjectID == objid)
+            RotationObject.Location, RotationObject.FileName, RotationObject.RotationAngle) \
+            .filter(RotationObject.ParentDetectionObjectID == objid)
+    isPositive = db_session.query(DetectionObject).get(objid).IsPosDetect
+    pos_dir = "positive/" if isPositive == 1 or isPositive == null else "negative/"
 
     for rotation in rotations:
         rotationangle = rotation.RotationAngle
 
         original_filename = str(db_session().query(DetectionObject.ObjectID, DetectionObject.FileName)\
-                .filter(DetectionObject.DetectionObject == RotationObject.ParentDetectionObjectID)\
+                .filter(DetectionObject.ObjectID == RotationObject.ParentDetectionObjectID)\
                 .first().FileName)
 
-        filename = str(rotation.id) + "_rotated_" + original_filename
-        os.system("./rotate_image " + os.path.join(CROPPED_FOLDER, original_filename) + " " +\
-                os.path.join(ROTATED_FOLDER, filename) + " " + rotationangle)
+        filename = pos_dir + str(rotation.id) + "_rotated_" + original_filename
+        os.system("/var/www/flaskapp/shell_scripts/rotate_image.sh " + \
+                os.path.join(CROPPED_FOLDER, original_filename) + " " +\
+                os.path.join(ROTATED_FOLDER, filename) + " " + str(rotationangle))
 
         save = RotationObject.query.get(rotation.id)
         save.FileName = filename
@@ -118,10 +120,11 @@ def rm_detection(objectid):
 
 @celery.task()
 def rm_rotation(objectid):
-    detection = db_session().query(DetectionObject.ObjectID, DetectionObject.Location, DetectionObject.FileName).filter(DetectionObject.ObjectID == objectid).first()
-    if (detection != None):
-        if (detection.Location != None and detection.FileName != None):
-            os.system("rm " + detection.Location + "/" + detection.FileName)
+    rotation = db_session().query(RotationObject.id, RotationObject.Location, RotationObject.FileName)\
+            .filter(RotationObject.id == objectid).first()
+    if (rotation != None):
+        if (rotation.Location != None and rotation.FileName != None):
+            os.system("rm " + os.path.join(rotation.Location, rotation.FileName))
 
 @celery.task()
 def id_to_db(obs_id):
@@ -419,18 +422,21 @@ def update_rotationObjects():
     if has_permissions():
         rotationObjects = json.loads(request.form.get('sentValue'))
         detectionId = request.form.get('sentId')
+        
+        dbRotations = db_session().query(RotationObject.id, RotationObject.ParentDetectionObjectID) \
+            .filter(RotationObject.ParentDetectionObjectID == detectionId)
+        existing_id_list = [dbRotation.id for dbRotation in dbRotations]
+        sent_id_list = []
         for obj in rotationObjects:
-            print obj['angle']
             if obj['id'] == None:
-                print "adding"
                 rotation_db = RotationObject(detectionId, obj['angle'])
                 db_session().add(rotation_db)
-            elif obj['id'] != None:
-                rotation_db = db_session().query(RotationObject).get(obj['id'])
-                if rotation_db != None:
-                    print "removing"
-                    rm_rotation.delay(rotation_db.id)
-                    db_session().delete(rotation_db)
+            sent_id_list.append(obj['id'])
+        remove_list = list(set(existing_id_list) - set(sent_id_list))
+        for remove_item in remove_list:
+            rotation_db = db_session().query(RotationObject).get(remove_item)
+            rm_rotation.delay(rotation_db.id)
+            db_session().delete(rotation_db)
         db_session().commit()
         gen_rotation_images.delay(detectionId)
     return jsonify(data=data)
