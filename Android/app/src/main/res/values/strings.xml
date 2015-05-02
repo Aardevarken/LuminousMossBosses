@@ -21,6 +21,7 @@
         <item>Add Observation</item>
         <item>My Observations</item>
         <item>Field Guide</item>
+        <item>Glossary</item>
         <item>About</item>
     </string-array>
     <array name="nav_drawer_icons">
@@ -28,6 +29,7 @@
         <item>@drawable/ic_camera</item>
         <item>@mipmap/ic_notepage</item>
         <item>@drawable/ic_openbook</item>
+        <item>@drawable/ic_action_action_book</item>
         <item>@drawable/ic_info</item>
     </array>
 

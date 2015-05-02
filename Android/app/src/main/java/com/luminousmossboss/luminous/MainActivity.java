@@ -49,7 +49,8 @@ public class MainActivity extends Activity {
     public static final int OBSERVATION_POSITION = 1;
     public static final int OBSERVATION_LIST_POSITION = 2;
     public static final int FIELD_GUIDE_POSITION = 3;
-    public static final int ABOUT_POSITION = 4;
+    public static final int GLOSSARY_POSITION = 4;
+    public static final int ABOUT_POSITION = 5;
     //public static final int SETTINGS_POSITION = 6;
     //public static final int HELP_POSITION = 7;
 
@@ -246,6 +247,10 @@ public class MainActivity extends Activity {
             case FIELD_GUIDE_POSITION:
                 displayView(new FieldGuideListFragment());
                 //icon = R.drawable.ic_openbook;
+                break;
+
+            case GLOSSARY_POSITION:
+                displayView(new GlossaryListFragment());
                 break;
 
             case ABOUT_POSITION:

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.view.View.OnClickListener;
 
@@ -39,7 +38,7 @@ public class HomeFragment extends Fragment implements OnClickListener, BackButto
         btn_addObservation.setOnClickListener(this);
         btn_myObservations = (ImageButton) rootView.findViewById(R.id.my_observation_button);
         btn_myObservations.setOnClickListener(this);
-        btn_settings = (ImageButton) rootView.findViewById(R.id.settings_button);
+        btn_settings = (ImageButton) rootView.findViewById(R.id.glossary_button);
         btn_settings.setOnClickListener(this);
 
         activity.setTitle(getResources().getString(R.string.app_name));//MainActivity.HOME_POSITION);
@@ -63,9 +62,9 @@ public class HomeFragment extends Fragment implements OnClickListener, BackButto
                 if(activity instanceof MainActivity)
                     ((MainActivity) activity).displayView(MainActivity.OBSERVATION_LIST_POSITION);
                 break;
-            case R.id.settings_button:
+            case R.id.glossary_button:
                 if(activity instanceof MainActivity)
-                    ((MainActivity) activity).displayView(MainActivity.ABOUT_POSITION);
+                    ((MainActivity) activity).displayView(MainActivity.GLOSSARY_POSITION);
                 break;
         }
     }
