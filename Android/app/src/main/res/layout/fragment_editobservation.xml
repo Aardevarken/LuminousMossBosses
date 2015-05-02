@@ -12,7 +12,6 @@
         android:src="@drawable/silene_acaulis_img"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@color/fieldguide_image_bg"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -59,7 +58,8 @@
         android:id="@+id/listView"
         android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/button_context" />
+        android:layout_above="@+id/button_context"
+        android:listSelector="@android:color/transparent"/>
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"

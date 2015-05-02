@@ -24,6 +24,7 @@ import com.luminousmossboss.luminous.model.Observation;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import dialog.DeleteDialogFragment;
 import dialog.DialogListener;
@@ -34,13 +35,24 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
     //flags for what the Button should do
     private final int IDENTIFY_CONTEXT = 0;
     private final int SEND_CONTEXT = 1;
+    private static HashMap<Integer, IdActivity> runningActivities = new HashMap<>();
 
     private int buttonContext;
 
+    public Button getSendButton() {
+        return sendButton;
+    }
+
+    public ProgressBar getProgressBar() {
+        return progressBar;
+    }
+
     private Button sendButton;
     private Observation observation;
+    private ProgressBar progressBar;
 
-    public ObservationFragment()  { }
+    public ObservationFragment()  {
+    }
 
     public static ObservationFragment newInstance(Observation observation)
     {
@@ -50,6 +62,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         fragment.setArguments(bundle);
         return fragment;
     }
+
 
     @Override
     public Boolean allowedBackPressed() {
@@ -85,7 +98,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
 
         listItems.add(new DataItem("Latitude:", observation.getLatitudeFormated()));
         listItems.add(new DataItem("Longitude:", observation.getLongitudeFormated()));
-        listItems.add(new DataItem("Location Accuracy:", Float.toString(observation.getAccuracy())));
+        listItems.add(new DataItem("Location Accuracy:", Float.toString(observation.getAccuracy())+"m"));
 
         DataListAdapter adapter = new DataListAdapter(container.getContext(), listItems);
         dataSet.setAdapter(adapter);
@@ -94,7 +107,7 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
 
         sendButton = (Button) rootView.findViewById(R.id.button_context);
         sendButton.setOnClickListener(this);
-        ProgressBar progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         //imageView.setOnClickListener(this);
 
         //Check if Buttons should be visible
@@ -109,7 +122,6 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         }
         else if(cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_SYNCED_STATUS)) == 0 ) {
             buttonContext = SEND_CONTEXT;
-
         }
         if (cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_SYNCED_STATUS)) != 0 || observation.isBeingProcessed())
         {
@@ -119,10 +131,13 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
         if ( observation.isBeingProcessed())
         {
             progressBar.setVisibility(View.VISIBLE);
-
             sendButton.setEnabled(false);
             sendButton.setVisibility(View.GONE);
-
+            runningActivities.get(observation.getId()).attachFragment(this);
+        }
+        if (observation.isSent() && buttonContext == SEND_CONTEXT) {
+            sendButton.setEnabled(false);
+            sendButton.setVisibility(View.GONE);
         }
         cursor.close();
         db.close();
@@ -167,17 +182,37 @@ public class ObservationFragment extends Fragment implements OnClickListener, Ba
             case R.id.button_context:
                 if(buttonContext == IDENTIFY_CONTEXT)
                 {
-                    IdActivity idActivity = new IdActivity(getActivity(), observation.getId());
-                    idActivity.execute(observation.getIcon().getPath());
+                    if (!observation.isBeingProcessed() && !observation.isHasBeenProcceced()) {
+                        IdActivity idActivity = new IdActivity(getActivity(), observation.getId(), this);
+                        runningActivities.put(observation.getId(), idActivity);
+                        idActivity.execute(observation.getIcon().getPath());
+                        buttonContext = SEND_CONTEXT;
+                    }
                     break;
                 }
                 else
                 {
-                    new SendPostActivity(getActivity(), observation.getId(), sendButton).execute(observation);
+                    if (!observation.isSent())
+                        new SendPostActivity(getActivity(), observation, sendButton).execute(observation);
                     break;
                 }
 
 
         }
     }
+
+    public void attachIdActivity (IdActivity activity) {
+        Bundle bundle = getArguments();
+        this.observation = (Observation) bundle.getSerializable(OBSERVATION_KEY);
+        runningActivities.put(observation.getId(), activity);
+    }
+
+    public void detachIdActivity() {
+        runningActivities.remove(observation.getId());
+    }
+
+    public void setButtonContextSend() {
+        buttonContext = SEND_CONTEXT;
+    }
+
 }

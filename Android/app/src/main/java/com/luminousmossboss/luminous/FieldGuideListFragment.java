@@ -8,9 +8,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.luminousmossboss.luminous.adapter.FGListAdapter;
@@ -21,6 +25,8 @@ import com.luminousmossboss.luminous.model.Separator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import dialog.DeleteDialogFragment;
 
 /**
  *
@@ -36,6 +42,8 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
 
     private FGListAdapter adapter;
     private ArrayList<ListItem> listItems;
+
+    private Button filter_btn;
 
     public FieldGuideListFragment(){}
 
@@ -79,6 +87,23 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
         });*/
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.fieldguide, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final Activity activity = getActivity();
+        switch (item.getItemId()) {
+            case R.id.action_filter:
+                ((MainActivity) activity).displayView(new FiltersFragment());
+                break;
+        }
+        return true;
+    }
+
     /**
      * Initial Items in ListView
      * @param rootView
@@ -99,6 +124,11 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
         HashMap<Integer, String> latinNames = fieldGuideDBH.getLatinNames();
         HashMap<Integer, String> commonNames = fieldGuideDBH.getCommonNames();
         HashMap<Integer, String> iconPaths = fieldGuideDBH.getIconPaths();
+        // filtering example
+//        List<Integer> ids = fieldGuideDBH.filterByHabitat("dry meadow");
+//        HashMap<Integer, String> latinNames = fieldGuideDBH.getLatinNamesForIDs(ids);
+//        HashMap<Integer, String> commonNames = fieldGuideDBH.getCommonNamesForIDs(ids);
+//        HashMap<Integer, String> iconPaths = fieldGuideDBH.getIconPathsForIDs(ids);
         for (int i = 0; i < ids.size(); i++) {
 //            listItems.add(fieldGuideDBH.getFGItemWithID(ids.get(i)));
             int id = ids.get(i);

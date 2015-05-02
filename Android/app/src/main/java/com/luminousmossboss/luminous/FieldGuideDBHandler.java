@@ -9,8 +9,10 @@ import com.luminousmossboss.luminous.model.ListItem;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Collection;
 
 /**
  * Created by MGarske on 4/9/2015.
@@ -68,6 +70,18 @@ public class FieldGuideDBHandler extends SQLiteAssetHelper {
         return iconPaths;
     }
 
+    public HashMap<Integer, String> getIconPathsForIDs(List<Integer> ids) {
+        if (this.ids.isEmpty())
+        {
+            this.getIDs();
+        }
+        HashMap<Integer, String> filteredIconPaths = new HashMap<>();
+        for (Integer id:ids) {
+            filteredIconPaths.put(id, iconPaths.get(id));
+        }
+        return filteredIconPaths;
+    }
+
     public HashMap<Integer, String> getLatinNames() {
         if (ids.isEmpty())
         {
@@ -76,12 +90,36 @@ public class FieldGuideDBHandler extends SQLiteAssetHelper {
         return latinNames;
     }
 
+    public HashMap<Integer, String> getLatinNamesForIDs(List<Integer> ids) {
+        if (this.ids.isEmpty())
+        {
+            this.getIDs();
+        }
+        HashMap<Integer, String> filteredLatinNames = new HashMap<>();
+        for (Integer id:ids) {
+            filteredLatinNames.put(id, latinNames.get(id));
+        }
+        return filteredLatinNames;
+    }
+
     public HashMap<Integer, String> getCommonNames() {
         if (ids.isEmpty())
         {
             this.getIDs();
         }
         return commonNames;
+    }
+
+    public HashMap<Integer, String> getCommonNamesForIDs(List<Integer> ids) {
+        if (this.ids.isEmpty())
+        {
+            this.getIDs();
+        }
+        HashMap<Integer, String> filteredCommonNames = new HashMap<>();
+        for (Integer id:ids) {
+            filteredCommonNames.put(id, commonNames.get(id));
+        }
+        return filteredCommonNames;
     }
 
     private List<String> listFromCursor (Cursor cursor) {
@@ -194,6 +232,124 @@ public class FieldGuideDBHandler extends SQLiteAssetHelper {
         cursor.close();
         db.close();
         return cfs;
+    }
+
+    public List<Integer> filterByFlowerColor(String value) {
+        String query = filterManyToManyQuery("flowercolor", value);
+        return runFilterQuery(query);
+    }
+
+    public List<String> getFlowerColorNames() {
+        return getGlossaryTerms("flowercolor");
+    }
+
+    public List<Integer> filterByFlowerShape(String value) {
+        String query = filterOneToManyQuery("flowershape", value);
+        return runFilterQuery(query);
+    }
+
+    public List<String> getFlowerShapeNames() {
+        return getGlossaryTerms("flowershape");
+    }
+
+    public List<Integer> filterByPetalNumber(String value) {
+        String query = filterManyToManyQuery("petalnumber", value);
+        return runFilterQuery(query);
+    }
+
+    public List<String> getPetalNumberNames() {
+        return getGlossaryTerms("petalnumber");
+    }
+
+    public List<Integer> filterByInflorescence(String value) {
+        String query = filterManyToManyQuery("inflorescence", value);
+        return runFilterQuery(query);
+    }
+
+    public List<String> getInflorescenceNames() {
+        return getGlossaryTerms("inflorescence");
+    }
+
+    public List<Integer> filterByLeafArrangment(String value) {
+        String query = filterManyToManyQuery("leafarrangement", value);
+        return runFilterQuery(query);
+    }
+
+    public List<String> getLeafArrangementNames() {
+        return getGlossaryTerms("leafarrangement");
+    }
+
+    public List<Integer> filterByLeafShape(String value) {
+        String query = filterManyToManyQuery("leafshape", value);
+        return runFilterQuery(query);
+    }
+
+    public List<String> getLeafShapeNames() {
+        return getGlossaryTerms("leafshape");
+    }
+
+    public List<Integer> filterByLeafShapeFilter(String value) {
+        String query = filterOneToManyQuery("leafshapefilter", value);
+        return runFilterQuery(query);
+    }
+
+    public List<String> getLeafShapeFilterNames() {
+        return getGlossaryTerms("leafshapefilter");
+    }
+
+    public List<Integer> filterByHabitat(String value) {
+        String query = filterManyToManyQuery("habitat", value);
+        return runFilterQuery(query);
+    }
+
+    public List<String> getHabitatNames() {
+        return getGlossaryTerms("habitat");
+    }
+
+    private List<Integer> runFilterQuery(String query) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        List<Integer> filtered_ids = new ArrayList<>();
+        if (cursor.moveToFirst()){
+            do {
+                int id = cursor.getInt(0);
+                filtered_ids.add(id);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return filtered_ids;
+    }
+
+    private String filterOneToManyQuery(String tablename, String value) {
+        String query = "select species.id from species " +
+                "join " + tablename + " on " + tablename + ".id = species." + tablename + "_id " +
+                "where " + tablename + ".name = \"" + value + "\"";
+        return query;
+    }
+
+    private String filterManyToManyQuery(String tablename, String value) {
+        String query = "select species.id from species " +
+                "join species_" + tablename + " on species.id = species_" + tablename + ".species_id " +
+                "join " + tablename + " on " + tablename + ".id = species_" + tablename + "." + tablename + "_id " +
+                "where " + tablename + ".name = \"" + value + "\"";
+        return query;
+    }
+
+    private List<String> getGlossaryTerms (String tablename) {
+        String query = "select name from " + tablename;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        List<String> names = new ArrayList<>();
+        if (cursor.moveToFirst()){
+            do {
+                String name = cursor.getString(0);
+                names.add(name);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return names;
     }
 
     public FieldGuideItem getFGItemWithID(int id) {

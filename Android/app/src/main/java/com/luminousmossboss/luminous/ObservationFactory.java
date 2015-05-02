@@ -25,4 +25,12 @@ public class ObservationFactory {
         }
         return observation;
     }
+    public static void removeObservation(Integer id)
+    {
+        if(observations.get(id) != null)
+        {
+            observations.remove(id);
+        }
+
+    }
 }

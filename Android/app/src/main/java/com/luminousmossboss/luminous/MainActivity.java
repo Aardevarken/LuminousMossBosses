@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.luminousmossboss.luminous.adapter.NavDrawerListAdapter;
@@ -46,18 +48,18 @@ public class MainActivity extends Activity {
     public static final int HOME_POSITION = 0;
     public static final int OBSERVATION_POSITION = 1;
     public static final int OBSERVATION_LIST_POSITION = 2;
-    public static final int SYNC_OBSERVATION_POSITION = 3;
-    public static final int FIELD_GUIDE_POSITION = 4;
+    public static final int FIELD_GUIDE_POSITION = 3;
+    public static final int GLOSSARY_POSITION = 4;
     public static final int ABOUT_POSITION = 5;
-    public static final int SETTINGS_POSITION = 6;
-    public static final int HELP_POSITION = 7;
+    //public static final int SETTINGS_POSITION = 6;
+    //public static final int HELP_POSITION = 7;
 
     //For handling location
     protected GPSTracker mGPS;
     private ObservationDBHandler db;
 
     //For keeping track of the Photo:
-    String mCurrentPhotoPath;
+    private static String mCurrentPhotoPath;
     // nav drawer title
     private CharSequence mDrawerTitle;
 
@@ -77,6 +79,13 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // set font for actionbar
+        int titleId = getResources().getIdentifier("action_bar_title", "id",
+                "android");
+        Typeface lobster = Typeface.createFromAsset(getAssets(), "Fonts/Lobster-Regular.ttf");
+        TextView yourTextView = (TextView) findViewById(titleId);
+        yourTextView.setTypeface(lobster);
 
         mTitle = mDrawerTitle = getTitle();
         mGPS = new GPSTracker(this);
@@ -98,8 +107,8 @@ public class MainActivity extends Activity {
             Uri iconUri = Util.resIdToUri(this, navMenuIcons.getResourceId(i, -1));
             navDrawerItems.add(new NavDrawerItem(navMenuTitles[i], iconUri));
         }
-        ((NavDrawerItem) navDrawerItems.get(FIELD_GUIDE_POSITION)).setCounterVisibility(true);
-        ((NavDrawerItem) navDrawerItems.get(FIELD_GUIDE_POSITION)).setCount(2);
+        //((NavDrawerItem) navDrawerItems.get(FIELD_GUIDE_POSITION)).setCounterVisibility(true);
+        //((NavDrawerItem) navDrawerItems.get(FIELD_GUIDE_POSITION)).setCount(2);
 
         // Recycle the typed array
         navMenuIcons.recycle();
@@ -112,6 +121,7 @@ public class MainActivity extends Activity {
         // enabling action bar app icon and behaving it as toggle button
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
+
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.drawable.ic_drawer, //nav menu toggle icon
@@ -153,8 +163,8 @@ public class MainActivity extends Activity {
         }
         // Handle action bar actions click
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
+            //case R.id.action_settings:
+            //    return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -167,7 +177,7 @@ public class MainActivity extends Activity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        //menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -239,6 +249,14 @@ public class MainActivity extends Activity {
                 //icon = R.drawable.ic_openbook;
                 break;
 
+            case GLOSSARY_POSITION:
+                displayView(new GlossaryListFragment());
+                break;
+
+            case ABOUT_POSITION:
+                displayView(new AboutFragment());
+                break;
+
             default:
                 break;
         }
@@ -246,15 +264,26 @@ public class MainActivity extends Activity {
         mDrawerList.setSelection(position);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
+
+    private void fragmentTransaction(FragmentManager fragmentManager, Fragment fragment) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_container, fragment, "TAG");
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
     public void displayView(Fragment fragment) {
         if (fragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_container, fragment, "TAG");
-
-            fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            Fragment currentFragment = fragmentManager.findFragmentByTag("TAG");
+            if (currentFragment != null) {
+                if (fragment.getClass().getName() != currentFragment.getClass().getName()) {
+                    fragmentTransaction(fragmentManager, fragment);
+                }
+            } else {
+                fragmentTransaction(fragmentManager, fragment);
+            }
         } else {
             Log.e("MainActivity", "Error in creating fragment");
         }
@@ -330,7 +359,7 @@ public class MainActivity extends Activity {
             case REQUEST_TAKE_PHOTO: {
                 if (resultCode == RESULT_OK) {
                   //  boolean detectionResult = Util.detectImage(mCurrentPhotoPath,this);
-                    handlePhoto(data,false);
+                    handlePhoto(data);
 
                    /* Toast message;
                     if (detectionResult)
@@ -351,7 +380,7 @@ public class MainActivity extends Activity {
 
 
 
-    private void handlePhoto(Intent intent, Boolean is_silene)
+    private void handlePhoto(Intent intent)
     {
 
         Location loc = mGPS.getLocation();
@@ -370,7 +399,7 @@ public class MainActivity extends Activity {
             String timeNow = sdf.format(new Date());
             HashMap<String, String> map = new HashMap<String, String>();
             map.put(ObservationDBHandler.KEY_GPS_ACCURACY, String.valueOf(loc.getAccuracy()));
-            map.put(ObservationDBHandler.KEY_IS_SILENE, String.valueOf(is_silene?1:0));
+            map.put(ObservationDBHandler.KEY_IS_SILENE, String.valueOf(0));
             map.put(ObservationDBHandler.KEY_LATITUDE, String.valueOf(loc.getLatitude()));
             map.put(ObservationDBHandler.KEY_LONGITUDE, String.valueOf(loc.getLongitude()));
             map.put(ObservationDBHandler.KEY_PHOTO_PATH, mCurrentPhotoPath);

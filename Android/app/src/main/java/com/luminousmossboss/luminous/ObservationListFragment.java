@@ -6,6 +6,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,6 +24,7 @@ import com.luminousmossboss.luminous.model.Separator;
 import java.io.File;
 import java.util.ArrayList;
 
+import dialog.DeleteDialogFragment;
 import info.hoang8f.android.segmented.SegmentedGroup;
 
 /**
@@ -43,8 +47,8 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
     private ArrayList<Observation> selectedObservations;
     private ObservationDBHandler db;
 
-    private final int PENDING = 0;
-    private final int SYNCED = 1;
+    public static final int PENDING = 0;
+    public static final int SYNCED = 1;
     private int syncedTab;
 
     private RadioButton mTabPending;
@@ -53,7 +57,7 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
 
     public ObservationListFragment(){}
 
-    //static method used for setting arguments;
+
 
     @Override
     public Boolean allowedBackPressed() {
@@ -64,26 +68,41 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        setHasOptionsMenu(true);
+        rootView = inflater.inflate(R.layout.fragment_observationlist, container, false);
+
+        // Handle Button Events
+        mTabPending = (RadioButton) rootView.findViewById(R.id.tab_pending);
+        mTabPending.setOnClickListener(this);
+        mTabSynced = (RadioButton) rootView.findViewById(R.id.tab_synced);
+        mTabSynced.setOnClickListener(this);
+
+        syncedTab = PENDING;
         if(savedInstanceState != null)
         {
             syncedTab = savedInstanceState.getInt("Tab");
         }
-        else if (syncedTab == SYNCED)
+        Bundle bundle = getArguments();
+        if(bundle!=null)
         {
-
+            syncedTab = bundle.getInt("Tab");
+        }
+        if (syncedTab == SYNCED)
+        {
+            mTabPending.setChecked(false);
+            mTabSynced.setChecked(true);
         }
         else
         {
-            syncedTab = PENDING;
+            mTabPending.setChecked(true);
+            mTabSynced.setChecked(false);
         }
 
-        rootView = inflater.inflate(R.layout.fragment_observationlist, container, false);
         this.container = container;
         final Activity activity = getActivity();
         this.db = new ObservationDBHandler(activity);
         initList(rootView, container, syncedTab);
-
-
 
         //For selecting individual observations in the list
         this.mDrawerList.setOnItemClickListener(new OnItemClickListener() {
@@ -99,20 +118,29 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
             }
         });
 
-        // Handle Button Events
-        mTabPending = (RadioButton) rootView.findViewById(R.id.tab_pending);
-        mTabPending.setOnClickListener(this);
-        mTabSynced = (RadioButton) rootView.findViewById(R.id.tab_synced);
-        mTabSynced.setOnClickListener(this);
-
-
-
         // Set tab color
         SegmentedGroup tab_host = (SegmentedGroup) rootView.findViewById(R.id.tab_host);
         tab_host.setTintColor(getResources().getColor(R.color.fieldguide_button));
 
         activity.setTitle(MainActivity.OBSERVATION_LIST_POSITION);
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.observationlist_normal, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final Activity activity = getActivity();
+        switch (item.getItemId()) {
+            case R.id.action_add_observation:
+                ((MainActivity) activity).displayView(MainActivity.OBSERVATION_POSITION);
+                break;
+        }
+        return true;
     }
 
     /**
@@ -145,14 +173,17 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
         this.mDrawerList = (ListView) rootView.findViewById(R.id.fragment_list);
         this.context = container.getContext();
         this.listItems = new ArrayList<ListItem>();
+        ArrayList<ListItem> unidentifiedList = new ArrayList<ListItem>();
+        unidentifiedList.add(new Separator(getString(R.string.separator_unidentified)));
         ArrayList<ListItem> sileneList = new ArrayList<ListItem>();
-        sileneList.add(new Separator("Processed"));
+        sileneList.add(new Separator(getString(R.string.separator_silene)));
         ArrayList<ListItem> unknownList = new ArrayList<ListItem>();
-        unknownList.add(new Separator("Unprocessed"));
+        unknownList.add(new Separator(getString(R.string.separator_unknown)));
 
         //Cursor cursor = db.getAllObservation();
         Cursor cursor = db.getObservationBySyncStatus(status);
         int is_processed;
+        int is_silene;
         int id;
         File file;
         if (cursor.moveToFirst())
@@ -165,13 +196,18 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
 
 */
                 is_processed = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_PROCESSED_STATUS));
+                is_silene = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_IS_SILENE));
                 id = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_ID));
                 file = new File(cursor.getString(cursor.getColumnIndex(ObservationDBHandler.KEY_PHOTO_PATH)));
                 if(file.exists()) {
-                    if (is_processed == 1)
-                        sileneList.add(ObservationFactory.getObservation(id, getActivity()));
+                    if (is_processed == 1) {
+                        if (is_silene == 1)
+                            sileneList.add(ObservationFactory.getObservation(id, getActivity()));
+                        else
+                            unknownList.add(ObservationFactory.getObservation(id, getActivity()));
+                    }
                     else
-                        unknownList.add(ObservationFactory.getObservation(id, getActivity()));
+                        unidentifiedList.add(ObservationFactory.getObservation(id, getActivity()));
                 }
                 else{
                     db.deleteObservation(cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_ID)));
@@ -179,10 +215,12 @@ public class ObservationListFragment extends Fragment implements View.OnClickLis
 
             }while(cursor.moveToNext());
         db.close();
-        if (unknownList.size() > 1)
-            listItems.addAll(unknownList);
+        if (unidentifiedList.size() > 1)
+            listItems.addAll(unidentifiedList);
         if (sileneList.size() > 1)
             listItems.addAll(sileneList);
+        if (unknownList.size() > 1)
+            listItems.addAll(unknownList);
 
         adapter = new ObservationListAdapter(context, listItems);
         mDrawerList.setAdapter(adapter);

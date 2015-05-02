@@ -22,6 +22,11 @@ public class Observation extends ListItem implements Serializable {
     private double longitude;
     private double latitude;
     private boolean hasBeenProcceced;
+
+    private boolean isSent;
+
+
+
     private boolean is_silene;
     private boolean isBeingProcessed;
     private int id;
@@ -58,6 +63,7 @@ public class Observation extends ListItem implements Serializable {
 
             latitude = cursor.getDouble(cursor.getColumnIndex(ObservationDBHandler.KEY_LATITUDE));
             longitude = cursor.getDouble(cursor.getColumnIndex(ObservationDBHandler.KEY_LONGITUDE));
+            hasBeenProcceced = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_PROCESSED_STATUS)) != 0;
 
 
             is_silene = cursor.getInt(cursor.getColumnIndex(ObservationDBHandler.KEY_IS_SILENE)) > 0;
@@ -83,7 +89,7 @@ public class Observation extends ListItem implements Serializable {
         return hasBeenProcceced;
     }
 
-    public void setHasBeenProcceced(boolean hasBeenProcceced) {
+    public void setHasBeenProcceced() {
         this.hasBeenProcceced = hasBeenProcceced;
     }
 
@@ -135,6 +141,16 @@ public class Observation extends ListItem implements Serializable {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
+    }
+
+    public boolean isSilene() { return is_silene; }
+
+    public boolean isSent() {
+        return isSent;
+    }
+
+    public void setSent(boolean sent) {
+        isSent = sent;
     }
 
 }

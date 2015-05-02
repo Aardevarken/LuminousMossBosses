@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Home Fragment -->
-    <item name="home_bg_start" type="color">#e5142814</item>
-    <item name="home_bg_end" type="color">#e5141804</item>
+    <item name="home_bg_start" type="color">#142814</item>
+    <item name="home_bg_end" type="color">#141804</item>
     <item name="home_text" type="color">#ffffff</item>
 
     <!-- FieldGuide Fragment -->
