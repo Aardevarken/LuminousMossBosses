@@ -88,6 +88,7 @@
 	}
 }
 
+
 - (void) viewWillAppear:(BOOL)animated{
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(didFinishSavingImageWithError:)
@@ -99,10 +100,23 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
 	[super viewWillDisappear:animated];
 }
 
+- (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPushItem:(UINavigationItem *)item{
+	NSLog(@"HERE");
+	NSLog(@"Pushing: %@", [item description]);
+	return YES;
+}
+
+- (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
+	NSLog(@"over here");
+	return YES;
+}
+
+- (void)navigationBar:(UINavigationBar *)navigationBar didPushItem:(UINavigationItem *)item{
+	NSLog(@"thing 1");
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -157,7 +171,20 @@
 	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
 	UITabBarController * tbc = [storyboard instantiateViewControllerWithIdentifier:@"MyObservations"];
 
-	[[self navigationController] pushViewController:tbc animated:YES];	
+	NSMutableArray *nc0 = [[NSMutableArray alloc] initWithArray:[[self navigationController] viewControllers]];
+
+
+	[nc0 removeLastObject];
+	
+	long c = [nc0 count] - 1;
+	
+	if (! [[[nc0 objectAtIndex:c] title] isEqualToString:[tbc title]] ) {
+		[nc0 addObject:tbc];
+	}
+	
+	NSArray *nc3 = [[NSArray alloc] initWithArray:nc0];
+
+	[[self navigationController] setViewControllers:nc3 animated:YES];
 }
 
 - (void)saveImageToPhotoAlbum{

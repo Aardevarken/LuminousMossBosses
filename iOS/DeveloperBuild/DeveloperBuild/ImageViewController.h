@@ -10,7 +10,8 @@
 #import <Foundation/Foundation.h>
 #import "CaptureSessionManager.h"
 
-@interface ImageViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>{
+@interface ImageViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UINavigationBarDelegate>{
+	
 	UIImageView * imageView;
 	UIButton * choosePhotoBtn;
 	UIButton * takePhotoBtn;

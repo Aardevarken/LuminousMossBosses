@@ -107,15 +107,17 @@ Instance Methods</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a1cc3f711b65af41eaf26a4e79fe59dcb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1cc3f711b65af41eaf26a4e79fe59dcb"></a>
-NSUInteger&#160;</td><td class="memItemRight" valign="bottom"><b>filterOptionIndexNumber</b></td></tr>
+<tr class="memitem:a1cc3f711b65af41eaf26a4e79fe59dcb"><td class="memItemLeft" align="right" valign="top">NSUInteger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_filter_options_collection_view_controller.html#a1cc3f711b65af41eaf26a4e79fe59dcb">filterOptionIndexNumber</a></td></tr>
+<tr class="memdesc:a1cc3f711b65af41eaf26a4e79fe59dcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference number to the filter option in the <a class="el" href="interface_filter_options.html">FilterOptions</a> singletion.  <a href="#a1cc3f711b65af41eaf26a4e79fe59dcb">More...</a><br /></td></tr>
 <tr class="separator:a1cc3f711b65af41eaf26a4e79fe59dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af47d42e09ecda976b8e6d94cccde0d13"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af47d42e09ecda976b8e6d94cccde0d13"></a>
-NSArray *&#160;</td><td class="memItemRight" valign="bottom"><b>filterOptionImagePath</b></td></tr>
-<tr class="separator:af47d42e09ecda976b8e6d94cccde0d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a055e03f3f097fa19019fb94c35428663"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a055e03f3f097fa19019fb94c35428663"></a>
-NSArray *&#160;</td><td class="memItemRight" valign="bottom"><b>optionsToFilter</b></td></tr>
+NSArray *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_filter_options_collection_view_controller.html#a055e03f3f097fa19019fb94c35428663">optionsToFilter</a></td></tr>
+<tr class="memdesc:a055e03f3f097fa19019fb94c35428663"><td class="mdescLeft">&#160;</td><td class="mdescRight">An array of options for the user to choose from. <br /></td></tr>
 <tr class="separator:a055e03f3f097fa19019fb94c35428663"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af47d42e09ecda976b8e6d94cccde0d13"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af47d42e09ecda976b8e6d94cccde0d13"></a>
+NSArray *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_filter_options_collection_view_controller.html#af47d42e09ecda976b8e6d94cccde0d13">filterOptionImagePath</a></td></tr>
+<tr class="memdesc:af47d42e09ecda976b8e6d94cccde0d13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Image representation of the option. <br /></td></tr>
+<tr class="separator:af47d42e09ecda976b8e6d94cccde0d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef5e361b9d99350bca8b77b4a18bd088"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aef5e361b9d99350bca8b77b4a18bd088"></a>
 IBOutlet UIButton *&#160;</td><td class="memItemRight" valign="bottom"><b>saveButton</b></td></tr>
 <tr class="separator:aef5e361b9d99350bca8b77b4a18bd088"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,6 +125,30 @@ IBOutlet UIButton *&#160;</td><td class="memItemRight" valign="bottom"><b>saveBu
 IBOutlet UICollectionView *&#160;</td><td class="memItemRight" valign="bottom"><b>imageCollectionView</b></td></tr>
 <tr class="separator:a83219416de9412d46ecc3894ecd6d5ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Property Documentation</h2>
+<a class="anchor" id="a1cc3f711b65af41eaf26a4e79fe59dcb"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSUInteger) filterOptionIndexNumber</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span><span class="mlabel">nonatomic</span><span class="mlabel">assign</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reference number to the filter option in the <a class="el" href="interface_filter_options.html">FilterOptions</a> singletion. </p>
+<p>A property set in the prepare for segue method of a calling controller. It is used as a reference for the <a class="el" href="interface_filter_options.html">FilterOptions</a> class to know what option was selected. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="_filter_options_collection_view_controller_8h_source.html">FilterOptionsCollectionViewController.h</a></li>
 <li>FilterOptionsCollectionViewController.m</li>
@@ -130,7 +156,7 @@ IBOutlet UICollectionView *&#160;</td><td class="memItemRight" valign="bottom"><
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 2 2015 13:42:53 for My Project by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 2 2015 14:32:47 for My Project by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

@@ -55,7 +55,11 @@ NSMutableArray *_myObservations;
 }
 
 //- (void)viewDidAppear:(BOOL)animated{
-//	
+//	NSArray *nc = [[NSArray alloc] initWithArray:[[self navigationController] viewControllers]];
+//}
+//
+//- (void)viewDidDisappear:(BOOL)animated{
+//	NSArray *nc = [[NSArray alloc] initWithArray:[[self navigationController] viewControllers]];
 //}
 
 - (void)viewWillDisappear:(BOOL)animated{

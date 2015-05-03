@@ -40,10 +40,9 @@ static NSMutableDictionary *filterCurrentValue;
 									 @"Habitat", @"habitat",
 									 @"Petal number", @"petalnumber",
 									 @"Inflorescence", @"inflorescence",
-//									 @"Leaf arrangement", @"leafarrangement",
 									 nil];
 	
-	 NSDictionary *filtersWithImages = [[NSDictionary alloc] initWithObjectsAndKeys:
+	NSDictionary *filtersWithImages = [[NSDictionary alloc] initWithObjectsAndKeys:
 						@"Flower shape", @"flowershape",
 						@"Leaf shape", @"leafshapefilter",
 						@"Leaf Arrangement", @"leafarrangement",
@@ -163,7 +162,7 @@ static NSMutableDictionary *filterCurrentValue;
 	}
 }
 
-- (IBAction)cancelButton:(UIButton *)sender {
+- (IBAction)resetButton:(UIButton *)sender {
 	FilterOptions *fo = [FilterOptions getSharedInstance];
 	[fo resetFilterOptions];
 	filterCellOptions = [fo filterOption];

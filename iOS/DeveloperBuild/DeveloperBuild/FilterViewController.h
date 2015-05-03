@@ -11,13 +11,10 @@
 @interface FilterViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>{
 	
 }
-// storage
-//@property (nonatomic, strong) static NSMutableDictionary *filterCurrentValue;
 
 // Buttons
-- (IBAction)cancelButton:(UIButton *)sender;
+- (IBAction)resetButton:(UIButton *)sender;
 - (IBAction)searchButton:(UIButton *)sender;
-- (IBAction)resetFilterButton:(UIBarButtonItem *)sender;
 
 // Table View
 @property (strong, nonatomic) IBOutlet UITableView *filterTableView;

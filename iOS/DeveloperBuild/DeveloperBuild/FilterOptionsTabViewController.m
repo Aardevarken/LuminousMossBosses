@@ -63,7 +63,6 @@
 	return cell;
 }
 
-
 /*
  #pragma mark - Navigation
  
@@ -90,4 +89,5 @@
 	[fo updateFilterOptionsWithImagesAtIndex:filterOptionIndexNumber withOption:newFilterValue];
 	[[self navigationController]popViewControllerAnimated:YES];
 }
+
 @end
