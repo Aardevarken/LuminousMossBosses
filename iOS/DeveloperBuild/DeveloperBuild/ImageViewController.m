@@ -37,8 +37,10 @@
 	CLLocation* bestLocationForImage;
 }
 
-@synthesize imageView, takePhotoBtn;
+@synthesize imageView;
+@synthesize takePhotoBtn;
 @synthesize addObsBtn;
+@synthesize retakePhotoBtn;
 @synthesize captureManager;
 @synthesize buttonView;
 
@@ -47,9 +49,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	// for testing button layout
-//	[[self addObsBtn] setHidden:NO];
-//	[[self retakePhotoBtn] setHidden:NO];
-//	[[self takePhotoBtn] setHidden:YES];
+//	[self printButtonState:takePhotoBtn];
+//	[self printButtonState:retakePhotoBtn];
+//	[self printButtonState:addObsBtn];
 	
 	// check to make sure the device has a camera
 	if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -88,6 +90,7 @@
 	}
 }
 
+
 - (void) viewWillAppear:(BOOL)animated{
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(didFinishSavingImageWithError:)
@@ -99,10 +102,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
 	[super viewWillDisappear:animated];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -118,11 +119,14 @@
 	BOOL success = NO;
 	NSString *alertString = @"Data insertion failed";
 	
+	if (selectedAsset == nil){
+		ALog(@"nil");
+	}
 	// get image asset
 	NSString *img = [NSString stringWithFormat:@"%@", selectedAsset];//self.capedImg];
 
 	//ALog(@"SelectedAsset: %@", selectedAsset);
-	if (selectedAsset == nil){
+	if ([selectedAsset isEqualToString:@"(null)"]){
 		NSLog(@"You cannot submit that");
 		return;
 	}
@@ -146,6 +150,8 @@
 	if (success == NO) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
+		// not sure if the following line will ever work. but hopefully it deletes the data the user just tried to enter.
+		[[UserDataDatabase getSharedInstance]  deleteObservationByID:img];
 	}
 	
 	[self displayMyObservationsVC];
@@ -157,7 +163,20 @@
 	UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
 	UITabBarController * tbc = [storyboard instantiateViewControllerWithIdentifier:@"MyObservations"];
 
-	[[self navigationController] pushViewController:tbc animated:YES];	
+	NSMutableArray *nc0 = [[NSMutableArray alloc] initWithArray:[[self navigationController] viewControllers]];
+
+
+	[nc0 removeLastObject];
+	
+	long c = [nc0 count] - 1;
+	
+	if (! [[[nc0 objectAtIndex:c] title] isEqualToString:[tbc title]] ) {
+		[nc0 addObject:tbc];
+	}
+	
+	NSArray *nc3 = [[NSArray alloc] initWithArray:nc0];
+
+	[[self navigationController] setViewControllers:nc3 animated:YES];
 }
 
 - (void)saveImageToPhotoAlbum{
@@ -220,7 +239,9 @@
 }
 
 - (IBAction)selectButton:(id)sender {
+	
 	bestLocationForImage = [[UserDataDatabase getSharedInstance] getBestKnownLocation];
+	
 	[[[self captureManager] captureSession] stopRunning];
 
 	UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
@@ -235,15 +256,18 @@
 	//You can retrieve the actual UIImage
 	UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
 	//Or you can get the image url from AssetsLibrary
-	NSURL *path = [info valueForKey:UIImagePickerControllerReferenceURL];
+	selectedAsset = [info valueForKey:UIImagePickerControllerReferenceURL];
 	
 	[picker dismissViewControllerAnimated:YES completion:^{
 		[[self captureManager] setStillImage:image];
-		[[self imageView] setHidden:NO];
-		[[self imageView] setImage:image];
+
+		NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
+								nil ?: [NSNull null], @"error",
+								nil];
 		
-		[self prepRetakePhotoBtn];
-		[self prepAddObservationBtn];
+		[[NSNotificationCenter defaultCenter] postNotificationName:kImageCapturedSuccessfully
+															object:nil
+														  userInfo:params];
 	}];
 }
 

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['homebutton_3a',['homeButton:',['../interface_my_obs_tab_bar_controller.html#a9054858fa0095c5526d45113f643eabc',1,'MyObsTabBarController']]]
+  ['initwithassetid_3a',['initWithAssetID:',['../interfacedetection_helper.html#ac2ca2c4091142dc6a1021ec77685ecbb',1,'detectionHelper']]]
 ];

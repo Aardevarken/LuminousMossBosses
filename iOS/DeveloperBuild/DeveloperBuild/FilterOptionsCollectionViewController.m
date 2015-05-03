@@ -26,13 +26,19 @@
 
 
 @interface FilterOptionsCollectionViewController ()
+//! Create an array of NSStrings representing the image path.
+/*!
+ Runs a table query with the FieldGuideManager for the image names. These image
+ names are stored in the optionsToFilter methods. This method is only called once durring loading to display all of the images.
+ /return An array where every element is an NSString in the format of: "GlossaryImages/<filename>.jpeg".
+ */
 - (NSArray*) createImageArray;
 @end
 
 @implementation FilterOptionsCollectionViewController{
-	NSUInteger numberOfImages;
-	NSUInteger indexForSelectedCell;
+	NSUInteger numberOfImages;			/*! number of images to display. Counted durring loading to increase preformance. */
 }
+
 @synthesize filterOptionIndexNumber;
 @synthesize imageCollectionView;
 @synthesize filterOptionImagePath;
@@ -90,8 +96,6 @@
 	cell.contentView.backgroundColor = [UIColor colorWithRed:RED green:GREEN blue:BLUE alpha:ALPHA];
 }
 
-
-
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
 	UICollectionViewCell *cell = [imageCollectionView cellForItemAtIndexPath:indexPath];
 	cell.contentView.backgroundColor = [UIColor blackColor];
@@ -113,7 +117,6 @@
 	}
 }
 
-
 /*
 #pragma mark - Navigation
 
@@ -124,7 +127,6 @@
 }
 */
 
-#pragma mark - private member functions
 - (NSArray*) createImageArray{
 	FieldGuideManager *fgm = [FieldGuideManager getSharedInstance];
 	FilterOptions *fo = [FilterOptions getSharedInstance];

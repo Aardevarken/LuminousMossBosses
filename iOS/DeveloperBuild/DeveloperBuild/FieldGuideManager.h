@@ -43,7 +43,7 @@
  over several database and gether all of the data for a particular species id 
  we run several queries and combine the results.
  
- \return A dictionary where keys = database column names (id, latin_name, etc.) 
+ \return A dictionary where keys = database column names (id, latin_name, etc.)
  and values = column value for that particular row.
  */
 - (NSDictionary*)findSpeciesByID:(NSNumber*)id;

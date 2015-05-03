@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyObsTabBarController : UITabBarController
+@interface MyObsTabBarController : UITabBarController{
+	
+}
 
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cameraButton;

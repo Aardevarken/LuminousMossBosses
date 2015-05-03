@@ -9,6 +9,7 @@
 #import "IdentifyingAssets.h"
 
 @implementation IdentifyingAssets
+@synthesize currentSyncCount;
 
 +(IdentifyingAssets *) getSharedInstance {
 	static IdentifyingAssets *sharedInstance = nil;
