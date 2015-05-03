@@ -3,25 +3,20 @@ package com.luminousmossboss.luminous;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.luminousmossboss.luminous.adapter.FGListAdapter;
-import com.luminousmossboss.luminous.model.FieldGuideItem;
+import com.luminousmossboss.luminous.adapter.GlossaryListAdapter;
+import com.luminousmossboss.luminous.model.GlossaryItem;
 import com.luminousmossboss.luminous.model.ListItem;
+import com.luminousmossboss.luminous.model.Separator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  *
@@ -35,7 +30,7 @@ public class GlossaryListFragment extends Fragment implements BackButtonInterfac
 
     private ListView mDrawerList;
 
-    private FGListAdapter adapter;
+    private GlossaryListAdapter adapter;
     private ArrayList<ListItem> listItems;
 
     private Button filter_btn;
@@ -48,6 +43,13 @@ public class GlossaryListFragment extends Fragment implements BackButtonInterfac
     }
 
     @Override
+    public void onStop(){
+        super.onStop();
+        GlossaryItem.clearCache();
+    }
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -57,36 +59,9 @@ public class GlossaryListFragment extends Fragment implements BackButtonInterfac
 
         final Activity activity = getActivity();
 
-        this.mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(activity instanceof MainActivity) {
-                    CharSequence fragTitle = listItems.get(position).getTitle();
-                    Fragment fragment = FieldGuideFragment.newInstance((FieldGuideItem) listItems.get(position));
-                    ((MainActivity) activity).setTitle(fragTitle);
-                    ((MainActivity) activity).displayView(fragment);
-                }
-            }
-        });
-
         activity.setTitle(MainActivity.GLOSSARY_POSITION);
         return rootView;
-
-        /*btn_fieldGuide = (ImageButton) rootView.findViewById(R.id.Field_Guide_button);
-        btn_fieldGuide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(activity instanceof MainActivity)
-                    ((MainActivity) activity).displayView(3);
-            }
-        });*/
     }
-
-//    @Override
-//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        inflater.inflate(R.menu.fieldguide, menu);
-//        super.onCreateOptionsMenu(menu, inflater);
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -112,17 +87,70 @@ public class GlossaryListFragment extends Fragment implements BackButtonInterfac
 
         FieldGuideDBHandler fieldGuideDBH = FieldGuideDBHandler.getInstance(context);
 
-        List<Integer> ids = fieldGuideDBH.getIDs();
-        HashMap<Integer, String> latinNames = fieldGuideDBH.getLatinNames();
-        HashMap<Integer, String> commonNames = fieldGuideDBH.getCommonNames();
-        HashMap<Integer, String> iconPaths = fieldGuideDBH.getIconPaths();
-        for (int i = 0; i < ids.size(); i++) {
-//            listItems.add(fieldGuideDBH.getFGItemWithID(ids.get(i)));
-            int id = ids.get(i);
-            listItems.add(new FieldGuideItem(id, latinNames.get(id), iconPaths.get(id), commonNames.get(id)));
-        }
 
-        adapter = new FGListAdapter(context, listItems);
+
+        ArrayList<ListItem> flowercolorList = new ArrayList<ListItem>();
+        flowercolorList.add(new Separator(getString(R.string.glossary_flowercolor)));
+
+        ArrayList<ListItem> inflorescenceList = new ArrayList<ListItem>();
+        inflorescenceList.add(new Separator(getString(R.string.glossary_inflorescence)));
+
+        ArrayList<ListItem> flowershapeList = new ArrayList<ListItem>();
+        flowershapeList.add(new Separator(getString(R.string.glossary_flowershape)));
+
+        ArrayList<ListItem> leafarrangementList = new ArrayList<ListItem>();
+        leafarrangementList.add(new Separator(getString(R.string.glossary_leafarrangement)));
+
+
+        ArrayList<ListItem> leafshapeList = new ArrayList<ListItem>();
+        leafshapeList.add(new Separator(getString(R.string.glossary_leafshape)));
+
+        ArrayList<ListItem> habitatList = new ArrayList<ListItem>();
+        habitatList.add(new Separator(getString(R.string.glossary_habitat)));
+
+        for (String flowercolor : fieldGuideDBH.getFlowerColorNames()){
+            if (flowercolor.equals("other")) continue;
+            GlossaryItem item = GlossaryItem.getGlossaryItem(flowercolor, getString(R.string.glossary_flowercolor), context);
+            flowercolorList.add(item);
+        }
+        listItems.addAll(flowercolorList);
+
+        for (String inflorescence : fieldGuideDBH.getInflorescenceNames()){
+            if (inflorescence.equals("other")) continue;
+            GlossaryItem item = GlossaryItem.getGlossaryItem(inflorescence, getString(R.string.glossary_inflorescence), context);
+            inflorescenceList.add(item);
+        }
+        listItems.addAll(inflorescenceList);
+
+        for (String flowershape : fieldGuideDBH.getFlowerShapeNames()){
+            if (flowershape.equals("other")) continue;
+            GlossaryItem item = GlossaryItem.getGlossaryItem(flowershape, getString(R.string.glossary_flowershape), context);
+            flowershapeList.add(item);
+        }
+        listItems.addAll(flowershapeList);
+
+        for (String leafarrangement : fieldGuideDBH.getLeafArrangementNames()){
+            if (leafarrangement.equals("other")) continue;
+            GlossaryItem item = GlossaryItem.getGlossaryItem(leafarrangement, getString(R.string.glossary_leafarrangement), context);
+            leafarrangementList.add(item);
+        }
+        listItems.addAll(leafarrangementList);
+
+        for (String leafshape : fieldGuideDBH.getLeafShapeNames()){
+            if (leafshape.equals("other")) continue;
+            GlossaryItem item = GlossaryItem.getGlossaryItem(leafshape, getString(R.string.glossary_leafshape), context);
+            leafshapeList.add(item);
+        }
+        listItems.addAll(leafshapeList);
+
+        for (String habitat : fieldGuideDBH.getHabitatNames()) {
+            if (habitat.equals("other")) continue;
+            GlossaryItem item = GlossaryItem.getGlossaryItem(habitat, getString(R.string.glossary_habitat), context);
+            habitatList.add(item);
+        }
+        listItems.addAll(habitatList);
+
+        adapter = new GlossaryListAdapter(context, listItems);
         mDrawerList.setAdapter(adapter);
     }
 }

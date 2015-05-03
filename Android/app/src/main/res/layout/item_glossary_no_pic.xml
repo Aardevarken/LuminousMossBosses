@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="96dp">
+    android:layout_height="96dp"
+    android:minHeight="96dp">
 
-    <ImageView
+    ImageView
         android:id="@+id/icon"
         android:layout_width="96dp"
         android:layout_height="96dp"
@@ -17,6 +18,7 @@
         android:minHeight="1dp"
         android:minWidth="1dp"
         android:maxHeight="126dp"
+        android:background="@android:color/white"
         android:adjustViewBounds="false"
         android:cropToPadding="true" />
 
