@@ -1,0 +1,113 @@
+<!--
+  Copyright 2013 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<resources>
+    <string name="app_name">Luminous ID</string>
+    <string-array name="nav_drawer_items">
+        <item>Home</item>
+        <item>Add Observation</item>
+        <item>My Observations</item>
+        <item>Field Guide</item>
+        <item>Glossary</item>
+        <item>About</item>
+    </string-array>
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_camera</item>
+        <item>@mipmap/ic_notepage</item>
+        <item>@drawable/ic_openbook</item>
+        <item>@drawable/ic_action_action_book</item>
+        <item>@drawable/ic_info</item>
+    </array>
+
+    <!-- Field Guide Temp
+            MOVE THIS TO DATABASE CODE -->
+    <string-array name="field_guide_items">
+        <item>Silene Acaulis</item>
+        <item>Rose</item>
+    </string-array>
+    <string-array name="field_guide_description">
+        <item>Silene acaulis, moss campion, or Cushion Pink is a small mountain-dwelling wildflower that is common all over the high arctic and tundra in the higher mountains of Eurasia and North America, (south to the Alps, Carpathians, southern Siberia, Pyrenees, British Isles, Faroe Islands, Rocky Mountains). It is an evergreen perennial.</item>
+        <item>A rose is a woody perennial of the genus Rosa, within the family Rosaceae. There are over 100 species and thousands of cultivars. They form a group of plants that can be erect shrubs, climbing or trailing with stems that are often armed with sharp prickles. Flowers vary in size and shape and are usually large and showy, in colours ranging from white through yellows and reds. Most species are native to Asia, with smaller numbers native to Europe, North America, and northwest Africa. Species, cultivars and hybrids are all widely grown for their beauty and often are fragrant. Rose plants range in size from compact, miniature roses, to climbers that can reach seven meters in height. Different species hybridize easily, and this has been used in the development of the wide range of garden roses.
+The name rose comes from French, itself from Latin rosa, which was perhaps borrowed from Oscan, from Greek ρόδον rhódon (Aeolic βρόδον wródon), itself borrowed from Old Persian wrd- (wurdi), related to Avestan varəδa, Sogdian ward, Parthian wâr.</item>
+    </string-array>
+    <array name="field_guide_icons">
+        <item>@drawable/silene_acaulis_icon</item>
+        <item>@drawable/rose_icon</item>
+    </array>
+    <array name="field_guide_img">
+        <item>@drawable/silene_acaulis_img</item>
+        <item>@drawable/rose_icon</item>
+    </array>
+
+    <!-- Main activity -->
+    <string name="location_unavailable">No location available yet. Please take another photo when location services is available</string>
+    <string name="failed_photo_file_create">Failed to create photo file. Please try again.</string>
+
+    <!-- Observations List Separators -->
+    <string name="separator_unidentified">Unidentified</string>
+    <string name="separator_silene">Identified as Silene acaulis</string>
+    <string name="separator_unknown">Unknown</string>
+    
+    <!-- Glossary Categories -->
+    <string name="glossary_flowercolor">Flower Color</string>
+    <string name="glossary_inflorescence">Inflorescence</string>
+    <string name="glossary_flowershape">Flower Shape</string>
+    <string name="glossary_leafarrangement">Leaf Arrangement</string>
+    <string name="glossary_leafshape">Leaf Shape</string>
+    <string name="glossary_habitat">Habitat</string>
+
+    <!-- filter categories -->
+    <string name="filter_growthform">Growth Form</string>
+    <string name="filter_flowercolor">Flower Color</string>
+    <string name="filter_inflorescence">Inflorescence</string>
+    <string name="filter_flowershape">Flower Shape</string>
+    <string name="filter_petalnumber">Number of Petals</string>
+    <string name="filter_leafarrangement">Leaf Arrangement</string>
+    <string name="filter_leafshapefilter">Leaf Shape</string>
+    <string name="filter_habitat">Habitat</string>
+
+    <!-- My Observations Temp -->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_remove">Remove Observation</string>
+    <string name="action_sync">Sync Observation</string>
+    <string name="action_add_observation">Add Observation</string>
+    <string name="app_not_available">Sorry, there\'s no web browser available</string>
+    <string name="fieldGuide_Location">Locations</string>
+    <string name="fieldGuide_observation">Add Observation</string>
+    <string name="silene_acaulis">Silene acaulis</string>
+    <string name="id_silene_acaulis">Your image was identified as Silene acaulis</string>
+    <string name="id_unknown">Your image was not identified as Silene acaulis</string>
+    <string name="post_obs_success">Your observation was sent! Thanks for contributing to science</string>
+    <string name="post_obs_failure">There was an issue connecting. Please try again with better data service or while connected to WiFi</string>
+    <string name="unknown_species">Unknown</string>
+    <string name="unidentified">Unidentified</string>
+
+    <!-- Dialog Messages -->
+    <string name="dialog_remove_obs_msg">Are you sure you want to remove this observation?</string>
+    <string name="dialog_send_obs_msg">Observation was not identified as Silene acaulis, are you sure you want to send data?</string>
+    <string name="dialog_identify_obs_msg">Would you like to run the identification program now?</string>
+    <string name="dialog_confirm">Yes</string>
+    <string name="dialog_decline">Cancel</string>
+    <string name="dialog_neutral">Later</string>
+    <string name="dialog_settings">Settings</string>
+    <string name="fg_db_name">fieldguide.db</string>
+    <string name="gps_message_body">GPS must be enabled to take observations. Please turn location services on in the settings menu.</string>
+    <string name="gps_message_title">GPS is disabled</string>
+</resources>
+

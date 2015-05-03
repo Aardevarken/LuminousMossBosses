@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home Fragment -->
+    <item name="home_bg_start" type="color">#142814</item>
+    <item name="home_bg_end" type="color">#141804</item>
+    <item name="home_text" type="color">#ffffff</item>
+
+    <!-- FieldGuide Fragment -->
+    <item name="fieldguide_title" type="color">#696960</item>
+    <item name="fieldguide_description" type="color">#595950</item>
+    <item name="fieldguide_image_bg" type="color">#333333</item>
+    <item name="fieldguide_button" type="color">#6a6964</item>
+    <item name="fieldguide_button_text" type="color">#eee</item>
+    <item name="fieldguide_bg_start" type="color">#dad9b4</item>
+    <item name="fieldguide_bg_end" type="color">#dad9d4</item>
+
+    <!-- List View Fragments -->
+    <item name="list_title" type="color">#696960</item>
+    <item name="list_description" type="color">#898980</item>
+    <item name="list_bg" type="color">#dad9d4</item>
+    <item name="sp_label" type="color">#dad9d4</item>
+    <item name="sp_bg" type="color">#6a6964</item>
+
+    <!-- Navigation Slider Fragment -->
+    <item name="nav_bg" type="color">#111</item>
+    <item name="nav_title" type="color">#fff</item>
+    <item name="nav_counter_text" type="color">#fff</item>
+    <item name="nav_counter_bg" type="color">#ff1111</item>
+
+    <!-- Home Round Buttons -->
+    <item name="round_btn_nm_solid" type="color">#696</item>
+    <item name="round_btn_nm_stroke" type="color">#474</item>
+    <item name="round_btn_pr_solid" type="color">#548874</item>
+    <item name="round_btn_pr_stroke" type="color">#236243</item>
+
+    <!-- Status -->
+    <item name="status_pending" type="color">#dd5522</item>
+    <item name="status_identified" type="color">#ddaa22</item>
+    <item name="status_sent" type="color">#22aa44</item>
+</resources>

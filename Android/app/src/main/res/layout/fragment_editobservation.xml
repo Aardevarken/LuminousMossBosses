@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/fieldguide_bg">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="230dp"
+        android:maxWidth="512dp"
+        android:maxHeight="512dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/silene_acaulis_img"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:cropToPadding="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Species"
+        android:id="@+id/title"
+        android:textColor="@color/fieldguide_title"
+        android:textStyle="bold"
+        android:textSize="26dp"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_upload"
+        android:text=" Send  "
+        android:id="@+id/button_context"
+        android:background="@color/fieldguide_button"
+        android:textColor="@color/fieldguide_button_text"
+
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:typeface="sans"
+        android:capitalize="words"
+        android:elegantTextHeight="false"
+        android:enabled="true"
+        android:textAlignment="center"
+
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="10dp"
+        style="@style/RadioButton" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/button_context"
+        android:listSelector="@android:color/transparent"/>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:indeterminate="true"
+        android:visibility="gone"
+        android:layout_above="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="58dp" />
+    <!--
+        <GridLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:rowCount="4"
+            android:columnCount="2"
+            android:id="@+id/observation_details"
+            android:layout_below="@+id/title"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:nestedScrollingEnabled="true"
+            android:layout_above="@+id/button_remove">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/fieldguide_description"
+                android:text="Filename:"
+                android:textSize="18dp"
+                android:id="@+id/filename_title"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/title"
+                android:layout_alignLeft="@+id/imageView"
+                android:layout_alignStart="@+id/imageView"
+                android:layout_row="0"
+                android:layout_column="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="filename.jpg"
+                android:id="@+id/filename"
+                android:layout_above="@+id/latitude_title"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@+id/date_title"
+                android:layout_marginTop="20dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:paddingLeft="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/fieldguide_description"
+                android:text="Date:"
+                android:textSize="18dp"
+                android:id="@+id/date_title"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/title"
+                android:layout_alignLeft="@+id/imageView"
+                android:layout_alignStart="@+id/imageView"
+                android:layout_row="1"
+                android:layout_column="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="[mm/dd/yyyy] - 12:00PM"
+                android:id="@+id/date"
+                android:layout_above="@+id/latitude_title"
+                android:layout_centerHorizontal="true"
+                android:layout_toRightOf="@+id/date_title"
+                android:layout_marginTop="20dp"
+                android:layout_row="1"
+                android:layout_column="1"
+                android:paddingLeft="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/fieldguide_description"
+                android:text="Latitude:"
+                android:textSize="18dp"
+                android:id="@+id/latitude_title"
+                android:layout_below="@+id/date_title"
+                android:layout_alignLeft="@+id/date_title"
+                android:layout_alignStart="@+id/date_title"
+                android:layout_marginTop="20dp"
+                android:layout_row="2"
+                android:layout_column="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:id="@+id/latitude"
+                android:layout_alignBottom="@+id/latitude_title"
+                android:layout_toRightOf="@+id/latitude_title"
+                android:layout_toEndOf="@+id/latitude_title"
+                android:layout_marginTop="20dp"
+                android:layout_row="2"
+                android:layout_column="1"
+                android:paddingLeft="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/fieldguide_description"
+                android:text="Longitude:"
+                android:textSize="18dp"
+                android:id="@+id/longitude_title"
+                android:layout_below="@+id/date_title"
+                android:layout_alignLeft="@+id/date_title"
+                android:layout_alignStart="@+id/date_title"
+                android:layout_marginTop="20dp"
+                android:layout_row="3"
+                android:layout_column="0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:id="@+id/longitude"
+                android:layout_alignBottom="@+id/latitude_title"
+                android:layout_toRightOf="@+id/latitude_title"
+                android:layout_toEndOf="@+id/latitude_title"
+                android:layout_marginTop="20dp"
+                android:layout_row="3"
+                android:layout_column="1"
+                android:paddingLeft="20dp" />
+        </GridLayout>
+    -->
+
+</RelativeLayout>

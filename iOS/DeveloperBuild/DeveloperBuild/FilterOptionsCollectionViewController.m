@@ -15,6 +15,16 @@
 #define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 #define printa(fmt, ...) printf(("%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
+#define RED 0/255.0
+// NOTE, for green the float value of 92/255.0 does not produce a value of 92
+// when displayed in the simulator. 0.48 however does.
+// I used a color picker to ret the value of the grid tab when selected.
+#define GREEN 0.48//92/255.0
+#define BLUE 255/255.0
+#define ALPHA 100/100.0
+
+
+
 @interface FilterOptionsCollectionViewController ()
 - (NSArray*) createImageArray;
 @end
@@ -77,8 +87,10 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	UICollectionViewCell *cell = [imageCollectionView cellForItemAtIndexPath:indexPath];
-	cell.contentView.backgroundColor = [UIColor blueColor];
+	cell.contentView.backgroundColor = [UIColor colorWithRed:RED green:GREEN blue:BLUE alpha:ALPHA];
 }
+
+
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
 	UICollectionViewCell *cell = [imageCollectionView cellForItemAtIndexPath:indexPath];

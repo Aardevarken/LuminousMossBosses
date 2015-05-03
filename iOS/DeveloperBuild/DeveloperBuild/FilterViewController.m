@@ -40,13 +40,14 @@ static NSMutableDictionary *filterCurrentValue;
 									 @"Habitat", @"habitat",
 									 @"Petal number", @"petalnumber",
 									 @"Inflorescence", @"inflorescence",
-									 @"Leaf arrangement", @"leafarrangement",
+//									 @"Leaf arrangement", @"leafarrangement",
 									 nil];
 	
 	 NSDictionary *filtersWithImages = [[NSDictionary alloc] initWithObjectsAndKeys:
-						 @"Flower shape", @"flowershape",
-						 @"Leaf shape", @"leafshapefilter",
-						 nil];
+						@"Flower shape", @"flowershape",
+						@"Leaf shape", @"leafshapefilter",
+						@"Leaf Arrangement", @"leafarrangement",
+						nil];
 	
 	[[FilterOptions getSharedInstance] createFiltersWithTitles:titleAndFilters];
 	[[FilterOptions getSharedInstance] createFiltersWithTitlesAndImages:filtersWithImages];
@@ -120,7 +121,11 @@ static NSMutableDictionary *filterCurrentValue;
 	cell.filterValue.text = fvt;
 	
 	if ([fvt isEqualToString:@"All"]) {
-		cell.accessoryType = UITableViewCellAccessoryNone;
+		cell.filterValue.textAlignment = NSTextAlignmentLeft;
+		cell.filterValue.textColor = [UIColor darkGrayColor];
+	} else {
+		cell.filterValue.textAlignment = NSTextAlignmentRight;
+		cell.filterValue.textColor = [UIColor blackColor];
 	}
 	
 	return cell;
@@ -159,7 +164,12 @@ static NSMutableDictionary *filterCurrentValue;
 }
 
 - (IBAction)cancelButton:(UIButton *)sender {
-	[[self navigationController] popViewControllerAnimated:YES];
+	FilterOptions *fo = [FilterOptions getSharedInstance];
+	[fo resetFilterOptions];
+	filterCellOptions = [fo filterOption];
+	filterCellOptionsWithImages = [fo filterOptionsWithImages];
+	[self.filterTableView reloadData];
+//	[[self navigationController] popViewControllerAnimated:YES];
 }
 
 - (IBAction)searchButton:(UIButton *)sender {

@@ -67,7 +67,7 @@
 		[self hideTakePhotoBtn];
 		[self hideRetakePhotoBtn];
 		[self hideAddObservationBtn];
-		[[self buttonView] setHidden:YES];
+		//[[self buttonView] setHidden:YES];
 	}
 	else {
 		[self setCaptureManager:[[CaptureSessionManager alloc] init]];
@@ -227,10 +227,6 @@
 	imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 	imagePickerController.delegate = self;
 	[self presentViewController:imagePickerController animated:YES completion:nil];
-	
-	[self hideTakePhotoBtn];
-	[self prepRetakePhotoBtn];
-	[self prepAddObservationBtn];
 }
 
 // This method is called when an image has been chosen from the library or taken from the camera.
@@ -245,6 +241,9 @@
 		[[self captureManager] setStillImage:image];
 		[[self imageView] setHidden:NO];
 		[[self imageView] setImage:image];
+		
+		[self prepRetakePhotoBtn];
+		[self prepAddObservationBtn];
 	}];
 }
 
