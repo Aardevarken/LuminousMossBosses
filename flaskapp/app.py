@@ -12,6 +12,7 @@ import subprocess
 from shell_scripts.generatecsv import generateCSV
 from celery import Celery
 from flask_mail import Message, Mail
+from util.do_not_add_to_git import Onion
 import random, string
 
 #CELERY
@@ -30,8 +31,6 @@ def make_celery(app):
 # configuration
 DEBUG = True# Change this to false when put into production 
 SECRET_KEY = '90b70bfa992696d63140ca63fcb035cf'
-USERNAME = 'admin'
-PASSWORD = '19b95897c63fcc7b81d90396ce28bf94dedc67e9'
 
 CROPPED_FOLDER = '/work/pics/cropped'
 ROTATED_FOLDER = '/work/pics/rotated'
@@ -56,8 +55,8 @@ app.config.from_envvar('FLASK_APP_SETTINGS', silent=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'luminousmossbosses@gmail.com'
-app.config['MAIL_PASSWORD'] = 'Silene2015'
+app.config['MAIL_USERNAME'] = Onion.MAIL_USERNAME
+app.config['MAIL_PASSWORD'] = Onion.MAIL_PASSWORD
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
@@ -223,6 +222,15 @@ def signup():
             db_session().commit()
     return render_template('login.html', error=error)
 
+@app.route('/account_reset', methods=['GET', 'POST'])
+def account_reset():
+    error = None
+    if request.method == 'POST':
+        email = request.form['email'].lower()
+        reset_pass_and_email(email)
+    
+    return render_template('reset_password.html', error=error)
+
 @app.route('/me')
 @login_required
 def me():
@@ -264,30 +272,23 @@ def observation_list():
 
 def IsProcessRunning(process):
     process = subprocess.Popen('ps -e | ' + process, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    #process.wait()
     out, _ = process.communicate()
     return bool(str(out) == "")
 
 @app.route('/_retrain_bag_of_words', methods=['POST'])
 @login_required
 def retrain_bag_of_word():
-    if IsProcessRunning('genxml_db.sh'):
-        gen_bag_of_words.delay("static/BagOfWords")
+    if has_permissions:
+        if IsProcessRunning('genxml_db.sh'):
+            gen_bag_of_words.delay("static/BagOfWords")
     return "Working on it"
-
-
-#@app.route('/_retrain_general', methods=['POST'])
-#@login_required
-#def retrain_general():
-#    if IsProcessRunning(''):
-#        gen_bag_of_words("static/BagOfWords")
-#    return "Working on it"
 
 @app.route('/xml')
 @login_required
 def xml():
     if has_permissions():
-        return render_template('retraining.html')
+        isrunning = IsProcessRunning('genxml_db.sh')
+        return render_template('retraining.html',isrunning=isrunning)
 
 @app.route('/detection_list')
 @login_required
@@ -339,6 +340,16 @@ def csv_save():
     FileName = generateCSV()
     return send_file(FileName, as_attachment=True)
     
+@app.route('/save_bag_of_words')
+@login_required
+def bag_of_words_save():
+    Location = "static/BagOfWords/"
+    vocab = Location+"vocabulary.xml"
+    silene = Location+"silene.xml"
+    FileName = Location+"bag_of_words.zip"
+    process = subprocess.Popen('zip -jFS ' + FileName + ' ' + vocab + ' ' + silene, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    process.wait()
+    return send_file(FileName, as_attachment=True)
 
 @app.route('/observation_view')
 @login_required
@@ -378,6 +389,22 @@ def detection_view():
     else:
         abort(404)
 
+@app.route('/settings', methods=['GET', 'POST'])
+@login_required
+def settings():
+    error = None
+    if has_permissions():
+        if request.method == 'POST':
+            if not current_user.check_password(request.form['password']):
+                error = 'Invalid password'
+            elif request.form['spassword'] != request.form['sconfirm_password']:
+                error = 'Passwords Do Not Match'
+            else:
+                current_user.set_password(request.form['spassword'])
+                db_session().commit()
+
+        return render_template('settings.html', error=error)
+    
 @app.route('/_get_observation_data')
 @login_required
 def get_observation_data():
@@ -497,18 +524,6 @@ def update_rotationObjects():
         db_session().commit()
         gen_rotation_images.delay(detectionId)
     return jsonify(data=data)
-
-@app.route('/_change_password', methods=["POST"])
-@login_required
-def change_password():
-    error = None
-    if not current_user.check_password(request.form['password']):
-        error = 'Invalid password'
-    elif request.form['new_password'] != request.form['confirm_password']:
-        error = 'Passwords Do Not Match'
-    else:
-        current_user.change_password(request.form['new_password'])
-    return jsonify(error=error)
 
 
 @app.route('/_post_observation', methods=["POST"])

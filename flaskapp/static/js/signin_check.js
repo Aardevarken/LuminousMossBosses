@@ -12,10 +12,18 @@ $("#signup_password, #signup_confirm_password").change(function(){
     else
         disableSubmit()
 });
+
+$("#signup_confirm_password").keyup(function() {
+    if (checkSamePassword() && passwd.getStrength() != "weak")
+        enableSubmit()
+    else
+        disableSubmit()
+});
+
 $("#signup_password").keyup(function() {
     passwd.update();
-    console.log(passwd.id.value)
-    console.log(passwd.getStrength())
+    //console.log(passwd.id.value)
+    //console.log(passwd.getStrength())
     document.getElementById("password_status").innerHTML = passwd.getStrength()
 });
 
