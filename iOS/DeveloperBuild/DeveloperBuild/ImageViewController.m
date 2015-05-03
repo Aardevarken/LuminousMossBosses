@@ -37,8 +37,10 @@
 	CLLocation* bestLocationForImage;
 }
 
-@synthesize imageView, takePhotoBtn;
+@synthesize imageView;
+@synthesize takePhotoBtn;
 @synthesize addObsBtn;
+@synthesize retakePhotoBtn;
 @synthesize captureManager;
 @synthesize buttonView;
 
@@ -47,9 +49,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	// for testing button layout
-//	[[self addObsBtn] setHidden:NO];
-//	[[self retakePhotoBtn] setHidden:NO];
-//	[[self takePhotoBtn] setHidden:YES];
+//	[self printButtonState:takePhotoBtn];
+//	[self printButtonState:retakePhotoBtn];
+//	[self printButtonState:addObsBtn];
 	
 	// check to make sure the device has a camera
 	if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -101,21 +103,6 @@
 - (void)viewWillDisappear:(BOOL)animated{
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[super viewWillDisappear:animated];
-}
-
-- (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPushItem:(UINavigationItem *)item{
-	NSLog(@"HERE");
-	NSLog(@"Pushing: %@", [item description]);
-	return YES;
-}
-
-- (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item{
-	NSLog(@"over here");
-	return YES;
-}
-
-- (void)navigationBar:(UINavigationBar *)navigationBar didPushItem:(UINavigationItem *)item{
-	NSLog(@"thing 1");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -247,8 +234,10 @@
 }
 
 - (IBAction)selectButton:(id)sender {
+	
 	bestLocationForImage = [[UserDataDatabase getSharedInstance] getBestKnownLocation];
-	[[[self captureManager] captureSession] stopRunning];
+	
+	[[self captureManager] stopFeed];
 
 	UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
 	imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -262,15 +251,18 @@
 	//You can retrieve the actual UIImage
 	UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
 	//Or you can get the image url from AssetsLibrary
-	NSURL *path = [info valueForKey:UIImagePickerControllerReferenceURL];
+	selectedAsset = [info valueForKey:UIImagePickerControllerReferenceURL];
 	
 	[picker dismissViewControllerAnimated:YES completion:^{
 		[[self captureManager] setStillImage:image];
-		[[self imageView] setHidden:NO];
-		[[self imageView] setImage:image];
+
+		NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
+								nil ?: [NSNull null], @"error",
+								nil];
 		
-		[self prepRetakePhotoBtn];
-		[self prepAddObservationBtn];
+		[[NSNotificationCenter defaultCenter] postNotificationName:kImageCapturedSuccessfully
+															object:nil
+														  userInfo:params];
 	}];
 }
 

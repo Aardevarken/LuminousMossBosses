@@ -31,4 +31,7 @@
 - (void)addStillImageOutput;	// WHY DID THIS HAVE A BUILD IN METHOD?
 - (void)captureStillImage;
 
+- (void)stopFeed;
+
+
 @end
