@@ -40,7 +40,6 @@
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
 	NSString *db = [[FilterOptions getSharedInstance] getDatabaseNameAtIndex:filterOptionIndexNumber];
-	//[self setOptionsToFilter:[[FieldGuideManager getSharedInstance] getFilterOptionsFor:db]];
 	[self setOptionsToFilter:@[@"All"]];
 	[self setOptionsToFilter:[optionsToFilter arrayByAddingObjectsFromArray:[[FieldGuideManager getSharedInstance] getFilterOptionsFor:db]]];
 	

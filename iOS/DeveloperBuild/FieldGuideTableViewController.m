@@ -19,8 +19,9 @@
 @end
 
 @implementation FieldGuideTableViewController{
-	NSArray *fieldGuideData;
+	NSArray *fieldGuideData; /*!< An array of of dictionaries that has all the field guide data the will be displayed */
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,7 +42,6 @@
 	FieldGuideManager *db = [FieldGuideManager getSharedInstance];
 	fieldGuideData = [db getAllData];
 	
-//	ALog(@"\n%@", fieldGuideData);
 	[self.tableView reloadData];
 	[super viewWillAppear:animated];
 }

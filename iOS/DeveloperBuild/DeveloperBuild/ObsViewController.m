@@ -17,7 +17,6 @@
 #import "ServerAPI.h"
 #import "IdentifyingAssets.h"
 
-static unsigned long synctotal;
 @interface ObsViewController ()
 
 @end
@@ -53,10 +52,6 @@ NSMutableArray *_myObservations;
 	
 	[super viewWillAppear:animated];
 }
-
-//- (void)viewDidAppear:(BOOL)animated{
-//	
-//}
 
 - (void)viewWillDisappear:(BOOL)animated{
     for(id object in pendingObservations){
@@ -307,9 +302,11 @@ NSMutableArray *_myObservations;
 	if (originalCount == 0) {
 		return;
 	}
-	synctotal = originalCount;
+	//[self setCurrentCount:[NSNumber numberWithUnsignedLong: originalCount]];
+	IdentifyingAssets *assetID = [IdentifyingAssets getSharedInstance];
+	[assetID setCurrentSyncCount:[NSNumber numberWithUnsignedLong:originalCount]];
 	
-	[[self syncBtn] setTitle:[NSString stringWithFormat:@"Syncing... (%d/%lu)", 1, originalCount] forState:UIControlStateNormal];
+	//[[self syncBtn] setTitle:[NSString stringWithFormat:@"Syncing... (%d/%lu)", 1, originalCount] forState:UIControlStateNormal];
 
 	[[self syncBtn] setEnabled:NO];
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -363,7 +360,11 @@ NSMutableArray *_myObservations;
 							 
 							 [idedObservations removeObject:object];
 							 
-							 [[self syncBtn] setTitle:[NSString stringWithFormat:@"Syncing... (%ld/%lu)", originalCount - idedObservations.count + 1, originalCount] forState:UIControlStateNormal];
+							 //[self setCurrentCount:[NSNumber numberWithUnsignedLong:(originalCount - idedObservations.count + 1)]];
+							 [assetID setCurrentSyncCount:[NSNumber numberWithUnsignedLong:(originalCount - idedObservations.count + 1)]];
+							 
+							 [[self syncBtn] setTitle:[NSString stringWithFormat:@"Syncing... (%@/%lu)", [assetID currentSyncCount], originalCount] forState:UIControlStateNormal];
+							 
 							 [self removeRow:rowIndex inSection:1];
 							 
 							 if (idedObservations.count == 0) {

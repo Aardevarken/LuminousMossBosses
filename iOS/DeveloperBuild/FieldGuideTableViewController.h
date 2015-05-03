@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "FieldGuidCell.h"
 
-@interface FieldGuideTableViewController : UITableViewController
+@interface FieldGuideTableViewController : UITableViewController{
+	
+}
 
-@property (strong, nonatomic) IBOutlet UITableView *fieldGuideTableView;
+// Not sure what this is here for and is marked for deletions
+@property (strong, nonatomic) IBOutlet UITableView *fieldGuideTableView;	// Marked for deletion.
 
 
 @end

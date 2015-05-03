@@ -15,10 +15,8 @@
 		1617BB7A1AE467CE00709D50 /* CaptureSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1617BB791AE467CE00709D50 /* CaptureSessionManager.m */; };
 		161F47651A8ED7B300E67313 /* NewObs.m in Sources */ = {isa = PBXBuildFile; fileRef = 161F47641A8ED7B300E67313 /* NewObs.m */; };
 		1627A1271AB430D4009BD6EF /* ObsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1627A1261AB430D3009BD6EF /* ObsDetailViewController.m */; };
-		162FAD841ADDA83100F811CD /* MyObservationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 162FAD831ADDA83100F811CD /* MyObservationData.m */; };
 		163623B61AEB7C4C00A50CA3 /* FieldGuide.db in Resources */ = {isa = PBXBuildFile; fileRef = 163623B01AEB7C4C00A50CA3 /* FieldGuide.db */; };
 		163623BE1AEC2D6300A50CA3 /* FieldGuideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623BD1AEC2D6300A50CA3 /* FieldGuideManager.m */; };
-		163623C11AEC373C00A50CA3 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623C01AEC373C00A50CA3 /* DBManager.m */; };
 		163623C71AEC563D00A50CA3 /* FieldGuidCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623C61AEC563D00A50CA3 /* FieldGuidCell.m */; };
 		163623CD1AEC59A500A50CA3 /* FieldGuideTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623CC1AEC59A500A50CA3 /* FieldGuideTableViewController.m */; };
 		163623CF1AEC6C5400A50CA3 /* FORBS in Resources */ = {isa = PBXBuildFile; fileRef = 163623CE1AEC6C5400A50CA3 /* FORBS */; };
@@ -28,7 +26,6 @@
 		163623DB1AECAAF000A50CA3 /* FilterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623DA1AECAAF000A50CA3 /* FilterTableViewCell.m */; };
 		163623DF1AECDDA500A50CA3 /* FilterOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623DE1AECDDA500A50CA3 /* FilterOptionsViewController.m */; };
 		163623E21AECE08E00A50CA3 /* FilterOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623E11AECE08E00A50CA3 /* FilterOptions.m */; };
-		163623E51AECE24400A50CA3 /* FilterObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 163623E41AECE24400A50CA3 /* FilterObject.m */; };
 		163ACAB81AEEBBB9004602B6 /* background_img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 163ACAB71AEEBBB9004602B6 /* background_img.jpg */; };
 		163ACABA1AEECA47004602B6 /* silene_acaulis_img.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 163ACAB91AEECA47004602B6 /* silene_acaulis_img.jpg */; };
 		1642DE501ADC9A84002FB11C /* homeBtnIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */; };
@@ -147,8 +144,6 @@
 		161F47641A8ED7B300E67313 /* NewObs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewObs.m; sourceTree = "<group>"; };
 		1627A1251AB430D3009BD6EF /* ObsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObsDetailViewController.h; sourceTree = "<group>"; };
 		1627A1261AB430D3009BD6EF /* ObsDetailViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = ObsDetailViewController.m; sourceTree = "<group>"; };
-		162FAD821ADDA83100F811CD /* MyObservationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyObservationData.h; sourceTree = "<group>"; };
-		162FAD831ADDA83100F811CD /* MyObservationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyObservationData.m; sourceTree = "<group>"; };
 		163623931AEB2B4300A50CA3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		163623AF1AEB7C4C00A50CA3 /* field_guide_schema.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = field_guide_schema.py; sourceTree = "<group>"; };
 		163623B01AEB7C4C00A50CA3 /* FieldGuide.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = FieldGuide.db; sourceTree = "<group>"; };
@@ -158,8 +153,6 @@
 		163623B41AEB7C4C00A50CA3 /* GlossaryTerms.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GlossaryTerms.csv; sourceTree = "<group>"; };
 		163623BC1AEC2D6300A50CA3 /* FieldGuideManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldGuideManager.h; sourceTree = "<group>"; };
 		163623BD1AEC2D6300A50CA3 /* FieldGuideManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldGuideManager.m; sourceTree = "<group>"; };
-		163623BF1AEC373C00A50CA3 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
-		163623C01AEC373C00A50CA3 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		163623C51AEC563D00A50CA3 /* FieldGuidCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FieldGuidCell.h; path = ../FieldGuidCell.h; sourceTree = "<group>"; };
 		163623C61AEC563D00A50CA3 /* FieldGuidCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FieldGuidCell.m; path = ../FieldGuidCell.m; sourceTree = "<group>"; };
 		163623CB1AEC59A500A50CA3 /* FieldGuideTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FieldGuideTableViewController.h; path = ../FieldGuideTableViewController.h; sourceTree = "<group>"; };
@@ -177,8 +170,6 @@
 		163623DE1AECDDA500A50CA3 /* FilterOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterOptionsViewController.m; sourceTree = "<group>"; };
 		163623E01AECE08E00A50CA3 /* FilterOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterOptions.h; sourceTree = "<group>"; };
 		163623E11AECE08E00A50CA3 /* FilterOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterOptions.m; sourceTree = "<group>"; };
-		163623E31AECE24400A50CA3 /* FilterObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterObject.h; sourceTree = "<group>"; };
-		163623E41AECE24400A50CA3 /* FilterObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterObject.m; sourceTree = "<group>"; };
 		163ACAB71AEEBBB9004602B6 /* background_img.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background_img.jpg; sourceTree = "<group>"; };
 		163ACAB91AEECA47004602B6 /* silene_acaulis_img.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = silene_acaulis_img.jpg; sourceTree = "<group>"; };
 		1642DE4F1ADC9A84002FB11C /* homeBtnIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = homeBtnIcon.png; path = DeveloperBuild/homeBtnIcon.png; sourceTree = "<group>"; };
@@ -469,20 +460,9 @@
 			children = (
 				163623861AEB263000A50CA3 /* View Controllers */,
 				163623DC1AECAB0200A50CA3 /* Cells */,
-				165C45FC1AB54EE8006ECDDC /* detectionHelper.h */,
-				165C45FD1AB54EE8006ECDDC /* detectionHelper.mm */,
-				163623E01AECE08E00A50CA3 /* FilterOptions.h */,
-				163623E11AECE08E00A50CA3 /* FilterOptions.m */,
-				163623E31AECE24400A50CA3 /* FilterObject.h */,
-				163623E41AECE24400A50CA3 /* FilterObject.m */,
-				16F8F5581AA7F522007FEEBE /* UserDataDatabase.h */,
-				16F8F5591AA7F522007FEEBE /* UserDataDatabase.m */,
-				163623BC1AEC2D6300A50CA3 /* FieldGuideManager.h */,
-				163623BD1AEC2D6300A50CA3 /* FieldGuideManager.m */,
-				163623BF1AEC373C00A50CA3 /* DBManager.h */,
-				163623C01AEC373C00A50CA3 /* DBManager.m */,
-				162FAD821ADDA83100F811CD /* MyObservationData.h */,
-				162FAD831ADDA83100F811CD /* MyObservationData.m */,
+				16E99CEB1AF5614800404C28 /* Helpers and delages */,
+				16E99CEA1AF5612800404C28 /* Singletons */,
+				16E99CE91AF5611200404C28 /* Databases */,
 				16F8F5551AA7EA40007FEEBE /* UserData.h */,
 				16F8F5561AA7EA40007FEEBE /* UserData.m */,
 				160D23EF1A633E3B00F7B916 /* Observation.h */,
@@ -495,14 +475,8 @@
 				165B6A251AA66418004FE7CB /* MyObservations.m */,
 				16A6D84F1A6386C600CB4563 /* ObsTableView.h */,
 				16A6D8501A6386C600CB4563 /* ObsTableView.m */,
-				1617BB731AE3438100709D50 /* IdentifyingAssets.h */,
-				1617BB741AE3438100709D50 /* IdentifyingAssets.m */,
-				16B052AE1A5B4BDE007837B4 /* AppDelegate.h */,
-				16B052AF1A5B4BDE007837B4 /* AppDelegate.m */,
 				1642DE511ADCA085002FB11C /* MyObsTabBarController.h */,
 				1642DE521ADCA085002FB11C /* MyObsTabBarController.m */,
-				1617BB781AE467CE00709D50 /* CaptureSessionManager.h */,
-				1617BB791AE467CE00709D50 /* CaptureSessionManager.m */,
 				16B052B71A5B4BDE007837B4 /* Images.xcassets */,
 				16B052B91A5B4BDE007837B4 /* LaunchScreen.xib */,
 				16B052B41A5B4BDE007837B4 /* Main.storyboard */,
@@ -563,6 +537,41 @@
 				16CCBC3F1A773E00008B7E96 /* flower30.xml */,
 			);
 			name = "XML Files";
+			sourceTree = "<group>";
+		};
+		16E99CE91AF5611200404C28 /* Databases */ = {
+			isa = PBXGroup;
+			children = (
+				16F8F5581AA7F522007FEEBE /* UserDataDatabase.h */,
+				16F8F5591AA7F522007FEEBE /* UserDataDatabase.m */,
+				163623BC1AEC2D6300A50CA3 /* FieldGuideManager.h */,
+				163623BD1AEC2D6300A50CA3 /* FieldGuideManager.m */,
+			);
+			name = Databases;
+			sourceTree = "<group>";
+		};
+		16E99CEA1AF5612800404C28 /* Singletons */ = {
+			isa = PBXGroup;
+			children = (
+				163623E01AECE08E00A50CA3 /* FilterOptions.h */,
+				163623E11AECE08E00A50CA3 /* FilterOptions.m */,
+				1617BB731AE3438100709D50 /* IdentifyingAssets.h */,
+				1617BB741AE3438100709D50 /* IdentifyingAssets.m */,
+			);
+			name = Singletons;
+			sourceTree = "<group>";
+		};
+		16E99CEB1AF5614800404C28 /* Helpers and delages */ = {
+			isa = PBXGroup;
+			children = (
+				165C45FC1AB54EE8006ECDDC /* detectionHelper.h */,
+				165C45FD1AB54EE8006ECDDC /* detectionHelper.mm */,
+				16B052AE1A5B4BDE007837B4 /* AppDelegate.h */,
+				16B052AF1A5B4BDE007837B4 /* AppDelegate.m */,
+				1617BB781AE467CE00709D50 /* CaptureSessionManager.h */,
+				1617BB791AE467CE00709D50 /* CaptureSessionManager.m */,
+			);
+			name = "Helpers and delages";
 			sourceTree = "<group>";
 		};
 		7D0559741AEB7A72000479FC /* Luminous ID Tests */ = {
@@ -784,7 +793,6 @@
 				163623DF1AECDDA500A50CA3 /* FilterOptionsViewController.m in Sources */,
 				16CABE831AF1DD4D000597D4 /* FilterOptionImageCollectionViewCell.m in Sources */,
 				F0D4ED201AA59BAD008CBAD4 /* img_helper.cpp in Sources */,
-				163623E51AECE24400A50CA3 /* FilterObject.m in Sources */,
 				16B2A6CF1A9D4D2200A73A86 /* ImageViewController.m in Sources */,
 				F0395FEA1A98365500EE1BF9 /* identified.cpp in Sources */,
 				1617BB751AE3438100709D50 /* IdentifyingAssets.m in Sources */,
@@ -807,7 +815,6 @@
 				16B052AD1A5B4BDE007837B4 /* main.m in Sources */,
 				1642DE531ADCA085002FB11C /* MyObsTabBarController.m in Sources */,
 				16DBE0621ABA5C0700220872 /* SyncedObsTVC.m in Sources */,
-				162FAD841ADDA83100F811CD /* MyObservationData.m in Sources */,
 				16CABE801AF1C2AA000597D4 /* FilterOptionsCollectionViewController.m in Sources */,
 				16008CCC1AB62C5200672891 /* detectionHelper.mm in Sources */,
 				163623D81AECA6D500A50CA3 /* FilterViewController.m in Sources */,
@@ -820,7 +827,6 @@
 				16F8F55A1AA7F522007FEEBE /* UserDataDatabase.m in Sources */,
 				163623BE1AEC2D6300A50CA3 /* FieldGuideManager.m in Sources */,
 				16F131161AF0C59700F40229 /* FilterOptionsTabViewController.m in Sources */,
-				163623C11AEC373C00A50CA3 /* DBManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
