@@ -75,25 +75,25 @@
 				<h4> Image Processing </h4>
                 <center>
 				<button id="add" onclick="addEntry()" class="btn btn-default btn-block" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-plus"></span>
 					Add
 				</button>
 				<button id="remove" onclick="removeEntry()" class="btn btn-default btn-block" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-minus"></span>
 					Remove
 				</button>
 				<button id="mtrue" onclick="markTrue()" class="btn btn-default btn-block" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-ok"></span>
 					Mark True
 				</button>
 				<button id="mfalse" onclick="markFalse()" class="btn btn-default btn-block" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-remove"></span>
 					Mark False
 				</button>
 				<button onclick="save_circles()" class="btn btn-default btn-block" aria-label="Left Align">
                     <span class="glyphicon glyphicon-floppy-disk"></span>
 				    Save
 				</button>
+                <a class="btn btn-default btn-block" aria-label="Left Align" href="/detection_list?imageid={{ urlargs.page }}">
+                    <i class="fa fa-fw fa-circle-o"></i>
+				    Detections
+				</a>
                 </center>
 				<hr>
                 <div class="hidden-xs hidden-sm">

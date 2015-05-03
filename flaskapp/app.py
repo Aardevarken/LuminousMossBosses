@@ -11,6 +11,8 @@ from util.miscellaneous import *
 import subprocess
 from shell_scripts.generatecsv import generateCSV
 from celery import Celery
+from flask_mail import Message, Mail
+import random, string
 
 #CELERY
 def make_celery(app):
@@ -52,6 +54,14 @@ celery = make_celery(app)
 app.config.from_object(__name__)
 app.config.from_envvar('FLASK_APP_SETTINGS', silent=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'luminousmossbosses@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Silene2015'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
+
 login_manager.init_app(app)
 
 def has_permissions():
@@ -59,6 +69,21 @@ def has_permissions():
 
 def has_admin_permissions():
     return current_user.Type in ['admin']
+
+def send_password_reset_email(username, password, email):
+    msg = Message("LuminousID password reset", sender="luminousmossbosses@gmail.com", recipients=[email])
+    msg.body = "You have requested a password reset on luminousid.com for username \"" + username + "\"\n Your temporary password is: " + password + "\n"
+    msg.body += "Use this temporary password to log in and then you should reset your password using the settings page IMMEDIATELY."
+    mail.send(msg)
+
+def reset_pass_and_email(email):
+    user = db_session().query(User).filter(User.Email == email).first()
+    rand_pass = ''.join(random.choice(string.punctuation + string.ascii_uppercase + string.digits + string.ascii_lowercase) for _ in range(42))
+    print rand_pass 
+    user.set_password(rand_pass)
+    db_session().commit()
+    send_password_reset_email(user.Username, rand_pass, email)
+
 
 @celery.task()
 def gen_detection_images(obsid = None):
@@ -92,17 +117,17 @@ def gen_rotation_images(objid):
             RotationObject.Location, RotationObject.FileName, RotationObject.RotationAngle) \
             .filter(RotationObject.ParentDetectionObjectID == objid)
     isPositive = db_session.query(DetectionObject).get(objid).IsPosDetect
-    pos_dir = "positive/" if isPositive == 1 or isPositive == null else "negative/"
+    pos_dir = "positive/" if isPositive == 1 or isPositive == None else "negative/"
 
     for rotation in rotations:
         rotationangle = rotation.RotationAngle
 
         original_filename = str(db_session().query(DetectionObject.ObjectID, DetectionObject.FileName)\
-                .filter(DetectionObject.ObjectID == RotationObject.ParentDetectionObjectID)\
+                .filter(DetectionObject.ObjectID == rotation.ParentDetectionObjectID)\
                 .first().FileName)
-
+        print original_filename
         filename = pos_dir + str(rotation.id) + "_rotated_" + original_filename
-        os.system("/var/www/flaskapp/shell_scripts/rotate_image.sh " + \
+        os.system("shell_scripts/rotate_image2.sh " + \
                 os.path.join(CROPPED_FOLDER, original_filename) + " " +\
                 os.path.join(ROTATED_FOLDER, filename) + " " + str(rotationangle))
 
@@ -132,6 +157,11 @@ def id_to_db(obs_id):
     process.wait()
     gen_detection_images(obs_id)
 
+@celery.task()
+def gen_bag_of_words(directory):
+    process = subprocess.Popen('/home/ubuntu/LuminousMossBosses/BagOfWords/genxml_sb.sh ' + str(directory) + ' 2> /dev/null', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    process.wait()
+    
 @login_manager.unauthorized_handler
 def unauthorized():
     return redirect(url_for('login'))
@@ -231,6 +261,33 @@ def observation_list():
         return render_template('observation_list.html', observations=result[0], urlargs=result[1])
     else:
         abort(404)
+
+def IsProcessRunning(process):
+    process = subprocess.Popen('ps -e | ' + process, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    #process.wait()
+    out, _ = process.communicate()
+    return bool(str(out) == "")
+
+@app.route('/_retrain_bag_of_words', methods=['POST'])
+@login_required
+def retrain_bag_of_word():
+    if IsProcessRunning('genxml_db.sh'):
+        gen_bag_of_words.delay("static/BagOfWords")
+    return "Working on it"
+
+
+#@app.route('/_retrain_general', methods=['POST'])
+#@login_required
+#def retrain_general():
+#    if IsProcessRunning(''):
+#        gen_bag_of_words("static/BagOfWords")
+#    return "Working on it"
+
+@app.route('/xml')
+@login_required
+def xml():
+    if has_permissions():
+        return render_template('retraining.html')
 
 @app.route('/detection_list')
 @login_required

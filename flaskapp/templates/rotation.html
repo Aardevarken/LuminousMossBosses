@@ -71,7 +71,7 @@
                 <tr><td><b>Positive Detection:</b></td><td>
                     <select class="form-control" id="id_vas_{{ detection.ObjectID }}" onchange="updateSelection('vas_{{ detection.ObjectID }}', '')">
                         {{ select_options(1,detection.IsPosDetect, True, "Positive Detection") }}
-                        {{ select_options(0,detection.IsPosDetect, False, "False Positivie Detection") }}
+                        {{ select_options(0,detection.IsPosDetect, False, "False Positive Detection") }}
                         {{ select_options(-1,detection.IsPosDetect, none, "N/A") }}
                     </select>
                     </td>

@@ -1,0 +1,22 @@
+{% extends "admin_layout.html" %}
+{% block body %}
+<script src="{{ url_for('static', filename='js/utils.js')}}"></script>
+    <div class="row">
+        <div class="col-lg-6">
+				<button onclick="retrain_bag_of_words()" class="btn btn-default btn-block" aria-label="Left Align">
+				    Retrain Bag of Words
+				</button>
+           <!-- <ul class="list-inline banner-social-buttons">
+                <li>
+                <a href="/_retrain_bag_of_words" class="btn btn-default btn-lg">Retrain Bag of Words</a>
+                </li>
+                <li>
+                <a href="/_retrain_general" class="btn btn-default btn-lg">Retrain Classifier</a>
+                </li>
+            </ul> -->
+        </div>
+    </div>
+<script src="{{ url_for('static', filename='js/xml.js')}}"></script>
+{% endblock %}
+<!--</body>
+</html>-->
