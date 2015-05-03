@@ -10,6 +10,7 @@
 #import "detectionHelper.h"
 #import "UserDataDatabase.h"
 #import "IdentifyingAssets.h"
+#import "ObsViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)

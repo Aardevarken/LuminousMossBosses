@@ -12,6 +12,7 @@
 @interface IdentifyingAssets : NSObject
 
 @property (nonatomic, strong) NSMutableDictionary *unknownAssets;
+@property (nonatomic, strong) NSNumber *currentSyncCount;
 
 +(IdentifyingAssets *) getSharedInstance;
 +(detectionHelper*) getByimghexid:(NSString*) imghexid;

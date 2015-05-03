@@ -119,11 +119,14 @@
 	BOOL success = NO;
 	NSString *alertString = @"Data insertion failed";
 	
+	if (selectedAsset == nil){
+		ALog(@"nil");
+	}
 	// get image asset
 	NSString *img = [NSString stringWithFormat:@"%@", selectedAsset];//self.capedImg];
 
 	//ALog(@"SelectedAsset: %@", selectedAsset);
-	if (selectedAsset == nil){
+	if ([selectedAsset isEqualToString:@"(null)"]){
 		NSLog(@"You cannot submit that");
 		return;
 	}
@@ -147,6 +150,8 @@
 	if (success == NO) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
+		// not sure if the following line will ever work. but hopefully it deletes the data the user just tried to enter.
+		[[UserDataDatabase getSharedInstance]  deleteObservationByID:img];
 	}
 	
 	[self displayMyObservationsVC];
@@ -237,7 +242,7 @@
 	
 	bestLocationForImage = [[UserDataDatabase getSharedInstance] getBestKnownLocation];
 	
-	[[self captureManager] stopFeed];
+	[[[self captureManager] captureSession] stopRunning];
 
 	UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
 	imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
