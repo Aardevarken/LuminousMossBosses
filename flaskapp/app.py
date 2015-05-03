@@ -158,7 +158,7 @@ def id_to_db(obs_id):
 
 @celery.task()
 def gen_bag_of_words(directory):
-    process = subprocess.Popen('/home/ubuntu/LuminousMossBosses/BagOfWords/genxml_sb.sh ' + str(directory) + ' 2> /dev/null', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    process = subprocess.Popen('/home/ubuntu/LuminousMossBosses/BagOfWords/genxml_db.sh ' + str(directory) + ' 2> /dev/null', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     process.wait()
     
 @login_manager.unauthorized_handler
@@ -243,6 +243,39 @@ def logout():
     #session.pop('logged_in', None)
     return redirect(url_for('login'))
 
+def IsProcessRunning(process):
+    process = subprocess.Popen('ps -e | grep ' + process, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    out, _ = process.communicate()
+    return bool(str(out) != "")
+
+@app.route('/_retrain_bag_of_words')
+@login_required
+def retrain_bag_of_word():
+    if has_permissions:
+        if not IsProcessRunning('genxml_db.sh'):
+            gen_bag_of_words.delay("/var/www/flaskapp/static/BagOfWords")
+    return redirect(url_for('xml'))
+
+@app.route('/xml')
+@login_required
+def xml():
+    if has_permissions():
+        isrunning = IsProcessRunning('genxml_db.sh')
+        return render_template('retraining.html',isrunning=isrunning)
+
+#Help
+@app.route('/website_help')
+@login_required
+def help_website():
+    if has_permissions():
+        return render_template('help/website_guide.html')
+    
+@app.route('/field_guide_help')
+@login_required
+def help_field_guide():
+    if has_permissions():
+        return render_template('help/field_guide_editing.html')
+
 def generate_filtered_list(ufilter, items, model, attribute):
     url_filter = request.args.get(ufilter);
     page = request.args.get('page')
@@ -270,25 +303,6 @@ def observation_list():
     else:
         abort(404)
 
-def IsProcessRunning(process):
-    process = subprocess.Popen('ps -e | ' + process, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    out, _ = process.communicate()
-    return bool(str(out) == "")
-
-@app.route('/_retrain_bag_of_words', methods=['POST'])
-@login_required
-def retrain_bag_of_word():
-    if has_permissions:
-        if IsProcessRunning('genxml_db.sh'):
-            gen_bag_of_words.delay("static/BagOfWords")
-    return "Working on it"
-
-@app.route('/xml')
-@login_required
-def xml():
-    if has_permissions():
-        isrunning = IsProcessRunning('genxml_db.sh')
-        return render_template('retraining.html',isrunning=isrunning)
 
 @app.route('/detection_list')
 @login_required
@@ -343,11 +357,11 @@ def csv_save():
 @app.route('/save_bag_of_words')
 @login_required
 def bag_of_words_save():
-    Location = "static/BagOfWords/"
+    Location = "/var/www/flaskapp/static/BagOfWords/"
     vocab = Location+"vocabulary.xml"
     silene = Location+"silene.xml"
     FileName = Location+"bag_of_words.zip"
-    process = subprocess.Popen('zip -jFS ' + FileName + ' ' + vocab + ' ' + silene, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    process = subprocess.Popen('zip -j ' + FileName + ' ' + vocab + ' ' + silene, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     process.wait()
     return send_file(FileName, as_attachment=True)
 

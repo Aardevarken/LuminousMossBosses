@@ -71,9 +71,6 @@
             {%- endmacro %}
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li>
-                        <a href="main"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>
                     {{ render_sitem('observation_list', 'Observations', iconcls='fa fa-fw fa-picture-o', active=active_page) }}
                     {{ render_sitem('device_list', 'Devices', iconcls='fa fa-fw fa-mobile', active=active_page) }}
 
@@ -88,7 +85,13 @@
                         </ul>
                     </li>
                     {{ render_sitem('csv', '.CSV Downlaod', iconcls='fa fa-fw fa-table', active=active_page) }}
-                    {{ render_sitem('help', 'Help', iconcls='fa fa-fw fa-question', active=active_page) }}
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#help"><i class="fa fa-fw fa-question"></i> User Guide <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="help" class="collapse">
+                            {{ render_sitem('website_help', 'Website', iconcls='', active=active_page) }}
+                            {{ render_sitem('field_guide_help', 'Field Guide Editing', iconcls='', active=active_page) }}
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -98,24 +101,6 @@
 
             <div class="container-fluid">
                 {% block body %}{% endblock %}
-                <!-- Page Heading -->
-                <!--<div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Blank Page
-                            <small>Subheading</small>
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                            </li>
-                            <li class="active">
-                                <i class="fa fa-file"></i> Blank Page
-                            </li>
-                        </ol>
-                    </div>
-                </div>-->
-                <!-- /.row -->
 
             </div>
             <!-- /.container-fluid -->
