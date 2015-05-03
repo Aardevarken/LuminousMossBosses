@@ -2,6 +2,8 @@ package com.luminousmossboss.luminous;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -33,7 +35,7 @@ import dialog.DeleteDialogFragment;
  * Created by Brian on 2/1/2015.
  */
 
-public class FieldGuideListFragment extends Fragment implements BackButtonInterface{
+public class FieldGuideListFragment extends Fragment implements View.OnClickListener, BackButtonInterface{
 
     private Context context;
     private String mTitle;
@@ -42,7 +44,9 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
 
     private FGListAdapter adapter;
     private ArrayList<ListItem> listItems;
+    private static List<Integer> filteredIds;
 
+    private static String filter_btn_title;
     private Button filter_btn;
 
     public FieldGuideListFragment(){}
@@ -56,9 +60,14 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_listview, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_fieldguide_list, container, false);
 
         initList(rootView, container);
+
+        filter_btn = (Button) rootView.findViewById(R.id.filter_button);
+        if (filter_btn_title != null)
+            filter_btn.setText(filter_btn_title);
+        filter_btn.setOnClickListener(this);
 
         final Activity activity = getActivity();
 
@@ -76,15 +85,6 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
 
         activity.setTitle(MainActivity.FIELD_GUIDE_POSITION);
         return rootView;
-
-        /*btn_fieldGuide = (ImageButton) rootView.findViewById(R.id.Field_Guide_button);
-        btn_fieldGuide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(activity instanceof MainActivity)
-                    ((MainActivity) activity).displayView(3);
-            }
-        });*/
     }
 
     @Override
@@ -113,31 +113,57 @@ public class FieldGuideListFragment extends Fragment implements BackButtonInterf
         String[] listTitles = getResources().getStringArray(R.array.field_guide_items);
         TypedArray listIcons = getResources().obtainTypedArray(R.array.field_guide_icons);
         String[] listDescriptions = getResources().getStringArray(R.array.field_guide_description);
-
         this.mDrawerList = (ListView) rootView.findViewById(R.id.fragment_list);
         this.context = container.getContext();
+        listIcons.recycle();
+        refreshList();
+    }
+
+    private void refreshList() {
         this.listItems = new ArrayList<ListItem>();
-
         FieldGuideDBHandler fieldGuideDBH = FieldGuideDBHandler.getInstance(context);
-
-        List<Integer> ids = fieldGuideDBH.getIDs();
-        HashMap<Integer, String> latinNames = fieldGuideDBH.getLatinNames();
-        HashMap<Integer, String> commonNames = fieldGuideDBH.getCommonNames();
-        HashMap<Integer, String> iconPaths = fieldGuideDBH.getIconPaths();
-        // filtering example
-//        List<Integer> ids = fieldGuideDBH.filterByHabitat("dry meadow");
-//        HashMap<Integer, String> latinNames = fieldGuideDBH.getLatinNamesForIDs(ids);
-//        HashMap<Integer, String> commonNames = fieldGuideDBH.getCommonNamesForIDs(ids);
-//        HashMap<Integer, String> iconPaths = fieldGuideDBH.getIconPathsForIDs(ids);
+        List<Integer> ids;
+        if (filteredIds != null) {
+            ids = filteredIds;
+        }
+        else
+            ids = fieldGuideDBH.getIDs();
+        HashMap<Integer, String> latinNames = fieldGuideDBH.getLatinNamesForIDs(ids);
+        HashMap<Integer, String> commonNames = fieldGuideDBH.getCommonNamesForIDs(ids);
+        HashMap<Integer, String> iconPaths = fieldGuideDBH.getIconPathsForIDs(ids);
         for (int i = 0; i < ids.size(); i++) {
-//            listItems.add(fieldGuideDBH.getFGItemWithID(ids.get(i)));
             int id = ids.get(i);
             listItems.add(new FieldGuideItem(id, latinNames.get(id), iconPaths.get(id), commonNames.get(id)));
         }
 
-        listIcons.recycle();
-
         adapter = new FGListAdapter(context, listItems);
         mDrawerList.setAdapter(adapter);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.filter_button:
+                Fragment fragment;
+                if (filter_btn_title != null){
+                    filteredIds = null;
+                    filter_btn_title = null;
+                    refreshList();
+                    filter_btn.setText("Filters");
+                }
+                else {
+                    fragment = new FiltersFragment();
+                    ((MainActivity) getActivity()).displayView(fragment);
+                }
+        }
+    }
+
+    public static void setFilterIDS(List<Integer> ids) {
+        filteredIds = ids;
+    }
+
+    public static void setFilterButtonTitle(String title) {
+        filter_btn_title = title;
+    }
+
 }

@@ -45,6 +45,7 @@ public class SileneDetector
         byte [] photoByteArray = byte_os.toByteArray();
         int height = bitmapImage.getHeight();
         int width = bitmapImage.getWidth();
+        bitmapImage.recycle();
         return this.isSilene(flower_xml, vocab_xml, silene_xml, height, width, photoByteArray);
     }
 

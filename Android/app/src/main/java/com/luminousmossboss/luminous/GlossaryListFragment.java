@@ -3,6 +3,7 @@ package com.luminousmossboss.luminous;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -43,8 +44,8 @@ public class GlossaryListFragment extends Fragment implements BackButtonInterfac
     }
 
     @Override
-    public void onStop(){
-        super.onStop();
+    public void onPause(){
+        super.onPause();
         GlossaryItem.clearCache();
     }
 
@@ -84,6 +85,8 @@ public class GlossaryListFragment extends Fragment implements BackButtonInterfac
         this.mDrawerList = (ListView) rootView.findViewById(R.id.fragment_list);
         this.context = container.getContext();
         this.listItems = new ArrayList<ListItem>();
+
+        TypedArray listIcons = getResources().obtainTypedArray(R.array.field_guide_icons);
 
         FieldGuideDBHandler fieldGuideDBH = FieldGuideDBHandler.getInstance(context);
 
@@ -152,5 +155,7 @@ public class GlossaryListFragment extends Fragment implements BackButtonInterfac
 
         adapter = new GlossaryListAdapter(context, listItems);
         mDrawerList.setAdapter(adapter);
+
+        listIcons.recycle();
     }
 }
