@@ -41,10 +41,10 @@ detectionHelper *detectionObject;
 	dateLabel.text = [NSString stringWithFormat:@"%@", [plantInfo objectForKey:@"datetime"]];
 	
 	locationLabel.text = [
-						  NSString stringWithFormat:@"%.4f° N, %.4f° W   ±%dl m",
+						  NSString stringWithFormat:@"%.4f° N, %.4f° W   ±%ld m",
 						  [[plantInfo objectForKey:@"latitude"] floatValue],
 						  [[plantInfo objectForKey:@"longitude"] floatValue],
-						  [[plantInfo objectForKey:@"locationerror"] integerValue]];
+						  (long)[[plantInfo objectForKey:@"locationerror"] integerValue]];
 	
 	
 	NSURL *url = [NSURL URLWithString:[plantInfo objectForKey:@"imghexid"]];
