@@ -8,9 +8,10 @@
 
 #import "SyncedObsTVC.h"
 #import "ObsDetailViewController.h"
+#import "IdentifyingAssets.h"
 
 @interface SyncedObsTVC ()
-
+- (void)getAllSyncedObs;
 @end
 
 @implementation SyncedObsTVC{
@@ -27,7 +28,9 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-		syncedObservations = [NSMutableArray arrayWithArray:[[UserDataDatabase getSharedInstance] findObservationsByStatus:@"synced" like:NO orderBy:@"datetime DESC"]];
+	//	syncedObservations = [NSMutableArray arrayWithArray:[[UserDataDatabase getSharedInstance] findObservationsByStatus:@"synced" like:NO orderBy:@"datetime DESC"]];
+	
+	[self getAllSyncedObs];
 	
 }
 
@@ -35,10 +38,22 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)viewWillAppear:(BOOL)animated{
+	[[IdentifyingAssets getSharedInstance] addObserver:self forKeyPath:@"currentSyncCount" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+	[[IdentifyingAssets getSharedInstance] removeObserver:self forKeyPath:@"currentSyncCount"];
+}
+
 - (void)viewDidAppear:(BOOL)animated{
-	[[self tableView] reloadData];
+	//[[self tableView] reloadData];
 	
 	[super viewDidAppear:animated];
+}
+
+- (void)getAllSyncedObs{
+	syncedObservations = [NSMutableArray arrayWithArray:[[UserDataDatabase getSharedInstance] findObservationsByStatus:@"synced" like:NO orderBy:@"datetime DESC"]];
 }
 
 #pragma mark - Table view data source
@@ -160,7 +175,19 @@
 		
 		destViewController.plantInfo = selectedObservation;
 	}
+}
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+	
+	if ([keyPath isEqualToString:@"currentSyncCount"]) {
+		
+		//long new = NSNumb[change valueForKey:@"new"];
+		//long old = [change valueForKey:@"old"];
+
+		[self getAllSyncedObs];
+		[[self tableView] reloadData];
+	}
+	
 }
 
 

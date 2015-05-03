@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="96dp"
+    android:minHeight="96dp">
+
+    ImageView
+        android:id="@+id/icon"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/silene_acaulis_icon"
+        android:layout_alignParentTop="true"
+        android:paddingStart="0dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:minHeight="1dp"
+        android:minWidth="1dp"
+        android:maxHeight="126dp"
+        android:background="@android:color/white"
+        android:adjustViewBounds="false"
+        android:cropToPadding="true" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="type"
+        android:textSize="30sp"
+        android:gravity="center_vertical"
+
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textColor="@color/list_title"
+
+        android:paddingRight="5dp"
+        android:paddingLeft="10dp"
+
+        android:typeface="sans"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/icon"
+        android:layout_toEndOf="@+id/icon" />
+
+</RelativeLayout>
+
+<!--<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+    android:gravity="center_vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:textColor="#fff"
+    android:background="?android:attr/activatedBackgroundIndicator"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"/> -->

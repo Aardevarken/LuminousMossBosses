@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['findobservationbyid_3a',['findObservationByID:',['../interface_user_data_database.html#a8b21edb69afd541d425352fb5e7db6ea',1,'UserDataDatabase']]],
-  ['findobservationsbystatus_3alike_3aorderby_3a',['findObservationsByStatus:like:orderBy:',['../interface_user_data_database.html#afb7eff58c62d5da42541333111d96d44',1,'UserDataDatabase']]],
-  ['findspeciesbyid_3a',['findSpeciesByID:',['../interface_field_guide_manager.html#a92917afde794071d4ce408cd467d8881',1,'FieldGuideManager']]]
+  ['getalldata',['getAllData',['../interface_field_guide_manager.html#aca5177d0552c0ab93c60d6b3c87af64b',1,'FieldGuideManager']]],
+  ['getfilteroptionsfor_3a',['getFilterOptionsFor:',['../interface_field_guide_manager.html#ab49ea338603dc0bc9be1d14dcaf73d7c',1,'FieldGuideManager']]],
+  ['getimagepathforspecieswithid_3a',['getImagePathForSpeciesWithID:',['../interface_field_guide_manager.html#ad7577fad83327003d6e925fb458f0e25',1,'FieldGuideManager']]],
+  ['getsharedinstance',['getSharedInstance',['../interface_field_guide_manager.html#ac34f8b8db6bab3e5c0889a5346312415',1,'FieldGuideManager::getSharedInstance()'],['../interface_user_data_database.html#a7e1e103231887a9264544a799955e90e',1,'UserDataDatabase::getSharedInstance()']]]
 ];

@@ -1,6 +1,7 @@
 package com.luminousmossboss.luminous;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -26,6 +27,7 @@ public class FieldGuideDBHandler extends SQLiteAssetHelper {
     private static HashMap<Integer, String> latinNames;
     private static HashMap<Integer, String> commonNames;
     private static FieldGuideDBHandler instance;
+    private static Context context;
 
     private FieldGuideDBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -33,6 +35,7 @@ public class FieldGuideDBHandler extends SQLiteAssetHelper {
         iconPaths = new HashMap<>();
         latinNames = new HashMap<>();
         commonNames = new HashMap<>();
+        this.context = context;
     }
 
     public static FieldGuideDBHandler getInstance(Context context) {
@@ -300,6 +303,19 @@ public class FieldGuideDBHandler extends SQLiteAssetHelper {
     public List<Integer> filterByHabitat(String value) {
         String query = filterManyToManyQuery("habitat", value);
         return runFilterQuery(query);
+    }
+
+    public List<Integer> filterFieldGuide(String category, String term) {
+        switch (category) {
+            case "Flower Color": return filterByFlowerColor(term);
+            case "Inflorescence": return filterByInflorescence(term);
+            case "Flower Shape": return filterByFlowerShape(term);
+            case "Number of Petals": return filterByPetalNumber(term);
+            case "Leaf Arrangement": return filterByLeafArrangment(term);
+            case "Leaf Shape": return filterByLeafShape(term);
+            case "Habitat": return filterByHabitat(term);
+            default: return new ArrayList<Integer>();
+        }
     }
 
     public List<String> getHabitatNames() {

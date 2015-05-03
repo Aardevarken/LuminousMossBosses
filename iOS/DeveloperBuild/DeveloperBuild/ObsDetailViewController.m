@@ -10,6 +10,7 @@
 #import "detectionHelper.h"
 #import "UserDataDatabase.h"
 #import "IdentifyingAssets.h"
+#import "ObsViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
@@ -43,7 +44,7 @@ detectionHelper *detectionObject;
 						  NSString stringWithFormat:@"%.4f° N, %.4f° W   ±%ld m",
 						  [[plantInfo objectForKey:@"latitude"] floatValue],
 						  [[plantInfo objectForKey:@"longitude"] floatValue],
-						  [[plantInfo objectForKey:@"locationerror"] integerValue]];
+						  (long)[[plantInfo objectForKey:@"locationerror"] integerValue]];
 	
 	
 	NSURL *url = [NSURL URLWithString:[plantInfo objectForKey:@"imghexid"]];

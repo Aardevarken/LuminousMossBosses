@@ -10,5 +10,6 @@ var searchData=
   ['obstableviewcontroller_28_29',['ObsTableViewController()',['../category_obs_table_view_controller_07_08.html',1,'']]],
   ['obsviewcontroller',['ObsViewController',['../interface_obs_view_controller.html',1,'']]],
   ['obsviewcontroller_28_29',['ObsViewController()',['../category_obs_view_controller_07_08.html',1,'']]],
-  ['optionstableviewcell',['OptionsTableViewCell',['../interface_options_table_view_cell.html',1,'']]]
+  ['optionstableviewcell',['OptionsTableViewCell',['../interface_options_table_view_cell.html',1,'']]],
+  ['optionstofilter',['optionsToFilter',['../interface_filter_options_collection_view_controller.html#a055e03f3f097fa19019fb94c35428663',1,'FilterOptionsCollectionViewController']]]
 ];
