@@ -20,7 +20,7 @@ import java.util.Collection;
  */
 public class FieldGuideDBHandler extends SQLiteAssetHelper {
 
-    private static final String DATABASE_NAME = "fieldguide.db";
+    private static final String DATABASE_NAME = "FieldGuide.db";
     private static final int DATABASE_VERSION = 1;
     private static List<Integer> ids;
     private static HashMap<Integer, String> iconPaths;
