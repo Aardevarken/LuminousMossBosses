@@ -8,7 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FilterOptions : NSObject
+@interface FilterOptions : NSObject{
+	@private
+	NSArray *imageExeptions;
+}
 @property (nonatomic, strong) NSArray *filterTitle;
 @property (nonatomic, strong) NSArray *filterDatabaseName;
 @property (nonatomic, strong) NSMutableArray *filterOption;
