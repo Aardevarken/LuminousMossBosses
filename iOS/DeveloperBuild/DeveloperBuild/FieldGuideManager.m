@@ -160,14 +160,17 @@ static NSDictionary *typeMap = nil;
 
 - (NSDictionary*)findSpeciesByID:(NSNumber*)id{
 	// Query #1
+	
+	
 	NSString *query = [NSString stringWithFormat:
-					   @"SELECT code, latin_name, common_name, family, description, photocredit "
+					   @"SELECT latin_name, common_name, family, description, photocredit "
 					   @"FROM species "
 					   @"WHERE species.id = %d"
 					   @";", (int)[id integerValue]
 					   ];
 
 	NSArray *results1 = [self runTableQuery:query];
+	
 	
 	// Query #2
 	query = [NSString stringWithFormat:
@@ -218,6 +221,7 @@ static NSDictionary *typeMap = nil;
 					   @"WHERE species.id = %d "
 					   @";", (int)[id integerValue]
 					   ];
+	
 	
 	NSArray *results = [self runTableQuery:query];
 	
