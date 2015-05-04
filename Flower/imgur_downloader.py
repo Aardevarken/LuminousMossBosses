@@ -26,7 +26,6 @@ def ConvertToJpg(filename):
         bg = Image.new("RGB", im.size, (255,255,255))
         bg.paste(im)
         bg.save(filename, quality=95)
-    im.close()
 
 def SearchAndSave(amount, directory):
     print "Lets do some soul searching"
