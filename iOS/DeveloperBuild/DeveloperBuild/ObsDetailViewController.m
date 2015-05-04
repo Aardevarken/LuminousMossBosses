@@ -40,7 +40,6 @@ detectionHelper *detectionObject;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    toFieldGuide.hidden = YES;
     // Do any additional setup after loading the view.
 	nameLabel.text = [NSString stringWithFormat:@"%@", [plantInfo objectForKey:@"imghexid"]];
 	percentLabel.text = [NSString stringWithFormat:@"%@%% ", [plantInfo objectForKey:@"percentIDed"]];
@@ -109,15 +108,16 @@ detectionHelper *detectionObject;
 	
 	if ([t isEqualToString:@"yes"]) {
 		name = @"Silene acaulis";
-        toFieldGuide.hidden = NO;
 	}
 	else if ([t isEqualToString:@"idk"]){
 		name = @"Unidentified";
-        toFieldGuide.hidden = YES;
+        self.toFieldGuide.image = nil;
+        self.toFieldGuide.enabled = NO;
 	}
 	else {
 		name = @"Unknown";
-        toFieldGuide.hidden = YES;
+        self.toFieldGuide.image = nil;
+        self.toFieldGuide.enabled = NO;
 	}
 	
 	nameLabel.text = name;
@@ -189,7 +189,6 @@ detectionHelper *detectionObject;
 		return [NSString stringWithFormat:@"Observation has been identified"];
 	}
 	else {
-#warning needs to throw an erro if this is hit
 		tapTo = @"...";
 	}
 	
@@ -221,7 +220,6 @@ detectionHelper *detectionObject;
 	[tapToStartBtn setHidden:YES];
 	
 	// show running btn, but keep it disabled.
-#warning @"Running..." will be displayed before the title change. 
 	[startRunning setTitle:[NSString stringWithFormat:@"Identifying ..."] forState:UIControlStateNormal];
 	[startRunning setEnabled:NO];
 	[startRunning setHidden:NO];
@@ -233,7 +231,6 @@ detectionHelper *detectionObject;
 		[self startIdentification];
 	}
 	else {
-#warning Need to make sure this case is never hit.
 		ALog(@"THIS SHOULD NEVER HIT");
 	}
 }
@@ -279,50 +276,16 @@ detectionHelper *detectionObject;
 
 
 #pragma mark - Navigation
-
-/*
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-	if ([segue.identifier isEqualToString:@"MyObsSegue"]) {
-		NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-	}
+    if ([segue.identifier isEqualToString:@"FieldGuideDVSegue2"]) {
+        FieldGuideDetailViewController *destViewController = segue.destinationViewController;
+        
+        destViewController.speciesID = [NSNumber numberWithInt:29];
+        
+        
+    }
 }
- 
- 
- ************************FIELDGUIDETABLEVIEWCONTROLLER COPY****************************
- 
- 
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
-	if ([segue.identifier isEqualToString:@"FieldGuideDVSegue"]) {
- NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
- 
- FieldGuideDetailViewController *destViewController = segue.destinationViewController;
- 
- destViewController.speciesID = [[fieldGuideData objectAtIndex:indexPath.row] objectForKey:@"id"];
- 
- 
-	}
- }
- 
- 
-**************************************
-// 
-// */
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    // Get the new view controller using [segue destinationViewController].
-//    // Pass the selected object to the new view controller.
-//    if ([segue.identifier isEqualToString:@"FieldGuideDVSegue2"]) {
-//        FieldGuideDetailViewController *destViewController = segue.destinationViewController;
-//        
-//        destViewController.speciesID = [NSNumber numberWithInt:29];
-//        
-//        
-//        
-//    }
-//}
 
 @end
