@@ -13,7 +13,7 @@ using namespace std;
 #include "detector.h"
 
 int main(int argc, char** argv) {
-  detector sileneDetector("flower.xml",  "../BagOfWords/vocabulary.xml", "../BagOfWords/silene.xml");
+  detector sileneDetector("/home/ubuntu/LuminousMossBosses/AlgTester/flower.xml",  "/home/ubuntu/LuminousMossBosses/BagOfWords/vocabulary.xml", "/home/ubuntu/LuminousMossBosses/BagOfWords/silene.xml");
   if (argc != 2) {
     cout << "Usage: find_flowers image" << endl;
     abort();
