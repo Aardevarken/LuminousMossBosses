@@ -32,22 +32,43 @@ static NSDictionary* typeMap = nil;
 		typeMap = @{
 					@"family"		: @"Family",
 					@"latin_name"	: @"Latin name",
-					@"code"			: @"Code",
+//					@"code"			: @"Code",
 					@"growthform"	: @"Growthform",
 					@"common_name"	: @"Common name",
 					@"flower shape"	: @"Flower shape",
 					@"leaf shape filter"	:	@"Leaf shape",
 					@"description"	: @"Description",
-					@"photocredit"	: @"Photocredit"
+					@"photocredit"	: @"Photocredit",
+					@"inflorescence"	: @"Inflorescence",
+					@"habitat"		: @"Habitat",
+					@"leafarrangement"	: @"Leaf arrangement",
+					@"leafshape"	: @"Leaf shape",
+					@"petalnumber"	: @"Petal number"
 					};
 	});
+	
+	NSMutableDictionary *mdic = [[NSMutableDictionary alloc] initWithDictionary:[[FieldGuideManager getSharedInstance] findSpeciesByID:[self speciesID]]];
+	
+	[[self nameOfSpeciesLabel] setText:[mdic objectForKey:@"latin_name"]];
+	NSString *imgName = [NSString stringWithFormat:@"FORBS/%@.jpg", [mdic objectForKey:@"code"]];
+	
 
-	speciesInfo = [[FieldGuideManager getSharedInstance] findSpeciesByID:[self speciesID]];
+	
+	NSArray *keys = [mdic allKeys];
+	for (int i = 0 ; i < [keys count]; i++){
+		if ([mdic[keys[i]] isEqualToString:@"."] || [mdic[keys[i]] isEqualToString:@""]){
+			[mdic removeObjectForKey:keys[i]];
+		}
+	}
+	
+	[mdic removeObjectForKey:@"code"];
+	[mdic removeObjectForKey:@"latin_name"];
+	
+	
+	speciesInfo = mdic;
 	valueInfoToDisplay = [speciesInfo allValues];
 	keyInfoToDisplay = [speciesInfo allKeys];
 	
-	[[self nameOfSpeciesLabel] setText:[speciesInfo objectForKey:@"latin_name"]];
-	NSString *imgName = [NSString stringWithFormat:@"FORBS/%@.jpg", [speciesInfo objectForKey:@"code"]];
 	[[self plantImageView] setImage:[UIImage imageNamed:imgName]];
 	
 }
@@ -68,8 +89,11 @@ static NSDictionary* typeMap = nil;
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 	DetailFieldGuidCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailFieldGuideCell_ID"];
 	
-	cell.value.text = [valueInfoToDisplay objectAtIndex:indexPath.row];
-	cell.title.text = [typeMap objectForKey:[keyInfoToDisplay objectAtIndex:indexPath.row]];
+	NSString *val = [valueInfoToDisplay objectAtIndex:indexPath.row];
+	if (![val isEqualToString:@"."]) {
+		cell.value.text = [valueInfoToDisplay objectAtIndex:indexPath.row];
+		cell.title.text = [typeMap objectForKey:[keyInfoToDisplay objectAtIndex:indexPath.row]];
+	}
 	
 	return cell;
 }

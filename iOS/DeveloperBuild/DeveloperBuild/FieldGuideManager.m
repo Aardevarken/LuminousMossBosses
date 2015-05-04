@@ -70,10 +70,11 @@ static NSDictionary *typeMap = nil;
 		// build the path to the database file
 		//databasePath = [[NSString alloc] initWithString:[docsDir stringByAppendingPathComponent:databaseName]];
 		
-		
+		//ALog(@"scp: %@", sourcePath);
 		NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];
 		//NSString *targetPath = [libraryPath stringByAppendingPathComponent:databaseName];
 		databasePath = [libraryPath stringByAppendingPathComponent:databaseName];
+		//ALog(@"dbp: %@",databasePath);
 		if (![[NSFileManager defaultManager] fileExistsAtPath:databasePath/*targetPath*/]) {
 			// database doesn't exist in your library path... copy it from the bundle
 			NSError *error = nil;
@@ -160,6 +161,8 @@ static NSDictionary *typeMap = nil;
 
 - (NSDictionary*)findSpeciesByID:(NSNumber*)id{
 	// Query #1
+	
+	
 	NSString *query = [NSString stringWithFormat:
 					   @"SELECT code, latin_name, common_name, family, description, photocredit "
 					   @"FROM species "
@@ -169,11 +172,12 @@ static NSDictionary *typeMap = nil;
 
 	NSArray *results1 = [self runTableQuery:query];
 	
+	
 	// Query #2
 	query = [NSString stringWithFormat:
 			 @"SELECT growthform.name "
 			 @"FROM species "
-			 @"JOIN growthform on growthformid = growthform.id "
+			 @"JOIN growthform on growthform_id = growthform.id "
 			 @"WHERE species.id = %d;",
 			 (int)[id integerValue]
 			 ];
@@ -184,30 +188,44 @@ static NSDictionary *typeMap = nil;
 	query = [NSString stringWithFormat:
 			 @"SELECT flowershape.name "
 			 @"FROM species "
-			 @"JOIN flowershape on flowershape.id = flowershapeid "
+			 @"JOIN flowershape on flowershape.id = flowershape_id "
 			 @"WHERE species.id = %d;",
 			 (int)[id integerValue]
 			 ];
 	
 	NSArray *results3 = [self runTableQuery:query];
 	
-	// Query #4
-	query = [NSString stringWithFormat:
-			 @"SELECT leafshapefilter.name "
-			 @"FROM species "
-			 @"JOIN leafshapefilter on leafshapefilterid = leafshapefilter.id "
-			 @"WHERE species.id = %d;",
-			 (int)[id integerValue]
-			 ];
+//	// Query #4
+//	query = [NSString stringWithFormat:
+//			 @"SELECT leafshapefilter.name "
+//			 @"FROM species "
+//			 @"JOIN leafshapefilter on leafshapefilter_id = leafshapefilter.id "
+//			 @"WHERE species.id = %d;",
+//			 (int)[id integerValue]
+//			 ];
+//	NSArray *results4 = [self runTableQuery:query];
 
-	NSArray *results4 = [self runTableQuery:query];
-
+	
+	NSArray *more = @[@"habitat", @"inflorescence", @"leafarrangement", @"leafshape", @"petalnumber"];
+	
+//	NSMutableArray *results5 = [NSMutableArray alloc];
+//
+//	for (NSString *str in more){
+//		[results5 addObject:[self getDataFromDB:str withSpeciesID:(int)[id integerValue]]];
+//	}
+	
 	// combine all queries together.
 	NSMutableDictionary *dicR = [[NSMutableDictionary alloc] initWithDictionary:results1[0]];
 	[dicR setObject:[results2[0] objectForKey:@"name"] forKey:@"growthform"];
 	[dicR setObject:[results3[0] objectForKey:@"name"] forKey:@"flower shape"];
-	[dicR setObject:[results4[0] objectForKey:@"name"] forKey:@"leaf shape filter"];
+//	[dicR setObject:[results4[0] objectForKey:@"name"] forKey:@"leaf shape filter"];
 	
+	for (NSString *str in more){
+		[dicR addEntriesFromDictionary:[self getDataFromDB:str withSpeciesID:(int)[id integerValue]]];
+	}
+	
+	//[dicR addEntriesFromDictionary:[results5 firstObject]];
+	ALog(@"\n\ninfo:\n %@\n", dicR);
 	return [[NSDictionary alloc] initWithDictionary:dicR];
 }
 
@@ -218,6 +236,7 @@ static NSDictionary *typeMap = nil;
 					   @"WHERE species.id = %d "
 					   @";", (int)[id integerValue]
 					   ];
+	
 	
 	NSArray *results = [self runTableQuery:query];
 	
@@ -244,6 +263,58 @@ static NSDictionary *typeMap = nil;
 	}
 	
 	return flat;
+}
+
+- (NSDictionary*)getDataFromDB:(NSString*)db withSpeciesID:(NSUInteger)pid{
+	NSString *query = [[NSString alloc] initWithFormat:
+						 @"SELECT %@.name \n"
+						 @"FROM species \n"
+						 @"JOIN species_%@ ON species.id = species_%@.species_id \n"
+						 @"JOIN %@ ON %@.id = %@_id \n"
+						 @"WHERE species_%@.species_id = %lu;\n",
+						 db,
+						 db,
+						 db,
+						 db,
+						 db,
+						 db,
+						 db,
+						 (unsigned long)pid
+						 ];
+	
+	//ALog(@"%@", query);
+	
+	NSArray *results = [self runTableQuery:query];
+	
+	
+	NSMutableArray *flat = [[NSMutableArray alloc] initWithCapacity:results.count];
+
+	for (int i = 0; i < results.count; ++i) {
+		[flat addObject:[[results objectAtIndex:i] objectForKey:@"name"]];
+	}
+	
+
+	NSMutableDictionary *dic = [NSMutableDictionary alloc];
+	NSMutableString *rstr = [[NSMutableString alloc] initWithString:@""];
+
+	if ([flat count ]>=1) {
+		[rstr appendString:[flat objectAtIndex:0]];
+		
+		if ([flat count] >= 2) {
+			for (NSUInteger i = 1; i < (flat.count - 1); ++i) {
+				[rstr appendString:@", "];
+				[rstr appendString:[flat objectAtIndex:i]];
+			}
+			[rstr appendString:@" and "];
+			[rstr appendString:[flat lastObject]];
+		}
+		
+		//NSString * resultstr = [[flat valueForKey:@"description"] componentsJoinedByString:@", "];
+		
+	}
+	
+	
+	return [[NSDictionary alloc] initWithObjectsAndKeys:rstr, db, nil];
 }
 
 

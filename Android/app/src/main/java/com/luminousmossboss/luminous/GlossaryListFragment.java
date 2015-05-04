@@ -3,6 +3,7 @@ package com.luminousmossboss.luminous;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -43,8 +44,8 @@ public class GlossaryListFragment extends Fragment implements BackButtonInterfac
     }
 
     @Override
-    public void onStop(){
-        super.onStop();
+    public void onPause(){
+        super.onPause();
         GlossaryItem.clearCache();
     }
 
@@ -85,12 +86,9 @@ public class GlossaryListFragment extends Fragment implements BackButtonInterfac
         this.context = container.getContext();
         this.listItems = new ArrayList<ListItem>();
 
+        TypedArray listIcons = getResources().obtainTypedArray(R.array.field_guide_icons);
+
         FieldGuideDBHandler fieldGuideDBH = FieldGuideDBHandler.getInstance(context);
-
-
-
-        ArrayList<ListItem> flowercolorList = new ArrayList<ListItem>();
-        flowercolorList.add(new Separator(getString(R.string.glossary_flowercolor)));
 
         ArrayList<ListItem> inflorescenceList = new ArrayList<ListItem>();
         inflorescenceList.add(new Separator(getString(R.string.glossary_inflorescence)));
@@ -101,19 +99,11 @@ public class GlossaryListFragment extends Fragment implements BackButtonInterfac
         ArrayList<ListItem> leafarrangementList = new ArrayList<ListItem>();
         leafarrangementList.add(new Separator(getString(R.string.glossary_leafarrangement)));
 
-
         ArrayList<ListItem> leafshapeList = new ArrayList<ListItem>();
         leafshapeList.add(new Separator(getString(R.string.glossary_leafshape)));
 
         ArrayList<ListItem> habitatList = new ArrayList<ListItem>();
         habitatList.add(new Separator(getString(R.string.glossary_habitat)));
-
-        for (String flowercolor : fieldGuideDBH.getFlowerColorNames()){
-            if (flowercolor.equals("other")) continue;
-            GlossaryItem item = GlossaryItem.getGlossaryItem(flowercolor, getString(R.string.glossary_flowercolor), context);
-            flowercolorList.add(item);
-        }
-        listItems.addAll(flowercolorList);
 
         for (String inflorescence : fieldGuideDBH.getInflorescenceNames()){
             if (inflorescence.equals("other")) continue;
@@ -152,5 +142,7 @@ public class GlossaryListFragment extends Fragment implements BackButtonInterfac
 
         adapter = new GlossaryListAdapter(context, listItems);
         mDrawerList.setAdapter(adapter);
+
+        listIcons.recycle();
     }
 }

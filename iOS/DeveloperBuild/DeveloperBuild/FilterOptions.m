@@ -16,6 +16,7 @@
 @implementation FilterOptions{
 	int currentTitleIndexRow;
 	NSString *selectFilterOption;
+	NSArray *imageExceptions;
 }
 
 @synthesize filterTitle;
@@ -25,11 +26,13 @@
 @synthesize filterDatabasenNamesWithImages;
 @synthesize filterOptionsWithImages;
 
+
 + (FilterOptions*)getSharedInstance{
 	static FilterOptions *sharedInstance = nil;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		sharedInstance = [[self alloc] init];
+		
 	});
 	return sharedInstance;
 }
@@ -85,6 +88,7 @@
 	 ORDER BY species.latin_name;
 	 */
 	
+	
 	NSUInteger capacity = filterTitle.count;
 	
 	NSString *selectFrom = @"SELECT species.id, species.latin_name, species.common_name, species.code\n"
@@ -99,14 +103,15 @@
 		
 			NSString *dbName = [filterDatabaseName objectAtIndex:filterAtIndex];
 			NSString *newJoin = [[NSString alloc] initWithFormat:
-								 @"JOIN species_%@ ON species.id = species_%@.speciesid\n"
-								 @"JOIN %@ ON %@.id = %@id\n",
+								 @"JOIN species_%@ ON species.id = species_%@.species_id\n"
+								 @"JOIN %@ ON %@.id = %@_id\n",
 								 dbName,
 								 dbName,
 								 dbName,
 								 dbName,
 								 dbName
 								 ];
+			
 			
 			NSString *newWhere = [[NSString alloc] initWithFormat:
 								  @"%@.name = \"%@\"\n",
@@ -119,15 +124,47 @@
 		}
 	}
 	
+	NSUInteger ie = [filterDatabasenNamesWithImages indexOfObject:@"leafarrangement"];
+	NSString *filterBy = [filterOptionsWithImages objectAtIndex:ie];
+	if (![filterBy isEqualToString:@"All"]) {
+		
+		NSString *dbName = [filterDatabasenNamesWithImages objectAtIndex:ie];
+		NSString *newJoin = [[NSString alloc] initWithFormat:
+							 @"JOIN species_%@ ON species.id = species_%@.species_id\n"
+							 @"JOIN %@ ON %@.id = %@_id\n",
+							 dbName,
+							 dbName,
+							 dbName,
+							 dbName,
+							 dbName
+							 ];
+		
+		
+		NSString *newWhere = [[NSString alloc] initWithFormat:
+							  @"%@.name = \"%@\"\n",
+							  dbName,
+							  filterBy
+							  ];
+		
+		[joins addObject:newJoin];
+		[whereAnds addObject:newWhere];
+	}
+	
 	capacity = [filterTitlesWithImages count];
 	
 	for (NSUInteger filterAtIndex = 0; filterAtIndex < capacity; ++filterAtIndex) {
 		NSString *filterBy = [filterOptionsWithImages objectAtIndex:filterAtIndex];
+		
 		if (![filterBy isEqualToString:@"All"]) {
+			if (filterAtIndex == ie) {
+				continue;
+			}
 			
 			NSString *dbName = [filterDatabasenNamesWithImages objectAtIndex:filterAtIndex];
+			
+			
 			NSString *newJoin = [[NSString alloc] initWithFormat:
-								 @"JOIN %@ ON species.%@id = %@.id\n",
+								 @"JOIN %@ ON species.%@_id = %@.id\n",
 								 dbName,
 								 dbName,
 								 dbName
@@ -157,9 +194,11 @@
 	
 	[query appendString:orderBy];
 	
-//	ALog(@"\nQuery:\n%@\n\n", query);
+	ALog(@"\nQuery:\n%@\n\n", query);
 	[[FieldGuideManager getSharedInstance] setFetchQuery:query];
 }
+
+
 
 - (void)resetFilterOptions{
 	[self setFilterOption:[self nullArrayOfLenght:[filterTitle count]]];

@@ -54,7 +54,7 @@ public class GlossaryItem extends ListItem implements Serializable {
     private boolean assetExists(String assetString, Context context) {
         AssetManager am = context.getAssets();
         try {
-            InputStream inputStream = am.open(assetString);
+            am.open(assetString);
         }
         catch (java.io.IOException e)
         {
