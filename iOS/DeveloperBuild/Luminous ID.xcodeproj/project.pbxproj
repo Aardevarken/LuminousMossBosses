@@ -83,7 +83,6 @@
 		16CE5B811A7AC7E700FDABA5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CE5B801A7AC7E700FDABA5 /* MapKit.framework */; };
 		16DBE0621ABA5C0700220872 /* SyncedObsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16DBE0611ABA5C0700220872 /* SyncedObsTVC.m */; };
 		16E2D49B1A64860900CA8845 /* ObsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E2D49A1A64860900CA8845 /* ObsViewController.m */; };
-		16E99CED1AF7014500404C28 /* FieldGuide.db in Resources */ = {isa = PBXBuildFile; fileRef = 16E99CEC1AF7014500404C28 /* FieldGuide.db */; };
 		16F131111AF0964400F40229 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F131101AF0964400F40229 /* AboutViewController.m */; };
 		16F131131AF0BFAF00F40229 /* GlossaryImages in Resources */ = {isa = PBXBuildFile; fileRef = 16F131121AF0BFAF00F40229 /* GlossaryImages */; };
 		16F131161AF0C59700F40229 /* FilterOptionsTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F131151AF0C59700F40229 /* FilterOptionsTabViewController.m */; };
@@ -244,7 +243,6 @@
 		16DBE0611ABA5C0700220872 /* SyncedObsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncedObsTVC.m; sourceTree = "<group>"; };
 		16E2D4991A64860900CA8845 /* ObsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObsViewController.h; sourceTree = "<group>"; };
 		16E2D49A1A64860900CA8845 /* ObsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObsViewController.m; sourceTree = "<group>"; };
-		16E99CEC1AF7014500404C28 /* FieldGuide.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = FieldGuide.db; path = ../../fieldguide/FieldGuide.db; sourceTree = "<group>"; };
 		16F1310F1AF0964400F40229 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		16F131101AF0964400F40229 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		16F131121AF0BFAF00F40229 /* GlossaryImages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GlossaryImages; sourceTree = "<group>"; };
@@ -360,7 +358,6 @@
 		163623BB1AEB7C6200A50CA3 /* Field Guide */ = {
 			isa = PBXGroup;
 			children = (
-				16E99CEC1AF7014500404C28 /* FieldGuide.db */,
 				163623AF1AEB7C4C00A50CA3 /* field_guide_schema.py */,
 				163623B11AEB7C4C00A50CA3 /* FieldGuideParser.py */,
 				163623B21AEB7C4C00A50CA3 /* FieldGuideParser.pyc */,
@@ -777,7 +774,6 @@
 				E6FDFD381AE718B500E88C6B /* Lobster_1.4.otf in Resources */,
 				16CCBC381A773D71008B7E96 /* IMG_1976.jpg in Resources */,
 				165C72AE1AEE014F007BB2AA /* ic_fieldguide.png in Resources */,
-				16E99CED1AF7014500404C28 /* FieldGuide.db in Resources */,
 				E6ED3AE71ADB837800099064 /* ic_addobservation copy.png in Resources */,
 				16B052B81A5B4BDE007837B4 /* Images.xcassets in Resources */,
 			);

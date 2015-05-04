@@ -225,7 +225,7 @@ static NSDictionary *typeMap = nil;
 	}
 	
 	//[dicR addEntriesFromDictionary:[results5 firstObject]];
-	ALog(@"\n\ninfo:\n %@\n", dicR);
+//	ALog(@"\n\ninfo:\n %@\n", dicR);
 	return [[NSDictionary alloc] initWithDictionary:dicR];
 }
 

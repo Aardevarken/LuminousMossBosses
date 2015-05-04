@@ -63,6 +63,7 @@ static NSDictionary* typeMap = nil;
 	
 	[mdic removeObjectForKey:@"code"];
 	[mdic removeObjectForKey:@"latin_name"];
+	[mdic removeObjectForKey:@"description"];
 	
 	
 	speciesInfo = mdic;
@@ -89,13 +90,41 @@ static NSDictionary* typeMap = nil;
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 	DetailFieldGuidCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailFieldGuideCell_ID"];
 	
-	NSString *val = [valueInfoToDisplay objectAtIndex:indexPath.row];
-	if (![val isEqualToString:@"."]) {
-		cell.value.text = [valueInfoToDisplay objectAtIndex:indexPath.row];
-		cell.title.text = [typeMap objectForKey:[keyInfoToDisplay objectAtIndex:indexPath.row]];
-	}
+	//NSString *val = [valueInfoToDisplay objectAtIndex:indexPath.row];
+	//if (![val isEqualToString:@"."]) {
+	cell.value.text = [valueInfoToDisplay objectAtIndex:indexPath.row];
+	
+
+//	NSString *randtext1 = @"So by colonel hearted ferrars. Draw from upon here gone add one.";
+	cell.title.text = [typeMap objectForKey:[keyInfoToDisplay objectAtIndex:indexPath.row]];
+//	//}
+//	
+//	NSString *randtext2 = @"Unpacked reserved sir offering bed judgment may and quitting speaking. Is do be improved raptures offering required in replying raillery. <END>";
+//	
+//	NSString *tv = [[NSString alloc] initWithFormat:@"%@%@",[valueInfoToDisplay objectAtIndex:indexPath.row], randtext2];
+//					
+//					
+//	NSAttributedString * celltext = [[NSMutableAttributedString alloc] initWithString:tv];
+//	NSAttributedString * cellLabel = [[NSMutableAttributedString alloc] initWithString:cell.title.text];
+//	CGFloat a = [self textViewHeightForAttributedText:cellLabel andWidth:300];
+//	CGFloat b = [self textViewHeightForAttributedText:celltext andWidth:300];
+//	tableView.rowHeight = a + b;
+//	
+//	
+//	cell.textview.text = [valueInfoToDisplay objectAtIndexedSubscript:indexPath.row];
+//	[cell.textview setFont:[UIFont systemFontOfSize:16]];
+
 	
 	return cell;
+}
+
+// DIS SHIT FIGURES OUT THE CELL SIZE YO!
+
+- (CGFloat)textViewHeightForAttributedText: (NSAttributedString*)text andWidth: (CGFloat)width {
+	UITextView *calculationView = [[UITextView alloc] init];
+	[calculationView setAttributedText:text];
+	CGSize size = [calculationView sizeThatFits:CGSizeMake(width, FLT_MAX)];
+	return size.height+32;
 }
 
 /*

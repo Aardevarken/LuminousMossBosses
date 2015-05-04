@@ -12,5 +12,6 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *title;
 @property (strong, nonatomic) IBOutlet UILabel *value;
+@property (strong, nonatomic) IBOutlet UITextView *textview;
 
 @end
