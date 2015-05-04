@@ -11,6 +11,8 @@
 #import "UserDataDatabase.h"
 #import "IdentifyingAssets.h"
 #import "ObsViewController.h"
+#import "FieldGuideManager.h"
+#import "FieldGuideDetailViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
@@ -20,7 +22,9 @@ detectionHelper *detectionObject;
 @interface ObsDetailViewController ()
 @end
 
-@implementation ObsDetailViewController
+@implementation ObsDetailViewController{
+    NSArray *fieldGuideData;
+}
 @synthesize nameLabel;
 @synthesize percentLabel;
 @synthesize dateLabel;
@@ -31,6 +35,7 @@ detectionHelper *detectionObject;
 @synthesize latitudeLabel;
 @synthesize locationLabel;
 @synthesize tapToStartBtn;
+@synthesize toFieldGuide;
 @synthesize buttonSuperView;
 
 - (void)viewDidLoad {
@@ -95,18 +100,24 @@ detectionHelper *detectionObject;
 - (void)viewWillAppear:(BOOL)animated{
 	// add an observer to the identification helper object assosiated with the asset id
 	[[IdentifyingAssets getByimghexid:[plantInfo objectForKey:@"imghexid"]] addObserver:self forKeyPath:@"percentageComplete" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    FieldGuideManager *db = [FieldGuideManager getSharedInstance];
+    fieldGuideData = [db getAllData];
 	
 	NSString *t = [plantInfo objectForKey:@"isSilene"];
 	NSString *name;// = [NSString alloc];
 	
 	if ([t isEqualToString:@"yes"]) {
-		name = @"Silene";
+		name = @"Silene acaulis";
 	}
 	else if ([t isEqualToString:@"idk"]){
 		name = @"Unidentified";
+        self.toFieldGuide.image = nil;
+        self.toFieldGuide.enabled = NO;
 	}
 	else {
 		name = @"Unknown";
+        self.toFieldGuide.image = nil;
+        self.toFieldGuide.enabled = NO;
 	}
 	
 	nameLabel.text = name;
@@ -178,7 +189,6 @@ detectionHelper *detectionObject;
 		return [NSString stringWithFormat:@"Observation has been identified"];
 	}
 	else {
-#warning needs to throw an erro if this is hit
 		tapTo = @"...";
 	}
 	
@@ -195,7 +205,6 @@ detectionHelper *detectionObject;
 	if ([detectionObject positiveID]) {
 		percentLabel.textColor = [UIColor colorWithRed:0 green:255.f blue:0 alpha:1];
 		name = @"Silene";
-
 	} else {
 		percentLabel.textColor = [UIColor colorWithRed:255.f green:0 blue:0 alpha:1];
 		name = @"Unknown";
@@ -211,7 +220,6 @@ detectionHelper *detectionObject;
 	[tapToStartBtn setHidden:YES];
 	
 	// show running btn, but keep it disabled.
-#warning @"Running..." will be displayed before the title change. 
 	[startRunning setTitle:[NSString stringWithFormat:@"Identifying ..."] forState:UIControlStateNormal];
 	[startRunning setEnabled:NO];
 	[startRunning setHidden:NO];
@@ -223,7 +231,6 @@ detectionHelper *detectionObject;
 		[self startIdentification];
 	}
 	else {
-#warning Need to make sure this case is never hit.
 		ALog(@"THIS SHOULD NEVER HIT");
 	}
 }
@@ -269,16 +276,16 @@ detectionHelper *detectionObject;
 
 
 #pragma mark - Navigation
-
-/*
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-	if ([segue.identifier isEqualToString:@"MyObsSegue"]) {
-		NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-	}
+    if ([segue.identifier isEqualToString:@"FieldGuideDVSegue2"]) {
+        FieldGuideDetailViewController *destViewController = segue.destinationViewController;
+        
+        destViewController.speciesID = [NSNumber numberWithInt:29];
+        
+        
+    }
 }
-*/
 
 @end

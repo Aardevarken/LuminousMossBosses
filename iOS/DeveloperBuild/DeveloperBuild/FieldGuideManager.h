@@ -67,4 +67,5 @@
  */
 - (NSArray*)getFilterOptionsFor:(NSString*)filter;
 
+- (void)dropTable;
 @end
