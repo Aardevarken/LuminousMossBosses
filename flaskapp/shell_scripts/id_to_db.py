@@ -38,7 +38,7 @@ line = p.stdout.readline()
 p.wait()
 
 bow_probability = float(line)
-bow_detected = bow_probability >= (1.0 - (1.0/0.16)*(0.967-0.88))
+bow_detected = bow_probability >= 0.45625
 obs.Probability = bow_probability
 obs.IDbyAlgorithm = bow_detected or (numflowers > 0)
 print bow_probability
