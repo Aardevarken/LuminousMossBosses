@@ -241,7 +241,7 @@ NSMutableArray *_myObservations;
 	NSString *name;
 	
 	if ([t isEqualToString:@"yes"]) {
-		name = @"Silene";
+		name = @"Silene acalis";
 	}
 	else if ([t isEqualToString:@"idk"]){
 		name = @"Unidentified";
@@ -370,7 +370,10 @@ NSMutableArray *_myObservations;
 						 
 						 // update and remove synced rows.
 						 dispatch_async(dispatch_get_main_queue(), ^{
+							 
 							 NSUInteger rowIndex = [idedObservations indexOfObject:object];
+							 
+							 [idedObservations removeObjectAtIndex:rowIndex];
 							 
 							 //[self setCurrentCount:[NSNumber numberWithUnsignedLong:(originalCount - idedObservations.count + 1)]];
 							 [assetID setCurrentSyncCount:[NSNumber numberWithUnsignedLong:(originalCount - idedObservations.count + 1)]];

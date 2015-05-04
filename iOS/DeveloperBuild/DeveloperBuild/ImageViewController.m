@@ -126,10 +126,10 @@
 	NSString *img = [NSString stringWithFormat:@"%@", selectedAsset];//self.capedImg];
 
 	//ALog(@"SelectedAsset: %@", selectedAsset);
-//	if ([selectedAsset isEqualToString:@"(null)"]){
-//		NSLog(@"You cannot submit that");
-//		return;
-//	}
+	if ([selectedAsset isEqualToString:@"(null)"]){
+		NSLog(@"You cannot submit that");
+		return;
+	}
 	
 	float highestError = bestLocationForImage.horizontalAccuracy;
 	

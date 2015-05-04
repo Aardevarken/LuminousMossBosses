@@ -45,7 +45,7 @@ static NSMutableDictionary *filterCurrentValue;
 	NSDictionary *filtersWithImages = [[NSDictionary alloc] initWithObjectsAndKeys:
 						@"Flower shape", @"flowershape",
 						@"Leaf shape", @"leafshapefilter",
-						@"Leaf Arrangement", @"leafarrangement",
+					    @"Leaf Arrangement", @"leafarrangement",
 						nil];
 	
 	[[FilterOptions getSharedInstance] createFiltersWithTitles:titleAndFilters];
