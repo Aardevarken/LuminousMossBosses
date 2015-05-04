@@ -1,0 +1,3 @@
+This contains the majority of the source java files. Thiis contains the main activity, all of the fragments that 
+control the views,and the idactivity  which runs asynctask to id the images and a sendactivity thats ascychrounsly
+send observations
