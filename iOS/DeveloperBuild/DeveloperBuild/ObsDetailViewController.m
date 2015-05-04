@@ -188,7 +188,7 @@ detectionHelper *detectionObject;
 - (void)updateObservationData{
 	// set everthing we just calculated
 	obsImage.image = [detectionObject identifiedImage];
-	percentLabel.text = [NSString stringWithFormat:@"%.0f%%",[[detectionObject probability] floatValue]*100];
+	percentLabel.text = [NSString stringWithFormat:@"%.0f%%",[[detectionObject probability] doubleValue]*100];
 	
 	NSString *name;// = [NSString alloc];
 	

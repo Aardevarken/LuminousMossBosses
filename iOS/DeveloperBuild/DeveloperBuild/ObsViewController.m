@@ -306,7 +306,7 @@ NSMutableArray *_myObservations;
 	IdentifyingAssets *assetID = [IdentifyingAssets getSharedInstance];
 	[assetID setCurrentSyncCount:[NSNumber numberWithUnsignedLong:originalCount]];
 	
-	//[[self syncBtn] setTitle:[NSString stringWithFormat:@"Syncing... (%d/%lu)", 1, originalCount] forState:UIControlStateNormal];
+	[[self syncBtn] setTitle:[NSString stringWithFormat:@"Syncing... (%d/%lu)", 1, originalCount] forState:UIControlStateNormal];
 
 	[[self syncBtn] setEnabled:NO];
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -348,8 +348,22 @@ NSMutableArray *_myObservations;
 						 
 						 // upload to server
 						 //sleep(2.5);
-						 [ServerAPI uploadObservation:date time:date lat:lat lng:lng locationerror:locationerror image:normalizedImage];
 						 
+						 BOOL stopeverything = [ServerAPI uploadObservation:[object objectForKey:@"imghexid"] date:date time:date lat:lat lng:lng locationerror:locationerror image:normalizedImage];
+							
+						 if (!stopeverything) {
+							 UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"ERROR"
+																				   message:@"Failed to upload data."
+																				  delegate:nil
+																		 cancelButtonTitle:@"OK"
+																		 otherButtonTitles:nil];
+							dispatch_async(dispatch_get_main_queue(), ^{
+								[myAlertView show];
+							});
+							
+							return;
+						 }
+
 						 // change status of observation in the database
 						 //sleep(0.8);
 						 [[UserDataDatabase getSharedInstance] updateObservation:[object objectForKey:@"imghexid"] andNewPercentIDed:[object objectForKey:@"percentIDed"] andNewStatus:@"synced" isSilene:nil];
@@ -357,8 +371,6 @@ NSMutableArray *_myObservations;
 						 // update and remove synced rows.
 						 dispatch_async(dispatch_get_main_queue(), ^{
 							 NSUInteger rowIndex = [idedObservations indexOfObject:object];
-							 
-							 [idedObservations removeObject:object];
 							 
 							 //[self setCurrentCount:[NSNumber numberWithUnsignedLong:(originalCount - idedObservations.count + 1)]];
 							 [assetID setCurrentSyncCount:[NSNumber numberWithUnsignedLong:(originalCount - idedObservations.count + 1)]];
