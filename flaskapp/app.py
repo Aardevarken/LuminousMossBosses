@@ -152,7 +152,7 @@ def rm_rotation(objectid):
 
 @celery.task()
 def id_to_db(obs_id):
-    process = subprocess.Popen('python /home/ubuntu/LuminousMossBosses/Database/id_to_db.py ' + str(obs_id) + ' 2> /dev/null', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    process = subprocess.Popen('python /var/www/flaskapp/shell_scripts/id_to_db.py ' + str(obs_id) + ' 2> /dev/null', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     process.wait()
     gen_detection_images(obs_id)
 
