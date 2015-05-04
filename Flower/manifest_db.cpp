@@ -44,8 +44,8 @@ int main(int argc, char** argv) {
   delete con;
   
   // Print manifest files.
-  ofstream positive_manifest;
-  positive_manifest.open("positive.manifest");
+  fstream positive_manifest;
+  positive_manifest.open("positive.manifest", fstream::out | fstream::app);
   for (size_t i=0; i<positive.size(); i++) {
     string name = positive[i];
     Mat image = imread(name);
@@ -55,8 +55,8 @@ int main(int argc, char** argv) {
   }
   positive_manifest.close();
   
-  ofstream background_manifest;
-  background_manifest.open("background.manifest");
+  fstream background_manifest;
+  background_manifest.open("background.manifest", fstream::out | fstream::app);
   for (size_t i=0; i<negative.size(); i++) {
     background_manifest << negative[i] << endl;
   }
