@@ -19,8 +19,11 @@ p = subprocess.Popen(FINDFLOWER_LOCATION + ' ' + picture_location + ' 2> /dev/nu
 lines = p.stdout.readlines()
 p.wait()
 
+numflowers = 0
+
 for line in lines:
         x,y,r = line.rstrip().split(" ")
+	numflowers += 1
         # only want to add to the db if there is not already an identical detection object
         if not db_session.query(DetectionObject).filter(DetectionObject.ParentObsID == obs_id, DetectionObject.XCord == x, DetectionObject.YCord == y, DetectionObject.Radius == r, DetectionObject.IsUserDetected == USER_DETECT_FALSE).first():
             flower = DetectionObject(x, y, r, POS_DETECT_TRUE, USER_DETECT_FALSE, obs_id)
@@ -35,7 +38,8 @@ line = p.stdout.readline()
 p.wait()
 
 bow_probability = float(line)
+bow_detected = bow_probability >= (1.0 - (1.0/0.16)*(0.967-0.88))
 obs.Probability = bow_probability
-obs.IDbyAlgorithm = True;
+obs.IDbyAlgorithm = bow_detected or (numflowers > 0)
 print bow_probability
 db_session().commit()
