@@ -100,19 +100,7 @@
 }
 
 - (void)lastCallIn:(int)sleepFor {
-	
-	/****
-	ALog(@"Resuming in %d...", sleepFor);
-	printf("\n%s [Line %d] Resuming in ", __PRETTY_FUNCTION__, __LINE__);
-	for (int zzz = 0; zzz < sleepFor; ++zzz){
-		sleep(1);
-		printf("%d...",sleepFor - zzz);
-	}
-	
-	printf("Done \n\n");
-	****/
-	
-    // update the table row
+	// update the table row
     // prep variables
     NSNumberFormatter *nf = [[NSNumberFormatter alloc] init];
     [nf setMaximumFractionDigits:2];

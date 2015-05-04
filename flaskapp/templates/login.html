@@ -1,0 +1,153 @@
+<html>
+<head>
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/luminous.ico')}}">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Luminous Moss Boss">
+
+    <title>Luminous</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/grayscale.css')}}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/luminous_icons.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/luminous_icons-codes.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/luminous_icons-embedded.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/luminous_icons-ie7.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/luminous_icons-ie7-codes.css')}}" rel="stylesheet">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+
+</head>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+ <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="/">
+                    <span class="light secondary-brand"><i class="icon-luminousid"></i> Luminous ID</span>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll secondary-text" href="/#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll secondary-text" href="/#download">Mobile Apps</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll secondary-text" href="/#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div class="container content-section text-center">
+         {% if error %}<label class="control-label" for="inputError"><strong>Error:</strong> {{ error }}</label>{% endif %}
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-5">
+                <!--<div class="jumbotron">-->
+    <h1>Login</h1>
+   
+    <form class="form-horizontal" action="{{ url_for('login') }}" method=post>
+        <div class="form-group form-group-lg">
+            <label class="col-sm-3 control-label" for="formGroupInputLarge">Username: </label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" id="formGroupInputLarge" placeholder="username" name=username>
+            </div>
+        </div>
+        <div class="form-group form-group-lg">
+            <label class="col-sm-3 control-label" for="formGroupInputLarge">Password: </label>
+            <div class="col-sm-9">
+                <input class="form-control" type="password" id="formGroupInputLarge" placeholder="password" name=password>
+            </div>
+        </div>
+        <div class="form-group form-group-lg">
+            <div class="col-sm-3">
+                <input class="btn btn-default" type=submit value=Login>
+            </div>
+        </div>
+    </form>
+        <a href="/account_reset">Forgot Your Password/Username?</a>
+       </div>
+    <div class="col-sm-12 col-md-6 col-lg-6 col-lg-offset-1">
+        <h1>SignUp</h1>
+        <form class="form-horizontal" action="{{ url_for('signup') }}" method=post>
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label" for="formGroupInputLarge">Username:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" id="formGroupInputLarge" placeholder="username" name=susername>
+                </div>
+            </div>
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label" for="formGroupInputLarge">Password:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="password" id="signup_password" placeholder="password" name=spassword>
+                </div>
+            </div>
+            <div class="form-group form-group-sm">
+                <label class="col-sm-2 control-label" for="formGroupInputLarge" id="password_status">[Strength]</label>
+                <label class="col-sm-10 control-label" for="formGroupInputLarge">
+                    *1 digit, 1 upper case, 1 lower case, 6 in length
+                </label>
+            </div>
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label" for="formGroupInputLarge">Confirm Password:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="password" id="signup_confirm_password" placeholder="confirm password" name=sconfirm_password>
+                </div>
+            </div>
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label" for="formGroupInputLarge">First:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" id="formGroupInputLarge" placeholder="first name" name=sfirst>
+                </div>
+            </div>
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label" for="formGroupInputLarge">Last:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" id="formGroupInputLarge" placeholder="last name" name=slast>
+                </div>
+            </div>
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label" for="formGroupInputLarge">Email:</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" id="formGroupInputLarge" placeholder="email@luminousid.com" name=semail>
+                </div>
+            </div>
+            <div class="form-group form-group-lg">
+                <div class="col-sm-2">
+                <input class="btn btn-default" type=submit id="signup_submit" disabled value=Signup>
+            </div>
+            </div>
+        </form>
+    </div>
+   </div>
+</div>   
+<script src="{{ url_for('static', filename='js/signin_check.js') }}"></script>
+</body>
+</html>

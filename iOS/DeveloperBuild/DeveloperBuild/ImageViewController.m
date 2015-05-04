@@ -126,10 +126,10 @@
 	NSString *img = [NSString stringWithFormat:@"%@", selectedAsset];//self.capedImg];
 
 	//ALog(@"SelectedAsset: %@", selectedAsset);
-	if ([selectedAsset isEqualToString:@"(null)"]){
-		NSLog(@"You cannot submit that");
-		return;
-	}
+//	if ([selectedAsset isEqualToString:@"(null)"]){
+//		NSLog(@"You cannot submit that");
+//		return;
+//	}
 	
 	float highestError = bestLocationForImage.horizontalAccuracy;
 	
@@ -151,7 +151,6 @@
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertString message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 		// not sure if the following line will ever work. but hopefully it deletes the data the user just tried to enter.
-		[[UserDataDatabase getSharedInstance]  deleteObservationByID:img];
 	}
 	
 	[self displayMyObservationsVC];

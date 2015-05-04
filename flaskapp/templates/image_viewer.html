@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+{% extends "admin_layout.html" %}
+{% block body %}
+<!--<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <title>Image Viewer</title>--!>
+
+	<style>
+		canvas {
+            background-color: gray;
+            border-style: inset;
+		    border-width: 6px;
+		    border-color: green;
+        }
+        .canvas_holder{
+            height: 100%;
+            
+        }
+        .centered {
+            text-align: center;
+        }
+	</style>
+
+			<div class="col-md-3 col-sm-4" id="tools_div">
+				<hr>
+				<h4> Navigation </h4>
+                <center>
+				<div class="btn-group" role="group">
+					<button onclick="zoomIn()" type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+					</button>
+					<button onclick="zoomOut()" type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="btn-group" role="group">
+					<button onclick="shiftLeft()" type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					</button>
+					<button onclick="shiftUp()" type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+					</button>
+					<button onclick="shiftDown()" type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+					</button>
+					<button onclick="shiftRight()" type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					</button>
+				</div>
+                <div class="btn-group" role="group">
+                    <button onclick="resetView()" class="btn btn-default" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Reset View
+                    </button>
+                </div>
+                <ul class="list-inline banner-social-buttons">
+                    {% if urlargs.prepage is not none %}
+                    <li>
+                    <a href="/observation_view?imageid={{ urlargs.prepage }}{{ urlargs.verified }}" class="btn btn-default">Previous Page</a>
+                </li>
+                {% endif %}
+                {% if urlargs.nextpage is not none %}
+                <li>
+                <a href="/observation_view?imageid={{ urlargs.nextpage }}{{ urlargs.verified }}" class="btn btn-default">Next Page</a>
+                </li>
+                {% endif %}
+                </ul>
+                </center>
+				<hr>
+				<h4> Image Processing </h4>
+                <center>
+				<button id="add" onclick="addEntry()" class="btn btn-default btn-block" aria-label="Left Align">
+					Add
+				</button>
+				<button id="remove" onclick="removeEntry()" class="btn btn-default btn-block" aria-label="Left Align">
+					Remove
+				</button>
+				<button id="mtrue" onclick="markTrue()" class="btn btn-default btn-block" aria-label="Left Align">
+					Mark True
+				</button>
+				<button id="mfalse" onclick="markFalse()" class="btn btn-default btn-block" aria-label="Left Align">
+					Mark False
+				</button>
+				<button onclick="save_circles()" class="btn btn-default btn-block" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-floppy-disk"></span>
+				    Save
+				</button>
+                <a class="btn btn-default btn-block" aria-label="Left Align" href="/detection_list?imageid={{ urlargs.page }}">
+                    <i class="fa fa-fw fa-circle-o"></i>
+				    Detections
+				</a>
+                </center>
+				<hr>
+                <div class="hidden-xs hidden-sm">
+				<h4> Keyboard Shortcuts </h4>
+				<kbd>w</kbd> to zoom in 				<br/>
+				<kbd>s</kbd> to zoom out 				<br/>
+				<kbd>r</kbd> to reset view 				<br/>
+				<kbd>a</kbd> to add an entry 			<br/>
+				<kbd>d</kbd> to remove an entry 		<br/>
+				<kbd>e</kbd> mark as true 				<br/>
+				<kbd>f</kbd> mark as false positive 	<br/>
+				<kbd>q</kbd> unselect all 				<br/>
+				<kbd>ctrl</kbd> select multiple entries <br/>
+				<kbd>h,j,k,l</kbd> shift view 			<br/>
+				<hr>
+                </div>
+			</div>
+			<div class="col-md-8 col-sm-8" id="canvas_div">
+                <canvas id="image_viewer">Site requires HTML5</canvas>
+                
+            </div>
+            </div>
+        {% macro select_options(value, test1, test2, label) -%}
+        <option value={{value}} {% if test1 == test2 %}selected{% endif %}>{{label}}</option>
+        {%- endmacro %}
+		<div class="row col-md-12">
+			<table class="table table-striped">
+				<tr>
+					<td><b>File Name:</b></td><td>{{ observation.FileName }}</td>
+				</tr>
+				<tr>
+					<td><b>Date:</b></td><td>{{ observation.Date }}</td>
+				</tr>
+				<tr>
+					<td><b>Latitude:</b></td><td>{{ observation.Latitude }}</td>
+				</tr>
+				<tr>
+					<td><b>Longitude:</b></td><td>{{ observation.Longitude }}</td>
+				</tr>
+                <tr>
+                    <td><b>Accuracy:</b></td><td>{{ observation.LocationError }}</td>
+                </tr>
+                <tr>
+                    <td><b>Verified As Silene:</b></td><td>
+                    <select class="form-control" id="id_vas_{{ observation.ObsID }}" onchange="updateSelection('vas_{{ observation.ObsID }}', 'isSilene')">
+                        {{ select_options(1,observation.IsSilene, True, "Silene") }}
+                        {{ select_options(0,observation.IsSilene, False, "Not Silene") }}
+                        {{ select_options(-1,observation.IsSilene, none, "N/A") }}
+                    </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Use Image For:</b></td>
+                    <td>
+                        <select class="form-control" id="id_uft_{{ observation.ObsID}}" onchange="updateSelection('uft_{{ observation.ObsID }}','useForTraining')">
+                            {{ select_options(1,observation.UseForTraining, True, "Bag of Words Training") }}
+                            {{ select_options(0,observation.UseForTraining, False, "Testing") }}
+                            {{ select_options(-1,observation.UseForTraining, none, "N/A") }}
+                        </select>
+                    </td>
+                </tr>
+			</table>
+		</div>
+     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ url_for('static', filename='js/utils.js')}}"></script>
+    <!-- HTML5 image viewer -->
+	<script src="{{ url_for('static', filename='js/image-viewer.js')}}"></script>
+    {% endblock %}

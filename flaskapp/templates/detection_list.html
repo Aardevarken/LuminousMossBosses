@@ -1,0 +1,72 @@
+{% extends "admin_layout.html" %}
+{% block body %}
+<script src="{{ url_for('static', filename='js/utils.js')}}"></script>
+    <div class="row">
+        <div class="col-lg-6">
+        <ul class="nav nav-tabs nav-justified" role="group" aria-label="options">
+            <li role="presentation" {% if urlargs.verified == "" %}class="active"{% endif %}> 
+            <a href="/detection_list">All</a>
+            </li>
+            <li role="presentation" {% if urlargs.verified == "&verified=1" %}class="active"{% endif %}>
+            <a href="/detection_list?verified=1">User</a>
+            </li>
+            <li role="presentation" {% if urlargs.verified == "&verified=0"  %}class="active"{% endif %}>
+            <a href="/detection_list?verified=0" >OpenCV</a>
+            </li>
+        </ul>
+        </div>
+        <div class="col-lg-12">
+        <table class="table-striped table">
+            <thead><tr>
+                    <b><td class="col-sm-1 col-md-1">ID</td><td class="col-sm-2 col-md-2">Icon</td>
+                        <td class="col-sm-2 col-md-4">File Name</td><td>Identified By</td></b>
+            </tr></thead>
+            <tbody>
+            {% for detection in detections %}
+                <tr>
+                <td>{{ detection.ObjectID }}</td>
+                <td>
+                    <a href="/detection_view?detectionid={{ detection.ObjectID }}">
+                    <img src="{{ url_for('static', filename='cropped/')}}{{detection.FileName}}">
+                    </a>
+                </td>
+                <td><a href="/detection_view?detectionid={{ detection.ObjectID }}">{{ detection.FileName }}</a></td>
+                <td>
+                    {% if detection.IsUserDetected == 1 %}
+                    User
+                    {% else %}
+                    OpenCV
+                    {% endif %}
+                </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="input-group input-group-sm">
+            <span class="input-group-btn" aria-label="page">
+                <!--<ul class="list-inline banner-social-buttons">-->
+            
+            <a href="/detection_list?page=0{{ urlargs.verified }}" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-step-backward"> </span>
+            </a>
+            {% set pre = urlargs.page -1 %}
+            <a {% if urlargs.page == 0 %} disabled {% endif %}
+            href="/detection_list?page={{ pre }}{{ urlargs.verified }}" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-triangle-left"> </span>
+            </a>
+            <p class="btn btn-default btn-sm" disabled >page {{ urlargs.page }} </p>
+            {% set next = urlargs.page +1 %}
+            <a {% if urlargs.page == urlargs.maxpage %} disabled {% endif %} 
+            href="/detection_list?page={{ next }}{{ urlargs.verified }}" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-triangle-right"> </span>
+            </a>
+            <a href="/detection_list?page={{ urlargs.maxpage }}{{ urlargs.verified }}" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-step-forward"> </span>
+            </a>
+            </span>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+<!--</body>
+</html>-->

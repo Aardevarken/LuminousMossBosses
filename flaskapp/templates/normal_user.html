@@ -1,0 +1,16 @@
+<html>
+<head>
+<title>
+</title>
+</head>
+<body bgcolor="black" color="#ffffff">
+<center>
+<font color="red">
+<h1>Some day the world will need you</h1>
+{% if current_user.is_authenticated() %}
+<h2> Hey {{ current_user.FirstName }} {{ current_user.LastName }} </h2>
+{% endif %}
+</font>
+</center>
+</body>
+</html>

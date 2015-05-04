@@ -1,0 +1,116 @@
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/luminous.ico')}}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Admin page for Luminous Id" content="">
+    <meta name="Luminous Moss Boss" content="">
+
+    <title>Luminous ID</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/sb-admin.css')}}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+
+    <link href="{{ url_for('static', filename='css/luminous_icons.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/luminous_icons-codes.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/luminous_icons-embedded.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/luminous_icons-ie7.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/luminous_icons-ie7-codes.css')}}" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><i class="icon-luminousid"></i>Luminous ID</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>
+                            {% if current_user.is_authenticated() %}
+                              {{ current_user.FirstName }} {{ current_user.LastName }}
+                              {% endif %}
+                        <b class="caret">
+                            
+                        </b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="/settings"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            {% macro render_sitem(endpoint, display, cls='', iconcls='', active='') -%}
+            <li {% if request.endpoint == endpoint or active == endpoint %} class='active' {% endif %}>
+            <a class="{{ cls }}" href="{{ endpoint }}"><i class="{{iconcls}}"></i> {{display}}</a>
+            </li>
+            {%- endmacro %}
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    {{ render_sitem('observation_list', 'Observations', iconcls='fa fa-fw fa-picture-o', active=active_page) }}
+                    {{ render_sitem('device_list', 'Devices', iconcls='fa fa-fw fa-mobile', active=active_page) }}
+
+                    {{ render_sitem('user_list', 'Users', iconcls='fa fa-fw fa-smile-o', active=active_page) }}
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-puzzle-piece"></i> Training <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                            {{ render_sitem('detection_list', 'Detections', iconcls='fa fa-fw fa-circle-o', active=active_page) }}
+
+                    {{ render_sitem('xml', 'XML Generator', iconcls='fa fa-fw fa-code', active=active_page) }}
+                    {{ render_sitem('statistics', 'Statistics', iconcls='fa fa-fw fa-bar-chart-o', active=active_page) }}
+                        </ul>
+                    </li>
+                    {{ render_sitem('csv', '.CSV Downlaod', iconcls='fa fa-fw fa-table', active=active_page) }}
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#help"><i class="fa fa-fw fa-question"></i> User Guide <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="help" class="collapse">
+                            {{ render_sitem('website_help', 'Website', iconcls='', active=active_page) }}
+                            {{ render_sitem('field_guide_help', 'Field Guide Editing', iconcls='', active=active_page) }}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+                {% block body %}{% endblock %}
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
