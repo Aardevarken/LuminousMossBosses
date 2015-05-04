@@ -96,6 +96,8 @@
 		7968EC9B1AB91974000644E4 /* ServerAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7968EC9A1AB91974000644E4 /* ServerAPI.m */; };
 		7D0559781AEB7A72000479FC /* Luminous_ID_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D0559771AEB7A72000479FC /* Luminous_ID_Tests.m */; };
 		7D05597F1AEB7AE4000479FC /* ServerAPITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D05597E1AEB7AE3000479FC /* ServerAPITest.m */; };
+		E60E4E971AF6CCD100A8B055 /* testViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E60E4E961AF6CCD100A8B055 /* testViewController.m */; };
+		E60E4E9A1AF6CDD000A8B055 /* testTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E60E4E991AF6CDD000A8B055 /* testTableViewCell.m */; };
 		E6BAA8E51AEB4496007A8F34 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D848131A7768250043BEDD /* opencv2.framework */; };
 		E6BAA8E71AEB4897007A8F34 /* Luminous-ID.png in Resources */ = {isa = PBXBuildFile; fileRef = E6BAA8E61AEB4897007A8F34 /* Luminous-ID.png */; };
 		E6BAA8E91AEB4B0E007A8F34 /* CompSciRev.png in Resources */ = {isa = PBXBuildFile; fileRef = E6BAA8E81AEB4B0E007A8F34 /* CompSciRev.png */; };
@@ -267,6 +269,10 @@
 		7D0559761AEB7A72000479FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7D0559771AEB7A72000479FC /* Luminous_ID_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Luminous_ID_Tests.m; sourceTree = "<group>"; };
 		7D05597E1AEB7AE3000479FC /* ServerAPITest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerAPITest.m; sourceTree = "<group>"; };
+		E60E4E951AF6CCD100A8B055 /* testViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testViewController.h; sourceTree = "<group>"; };
+		E60E4E961AF6CCD100A8B055 /* testViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testViewController.m; sourceTree = "<group>"; };
+		E60E4E981AF6CDD000A8B055 /* testTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testTableViewCell.h; sourceTree = "<group>"; };
+		E60E4E991AF6CDD000A8B055 /* testTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testTableViewCell.m; sourceTree = "<group>"; };
 		E6BAA8E61AEB4897007A8F34 /* Luminous-ID.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Luminous-ID.png"; sourceTree = "<group>"; };
 		E6BAA8E81AEB4B0E007A8F34 /* CompSciRev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CompSciRev.png; sourceTree = "<group>"; };
 		E6BAA8EA1AEB4CAE007A8F34 /* app_icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_icon2.png; sourceTree = "<group>"; };
@@ -352,6 +358,8 @@
 				16B2A6CE1A9D4D2200A73A86 /* ImageViewController.m */,
 				16F1310F1AF0964400F40229 /* AboutViewController.h */,
 				16F131101AF0964400F40229 /* AboutViewController.m */,
+				E60E4E951AF6CCD100A8B055 /* testViewController.h */,
+				E60E4E961AF6CCD100A8B055 /* testViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -384,6 +392,8 @@
 				163623DA1AECAAF000A50CA3 /* FilterTableViewCell.m */,
 				16CABE811AF1DD4D000597D4 /* FilterOptionImageCollectionViewCell.h */,
 				16CABE821AF1DD4D000597D4 /* FilterOptionImageCollectionViewCell.m */,
+				E60E4E981AF6CDD000A8B055 /* testTableViewCell.h */,
+				E60E4E991AF6CDD000A8B055 /* testTableViewCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -800,7 +810,9 @@
 				161F47651A8ED7B300E67313 /* NewObs.m in Sources */,
 				163623CD1AEC59A500A50CA3 /* FieldGuideTableViewController.m in Sources */,
 				163623E21AECE08E00A50CA3 /* FilterOptions.m in Sources */,
+				E60E4E971AF6CCD100A8B055 /* testViewController.m in Sources */,
 				165B6A271AA66418004FE7CB /* MyObservations.m in Sources */,
+				E60E4E9A1AF6CDD000A8B055 /* testTableViewCell.m in Sources */,
 				16B052B01A5B4BDE007837B4 /* AppDelegate.m in Sources */,
 				16A6D8511A6386C600CB4563 /* ObsTableView.m in Sources */,
 				7968EC9B1AB91974000644E4 /* ServerAPI.m in Sources */,

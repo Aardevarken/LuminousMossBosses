@@ -27,8 +27,7 @@
 @property (strong, nonatomic) IBOutlet UIView *identifyView;
 
 @property (strong, nonatomic) IBOutlet UIButton *tapToStartBtn;
-@property (strong, nonatomic) IBOutlet UIButton *toFieldGuide1;
-@property (strong, nonatomic) IBOutlet UIButton *toFieldGuide2;
+@property (strong, nonatomic) IBOutlet UIButton *toFieldGuide;
 @property (strong, nonatomic) IBOutlet UIView *buttonSuperView;
 
 - (IBAction)startButton:(UIButton *)sender;
