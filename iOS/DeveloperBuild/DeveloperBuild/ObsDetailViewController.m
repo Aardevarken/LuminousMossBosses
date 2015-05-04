@@ -10,6 +10,8 @@
 #import "detectionHelper.h"
 #import "UserDataDatabase.h"
 #import "IdentifyingAssets.h"
+#import "FieldGuideManager.h"
+#import "FieldGuideDetailViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
@@ -19,7 +21,9 @@ detectionHelper *detectionObject;
 @interface ObsDetailViewController ()
 @end
 
-@implementation ObsDetailViewController
+@implementation ObsDetailViewController{
+    NSArray *fieldGuideData;
+}
 @synthesize nameLabel;
 @synthesize percentLabel;
 @synthesize dateLabel;
@@ -30,10 +34,12 @@ detectionHelper *detectionObject;
 @synthesize latitudeLabel;
 @synthesize locationLabel;
 @synthesize tapToStartBtn;
+@synthesize toFieldGuide;
 @synthesize buttonSuperView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    toFieldGuide.hidden = YES;
     // Do any additional setup after loading the view.
 	nameLabel.text = [NSString stringWithFormat:@"%@", [plantInfo objectForKey:@"imghexid"]];
 	percentLabel.text = [NSString stringWithFormat:@"%@%% ", [plantInfo objectForKey:@"percentIDed"]];
@@ -94,18 +100,23 @@ detectionHelper *detectionObject;
 - (void)viewWillAppear:(BOOL)animated{
 	// add an observer to the identification helper object assosiated with the asset id
 	[[IdentifyingAssets getByimghexid:[plantInfo objectForKey:@"imghexid"]] addObserver:self forKeyPath:@"percentageComplete" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    FieldGuideManager *db = [FieldGuideManager getSharedInstance];
+    fieldGuideData = [db getAllData];
 	
 	NSString *t = [plantInfo objectForKey:@"isSilene"];
 	NSString *name;// = [NSString alloc];
 	
 	if ([t isEqualToString:@"yes"]) {
-		name = @"Silene";
+		name = @"Silene acaulis";
+        toFieldGuide.hidden = NO;
 	}
 	else if ([t isEqualToString:@"idk"]){
 		name = @"Unidentified";
+        toFieldGuide.hidden = YES;
 	}
 	else {
 		name = @"Unknown";
+        toFieldGuide.hidden = YES;
 	}
 	
 	nameLabel.text = name;
@@ -194,7 +205,6 @@ detectionHelper *detectionObject;
 	if ([detectionObject positiveID]) {
 		percentLabel.textColor = [UIColor colorWithRed:0 green:255.f blue:0 alpha:1];
 		name = @"Silene";
-
 	} else {
 		percentLabel.textColor = [UIColor colorWithRed:255.f green:0 blue:0 alpha:1];
 		name = @"Unknown";
@@ -278,6 +288,40 @@ detectionHelper *detectionObject;
 		NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 	}
 }
-*/
+ 
+ 
+ ************************FIELDGUIDETABLEVIEWCONTROLLER COPY****************************
+ 
+ 
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+	if ([segue.identifier isEqualToString:@"FieldGuideDVSegue"]) {
+ NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+ 
+ FieldGuideDetailViewController *destViewController = segue.destinationViewController;
+ 
+ destViewController.speciesID = [[fieldGuideData objectAtIndex:indexPath.row] objectForKey:@"id"];
+ 
+ 
+	}
+ }
+ 
+ 
+**************************************
+ 
+ */
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"FieldGuideDVSegue2"]) {
+        FieldGuideDetailViewController *destViewController = segue.destinationViewController;
+        
+        destViewController.speciesID = [NSNumber numberWithInt:29];
+        
+        
+        
+    }
+}
 
 @end
