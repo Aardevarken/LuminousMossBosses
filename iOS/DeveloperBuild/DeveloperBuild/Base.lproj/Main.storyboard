@@ -776,8 +776,7 @@
                                                 <exclude reference="U1L-zl-RXH"/>
                                             </mask>
                                         </variation>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="9" y="8" width="280" height="55"/>
+                                        <variation key="heightClass=regular-widthClass=compact">
                                             <mask key="constraints">
                                                 <include reference="U1L-zl-RXH"/>
                                             </mask>
@@ -793,9 +792,6 @@
                                             <color key="titleColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="297" y="8" width="279" height="55"/>
-                                        </variation>
                                         <connections>
                                             <action selector="searchButton:" destination="dfp-wP-0Vb" eventType="touchUpInside" id="YTg-bw-1hB"/>
                                         </connections>
@@ -839,8 +835,7 @@
                                         <exclude reference="huG-Qo-1FC"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="8" y="521" width="584" height="71"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="0Pe-eY-RQH"/>
                                         <include reference="VA3-um-0Ix"/>
@@ -1142,9 +1137,6 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="20" width="600" height="493"/>
-                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="dfp-wP-0Vb" id="f8K-5a-0H0"/>
                                     <outlet property="delegate" destination="dfp-wP-0Vb" id="YsD-Cz-DBd"/>
@@ -1229,6 +1221,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wtC-7d-0MM"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="lJY-Sd-NTZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ceQ-57-Eum">
@@ -1250,8 +1243,7 @@
                                         <exclude reference="rxb-TT-O0W"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="-55" width="0.0" height="55"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="gvf-mY-ckG"/>
                                         <exclude reference="rxb-TT-O0W"/>
@@ -1419,7 +1411,8 @@
                                         <exclude reference="zIH-g9-Hvo"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="16" y="72" width="368" height="307"/>
                                     <mask key="constraints">
                                         <exclude reference="Bcd-eh-m7m"/>
                                         <exclude reference="zIH-g9-Hvo"/>
@@ -1513,6 +1506,9 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="16" y="422" width="368" height="313"/>
+                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="45y-Nq-xzE" id="if1-Wh-xWF"/>
                                     <outlet property="delegate" destination="45y-Nq-xzE" id="zJo-Ib-PlJ"/>
@@ -1615,7 +1611,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7qQ-ML-60i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6904.5" y="271.5"/>
+            <point key="canvasLocation" x="6472.5" y="751.5"/>
         </scene>
         <!--Take/Select Picture-->
         <scene sceneID="Fgf-LM-tNe">
@@ -1632,9 +1628,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="f8J-9J-QBo">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" red="0.56078361742424243" green="0.56078361742424243" blue="0.56078361742424243" alpha="1" colorSpace="calibratedRGB"/>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                </variation>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5wi-jR-wS1">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -1646,9 +1639,6 @@
                                         <state key="normal" title="Add Observation">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="288" y="8" width="272" height="54"/>
-                                        </variation>
                                         <connections>
                                             <action selector="addObservation:" destination="FEo-qL-flj" eventType="touchUpInside" id="hcg-6Y-zmW"/>
                                         </connections>
@@ -1660,9 +1650,6 @@
                                         <state key="normal" title="Retake">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="8" y="8" width="272" height="54"/>
-                                        </variation>
                                         <connections>
                                             <action selector="retakePhotoBtn:" destination="FEo-qL-flj" eventType="touchUpInside" id="9hX-33-Njf"/>
                                         </connections>
@@ -1674,9 +1661,6 @@
                                         <state key="normal" title="Take Photo">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="8" y="8" width="552" height="54"/>
-                                        </variation>
                                         <connections>
                                             <action selector="takePhoto:" destination="FEo-qL-flj" eventType="touchUpInside" id="yok-Vu-zjb"/>
                                         </connections>
@@ -1758,8 +1742,7 @@
                                         <exclude reference="zt9-s1-1I3"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="16" y="510" width="568" height="70"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="48y-p2-ZMg"/>
                                         <include reference="7Rf-uj-uvT"/>
@@ -1980,8 +1963,7 @@
                                         <exclude reference="j4F-6U-mEO"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <exclude reference="6cp-Pn-uAs"/>
                                         <exclude reference="awU-vT-vA3"/>
@@ -2077,8 +2059,7 @@
                                         <exclude reference="vUo-6s-xF2"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="545" width="600" height="55"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="vUo-6s-xF2"/>
                                     </mask>
@@ -2291,8 +2272,7 @@
                                         <exclude reference="jfe-Iz-mha"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="20" width="600" height="525"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <exclude reference="6XK-kc-RQz"/>
                                         <exclude reference="ZZN-4A-xaq"/>
@@ -2382,6 +2362,7 @@
                         <viewControllerLayoutGuide type="bottom" id="DgI-Wu-NTE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="RMm-P8-K1Y">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="119" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="tuZ-M4-Mj4">
@@ -2494,6 +2475,7 @@
                                 <exclude reference="tuZ-M4-Mj4"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="5L7-JN-Ebf"/>
                                 <exclude reference="0mI-AQ-CCw"/>
                                 <exclude reference="79W-R6-1fo"/>
                                 <exclude reference="DFZ-sI-ukU"/>
@@ -2502,7 +2484,6 @@
                                 <exclude reference="VrI-0D-ilQ"/>
                                 <exclude reference="lCT-Bn-8l8"/>
                                 <exclude reference="ujO-5Z-6Ku"/>
-                                <exclude reference="5L7-JN-Ebf"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -2510,6 +2491,7 @@
                                 <include reference="tuZ-M4-Mj4"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="5L7-JN-Ebf"/>
                                 <exclude reference="0mI-AQ-CCw"/>
                                 <include reference="79W-R6-1fo"/>
                                 <exclude reference="DFZ-sI-ukU"/>
@@ -2518,7 +2500,6 @@
                                 <exclude reference="VrI-0D-ilQ"/>
                                 <include reference="lCT-Bn-8l8"/>
                                 <exclude reference="ujO-5Z-6Ku"/>
-                                <include reference="5L7-JN-Ebf"/>
                             </mask>
                         </variation>
                     </view>
@@ -3053,19 +3034,6 @@
                                         <color key="textColor" red="0.41176470588235292" green="0.41176470588235292" blue="0.37647058823529411" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yzg-Yn-ZSc">
-                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                        <state key="normal" backgroundImage="ic_fieldguide.png">
-                                            <color key="titleColor" red="0.26666666666666666" green="0.27058823529411763" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                            <rect key="frame" x="160" y="120" width="49" height="49"/>
-                                        </variation>
-                                        <connections>
-                                            <segue destination="45y-Nq-xzE" kind="show" identifier="FieldGuideDVSegue2" id="ulY-9T-xGq"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="h4E-lm-hy7" firstAttribute="top" secondItem="wq2-Kg-rgM" secondAttribute="top" constant="39" id="0bo-gP-gqa"/>
@@ -3073,7 +3041,6 @@
                                     <constraint firstAttribute="bottom" secondItem="evx-AF-y3g" secondAttribute="bottom" constant="8" id="2G4-9F-18b">
                                         <variation key="heightClass=regular-widthClass=compact" constant="48"/>
                                     </constraint>
-                                    <constraint firstAttribute="bottom" secondItem="yzg-Yn-ZSc" secondAttribute="bottom" constant="107" id="8ew-eH-aoh"/>
                                     <constraint firstItem="evx-AF-y3g" firstAttribute="leading" secondItem="C5K-Rx-OlZ" secondAttribute="leading" id="8zF-5V-Xsk">
                                         <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                                     </constraint>
@@ -3083,20 +3050,16 @@
                                     </constraint>
                                     <constraint firstItem="h4E-lm-hy7" firstAttribute="top" secondItem="wq2-Kg-rgM" secondAttribute="top" constant="39" id="Ixj-Cv-pf4"/>
                                     <constraint firstAttribute="bottom" secondItem="pD5-lU-H9k" secondAttribute="bottom" constant="137" id="Kn1-jd-sNC"/>
-                                    <constraint firstItem="yzg-Yn-ZSc" firstAttribute="leading" secondItem="wq2-Kg-rgM" secondAttribute="leading" constant="143" id="LGh-ln-OiH"/>
                                     <constraint firstAttribute="height" constant="245" id="Loh-pq-wHR"/>
                                     <constraint firstItem="h4E-lm-hy7" firstAttribute="top" secondItem="wq2-Kg-rgM" secondAttribute="top" constant="39" id="MQi-s1-0ZQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="yzg-Yn-ZSc" secondAttribute="trailing" constant="143" id="ZIF-xf-Dn5"/>
                                     <constraint firstItem="h4E-lm-hy7" firstAttribute="leading" secondItem="C5K-Rx-OlZ" secondAttribute="leading" id="Ztg-MV-xL2">
                                         <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
                                     </constraint>
-                                    <constraint firstAttribute="trailing" secondItem="yzg-Yn-ZSc" secondAttribute="trailing" constant="41" id="bdd-ye-cPe"/>
                                     <constraint firstItem="HQK-kp-KNG" firstAttribute="top" secondItem="C5K-Rx-OlZ" secondAttribute="bottom" constant="8" id="bfU-Mv-L0S">
                                         <variation key="heightClass=regular-widthClass=compact" constant="4"/>
                                     </constraint>
                                     <constraint firstAttribute="bottom" secondItem="pD5-lU-H9k" secondAttribute="bottom" constant="4" id="dBL-UO-mfk"/>
                                     <constraint firstItem="C5K-Rx-OlZ" firstAttribute="top" secondItem="pD5-lU-H9k" secondAttribute="bottom" constant="26" id="dln-Zo-PP2"/>
-                                    <constraint firstAttribute="bottom" secondItem="yzg-Yn-ZSc" secondAttribute="bottom" id="e3p-aJ-EaO"/>
                                     <constraint firstItem="HQK-kp-KNG" firstAttribute="top" secondItem="C5K-Rx-OlZ" secondAttribute="bottom" constant="8" id="fKw-M5-7Sq">
                                         <variation key="heightClass=regular-widthClass=compact" constant="10"/>
                                     </constraint>
@@ -3106,8 +3069,6 @@
                                     <constraint firstAttribute="trailing" secondItem="C5K-Rx-OlZ" secondAttribute="trailing" constant="16" id="gwy-St-9On"/>
                                     <constraint firstItem="HQK-kp-KNG" firstAttribute="centerY" secondItem="evx-AF-y3g" secondAttribute="centerY" id="jTT-jG-fGt"/>
                                     <constraint firstAttribute="centerX" secondItem="pD5-lU-H9k" secondAttribute="centerX" id="kR7-hd-PWh"/>
-                                    <constraint firstItem="yzg-Yn-ZSc" firstAttribute="top" secondItem="evx-AF-y3g" secondAttribute="bottom" constant="18" id="mXn-IH-1Zh"/>
-                                    <constraint firstItem="evx-AF-y3g" firstAttribute="top" secondItem="yzg-Yn-ZSc" secondAttribute="bottom" constant="39" id="nta-WG-uwR"/>
                                     <constraint firstItem="C5K-Rx-OlZ" firstAttribute="top" secondItem="h4E-lm-hy7" secondAttribute="bottom" id="o8F-P0-zDh">
                                         <variation key="heightClass=regular-widthClass=compact" constant="-4"/>
                                     </constraint>
@@ -3120,7 +3081,6 @@
                                     <mask key="subviews">
                                         <exclude reference="h4E-lm-hy7"/>
                                         <exclude reference="pD5-lU-H9k"/>
-                                        <exclude reference="yzg-Yn-ZSc"/>
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="Loh-pq-wHR"/>
@@ -3130,6 +3090,10 @@
                                         <exclude reference="Ixj-Cv-pf4"/>
                                         <exclude reference="MQi-s1-0ZQ"/>
                                         <exclude reference="Ztg-MV-xL2"/>
+                                        <exclude reference="Kn1-jd-sNC"/>
+                                        <exclude reference="dBL-UO-mfk"/>
+                                        <exclude reference="kR7-hd-PWh"/>
+                                        <exclude reference="qZy-0I-cYX"/>
                                         <exclude reference="dln-Zo-PP2"/>
                                         <exclude reference="gwy-St-9On"/>
                                         <exclude reference="o8F-P0-zDh"/>
@@ -3141,24 +3105,12 @@
                                         <exclude reference="2G4-9F-18b"/>
                                         <exclude reference="8zF-5V-Xsk"/>
                                         <exclude reference="gOe-5N-xVk"/>
-                                        <exclude reference="nta-WG-uwR"/>
-                                        <exclude reference="Kn1-jd-sNC"/>
-                                        <exclude reference="dBL-UO-mfk"/>
-                                        <exclude reference="kR7-hd-PWh"/>
-                                        <exclude reference="qZy-0I-cYX"/>
-                                        <exclude reference="8ew-eH-aoh"/>
-                                        <exclude reference="LGh-ln-OiH"/>
-                                        <exclude reference="ZIF-xf-Dn5"/>
-                                        <exclude reference="bdd-ye-cPe"/>
-                                        <exclude reference="e3p-aJ-EaO"/>
-                                        <exclude reference="mXn-IH-1Zh"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="h4E-lm-hy7"/>
                                         <include reference="pD5-lU-H9k"/>
-                                        <include reference="yzg-Yn-ZSc"/>
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="Loh-pq-wHR"/>
@@ -3168,6 +3120,10 @@
                                         <exclude reference="Ixj-Cv-pf4"/>
                                         <include reference="MQi-s1-0ZQ"/>
                                         <include reference="Ztg-MV-xL2"/>
+                                        <include reference="Kn1-jd-sNC"/>
+                                        <exclude reference="dBL-UO-mfk"/>
+                                        <include reference="kR7-hd-PWh"/>
+                                        <include reference="qZy-0I-cYX"/>
                                         <exclude reference="dln-Zo-PP2"/>
                                         <include reference="gwy-St-9On"/>
                                         <include reference="o8F-P0-zDh"/>
@@ -3179,17 +3135,6 @@
                                         <include reference="2G4-9F-18b"/>
                                         <include reference="8zF-5V-Xsk"/>
                                         <include reference="gOe-5N-xVk"/>
-                                        <exclude reference="nta-WG-uwR"/>
-                                        <include reference="Kn1-jd-sNC"/>
-                                        <exclude reference="dBL-UO-mfk"/>
-                                        <include reference="kR7-hd-PWh"/>
-                                        <include reference="qZy-0I-cYX"/>
-                                        <exclude reference="8ew-eH-aoh"/>
-                                        <include reference="LGh-ln-OiH"/>
-                                        <include reference="ZIF-xf-Dn5"/>
-                                        <exclude reference="bdd-ye-cPe"/>
-                                        <include reference="e3p-aJ-EaO"/>
-                                        <include reference="mXn-IH-1Zh"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -3230,13 +3175,20 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="rzV-I1-yBr">
+                        <barButtonItem key="rightBarButtonItem" image="ic_fieldguide small copy.png" id="781-67-IXl">
+                            <connections>
+                                <segue destination="45y-Nq-xzE" kind="show" identifier="FieldGuideDVSegue2" id="PbW-Gb-1zL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="dateLabel" destination="C5K-Rx-OlZ" id="naM-Er-ZZf"/>
                         <outlet property="latitudeLabel" destination="evx-AF-y3g" id="6dJ-Ac-V7k"/>
                         <outlet property="locationLabel" destination="evx-AF-y3g" id="ht9-JO-Mdm"/>
                         <outlet property="nameLabel" destination="pD5-lU-H9k" id="HL3-cZ-81p"/>
                         <outlet property="obsImage" destination="XPV-Wp-1i8" id="7Vt-Kj-uBh"/>
-                        <outlet property="toFieldGuide" destination="yzg-Yn-ZSc" id="2gd-yz-Pcn"/>
+                        <outlet property="toFieldGuide" destination="781-67-IXl" id="LJ5-gc-PWK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8oq-wL-apn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3324,9 +3276,6 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="20" width="600" height="525"/>
-                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="Z9g-IJ-GsG" id="sIE-2F-cRw"/>
                                     <outlet property="delegate" destination="Z9g-IJ-GsG" id="YeA-ua-0gR"/>
@@ -3349,8 +3298,7 @@
                                         <exclude reference="Y5T-kH-cgk"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="545" width="600" height="55"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="Y5T-kH-cgk"/>
                                     </mask>
@@ -3507,7 +3455,7 @@
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vt6-5N-0xr">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                        <mutableString key="text">An app to take a picture of a plant, determine if it is a flowering alpine species called Silene acaulis, and record the plant’s location. This data will be sent to a server where Nathalie Chardon and other researchers can use this to find the range of the alpine plant species. ********************************************************************************************************************************************************************************************************************************************************************************************************</mutableString>
+                                        <string key="text">An app to take a picture of a plant, determine if it is a flowering alpine species called Silene acaulis, and record the plant’s location. This data will be sent to a server where Nathalie Chardon and other researchers can use this to find the range of the alpine plant species. ********************************************************************************************************************************************************************************************************************************************************************************************************</string>
                                         <color key="textColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -3751,8 +3699,7 @@
                                         <exclude reference="uMf-jw-a3m"/>
                                     </mask>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="545" width="600" height="55"/>
+                                <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="constraints">
                                         <include reference="uMf-jw-a3m"/>
                                     </mask>
@@ -3883,9 +3830,6 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="20" width="600" height="525"/>
-                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="XHa-FX-Dn4" id="UqR-pF-Mzy"/>
                                     <outlet property="delegate" destination="XHa-FX-Dn4" id="S0O-Mo-ukZ"/>
@@ -3976,7 +3920,7 @@
         <image name="background_img.jpg" width="808" height="1224"/>
         <image name="field_guide_normal.png" width="150" height="150"/>
         <image name="grid30x30.png" width="30" height="30"/>
-        <image name="ic_fieldguide.png" width="500" height="500"/>
+        <image name="ic_fieldguide small copy.png" width="30" height="30"/>
         <image name="list30x30.png" width="30" height="30"/>
         <image name="my_observations_normal.png" width="150" height="150"/>
         <image name="obs30x30.png" width="30" height="30"/>
@@ -3984,9 +3928,9 @@
         <image name="upload30x30.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RhZ-Nd-42A"/>
-        <segue reference="s9o-7d-XRk"/>
         <segue reference="Ru1-vo-Wgq"/>
-        <segue reference="ulY-9T-xGq"/>
+        <segue reference="ahZ-cO-ktD"/>
+        <segue reference="mth-UZ-qS1"/>
+        <segue reference="PbW-Gb-1zL"/>
     </inferredMetricsTieBreakers>
 </document>

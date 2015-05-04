@@ -39,7 +39,6 @@ detectionHelper *detectionObject;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    toFieldGuide.hidden = YES;
     // Do any additional setup after loading the view.
 	nameLabel.text = [NSString stringWithFormat:@"%@", [plantInfo objectForKey:@"imghexid"]];
 	percentLabel.text = [NSString stringWithFormat:@"%@%% ", [plantInfo objectForKey:@"percentIDed"]];
@@ -108,15 +107,16 @@ detectionHelper *detectionObject;
 	
 	if ([t isEqualToString:@"yes"]) {
 		name = @"Silene acaulis";
-        toFieldGuide.hidden = NO;
 	}
 	else if ([t isEqualToString:@"idk"]){
 		name = @"Unidentified";
-        toFieldGuide.hidden = YES;
+        self.toFieldGuide.image = nil;
+        self.toFieldGuide.enabled = NO;
 	}
 	else {
 		name = @"Unknown";
-        toFieldGuide.hidden = YES;
+        self.toFieldGuide.image = nil;
+        self.toFieldGuide.enabled = NO;
 	}
 	
 	nameLabel.text = name;
@@ -318,7 +318,6 @@ detectionHelper *detectionObject;
         FieldGuideDetailViewController *destViewController = segue.destinationViewController;
         
         destViewController.speciesID = [NSNumber numberWithInt:29];
-        
         
         
     }

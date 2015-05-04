@@ -98,6 +98,7 @@
 		7D05597F1AEB7AE4000479FC /* ServerAPITest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D05597E1AEB7AE3000479FC /* ServerAPITest.m */; };
 		E60E4E971AF6CCD100A8B055 /* testViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E60E4E961AF6CCD100A8B055 /* testViewController.m */; };
 		E60E4E9A1AF6CDD000A8B055 /* testTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E60E4E991AF6CDD000A8B055 /* testTableViewCell.m */; };
+		E60E4E9C1AF72AE400A8B055 /* ic_fieldguide small copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E60E4E9B1AF72AE400A8B055 /* ic_fieldguide small copy.png */; };
 		E6BAA8E51AEB4496007A8F34 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D848131A7768250043BEDD /* opencv2.framework */; };
 		E6BAA8E71AEB4897007A8F34 /* Luminous-ID.png in Resources */ = {isa = PBXBuildFile; fileRef = E6BAA8E61AEB4897007A8F34 /* Luminous-ID.png */; };
 		E6BAA8E91AEB4B0E007A8F34 /* CompSciRev.png in Resources */ = {isa = PBXBuildFile; fileRef = E6BAA8E81AEB4B0E007A8F34 /* CompSciRev.png */; };
@@ -273,6 +274,7 @@
 		E60E4E961AF6CCD100A8B055 /* testViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testViewController.m; sourceTree = "<group>"; };
 		E60E4E981AF6CDD000A8B055 /* testTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testTableViewCell.h; sourceTree = "<group>"; };
 		E60E4E991AF6CDD000A8B055 /* testTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = testTableViewCell.m; sourceTree = "<group>"; };
+		E60E4E9B1AF72AE400A8B055 /* ic_fieldguide small copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_fieldguide small copy.png"; sourceTree = "<group>"; };
 		E6BAA8E61AEB4897007A8F34 /* Luminous-ID.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Luminous-ID.png"; sourceTree = "<group>"; };
 		E6BAA8E81AEB4B0E007A8F34 /* CompSciRev.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CompSciRev.png; sourceTree = "<group>"; };
 		E6BAA8EA1AEB4CAE007A8F34 /* app_icon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = app_icon2.png; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 		165C72B11AEE015E007BB2AA /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				E60E4E9B1AF72AE400A8B055 /* ic_fieldguide small copy.png */,
 				165C72A91AEE014F007BB2AA /* ic_about.png */,
 				165C72AA1AEE014F007BB2AA /* ic_fieldguide.png */,
 				165C72AB1AEE014F007BB2AA /* ic_addobservation.png */,
@@ -728,6 +731,7 @@
 				163ACABA1AEECA47004602B6 /* silene_acaulis_img.jpg in Resources */,
 				F0D4ED171AA59917008CBAD4 /* silene.xml in Resources */,
 				16CCBC3C1A773D71008B7E96 /* minuartia1.jpg in Resources */,
+				E60E4E9C1AF72AE400A8B055 /* ic_fieldguide small copy.png in Resources */,
 				16CABEA11AF226B3000597D4 /* list30x30.png in Resources */,
 				16CABE851AF1F6D8000597D4 /* icon-exclamation.png in Resources */,
 				16CABE8F1AF2199B000597D4 /* list40x40.png in Resources */,
