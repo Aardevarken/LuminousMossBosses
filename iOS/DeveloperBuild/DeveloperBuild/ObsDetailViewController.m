@@ -10,12 +10,9 @@
 #import "detectionHelper.h"
 #import "UserDataDatabase.h"
 #import "IdentifyingAssets.h"
-<<<<<<< HEAD
 #import "ObsViewController.h"
-=======
 #import "FieldGuideManager.h"
 #import "FieldGuideDetailViewController.h"
->>>>>>> 286834fe52d2a3b4bc32dbb39ff036ab41dc3b98
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #define ALog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
@@ -313,19 +310,19 @@ detectionHelper *detectionObject;
  
  
 **************************************
- 
- */
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"FieldGuideDVSegue2"]) {
-        FieldGuideDetailViewController *destViewController = segue.destinationViewController;
-        
-        destViewController.speciesID = [NSNumber numberWithInt:29];
-        
-        
-        
-    }
-}
+// 
+// */
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    // Get the new view controller using [segue destinationViewController].
+//    // Pass the selected object to the new view controller.
+//    if ([segue.identifier isEqualToString:@"FieldGuideDVSegue2"]) {
+//        FieldGuideDetailViewController *destViewController = segue.destinationViewController;
+//        
+//        destViewController.speciesID = [NSNumber numberWithInt:29];
+//        
+//        
+//        
+//    }
+//}
 
 @end
