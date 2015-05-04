@@ -69,7 +69,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/round_button"
-            android:src="@drawable/ic_action_action_book"
+            android:src="@mipmap/ic_action_action_book"
             android:adjustViewBounds="true"
             android:padding="20dp"
             android:gravity="center_vertical|center_horizontal"
