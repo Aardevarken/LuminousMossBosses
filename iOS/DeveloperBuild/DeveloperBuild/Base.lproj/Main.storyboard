@@ -3055,9 +3055,13 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yzg-Yn-ZSc">
                                         <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                        <state key="normal" title="Button">
+                                        <state key="normal" backgroundImage="ic_fieldguide.png">
+                                            <color key="titleColor" red="0.26666666666666666" green="0.27058823529411763" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="160" y="120" width="49" height="49"/>
+                                        </variation>
                                         <connections>
                                             <segue destination="45y-Nq-xzE" kind="show" identifier="FieldGuideDVSegue2" id="ulY-9T-xGq"/>
                                         </connections>
@@ -3079,8 +3083,10 @@
                                     </constraint>
                                     <constraint firstItem="h4E-lm-hy7" firstAttribute="top" secondItem="wq2-Kg-rgM" secondAttribute="top" constant="39" id="Ixj-Cv-pf4"/>
                                     <constraint firstAttribute="bottom" secondItem="pD5-lU-H9k" secondAttribute="bottom" constant="137" id="Kn1-jd-sNC"/>
+                                    <constraint firstItem="yzg-Yn-ZSc" firstAttribute="leading" secondItem="wq2-Kg-rgM" secondAttribute="leading" constant="143" id="LGh-ln-OiH"/>
                                     <constraint firstAttribute="height" constant="245" id="Loh-pq-wHR"/>
                                     <constraint firstItem="h4E-lm-hy7" firstAttribute="top" secondItem="wq2-Kg-rgM" secondAttribute="top" constant="39" id="MQi-s1-0ZQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="yzg-Yn-ZSc" secondAttribute="trailing" constant="143" id="ZIF-xf-Dn5"/>
                                     <constraint firstItem="h4E-lm-hy7" firstAttribute="leading" secondItem="C5K-Rx-OlZ" secondAttribute="leading" id="Ztg-MV-xL2">
                                         <variation key="heightClass=regular-widthClass=compact" constant="-16"/>
                                     </constraint>
@@ -3090,6 +3096,7 @@
                                     </constraint>
                                     <constraint firstAttribute="bottom" secondItem="pD5-lU-H9k" secondAttribute="bottom" constant="4" id="dBL-UO-mfk"/>
                                     <constraint firstItem="C5K-Rx-OlZ" firstAttribute="top" secondItem="pD5-lU-H9k" secondAttribute="bottom" constant="26" id="dln-Zo-PP2"/>
+                                    <constraint firstAttribute="bottom" secondItem="yzg-Yn-ZSc" secondAttribute="bottom" id="e3p-aJ-EaO"/>
                                     <constraint firstItem="HQK-kp-KNG" firstAttribute="top" secondItem="C5K-Rx-OlZ" secondAttribute="bottom" constant="8" id="fKw-M5-7Sq">
                                         <variation key="heightClass=regular-widthClass=compact" constant="10"/>
                                     </constraint>
@@ -3099,6 +3106,7 @@
                                     <constraint firstAttribute="trailing" secondItem="C5K-Rx-OlZ" secondAttribute="trailing" constant="16" id="gwy-St-9On"/>
                                     <constraint firstItem="HQK-kp-KNG" firstAttribute="centerY" secondItem="evx-AF-y3g" secondAttribute="centerY" id="jTT-jG-fGt"/>
                                     <constraint firstAttribute="centerX" secondItem="pD5-lU-H9k" secondAttribute="centerX" id="kR7-hd-PWh"/>
+                                    <constraint firstItem="yzg-Yn-ZSc" firstAttribute="top" secondItem="evx-AF-y3g" secondAttribute="bottom" constant="18" id="mXn-IH-1Zh"/>
                                     <constraint firstItem="evx-AF-y3g" firstAttribute="top" secondItem="yzg-Yn-ZSc" secondAttribute="bottom" constant="39" id="nta-WG-uwR"/>
                                     <constraint firstItem="C5K-Rx-OlZ" firstAttribute="top" secondItem="h4E-lm-hy7" secondAttribute="bottom" id="o8F-P0-zDh">
                                         <variation key="heightClass=regular-widthClass=compact" constant="-4"/>
@@ -3122,12 +3130,6 @@
                                         <exclude reference="Ixj-Cv-pf4"/>
                                         <exclude reference="MQi-s1-0ZQ"/>
                                         <exclude reference="Ztg-MV-xL2"/>
-                                        <exclude reference="Kn1-jd-sNC"/>
-                                        <exclude reference="dBL-UO-mfk"/>
-                                        <exclude reference="kR7-hd-PWh"/>
-                                        <exclude reference="qZy-0I-cYX"/>
-                                        <exclude reference="8ew-eH-aoh"/>
-                                        <exclude reference="bdd-ye-cPe"/>
                                         <exclude reference="dln-Zo-PP2"/>
                                         <exclude reference="gwy-St-9On"/>
                                         <exclude reference="o8F-P0-zDh"/>
@@ -3140,6 +3142,16 @@
                                         <exclude reference="8zF-5V-Xsk"/>
                                         <exclude reference="gOe-5N-xVk"/>
                                         <exclude reference="nta-WG-uwR"/>
+                                        <exclude reference="Kn1-jd-sNC"/>
+                                        <exclude reference="dBL-UO-mfk"/>
+                                        <exclude reference="kR7-hd-PWh"/>
+                                        <exclude reference="qZy-0I-cYX"/>
+                                        <exclude reference="8ew-eH-aoh"/>
+                                        <exclude reference="LGh-ln-OiH"/>
+                                        <exclude reference="ZIF-xf-Dn5"/>
+                                        <exclude reference="bdd-ye-cPe"/>
+                                        <exclude reference="e3p-aJ-EaO"/>
+                                        <exclude reference="mXn-IH-1Zh"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -3156,12 +3168,6 @@
                                         <exclude reference="Ixj-Cv-pf4"/>
                                         <include reference="MQi-s1-0ZQ"/>
                                         <include reference="Ztg-MV-xL2"/>
-                                        <include reference="Kn1-jd-sNC"/>
-                                        <exclude reference="dBL-UO-mfk"/>
-                                        <include reference="kR7-hd-PWh"/>
-                                        <include reference="qZy-0I-cYX"/>
-                                        <include reference="8ew-eH-aoh"/>
-                                        <include reference="bdd-ye-cPe"/>
                                         <exclude reference="dln-Zo-PP2"/>
                                         <include reference="gwy-St-9On"/>
                                         <include reference="o8F-P0-zDh"/>
@@ -3174,6 +3180,16 @@
                                         <include reference="8zF-5V-Xsk"/>
                                         <include reference="gOe-5N-xVk"/>
                                         <exclude reference="nta-WG-uwR"/>
+                                        <include reference="Kn1-jd-sNC"/>
+                                        <exclude reference="dBL-UO-mfk"/>
+                                        <include reference="kR7-hd-PWh"/>
+                                        <include reference="qZy-0I-cYX"/>
+                                        <exclude reference="8ew-eH-aoh"/>
+                                        <include reference="LGh-ln-OiH"/>
+                                        <include reference="ZIF-xf-Dn5"/>
+                                        <exclude reference="bdd-ye-cPe"/>
+                                        <include reference="e3p-aJ-EaO"/>
+                                        <include reference="mXn-IH-1Zh"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -3960,6 +3976,7 @@
         <image name="background_img.jpg" width="808" height="1224"/>
         <image name="field_guide_normal.png" width="150" height="150"/>
         <image name="grid30x30.png" width="30" height="30"/>
+        <image name="ic_fieldguide.png" width="500" height="500"/>
         <image name="list30x30.png" width="30" height="30"/>
         <image name="my_observations_normal.png" width="150" height="150"/>
         <image name="obs30x30.png" width="30" height="30"/>
@@ -3967,9 +3984,9 @@
         <image name="upload30x30.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ahZ-cO-ktD"/>
+        <segue reference="RhZ-Nd-42A"/>
+        <segue reference="s9o-7d-XRk"/>
         <segue reference="Ru1-vo-Wgq"/>
         <segue reference="ulY-9T-xGq"/>
-        <segue reference="s9o-7d-XRk"/>
     </inferredMetricsTieBreakers>
 </document>

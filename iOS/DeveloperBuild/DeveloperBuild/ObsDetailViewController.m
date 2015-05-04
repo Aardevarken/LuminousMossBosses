@@ -322,14 +322,6 @@ detectionHelper *detectionObject;
         
         
     }
-    if ([segue.identifier isEqualToString:@"FieldGuideDVSegue3"]) {
-        FieldGuideDetailViewController *destViewController = segue.destinationViewController;
-        
-        destViewController.speciesID = [NSNumber numberWithInt:29];
-        
-        
-        
-    }
 }
 
 @end
