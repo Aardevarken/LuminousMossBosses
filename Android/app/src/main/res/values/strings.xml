@@ -29,7 +29,7 @@
         <item>@drawable/ic_camera</item>
         <item>@mipmap/ic_notepage</item>
         <item>@drawable/ic_openbook</item>
-        <item>@drawable/ic_action_action_book</item>
+        <item>@mipmap/ic_action_action_book</item>
         <item>@drawable/ic_info</item>
     </array>
 
