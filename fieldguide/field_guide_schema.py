@@ -26,13 +26,13 @@ Base = declarative_base()
 class Synonym(Base):
 	__tablename__ = 'synonym'
 	id = Column(Integer, primary_key=True)
-	speciesid = Column(Integer, ForeignKey('species.id'))
+	species_id = Column(Integer, ForeignKey('species.id'))
 	name = Column(String)
 
 class CF(Base):
 	__tablename__ = 'cf'
 	id = Column(Integer, primary_key=True)
-	speciesid = Column(Integer, ForeignKey('species.id'))
+	species_id = Column(Integer, ForeignKey('species.id'))
 	name = Column(String)
 
 class LeafShapeFilter(Base):
