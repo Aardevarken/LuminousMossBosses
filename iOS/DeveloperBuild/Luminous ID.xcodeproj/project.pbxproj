@@ -81,6 +81,7 @@
 		16CCBC401A773E00008B7E96 /* flower25.xml in Resources */ = {isa = PBXBuildFile; fileRef = 16CCBC3E1A773E00008B7E96 /* flower25.xml */; };
 		16CCBC411A773E00008B7E96 /* flower30.xml in Resources */ = {isa = PBXBuildFile; fileRef = 16CCBC3F1A773E00008B7E96 /* flower30.xml */; };
 		16CE5B811A7AC7E700FDABA5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CE5B801A7AC7E700FDABA5 /* MapKit.framework */; };
+		16DB41841AF77C8600A457DC /* FieldGuide.db in Resources */ = {isa = PBXBuildFile; fileRef = 16DB41831AF77C8600A457DC /* FieldGuide.db */; };
 		16DBE0621ABA5C0700220872 /* SyncedObsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16DBE0611ABA5C0700220872 /* SyncedObsTVC.m */; };
 		16E2D49B1A64860900CA8845 /* ObsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E2D49A1A64860900CA8845 /* ObsViewController.m */; };
 		16F131111AF0964400F40229 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F131101AF0964400F40229 /* AboutViewController.m */; };
@@ -239,6 +240,7 @@
 		16CCBC3E1A773E00008B7E96 /* flower25.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = flower25.xml; sourceTree = "<group>"; };
 		16CCBC3F1A773E00008B7E96 /* flower30.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = flower30.xml; sourceTree = "<group>"; };
 		16CE5B801A7AC7E700FDABA5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		16DB41831AF77C8600A457DC /* FieldGuide.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = FieldGuide.db; sourceTree = "<group>"; };
 		16DBE0601ABA5C0700220872 /* SyncedObsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncedObsTVC.h; sourceTree = "<group>"; };
 		16DBE0611ABA5C0700220872 /* SyncedObsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncedObsTVC.m; sourceTree = "<group>"; };
 		16E2D4991A64860900CA8845 /* ObsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObsViewController.h; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 		163623BB1AEB7C6200A50CA3 /* Field Guide */ = {
 			isa = PBXGroup;
 			children = (
+				16DB41831AF77C8600A457DC /* FieldGuide.db */,
 				163623AF1AEB7C4C00A50CA3 /* field_guide_schema.py */,
 				163623B11AEB7C4C00A50CA3 /* FieldGuideParser.py */,
 				163623B21AEB7C4C00A50CA3 /* FieldGuideParser.pyc */,
@@ -732,6 +735,7 @@
 				16CABEA01AF226B3000597D4 /* grid30x30.png in Resources */,
 				163623CF1AEC6C5400A50CA3 /* FORBS in Resources */,
 				16CABE8D1AF2192A000597D4 /* grid40x40.png in Resources */,
+				16DB41841AF77C8600A457DC /* FieldGuide.db in Resources */,
 				F0D4ED191AA59926008CBAD4 /* vocabulary.xml in Resources */,
 				E6BAA8E71AEB4897007A8F34 /* Luminous-ID.png in Resources */,
 				163ACABA1AEECA47004602B6 /* silene_acaulis_img.jpg in Resources */,

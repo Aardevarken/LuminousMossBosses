@@ -149,6 +149,37 @@ static NSDictionary *typeMap = nil;
 	}
 }
 
+-(BOOL) runBoolQuery:(NSString*) query {
+	// Open DB
+	sqlite3* database = [self openDB];
+	if (database == nil) {
+		return NO;
+	}
+	
+	// Build Statement
+	const char *insert_stmt = [query UTF8String];
+	sqlite3_stmt *statement = nil;
+	sqlite3_prepare_v2(database, insert_stmt, -1, &statement, NULL);
+	
+	// Get status and close DB.
+	int queryStatus = sqlite3_step(statement);
+	sqlite3_finalize(statement);
+	
+	// Return or log errors.
+	if (queryStatus == SQLITE_DONE) {
+		[self closeDB: database];
+		return YES;
+	} else {
+		NSLog(@"Bool Query Failed: %s", sqlite3_errmsg(database));
+		[self closeDB: database];
+		return NO;
+	}
+}
+
+-(void) dropTable{
+	[self runBoolQuery:@"DROP TABLE IF EXISTS FieldGuide.db;"];
+}
+
 #pragma mark - field guide queries
 
 - (NSArray*)getDataFilteredBy:(NSString*)filter{

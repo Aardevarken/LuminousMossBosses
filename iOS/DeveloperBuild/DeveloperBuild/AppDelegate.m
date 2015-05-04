@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "UserDataDatabase.h"
+#import "FieldGuideManager.h"
 
 @interface AppDelegate ()
 
@@ -73,7 +74,7 @@ NSMutableArray *_observations;
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 //	NSLog(@"Will terminate");
 	[[UserDataDatabase getSharedInstance] stopLocationTracking];
-
+	[[FieldGuideManager getSharedInstance] dropTable];
 }
 
 @end

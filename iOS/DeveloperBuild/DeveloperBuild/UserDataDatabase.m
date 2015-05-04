@@ -185,8 +185,7 @@ static NSDictionary* typeMap = nil;
     };
 	
 	// Uncomment this line the first time you run code with a new database schema.
-	//[self runBoolQuery:@"DROP TABLE IF EXISTS observations;"];
-	
+	//[c	
 	return [self runBoolQuery:createTables];
 }
 
