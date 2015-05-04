@@ -32,7 +32,7 @@ static NSDictionary* typeMap = nil;
 		typeMap = @{
 					@"family"		: @"Family",
 					@"latin_name"	: @"Latin name",
-//					@"code"			: @"Code",
+					@"code"			: @"Code",
 					@"growthform"	: @"Growthform",
 					@"common_name"	: @"Common name",
 					@"flower shape"	: @"Flower shape",
