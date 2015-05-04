@@ -84,36 +84,49 @@ static NSDictionary* typeMap = nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-	return keyInfoToDisplay.count;
+	return keyInfoToDisplay.count/2;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-	DetailFieldGuidCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailFieldGuideCell_ID"];
+	DetailFieldGuidCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailFieldGuideCell_ID_2"];
 	
 	//NSString *val = [valueInfoToDisplay objectAtIndex:indexPath.row];
 	//if (![val isEqualToString:@"."]) {
-	cell.value.text = [valueInfoToDisplay objectAtIndex:indexPath.row];
+	//cell.value.text = [valueInfoToDisplay objectAtIndex:indexPath.row];
 	
 
 //	NSString *randtext1 = @"So by colonel hearted ferrars. Draw from upon here gone add one.";
-	cell.title.text = [typeMap objectForKey:[keyInfoToDisplay objectAtIndex:indexPath.row]];
 //	//}
-//	
-//	NSString *randtext2 = @"Unpacked reserved sir offering bed judgment may and quitting speaking. Is do be improved raptures offering required in replying raillery. <END>";
-//	
-//	NSString *tv = [[NSString alloc] initWithFormat:@"%@%@",[valueInfoToDisplay objectAtIndex:indexPath.row], randtext2];
-//					
-//					
-//	NSAttributedString * celltext = [[NSMutableAttributedString alloc] initWithString:tv];
-//	NSAttributedString * cellLabel = [[NSMutableAttributedString alloc] initWithString:cell.title.text];
-//	CGFloat a = [self textViewHeightForAttributedText:cellLabel andWidth:300];
-//	CGFloat b = [self textViewHeightForAttributedText:celltext andWidth:300];
-//	tableView.rowHeight = a + b;
-//	
-//	
-//	cell.textview.text = [valueInfoToDisplay objectAtIndexedSubscript:indexPath.row];
-//	[cell.textview setFont:[UIFont systemFontOfSize:16]];
+//
+	
 
+	NSString *val = [valueInfoToDisplay objectAtIndexedSubscript:indexPath.row];
+	NSString *t = [typeMap objectForKey:[keyInfoToDisplay objectAtIndex: indexPath.row]];
+	cell.title.text = t;//[typeMap objectForKey:[keyInfoToDisplay objectAtIndex:indexPath.row]];
+	NSMutableString *mt = [[NSMutableString alloc] initWithString:val];
+	
+	for (int i = 1; i < [val length]; i+=3) {
+		[mt appendString:val];
+		[mt appendString:@" + "];
+	}
+	NSString *randtext2 = @"Unpacked reserved sir offering bed judgment may and quitting speaking. Is do be improved raptures offering required in replying raillery. <END>";
+	
+	NSString *tv = randtext2;//[[NSString alloc] initWithFormat:@"%@%@",[valueInfoToDisplay objectAtIndex:indexPath.row], randtext2];
+					
+					
+	NSAttributedString * celltext = [[NSMutableAttributedString alloc] initWithString:tv];
+	NSAttributedString * cellLabel = [[NSMutableAttributedString alloc] initWithString:cell.title.text];
+	CGFloat a = [self textViewHeightForAttributedText:cellLabel andWidth:100];
+	CGFloat b = [self textViewHeightForAttributedText:celltext andWidth:300];
+	tableView.rowHeight = a + b;
+	NSLog(@"-----------------------\n"
+		  @"title: len: %lu\n"
+		  @"value: len: %lu\n"
+		  @"height: %f(a) + %f(b)",
+		  (unsigned long)[t length], (unsigned long)[mt length], a, b);
+	
+	cell.textview.text = randtext2;//mt;//tv;//[valueInfoToDisplay objectAtIndexedSubscript:indexPath.row];
+	[cell.textview setFont:[UIFont systemFontOfSize:16.0f]];
 	
 	return cell;
 }
@@ -123,9 +136,34 @@ static NSDictionary* typeMap = nil;
 - (CGFloat)textViewHeightForAttributedText: (NSAttributedString*)text andWidth: (CGFloat)width {
 	UITextView *calculationView = [[UITextView alloc] init];
 	[calculationView setAttributedText:text];
+	CGFloat fontSize = 16.0f;
+	UIColor *fontColor = [UIColor greenColor];
+	[calculationView setFont:[UIFont systemFontOfSize:fontSize]];
+	[calculationView setTextColor:fontColor];
 	CGSize size = [calculationView sizeThatFits:CGSizeMake(width, FLT_MAX)];
-	return size.height+32;
+	return size.height;
 }
+
+/*
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	// Define `veryverySmallTitleFont`
+	CGFloat fs = 16.0f;
+	CGFloat veryverySmallTitleFont = 16;//[UIFont systemFontOfSize:fs];
+	// Define `descLabel`
+	
+	NSString *ourText =  @"Unpacked reserved sir offering bed judgment may and quitting speaking. Is do be improved raptures offering required in replying raillery. <END>";
+	UIFont *font = [UIFont fontWithName:@"Verdana" size:veryverySmallTitleFont];
+	font = [font fontWithSize:veryverySmallTitleFont];
+	
+//	CGSize constraintSize = CGSizeMake(descLabel.frame.size.width, 1000);
+//	CGSize labelSize = [ourText sizeWithFont:font
+//						   constrainedToSize:constraintSize
+//							   lineBreakMode:UILineBreakModeWordWrap];
+	
+	return 30;//labelSize.height;
+}
+ */
 
 /*
 #pragma mark - Navigation
